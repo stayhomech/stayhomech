@@ -18,36 +18,50 @@ This is my prefered way but it requires that you are a bit familiar with Python 
 
 1. Clone the code from GitHub
 
-    `git clone git@github.com:mageo/stayhomech.git`
+    ```
+    git clone git@github.com:mageo/stayhomech.git
+    ```
 
     This will create a "stayhomech" folder that will contain the project.
 
 2. Go to stayhome folder and create a Python 3 virtualenv
 
-    `cd stayhomech`\
-    `python3 -m venv .venv`
+    ```
+    cd stayhomech
+    python3 -m venv .venv
+    ```
 
 3. Active virtualenv (this must be done every time you want to interact with the project).
 
-    `source .venv/bin/activate`
+    ```
+    source .venv/bin/activate
+    ```
 
 4. Install Python dependencies. You will probably need to install some more package on your system to be able to build all dependencies (see the Dockerfile for a list).
 
-    `pip install -r requirements.txt`
+    ```
+    pip install -r requirements.txt
+    ```
 
 5. Initialize Django development database.
 
-    `python manage.py migrate`\
-    `python manage.py createsuperuser`
+    ```
+    python manage.py migrate
+    python manage.py createsuperuser
+    ```
 
 6. Compile translations and initialize database with default translations.
    
-    `python manage.py compilemessages`\
-    `python manage.py update_translation_fields`
+    ```
+    python manage.py compilemessages
+    python manage.py update_translation_fields
+    ```
 
 7. Run the Django development server. This is the only step you have to perform again after you modifiy the code, unless you added a dependency.
 
-    `python manage.py runserver`
+    ```
+    python manage.py runserver
+    ```
 
 You should now be able to see the website on the URL provided by the previous command.
 
@@ -57,7 +71,9 @@ This solution is probably the simplest to get the website running quickly.
 
 1. Clone the code from GitHub
 
-    `git clone git@github.com:mageo/stayhomech.git`
+    ```
+    git clone git@github.com:mageo/stayhomech.git
+    ```
 
     This will create a "stayhomech" folder that will contain the project.
 
@@ -67,6 +83,8 @@ This solution is probably the simplest to get the website running quickly.
     cd stayhomech
     docker-compose -f docker-compose-dev.yml up --build
     ```
+
+    Note that the import of the geographical data in the database can take some time upon first run!
 
 3. Access the website at http://localhost:8000. Admin is available at http://localhost:8000/admin.
 
