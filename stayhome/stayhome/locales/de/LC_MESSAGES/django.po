@@ -96,7 +96,7 @@ msgid ""
 "is an initiative of a private person willing to help to cope with the "
 "consequences of the COVID-19 epidemy. It has no commercial purpose."
 msgstr ""
-"ist eine Initative von privaten Personen, welche in diesen schwierigen "
+"ist eine Initative von privaten Personen, welche in "
 "Zeiten der Corona/Covid-19 Epidemie helfen möchten! Wir haben keinen "
 "kommerziellen Zweck."
 
