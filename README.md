@@ -1,1 +1,1 @@
-# stayhome
+# StayHome.ch
