@@ -14,6 +14,7 @@ if [ -f "datasets/post_data.csv.bz2" ]; then
     # Uncompress Swiss Post dataset
     cd datasets
     bunzip2 post_data.csv.bz2
+    rm post_data.csv.bz2
     cd ..
 
     # Import Swiss Post dataset - Creates municipalities and postal codes (NPA)
