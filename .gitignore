@@ -16,3 +16,6 @@ db.sqlite-journal
 stayhome/stayhome/locales.zip
 stayhome/datasets/post_data.csv
 stayhome/stayhome/staticfiles/
+
+# Translations binary files (generates on deployment)
+django.mo
