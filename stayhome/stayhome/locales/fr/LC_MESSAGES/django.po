@@ -1,0 +1,227 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-19 17:47+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: business/forms.py:15
+msgid "Company name"
+msgstr "Nom"
+
+#: business/forms.py:17
+msgid "The name of your company as shown on the website."
+msgstr "Le nom de l'entreprise tel qu'il sera affiché."
+
+#: business/forms.py:22
+msgid "Description"
+msgstr "Description"
+
+#: business/forms.py:24
+msgid "A short description of the activities of your company."
+msgstr "Une brève description des activités de votre entreprise."
+
+#: business/forms.py:29
+msgid "Main location"
+msgstr "Emplacement"
+
+#: business/forms.py:30
+msgid "Where is based your company?"
+msgstr "Où se situe votre entreprise ?"
+
+#: business/forms.py:36
+msgid "Website"
+msgstr "Site Internet"
+
+#: business/forms.py:38
+msgid "Company website."
+msgstr "Site Internet."
+
+#: business/forms.py:43
+msgid "Phone number"
+msgstr "Téléphone"
+
+#: business/forms.py:46
+msgid "Company phone number, if any."
+msgstr "Numéro de téléphone de l'entreprise, si existant."
+
+#: business/forms.py:52
+msgid "Email address"
+msgstr "Adresse e-mail"
+
+#: business/forms.py:54
+msgid "Company email address, if any."
+msgstr "Adresse e-mail de l'entreprise, si existant."
+
+#: business/forms.py:60
+msgid "Service description"
+msgstr "Description du service"
+
+#: business/forms.py:62
+msgid ""
+"What kind of delivery service are you providing ? For example for food, what "
+"kind of food ?"
+msgstr ""
+"Quel genre de service de livraison offrez-vous ? Quel type de nourriture par "
+"exemple ?"
+
+#: business/forms.py:67
+msgid "Delivery perimeter"
+msgstr "Livre à"
+
+#: business/forms.py:69
+msgid "Where are you delivering ?"
+msgstr "Où livrez-vous ?"
+
+#: pubsite/templates/about.html:8 pubsite/templates/add.html:8
+#: pubsite/templates/success.html:5
+msgid "Go back to home"
+msgstr "Retour à l'accueil"
+
+#: pubsite/templates/about.html:18
+msgid ""
+"is an initiative of a private person willing to help to cope with the "
+"consequences of the COVID-19 epidemy. It has no commercial purpose."
+msgstr ""
+"est une initiative privée d'une personne désireuse d'apporter son aide pour "
+"faire face aux conséquences de l'épidémie de COVID-19. Elle n'a aucun "
+"objectif mercantile."
+
+#: pubsite/templates/about.html:21
+msgid "Should you have any question, please contact"
+msgstr "Si vous avez des question, merci de contacter"
+
+#: pubsite/templates/add.html:18
+msgid "We need your help !"
+msgstr "Aidez-nous !"
+
+#: pubsite/templates/add.html:19
+msgid ""
+"Currently, adding your business in <span style=\"color: seagreen;\">Stay</"
+"span>Home<span style=\"color: silver\">.ch</span> involves a manual process. "
+"Please fill the form below as thoroughly as possible to help us with this !"
+msgstr ""
+"Actuellement, ajouter votre service sur <span style=\"color: seagreen;"
+"\">Stay</span>Home<span style=\"color: silver\">.ch</span> est une opération "
+"que nous devons réaliser à la main. Merci de nous aider en remplissant le "
+"formulaire ci-dessous de manière aussi complète que possible !"
+
+#: pubsite/templates/add.html:46
+msgid "Send your request"
+msgstr "Envoyer votre demande"
+
+#: pubsite/templates/base.html:26
+msgid "Stay home ! We deliver..."
+msgstr "Restez à la maison ! Nous livrons..."
+
+#: pubsite/templates/content.html:7
+msgid "Results for"
+msgstr "Résultats pour"
+
+#: pubsite/templates/content.html:11
+msgid "Change"
+msgstr "Changer"
+
+#: pubsite/templates/content.html:34
+msgid "Nothing left to show, try changing your filters."
+msgstr "Il ne nous reste rien à vous montrer, essayez de changer vos filtres."
+
+#: pubsite/templates/content.html:51
+msgid "Located at"
+msgstr "Basé à"
+
+#: pubsite/templates/content.html:51
+msgid "Delivers to"
+msgstr "Livre à"
+
+#: pubsite/templates/content.html:63
+msgid "Visit website"
+msgstr "Site Internet"
+
+#: pubsite/templates/content.html:67
+msgid "Call"
+msgstr "Appeler"
+
+#: pubsite/templates/content.html:72
+msgid "Send email"
+msgstr "Envoyer e-mail"
+
+#: pubsite/templates/content.html:82
+msgid "No delivery service available at that location :-("
+msgstr "Aucun service de livraison n'est disponible à cet endroit :-("
+
+#: pubsite/templates/content.html:83
+msgid ""
+"If you own a company that offers a delivery service at this location, please "
+"consider"
+msgstr ""
+"Si vous possédez une entreprise qui offre un service de livraison à cet "
+"endroit, vous pouvez demander"
+
+#: pubsite/templates/content.html:83
+msgid "adding your business"
+msgstr "l'ajout de votre service"
+
+#: pubsite/templates/home.html:17
+msgid "Where are you ?"
+msgstr "Où êtes-vous ?"
+
+#: pubsite/templates/home.html:23
+msgid ""
+"Enter your post code or city name. For Switzerland <i class=\"icon-plus-sign-"
+"alt\" style=\"color: red;\"></i> only ;-)"
+msgstr ""
+"Entrez votre code postal ou le nom de votre ville. Pour la Suisse <i class="
+"\"icon-plus-sign-alt\" style=\"color: red;\"></i> uniquement ;-)"
+
+#: pubsite/templates/mgmt.html:26
+msgid "Add your business"
+msgstr "Ajouter votre service"
+
+#: pubsite/templates/mgmt.html:29
+msgid "About"
+msgstr "A propos"
+
+#: pubsite/templates/mgmt.html:44
+msgid "All rights reserved"
+msgstr "Tous droits réservés"
+
+#: pubsite/templates/success.html:12
+msgid "Your request has been submited ! Thank you !"
+msgstr "Votre demande a été transmise ! Merci !"
+
+#: pubsite/views.py:63
+msgid "NPA does not exist"
+msgstr "Le NPA n'existe pas"
+
+#: stayhome/settings/base.py:98
+msgid "English"
+msgstr "Anglais"
+
+#: stayhome/settings/base.py:99
+msgid "German"
+msgstr "Allemand"
+
+#: stayhome/settings/base.py:100
+msgid "French"
+msgstr "Français"
+
+#: stayhome/settings/base.py:101
+msgid "Italian"
+msgstr "Italien"
+
+#~ msgid "services found !"
+#~ msgstr "services trouvés !"

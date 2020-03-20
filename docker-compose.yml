@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    environment:
+      - DEFAULT_HOST=www.stayhome.ch
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhosts:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+
+  letsencrypt-nginx-proxy-companion:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt-nginx-proxy-companion
+    environment:
+      - DEFAULT_EMAIL=${LETSENCRYPT_EMAIL}
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    depends_on:
+      - nginx-proxy
+    restart: always
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhosts:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  db:
+    image: mariadb
+    container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_APP_DB}
+      - MYSQL_USER=${MYSQL_APP_USER}
+      - MYSQL_PASSWORD=${MYSQL_APP_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+
+  memcached:
+    image: memcached:alpine
+    container_name: memcached
+    entrypoint:
+      - memcached
+      - -m
+      - '256'
+    restart: always
+
+  web:
+    build: stayhome/
+    container_name: web
+    environment:
+      - RUNNING_ENV=prod
+      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch
+      - VIRTUAL_PORT=8000
+      - MYSQL_APP_DB=${MYSQL_APP_DB}
+      - MYSQL_APP_USER=${MYSQL_APP_USER}
+      - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
+      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+      - RECAPTCHA_PUBLIC_KEY=${RECAPTCHA_PUBLIC_KEY}
+      - RECAPTCHA_PRIVATE_KEY=${RECAPTCHA_PRIVATE_KEY}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - GOOGLE_UA=${GOOGLE_UA}
+    expose:
+      - 8000
+    depends_on:
+      - db
+      - nginx-proxy
+      - memcached
+    restart: always
+    volumes:
+      - ./stayhome/:/code/
+
+volumes:
+  db_data:
+  certs:
+  vhosts:
+  html:
+  dhparam:

@@ -1,0 +1,9 @@
+.venv
+.vscode
+
+__pycache__
+
+db.sqlite
+db.sqlite-journal
+
+stayhome/stayhome/locales.zip

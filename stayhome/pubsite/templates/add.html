@@ -1,0 +1,56 @@
+{% extends "mgmt.html" %}
+{% load i18n %}
+
+{% block mgmt-content-header %}
+<div class="navbar-nav mx-2">
+    <ul class="nav navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">{% blocktrans %}Go back to home{% endblocktrans %}</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block mgmt-content %}
+        <div class="row">
+            <div class="col-12 p-3">
+                <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">{% blocktrans %}We need your help !{% endblocktrans %}</h4>
+                {% blocktrans %}Currently, adding your business in <span style="color: seagreen;">Stay</span>Home<span style="color: silver">.ch</span> involves a manual process. Please fill the form below as thoroughly as possible to help us with this !{% endblocktrans %}
+                </div>
+                <form method="POST" action="{% url 'add' %}">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+
+                    <div class="form-group row">
+                        <label for="{{ field.id_for_label }}" class="col-3">{{ field.label }}</label>
+                        <div class="col-9">
+                            {% if field.errors %}
+                            <div class="alert alert-danger" role="alert">
+                            {% for error in field.errors %}
+                            {{ error }}
+                            {% endfor %}
+                            </div>
+                            {% endif %}
+                            {{ field }}
+                            <small id="inputNameHelp" class="form-text text-muted">{{ field.help_text|safe }}</small>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                    <div class="row mt-3">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <button class="btn btn-primary" type="submit">{% blocktrans %}Send your request{% endblocktrans %}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+         </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}

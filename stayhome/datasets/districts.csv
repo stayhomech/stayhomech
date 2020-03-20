@@ -1,0 +1,144 @@
+ofs_id;name;canton
+101;Affoltern;1
+102;Andelfingen;1
+103;Bülach;1
+104;Dielsdorf;1
+105;Hinwil;1
+106;Horgen;1
+107;Meilen;1
+108;Pfäffikon;1
+109;Uster;1
+110;Winterthur;1
+111;Dietikon;1
+112;Zürich;1
+241;Jura bernois;2
+242;Biel/Bienne;2
+243;Seeland;2
+244;Oberaargau;2
+245;Emmental;2
+246;Bern-Mittelland;2
+247;Thun;2
+248;Obersimmental-Saanen;2
+249;Frutigen-Niedersimmental;2
+250;Interlaken-Oberhasli;2
+311;Luzern-Stadt;3
+312;Luzern-Land;3
+313;Hochdorf;3
+314;Sursee;3
+315;Willisau;3
+316;Entlebuch;3
+400;Kt. Uri;4
+501;Einsiedeln;5
+502;Gersau;5
+503;Höfe;5
+504;Küssnacht (SZ);5
+505;March;5
+506;Schwyz;5
+600;Kt. Obwalden;6
+700;Kt. Nidwalden;7
+800;Kt. Glarus;8
+900;Kt. Zug;9
+1001;La Broye;10
+1002;La Glâne;10
+1003;La Gruyère;10
+1004;La Sarine;10
+1005;See / Lac;10
+1006;Sense;10
+1007;La Veveyse;10
+1101;Gäu;11
+1102;Thal;11
+1103;Bucheggberg;11
+1104;Dorneck;11
+1105;Gösgen;11
+1106;Wasseramt;11
+1107;Lebern;11
+1108;Olten;11
+1109;Solothurn;11
+1110;Thierstein;11
+1200;Kt. Basel-Stadt;12
+1301;Arlesheim;13
+1302;Laufen;13
+1303;Liestal;13
+1304;Sissach;13
+1305;Waldenburg;13
+1401;Oberklettgau;14
+1402;Reiat;14
+1403;Schaffhausen;14
+1404;Schleitheim;14
+1405;Stein;14
+1406;Unterklettgau;14
+1501;Hinterland;15
+1502;Mittelland;15
+1503;Vorderland;15
+1600;Kt. Appenzell i.Rh.;16
+1721;St. Gallen;17
+1722;Rorschach;17
+1723;Rheintal;17
+1724;Werdenberg;17
+1725;Sarganserland;17
+1726;See-Gaster;17
+1727;Toggenburg;17
+1728;Wil;17
+1841;Albula;18
+1842;Bernina;18
+1843;Engiadina Bassa/Val Müstair;18
+1844;Imboden;18
+1845;Landquart;18
+1846;Maloja;18
+1847;Moesa;18
+1848;Plessur;18
+1849;Prättigau/Davos;18
+1850;Surselva;18
+1851;Viamala;18
+1901;Aarau;19
+1902;Baden;19
+1903;Bremgarten;19
+1904;Brugg;19
+1905;Kulm;19
+1906;Laufenburg;19
+1907;Lenzburg;19
+1908;Muri;19
+1909;Rheinfelden;19
+1910;Zofingen;19
+1911;Zurzach;19
+2011;Arbon;20
+2012;Frauenfeld;20
+2013;Kreuzlingen;20
+2014;Münchwilen;20
+2015;Weinfelden;20
+2101;Bellinzona;21
+2102;Blenio;21
+2103;Leventina;21
+2104;Locarno;21
+2105;Lugano;21
+2106;Mendrisio;21
+2107;Riviera;21
+2108;Vallemaggia;21
+2221;Aigle;22
+2222;Broye-Vully;22
+2223;Gros-de-Vaud;22
+2224;Jura-Nord vaudois;22
+2225;Lausanne;22
+2226;Lavaux-Oron;22
+2227;Morges;22
+2228;Nyon;22
+2229;Ouest lausannois;22
+2230;Riviera-Pays-d'Enhaut;22
+2301;Brig;23
+2302;Conthey;23
+2303;Entremont;23
+2304;Goms;23
+2305;Hérens;23
+2306;Leuk;23
+2307;Martigny;23
+2308;Monthey;23
+2309;Raron;23
+2310;Saint-Maurice;23
+2311;Sierre;23
+2312;Sion;23
+2313;Visp;23
+2400;Cant. de Neuchâtel;24
+2500;Cant. de Genève;25
+2601;Delémont;26
+2602;Les Franches-Montagnes;26
+2603;Porrentruy;26

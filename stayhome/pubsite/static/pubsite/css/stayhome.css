@@ -1,0 +1,81 @@
+BODY {
+    font-family: 'Open Sans', sans-serif;
+}
+
+A {
+  color: seagreen;
+}
+
+A:hover:not(.btn) {
+  color: seagreen;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-custom {
+    background-color: transparent;
+}
+
+.navbar-custom .navbar-text {
+    color: black;
+    padding: 8px;
+    margin: 0;
+}
+
+.navbar-custom .nav-item .nav-link {
+    color: seagreen;
+    padding: 8px;
+    margin: 0;
+}
+
+.navbar-custom .nav-item:hover .nav-link {
+    color: seagreen;
+    text-decoration: none;
+}
+
+#left-nav {
+    border-right: 1px solid #dee2e6!important;
+}
+
+.card-header {
+    font-size: .9em;
+    padding: 8px 16px;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.card-info {
+    font-size: .9em;
+}
+
+.card-description {
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 3;
+}
+
+.card-footer {
+    font-size: .9em;
+    padding: 8px 16px;
+}
+
+@media(max-width: 767px) {
+
+    .navbar-custom .navbar-text {
+        padding: 0 8px;
+    }
+
+    .navbar-custom .navbar-collapse .nav-item {
+        padding: 8px;
+        border-top: 1px solid #dee2e6!important;
+    }
+
+    #left-nav {
+        border: none!important;
+    }
+
+}

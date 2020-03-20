@@ -1,0 +1,25 @@
+{% extends "mgmt.html" %}
+{% load i18n %}
+
+{% block mgmt-content-header %}
+<div class="navbar-nav mx-2">
+    <ul class="nav navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">{% blocktrans %}Go back to home{% endblocktrans %}</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block mgmt-content %}
+        <div class="row">
+            <div class="col-12 pt-3">
+                <p>
+                    <span style="color: seagreen;">Stay</span>Home<span style="color: silver">.ch</span> {% blocktrans %}is an initiative of a private person willing to help to cope with the consequences of the COVID-19 epidemy. It has no commercial purpose.{% endblocktrans %}
+                </p>
+                <p>
+                    {% blocktrans %}Should you have any question, please contact{% endblocktrans %} <a href="mailto:info@stayhome.ch">info@stayhome.ch</a>.
+                </p>
+            </div>
+         </div>
+{% endblock %}

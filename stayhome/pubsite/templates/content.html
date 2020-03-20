@@ -1,0 +1,131 @@
+{% extends "mgmt.html" %}
+{% load mptt_tags i18n %}
+
+{% block mgmt-content-header %}
+<div class="navbar-nav mx-2">
+    <span class="navbar-text">
+        {% blocktrans %}Results for{% endblocktrans %} {{ npa }}
+    </span>
+    <ul class="nav navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">{% blocktrans %}Change{% endblocktrans %}</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block mgmt-content %}
+        <div class="row">
+            {% if businesses|length > 0 %}
+            <div class="col-xs-12 col-md-3 p3" id="left-nav">
+                <div class="row border-bottom p-0">
+                    <div class="col-12 pt-3">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="icon-search"></i></span>
+                            </div>
+                            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-9 p-0 pt-3 px-3 pr-md-0">
+                <div class="alert alert-warning" role="alert" id="allFiltered" style="display: none;">
+                    {% blocktrans %}Nothing left to show, try changing your filters.{% endblocktrans %}
+                </div>
+                {% for business in businesses %}
+                    <div class="card mb-3" data-categories="{{ business.main_category.get_ancestors|tree_path:' ' }} {{ business.main_category }}" data-name="{{ business.name }}">
+                        <div class="card-header">
+                            {{ business.main_category.get_ancestors|tree_path:" | " }}
+                            {% if business.main_category.get_ancestors|length > 0 %}
+                                &nbsp;|&nbsp;
+                            {% endif %}
+                            {{ business.main_category }}
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <h6 class="card-title mb-0" style="color: #B01E8D; font-weight: 800;">{{ business.name }}</h6>
+                                </div>
+                                <div class="col-6 text-right card-info">
+                                    <div class="card-text">{% blocktrans %}Located at{% endblocktrans %} {{ business.location.municipality }} - {% blocktrans %}Delivers to{% endblocktrans %} {{ npa }}</div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-12 card-description">
+                                    {{ business.description|default:'No description' }}
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="card-footer navbar navbar-expand navbar-light navbar-custom p-0 m-0">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ business.website }}" target="_blank"><i class="icon-globe"></i>&nbsp;&nbsp;{% blocktrans %}Visit website{% endblocktrans %}</a>
+                                </li>
+                                {% if business.phone %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="tel:{{ business.phone }}"><i class="icon-phone"></i>&nbsp;&nbsp;{% blocktrans %}Call{% endblocktrans %}</a>
+                                </li>
+                                {% endif %}
+                                {% if business.email %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="mailto:{{ business.email }}"><i class="icon-envelope"></i>&nbsp;&nbsp;{% blocktrans %}Send email{% endblocktrans %}</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="p-5 col-12 text-center">
+                <p class="h3">{% blocktrans %}No delivery service available at that location :-({% endblocktrans %}</p>
+                <p>{% blocktrans %}If you own a company that offers a delivery service at this location, please consider{% endblocktrans %} <a href="{% url 'add' %}">{% blocktrans %}adding your business{% endblocktrans %}</a>.</p>
+            </div>
+            {% endif %}
+         </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+
+        $(document).ready(() => {
+
+            $('#searchInput').on('keyup', (event) => {
+
+                // Current value
+                var search = event.target.value.toLowerCase();
+
+                // Shown items
+                var shown = 0;
+
+                // Loop on cards
+                $('.card').each((id, target) => {
+
+                    var subject = $(target).data('categories').toLowerCase() + " " + $(target).data('name').toLowerCase();
+
+                    if (subject.includes(search)) {
+                        target.style.display = "";
+                        shown++;
+                    } else {
+                        target.style.display = "none";
+                    }
+                    
+                });
+
+                // No card left
+                if (shown == 0) {
+                    $('#allFiltered').show();
+                } else {
+                    $('#allFiltered').hide();
+                }
+
+                // Stop execution
+                event.preventDefault();
+
+            });
+
+        });
+
+    </script>
+{% endblock %}

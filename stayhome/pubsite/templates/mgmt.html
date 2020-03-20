@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-sm" style="font-size: small;">
+
+    <div class="row border-bottom pt-3 mb-0 align-items-end">
+
+        <div class="col-xs-12 col-lg-3">
+            <h1 style="font-family: 'Maven Pro', sans-serif; color: #333333; font-size: min(max(5vw, 32px), 40px); cursor: pointer;" id="sh_logo"><span style="color: seagreen;">Stay</span>Home<span style="color: silver; font-size: 40%">.ch</span></h1>
+        </div>
+
+        <div class="col-xs-12 col-lg-9 p-0 m-0">
+
+            <nav class="navbar navbar-expand-md m-0 p-0 justify-content-start navbar-light navbar-custom">
+
+                {% block mgmt-content-header %}{% endblock %}
+
+                <button class="navbar-toggler ml-auto m-2" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add' %}">{% blocktrans %}Add your business{% endblocktrans %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">{% blocktrans %}About{% endblocktrans %}</a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </nav>
+
+        </div>
+
+    </div>
+
+    {% block mgmt-content %}{% endblock %}    
+
+    <div class="row">
+        <div class="col-12 text-right border-top py-2">
+            <span class="small">&copy; 2020 <a href="{% url 'about' %}">stayhome.ch</a> - {% blocktrans %}All rights reserved{% endblocktrans %}</span>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container" style="padding-top: min(25vw, 200px);">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 style="font-family: 'Maven Pro', sans-serif; color: #333333; font-size: min(10vw, 80px)"><span style="color: seagreen;">Stay</span>Home<span style="color: silver; font-size: 40%">.ch</span></h1>
+        </div>   
+    </div>
+    <div class="row mt-3">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 text-center mx-auto">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-map-marker icon-large"></i></span>
+                </div>
+                <input id="locInput" class="form-control form-control-lg" type="text" placeholder="{% trans 'Where are you ?' %}" data-url="/location" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <small class="form-text text-muted">{% blocktrans %}Enter your post code or city name. For Switzerland <i class="icon-plus-sign-alt" style="color: red;"></i> only ;-){% endblocktrans %}</small>
+        </div>
+    </div>
+    <div class="row text-center mt-3">
+        <div class="col text-center small">
+            <a class="lang-select" data-lang="de" href="#">DE</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a class="lang-select" data-lang="en" href="#">EN</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a class="lang-select" data-lang="fr" href="#">FR</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a class="lang-select" data-lang="it" href="#">IT</a>
+            <br />&nbsp;<br />
+            <a href="mailto:info@stayhome.ch?subject=I want to help !">Help us translate...</a>
+        </div>
+    </div>
+    <div class="row text-center mt-5 pt-5">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 text-center mx-auto">
+            {% if request.LANGUAGE_CODE == 'fr' %}
+            <a href="https://ofsp-coronavirus.ch/" target="_blank">
+            {% elif request.LANGUAGE_CODE == 'de' %}
+            <a href="https://bag-coronavirus.ch/" target="_blank">
+            {% elif request.LANGUAGE_CODE == 'it' %}
+            <a href="https://ufsp-coronavirus.ch/" target="_blank">
+            {% else %}
+            <a href="https://foph-coronavirus.ch/" target="_blank">
+            {% endif %}
+                <img src="{% static 'pubsite/BAG_'|add:request.LANGUAGE_CODE|add:'.jpg' %}" style="width: 100%;" />
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+
+        $(document).ready(() => {
+
+            $('#locInput').autoComplete().on('autocomplete.select', (event, item) => {
+                value = item.split(' ');
+                npa = value.shift();
+                name = value.join(' ');
+                window.location = "/" + npa + "/" + name + "/";
+            });
+
+            $('.lang-select').on('click', (event) => {
+                lang = $(event.target).data('lang');
+                $.ajax({
+                    url: "{% url 'set_language' %}",
+                    headers: {
+                        'X-CSRFToken': Cookies.get('csrftoken')
+                    },
+                    data: {
+                        'language': lang
+                    },
+                    method: 'POST',
+                    success: () => {
+                        location.reload();
+                    }
+                });
+            });
+
+        });
+
+    </script>
+{% endblock %}
