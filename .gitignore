@@ -1,9 +1,18 @@
+# Development environment
 .venv
 .vscode
 
+# Production environment
+.env
+
+# Python cache
 __pycache__
 
+# Development database
 db.sqlite
 db.sqlite-journal
 
+# Production files
 stayhome/stayhome/locales.zip
+stayhome/datasets/post_data.csv
+stayhome/stayhome/staticfiles/
