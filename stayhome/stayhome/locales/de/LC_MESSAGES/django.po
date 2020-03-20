@@ -20,88 +20,93 @@ msgstr ""
 
 #: business/forms.py:15
 msgid "Company name"
-msgstr ""
+msgstr "Firmenname"
 
 #: business/forms.py:17
 msgid "The name of your company as shown on the website."
-msgstr ""
+msgstr "Der Name deiner Firma."
 
 #: business/forms.py:22
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: business/forms.py:24
 msgid "A short description of the activities of your company."
-msgstr ""
+msgstr "Bschreibe was deine Firma anbietet (Bsp: Essen, Getränkelieferungen)"
 
 #: business/forms.py:29
 msgid "Main location"
-msgstr ""
+msgstr "Ort"
 
 #: business/forms.py:30
 msgid "Where is based your company?"
-msgstr ""
+msgstr "Wo ist deine Firma?"
 
 #: business/forms.py:36
 msgid "Website"
-msgstr ""
+msgstr "Homepage"
 
 #: business/forms.py:38
 msgid "Company website."
 msgstr ""
+"Homepage-Link (Kann auch Eine Facebook-Seite sein oder Instagram-Profil, "
+"Whatsapp-Link)"
 
 #: business/forms.py:43
 msgid "Phone number"
-msgstr ""
+msgstr "Telefonnummer"
 
 #: business/forms.py:46
 msgid "Company phone number, if any."
-msgstr ""
+msgstr "Telefon, falls vorhanden."
 
 #: business/forms.py:52
 msgid "Email address"
-msgstr ""
+msgstr "E-Mail"
 
 #: business/forms.py:54
 msgid "Company email address, if any."
-msgstr ""
+msgstr "E-Mail, falls vorhanden."
 
 #: business/forms.py:60
 msgid "Service description"
-msgstr ""
+msgstr "Angebotbeschreibung"
 
 #: business/forms.py:62
 msgid ""
 "What kind of delivery service are you providing ? For example for food, what "
 "kind of food ?"
-msgstr ""
+msgstr "Beschreibe hier ausführlicher dein Angebot (Bsp. Was für Essen)"
 
 #: business/forms.py:67
 msgid "Delivery perimeter"
-msgstr ""
+msgstr "Umkreis"
 
 #: business/forms.py:69
 msgid "Where are you delivering ?"
-msgstr ""
+msgstr "Wohin lieferst du?"
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
 msgid "Go back to home"
-msgstr ""
+msgstr "Zur Startseite"
 
 #: pubsite/templates/about.html:18
 msgid ""
 "is an initiative of a private person willing to help to cope with the "
 "consequences of the COVID-19 epidemy. It has no commercial purpose."
 msgstr ""
+"ist eine Initative von privaten Personen, welche in diesen schwierigen "
+"Zeiten der Corona/Covid-19 Epidemie helfen möchten! Wir haben keinen "
+"kommerziellen Zweck."
 
 #: pubsite/templates/about.html:21
 msgid "Should you have any question, please contact"
-msgstr ""
+msgstr "Solltest du Fragen haben, dann kontaktiere"
 
 #: pubsite/templates/add.html:18
 msgid "We need your help !"
-msgstr ""
+msgstr "Wir brauchen deine Hilfe!"
 
 #: pubsite/templates/add.html:19
 msgid ""
@@ -109,86 +114,94 @@ msgid ""
 "span>Home<span style=\"color: silver\">.ch</span> involves a manual process. "
 "Please fill the form below as thoroughly as possible to help us with this !"
 msgstr ""
+"Trage dein Geschäfts hier  auf <span style=\"color: seagreen;\">Stay</"
+"span>Home<span style=\"color: silver\">.ch</span> ein, um zu zeigen, dass du "
+"nach wie vor noch da bist für deine Kunden. Bitte bachte, dass du nur "
+"Diensleistungen anbringen kannst, die KEINEN direkten Kontakt mit Kunden "
+"erfordert !"
 
 #: pubsite/templates/add.html:46
 msgid "Send your request"
-msgstr ""
+msgstr "Absenden"
 
 #: pubsite/templates/base.html:26
 msgid "Stay home ! We deliver..."
-msgstr ""
+msgstr "Bleib zu Hause, Wir leiferen..."
 
 #: pubsite/templates/content.html:7
 msgid "Results for"
-msgstr ""
+msgstr "Angebote für"
 
 #: pubsite/templates/content.html:11
 msgid "Change"
-msgstr ""
+msgstr "Neue Suche"
 
 #: pubsite/templates/content.html:34
 msgid "Nothing left to show, try changing your filters."
-msgstr ""
+msgstr "Keine weiteren Angebote."
 
 #: pubsite/templates/content.html:51
 msgid "Located at"
-msgstr ""
+msgstr "Standort"
 
 #: pubsite/templates/content.html:51
 msgid "Delivers to"
-msgstr ""
+msgstr "Liefert nach"
 
 #: pubsite/templates/content.html:63
 msgid "Visit website"
-msgstr ""
+msgstr "Besuche die Website"
 
 #: pubsite/templates/content.html:67
 msgid "Call"
-msgstr ""
+msgstr "Anrufen"
 
 #: pubsite/templates/content.html:72
 msgid "Send email"
-msgstr ""
+msgstr "E-Mail"
 
 #: pubsite/templates/content.html:82
 msgid "No delivery service available at that location :-("
-msgstr ""
+msgstr "Leider haben wir noch keine Angebote gefunden für diesen Ort :("
 
 #: pubsite/templates/content.html:83
 msgid ""
 "If you own a company that offers a delivery service at this location, please "
 "consider"
 msgstr ""
+"Falls du Eine Firma hast, welche Lieferservices anbietet für diesen Ort"
 
 #: pubsite/templates/content.html:83
 msgid "adding your business"
-msgstr ""
+msgstr "füge deine Firma hinzu"
 
 #: pubsite/templates/home.html:17
 msgid "Where are you ?"
-msgstr ""
+msgstr "Wo bist du Hause?"
 
 #: pubsite/templates/home.html:23
 msgid ""
 "Enter your post code or city name. For Switzerland <i class=\"icon-plus-sign-"
 "alt\" style=\"color: red;\"></i> only ;-)"
 msgstr ""
+"Gib deine Postleitzahl ein oder Ortsnamen. Hinweis: Zurzeit nur Schweiz <i "
+"class=\"icon-plus-sign-alt\" style=\"color: red;\"></i>"
 
 #: pubsite/templates/mgmt.html:26
 msgid "Add your business"
-msgstr ""
+msgstr "Füge deine Firma hinzu"
 
 #: pubsite/templates/mgmt.html:29
 msgid "About"
-msgstr ""
+msgstr "Über uns"
 
 #: pubsite/templates/mgmt.html:44
 msgid "All rights reserved"
-msgstr ""
+msgstr "Alle Rechte vorbehalten"
 
 #: pubsite/templates/success.html:12
 msgid "Your request has been submited ! Thank you !"
-msgstr ""
+msgstr "Deine Anfrage wurde gesendet! Danke dir!"
 
 #: pubsite/views.py:63
 msgid "NPA does not exist"
@@ -196,16 +209,16 @@ msgstr ""
 
 #: stayhome/settings/base.py:98
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: stayhome/settings/base.py:99
 msgid "German"
-msgstr ""
+msgstr "Deutsch"
 
 #: stayhome/settings/base.py:100
 msgid "French"
-msgstr ""
+msgstr "Französisch"
 
 #: stayhome/settings/base.py:101
 msgid "Italian"
-msgstr ""
+msgstr "Italienisch"
