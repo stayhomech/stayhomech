@@ -16,6 +16,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'captcha',
     'rest_framework',
+    'rest_framework_api_key',
+    'django_hosts',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -40,9 +43,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
-ROOT_URLCONF = 'stayhome.urls'
+ROOT_HOSTCONF = 'stayhome.hosts'
+DEFAULT_HOST = 'www'
+ROOT_URLCONF = 'stayhome.urls.www'
 
 TEMPLATES = [
     {
@@ -136,6 +142,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # REST framework
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
-    ]
+        'stayhome.utils.rest.StayHomeAccessPermission'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
