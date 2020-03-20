@@ -32,7 +32,7 @@ msgstr "Beschreibung"
 
 #: business/forms.py:24
 msgid "A short description of the activities of your company."
-msgstr "Bschreibe was deine Firma anbietet (Bsp: Essen, Getränkelieferungen)"
+msgstr "Beschreibe was deine Firma anbietet (Bsp: Essen, Getränkelieferungen)"
 
 #: business/forms.py:29
 msgid "Main location"
@@ -49,7 +49,7 @@ msgstr "Homepage"
 #: business/forms.py:38
 msgid "Company website."
 msgstr ""
-"Homepage-Link (Kann auch Eine Facebook-Seite sein oder Instagram-Profil, "
+"Homepage-Link (Kann auch eine Facebook-Seite sein, Instagram-Profil oder "
 "Whatsapp-Link)"
 
 #: business/forms.py:43
@@ -114,7 +114,7 @@ msgid ""
 "span>Home<span style=\"color: silver\">.ch</span> involves a manual process. "
 "Please fill the form below as thoroughly as possible to help us with this !"
 msgstr ""
-"Trage dein Geschäfts hier  auf <span style=\"color: seagreen;\">Stay</"
+"Trage dein Geschäft hier auf <span style=\"color: seagreen;\">Stay</"
 "span>Home<span style=\"color: silver\">.ch</span> ein, um zu zeigen, dass du "
 "nach wie vor noch da bist für deine Kunden. Bitte bachte, dass du nur "
 "Diensleistungen anbringen kannst, die KEINEN direkten Kontakt mit Kunden "
@@ -126,7 +126,7 @@ msgstr "Absenden"
 
 #: pubsite/templates/base.html:26
 msgid "Stay home ! We deliver..."
-msgstr "Bleib zu Hause, Wir leiferen..."
+msgstr "Bleib zu Hause, Wir liefern..."
 
 #: pubsite/templates/content.html:7
 msgid "Results for"
@@ -169,11 +169,11 @@ msgid ""
 "If you own a company that offers a delivery service at this location, please "
 "consider"
 msgstr ""
-"Falls du Eine Firma hast, welche Lieferservices anbietet für diesen Ort"
+"Falls du eine Firma hast, welche Lieferservices anbietet für diesen Ort"
 
 #: pubsite/templates/content.html:83
 msgid "adding your business"
-msgstr "füge deine Firma hinzu"
+msgstr "Firma hinzufügen"
 
 #: pubsite/templates/home.html:17
 msgid "Where are you ?"
@@ -189,7 +189,7 @@ msgstr ""
 
 #: pubsite/templates/mgmt.html:26
 msgid "Add your business"
-msgstr "Füge deine Firma hinzu"
+msgstr "Firma hinzufügen"
 
 #: pubsite/templates/mgmt.html:29
 msgid "About"
