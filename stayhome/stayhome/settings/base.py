@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'mptt',
     'phonenumber_field',
     'captcha',
+    'rest_framework',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -130,3 +131,11 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# REST framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+    ]
+}

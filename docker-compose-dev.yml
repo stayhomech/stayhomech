@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  db:
+    image: mariadb
+    container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=stayhome
+      - MYSQL_DATABASE=stayhome
+      - MYSQL_USER=stayhome
+      - MYSQL_PASSWORD=stayhome
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+
+  web:
+    build: stayhome/
+    container_name: web
+    environment:
+      - RUNNING_ENV=dev
+      - MYSQL_APP_DB=stayhome
+      - MYSQL_APP_USER=stayhome
+      - MYSQL_APP_PASSWORD=stayhome
+      - DJANGO_SUPERUSER_USERNAME=stayhome
+      - DJANGO_SUPERUSER_EMAIL=dev@stayhome.ch
+      - DJANGO_SUPERUSER_PASSWORD=stayhome
+      - RECAPTCHA_PUBLIC_KEY=""
+      - RECAPTCHA_PRIVATE_KEY=""
+      - DJANGO_SECRET_KEY=verynotsecretkey
+      - GOOGLE_UA=""
+    ports:
+      - 127.0.0.1:8000:8000
+    depends_on:
+      - db
+    restart: always
+    volumes:
+      - ./stayhome/:/code/
+
+volumes:
+  db_data:

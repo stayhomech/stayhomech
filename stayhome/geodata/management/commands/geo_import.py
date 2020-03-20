@@ -20,6 +20,9 @@ class Command(BaseCommand):
         self.force_import = options['force']
         self.debug = options['debug']
 
+        # We have to store them as they come before the municipalities but these are required before
+        npas = []
+
         with open(source, encoding='latin-1') as infile:
             for line in infile:
 
@@ -35,11 +38,15 @@ class Command(BaseCommand):
 
                 # NPA
                 elif l_type == 1:
-                    self.handle_plz(line)
+                    npas.append(line)
 
                 # Municipality
                 elif l_type == 3:
                     self.handle_com(line)
+
+        # Handle NPAs
+        for npa in npas:
+            self.handle_plz(npa)
 
     # Type 0 - Dataset
     def handle_hea(self, line):
