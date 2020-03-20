@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-19 17:47+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-03-20 12:45+0100\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3\n"
 
 #: business/forms.py:15
 msgid "Company name"
@@ -96,9 +96,8 @@ msgid ""
 "is an initiative of a private person willing to help to cope with the "
 "consequences of the COVID-19 epidemy. It has no commercial purpose."
 msgstr ""
-"ist eine Initative von privaten Personen, welche in "
-"Zeiten der Corona/Covid-19 Epidemie helfen möchten! Wir haben keinen "
-"kommerziellen Zweck."
+"ist eine Initative von privaten Personen, welche in Zeiten der Corona/"
+"Covid-19 Epidemie helfen möchten! Wir haben keinen kommerziellen Zweck."
 
 #: pubsite/templates/about.html:21
 msgid "Should you have any question, please contact"
@@ -184,8 +183,8 @@ msgid ""
 "Enter your post code or city name. For Switzerland <i class=\"icon-plus-sign-"
 "alt\" style=\"color: red;\"></i> only ;-)"
 msgstr ""
-"Postleitzahl oder Ortsnamen. Hinweis: Zurzeit nur Schweiz <i "
-"class=\"icon-plus-sign-alt\" style=\"color: red;\"></i>"
+"Postleitzahl oder Ortsnamen. Hinweis: Zurzeit nur Schweiz <i class=\"icon-"
+"plus-sign-alt\" style=\"color: red;\"></i>"
 
 #: pubsite/templates/mgmt.html:26
 msgid "Add your business"
