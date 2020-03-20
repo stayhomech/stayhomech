@@ -184,7 +184,7 @@ msgid ""
 "Enter your post code or city name. For Switzerland <i class=\"icon-plus-sign-"
 "alt\" style=\"color: red;\"></i> only ;-)"
 msgstr ""
-"Gib deine Postleitzahl ein oder Ortsnamen. Hinweis: Zurzeit nur Schweiz <i "
+"Postleitzahl oder Ortsnamen. Hinweis: Zurzeit nur Schweiz <i "
 "class=\"icon-plus-sign-alt\" style=\"color: red;\"></i>"
 
 #: pubsite/templates/mgmt.html:26
