@@ -59,12 +59,12 @@ services:
     container_name: web
     environment:
       - RUNNING_ENV=prod
-      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch
+      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch,api.stayhome.ch
+      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch,api.stayhome.ch
       - VIRTUAL_PORT=8000
       - MYSQL_APP_DB=${MYSQL_APP_DB}
       - MYSQL_APP_USER=${MYSQL_APP_USER}
       - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
-      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch
       - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
       - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
       - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}

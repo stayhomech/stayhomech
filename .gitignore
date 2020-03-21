@@ -19,3 +19,6 @@ stayhome/stayhome/staticfiles/
 
 # Translations binary files (generates on deployment)
 *.mo
+
+# stunnel log
+stunnel.log
