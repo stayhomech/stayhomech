@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 12:07+0100\n"
+"POT-Creation-Date: 2020-03-21 14:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,75 +18,73 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: business/forms.py:15
+#: business/forms.py:16
 msgid "Company name"
 msgstr "Nom"
 
-#: business/forms.py:17
+#: business/forms.py:18
 msgid "The name of the company."
-msgstr ""
+msgstr "Le nom de l'entreprise"
 
-#: business/forms.py:22
+#: business/forms.py:23
 msgid "Description"
 msgstr "Description"
 
 #: business/forms.py:24
-#, fuzzy
-#| msgid "A short description of the activities of your company."
 msgid "A short description of the services of the company."
-msgstr "Une brève description des activités de votre entreprise."
+msgstr "Une brève description des activités de l'entreprise."
 
-#: business/forms.py:29
+#: business/forms.py:32
 msgid "Main location"
 msgstr "Emplacement"
 
-#: business/forms.py:30
-#, fuzzy
-#| msgid "Where is based your company?"
+#: business/forms.py:33
 msgid "Where is the company based?"
-msgstr "Où se situe votre entreprise ?"
+msgstr "Où se situe l'entreprise ?"
 
-#: business/forms.py:36
+#: business/forms.py:40
 msgid "Website"
 msgstr "Site Internet"
 
-#: business/forms.py:38
+#: business/forms.py:42
 msgid "Company website."
 msgstr "Site Internet."
 
-#: business/forms.py:43
+#: business/forms.py:48
 msgid "Phone number"
 msgstr "Téléphone"
 
-#: business/forms.py:46
+#: business/forms.py:51
 msgid "Company phone number, if any."
 msgstr "Numéro de téléphone de l'entreprise, si existant."
 
-#: business/forms.py:52
+#: business/forms.py:57
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: business/forms.py:54
+#: business/forms.py:59
 msgid "Company email address, if any."
 msgstr "Adresse e-mail de l'entreprise, si existant."
 
-#: business/forms.py:60
+#: business/forms.py:65
 msgid "Categories"
-msgstr ""
+msgstr "Catégories"
 
-#: business/forms.py:62
+#: business/forms.py:66
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
 msgstr ""
+"Listez toutes les catégories possibles décrivant le service offert par "
+"l'entreprise (p.ex. Alimentation, Boissons, Livres, Musique, Jeux, Mobilité)"
 
-#: business/forms.py:67
+#: business/forms.py:74
 msgid "Delivery perimeter"
 msgstr "Livre à"
 
-#: business/forms.py:69
+#: business/forms.py:75
 msgid "Where is the service available ?"
-msgstr ""
+msgstr "Où ce service est-il disponible ?"
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
@@ -111,27 +109,23 @@ msgid ""
 "If you want to help by translating or adding new features, you can find the "
 "current website code on "
 msgstr ""
+"Si vous voulez aider à traduire ce site ou à ajouter de nouvelles "
+"fonctionnalités, vous pouvez trouver le code du projet sur "
 
 #: pubsite/templates/add.html:18
 msgid "We need your help !"
 msgstr "Aidez-nous !"
 
 #: pubsite/templates/add.html:19
-#, fuzzy
-#| msgid ""
-#| "Currently, adding your business in <span style=\"color: seagreen;\">Stay</"
-#| "span>Home<span style=\"color: silver\">.ch</span> involves a manual "
-#| "process. Please fill the form below as thoroughly as possible to help us "
-#| "with this !"
 msgid ""
 "Currently, adding a business in <span style=\"color: seagreen;\">Stay</"
 "span>Home<span style=\"color: silver\">.ch</span> involves a manual process. "
 "Please fill the form below as thoroughly as possible to help us with this !"
 msgstr ""
-"Actuellement, ajouter votre service sur <span style=\"color: seagreen;"
-"\">Stay</span>Home<span style=\"color: silver\">.ch</span> est une opération "
-"que nous devons réaliser à la main. Merci de nous aider en remplissant le "
-"formulaire ci-dessous de manière aussi complète que possible !"
+"Actuellement, ajouter un service sur <span style=\"color: seagreen;\">Stay</"
+"span>Home<span style=\"color: silver\">.ch</span> est une opération que nous "
+"devons réaliser à la main. Merci de nous aider en remplissant le formulaire "
+"ci-dessous de manière aussi complète que possible !"
 
 #: pubsite/templates/add.html:46
 msgid "Send your request"
@@ -161,33 +155,33 @@ msgstr "Basé à"
 msgid "Delivers to"
 msgstr "Livre à"
 
-#: pubsite/templates/content.html:63
+#: pubsite/templates/content.html:64
 msgid "Visit website"
 msgstr "Site Internet"
 
-#: pubsite/templates/content.html:67
+#: pubsite/templates/content.html:69
 msgid "Call"
 msgstr "Appeler"
 
-#: pubsite/templates/content.html:72
+#: pubsite/templates/content.html:74
 msgid "Send email"
 msgstr "Envoyer e-mail"
 
-#: pubsite/templates/content.html:82
+#: pubsite/templates/content.html:84
 msgid "No delivery service available at that location :-("
 msgstr "Aucun service de livraison n'est disponible à cet endroit :-("
 
-#: pubsite/templates/content.html:83
+#: pubsite/templates/content.html:85
 msgid ""
-"If you own a company that offers a delivery service at this location, please "
-"consider"
+"If you own or know a company that offers a delivery service at this "
+"location, please consider"
 msgstr ""
-"Si vous possédez une entreprise qui offre un service de livraison à cet "
-"endroit, vous pouvez demander"
+"Si vous possédez ou connaissez une entreprise qui offre un service de "
+"livraison à cet endroit, vous pouvez demander"
 
-#: pubsite/templates/content.html:83
-msgid "adding your business"
-msgstr "l'ajout de votre service"
+#: pubsite/templates/content.html:85
+msgid "adding the service"
+msgstr "l'ajout du service"
 
 #: pubsite/templates/home.html:24
 msgid "Where are you ?"
@@ -207,7 +201,7 @@ msgstr "Ajouter votre service"
 
 #: pubsite/templates/home.html:43
 msgid "Help us on GitHub"
-msgstr ""
+msgstr "Aidez-nous sur GitHub"
 
 #: pubsite/templates/mgmt.html:29
 msgid "About"

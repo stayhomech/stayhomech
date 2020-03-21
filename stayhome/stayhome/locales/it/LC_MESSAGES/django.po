@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 12:07+0100\n"
+"POT-Creation-Date: 2020-03-21 14:37+0100\n"
 "PO-Revision-Date: 2020-03-20 13:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,15 +18,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: business/forms.py:15
+#: business/forms.py:16
 msgid "Company name"
 msgstr "Nome"
 
-#: business/forms.py:17
+#: business/forms.py:18
 msgid "The name of the company."
 msgstr ""
 
-#: business/forms.py:22
+#: business/forms.py:23
 msgid "Description"
 msgstr "Descrizione"
 
@@ -36,55 +36,55 @@ msgstr "Descrizione"
 msgid "A short description of the services of the company."
 msgstr "Una breve descrizione dei servizi della vostra azienda."
 
-#: business/forms.py:29
+#: business/forms.py:32
 msgid "Main location"
 msgstr "Sede principale"
 
-#: business/forms.py:30
+#: business/forms.py:33
 #, fuzzy
 #| msgid "Where is based your company?"
 msgid "Where is the company based?"
 msgstr "Dove è situata la vostra azienda?"
 
-#: business/forms.py:36
+#: business/forms.py:40
 msgid "Website"
 msgstr "Sito web"
 
-#: business/forms.py:38
+#: business/forms.py:42
 msgid "Company website."
 msgstr "Sito web."
 
-#: business/forms.py:43
+#: business/forms.py:48
 msgid "Phone number"
 msgstr "Numero di telefono"
 
-#: business/forms.py:46
+#: business/forms.py:51
 msgid "Company phone number, if any."
 msgstr "Numero di telefono dell'azienda, se disponibile."
 
-#: business/forms.py:52
+#: business/forms.py:57
 msgid "Email address"
 msgstr "Indirizzo email"
 
-#: business/forms.py:54
+#: business/forms.py:59
 msgid "Company email address, if any."
 msgstr "Indirizzo email dell'azienda, se disponibile."
 
-#: business/forms.py:60
+#: business/forms.py:65
 msgid "Categories"
 msgstr ""
 
-#: business/forms.py:62
+#: business/forms.py:66
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
 msgstr ""
 
-#: business/forms.py:67
+#: business/forms.py:74
 msgid "Delivery perimeter"
 msgstr "Area di consegna"
 
-#: business/forms.py:69
+#: business/forms.py:75
 msgid "Where is the service available ?"
 msgstr ""
 
@@ -160,33 +160,37 @@ msgstr "Situato a"
 msgid "Delivers to"
 msgstr "Consegna a"
 
-#: pubsite/templates/content.html:63
+#: pubsite/templates/content.html:64
 msgid "Visit website"
 msgstr "Sito web"
 
-#: pubsite/templates/content.html:67
+#: pubsite/templates/content.html:69
 msgid "Call"
 msgstr "Chiamare"
 
-#: pubsite/templates/content.html:72
+#: pubsite/templates/content.html:74
 msgid "Send email"
 msgstr "Inviare email"
 
-#: pubsite/templates/content.html:82
+#: pubsite/templates/content.html:84
 msgid "No delivery service available at that location :-("
 msgstr "Nessun servizio di consegna disponibile in quest'area :-("
 
-#: pubsite/templates/content.html:83
+#: pubsite/templates/content.html:85
+#, fuzzy
+#| msgid ""
+#| "If you own a company that offers a delivery service at this location, "
+#| "please consider"
 msgid ""
-"If you own a company that offers a delivery service at this location, please "
-"consider"
+"If you own or know a company that offers a delivery service at this "
+"location, please consider"
 msgstr ""
 "Se possedete un'azienda che offre consegne a domicilio in quest'area, potete "
 "richiedere"
 
-#: pubsite/templates/content.html:83
-msgid "adding your business"
-msgstr "l'aggiunta del vostro servizio"
+#: pubsite/templates/content.html:85
+msgid "adding the service"
+msgstr ""
 
 #: pubsite/templates/home.html:24
 msgid "Where are you ?"
@@ -239,6 +243,9 @@ msgstr "Francese"
 #: stayhome/settings/base.py:117
 msgid "Italian"
 msgstr "Italiano"
+
+#~ msgid "adding your business"
+#~ msgstr "l'aggiunta del vostro servizio"
 
 #~ msgid "The name of your company as shown on the website."
 #~ msgstr "Il nome dell'azienda che verrà visualizzato."
