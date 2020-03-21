@@ -59,9 +59,11 @@
                         </div>
                         <nav class="card-footer navbar navbar-expand navbar-light navbar-custom p-0 m-0">
                             <ul class="navbar-nav">
+                                {% if business.website %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ business.website }}" target="_blank"><i class="icon-globe"></i>&nbsp;&nbsp;{% blocktrans %}Visit website{% endblocktrans %}</a>
                                 </li>
+                                {% endif %}
                                 {% if business.phone %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="tel:{{ business.phone }}"><i class="icon-phone"></i>&nbsp;&nbsp;{% blocktrans %}Call{% endblocktrans %}</a>
