@@ -64,20 +64,16 @@ class AddForm(forms.Form):
     category = forms.CharField(
         label=_('Categories'),
         help_text=_('List possible categories of the service that the company provides (eg. Food, Books, Drinks, Music, Games, Mobility)'),
-        widget=forms.Textarea(attrs={
-            'class': 'form-control form-control-sm',
-            'rows': 5
-        })
+        max_length=255
     )
+    category.widget.attrs.update({'class': 'form-control form-control-sm'})
 
     delivery = forms.CharField(
         label=_('Delivery perimeter'),
         help_text=_('Where is the service available ?'),
-        widget=forms.Textarea(attrs={
-            'class': 'form-control form-control-sm',
-            'rows': 5
-        })
+        max_length=255
     )
+    delivery.widget.attrs.update({'class': 'form-control form-control-sm'})
 
     if os.environ.get("RUNNING_ENV", default='dev') != 'dev':
         captcha = ReCaptchaField(

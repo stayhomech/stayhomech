@@ -2,12 +2,13 @@ import json
 
 from django.shortcuts import render
 from django.views.generic import TemplateView, View, FormView
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404, HttpResponseRedirect
 from django.db.models import Q
-from django.http import Http404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.translation import gettext_lazy as _
+from django.utils import translation
+from django.conf import settings
 
 
 from geodata.models import NPA
@@ -82,3 +83,16 @@ class AddView(FormView):
     def form_valid(self, form):
         form.save_request()
         return super().form_valid(form)
+
+class SetLanguageView(View):
+
+    # Default language
+    lang_code = 'en'
+
+    def get(self, request, *args, **kwargs):
+
+        translation.activate(self.lang_code)
+        response = HttpResponseRedirect(redirect_to='/')
+        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, self.lang_code)
+
+        return response
