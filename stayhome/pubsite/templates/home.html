@@ -92,7 +92,7 @@
                 value = item.split(' ');
                 npa = value.shift();
                 name = value.join(' ');
-                window.location = "/" + npa + "/" + name + "/";
+                window.location = "/" + npa + "/" + encodeURIComponent(name) + "/";
             });
 
             // Language change
