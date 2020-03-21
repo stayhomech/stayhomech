@@ -102,6 +102,11 @@ class Request(models.Model):
         blank=False
     )
 
+    checksum = models.CharField(
+        blank=False,
+        max_length=255
+    )
+
 class Business(models.Model):
 
     name = models.CharField(
