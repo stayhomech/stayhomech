@@ -24,7 +24,7 @@ urlpatterns = [
     path('about/', AboutView.as_view(), name='about'),
     path('add/', AddView.as_view(), name='add'),
     path('add/success/', TemplateView.as_view(template_name="success.html"), name='add_success'),
-    path('<int:npa>/<str:name>/', ContentView.as_view(), name='content'),
+    path('<int:npa>/<path:name>/', ContentView.as_view(), name='content'),
 
 ]
 
