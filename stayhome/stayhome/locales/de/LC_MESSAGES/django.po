@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-19 17:47+0100\n"
-"PO-Revision-Date: 2020-03-20 12:45+0100\n"
+"PO-Revision-Date: 2020-03-21 10:38+0100\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr "Firmenname"
 
 #: business/forms.py:17
 msgid "The name of your company as shown on the website."
-msgstr "Der Name deiner Firma."
+msgstr "Der Name des Geschäfts"
 
 #: business/forms.py:22
 msgid "Description"
@@ -32,7 +32,7 @@ msgstr "Beschreibung"
 
 #: business/forms.py:24
 msgid "A short description of the activities of your company."
-msgstr "Beschreibe was deine Firma anbietet (Bsp: Essen, Getränkelieferungen)"
+msgstr "Beschreibe was angeboten wird (Bsp: Essen, Getränkelieferungen)"
 
 #: business/forms.py:29
 msgid "Main location"
@@ -40,7 +40,7 @@ msgstr "Ort"
 
 #: business/forms.py:30
 msgid "Where is based your company?"
-msgstr "Wo ist deine Firma?"
+msgstr "Wo ist das Geschäft?"
 
 #: business/forms.py:36
 msgid "Website"
@@ -76,7 +76,7 @@ msgstr "Angebotbeschreibung"
 msgid ""
 "What kind of delivery service are you providing ? For example for food, what "
 "kind of food ?"
-msgstr "Beschreibe hier ausführlicher dein Angebot (Bsp. Was für Essen)"
+msgstr "Beschreibe hier ausführlicher das Angebot (Bsp. Was für Essen)"
 
 #: business/forms.py:67
 msgid "Delivery perimeter"
@@ -84,7 +84,7 @@ msgstr "Umkreis"
 
 #: business/forms.py:69
 msgid "Where are you delivering ?"
-msgstr "Wohin lieferst du?"
+msgstr "Wohin wird geliefert ?"
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
@@ -168,27 +168,28 @@ msgid ""
 "If you own a company that offers a delivery service at this location, please "
 "consider"
 msgstr ""
-"Falls du eine Firma hast, welche Lieferservices anbietet für diesen Ort"
+"Falls du eine Firma kennst, welche Lieferservices anbietet für diesen Ort, "
+"nutze den folgenden Link"
 
 #: pubsite/templates/content.html:83
 msgid "adding your business"
-msgstr "Firma hinzufügen"
+msgstr "Geschäft hinzufügen"
 
 #: pubsite/templates/home.html:17
 msgid "Where are you ?"
-msgstr "Wo bist du Hause?"
+msgstr "Wo bist du ?"
 
 #: pubsite/templates/home.html:23
 msgid ""
 "Enter your post code or city name. For Switzerland <i class=\"icon-plus-sign-"
 "alt\" style=\"color: red;\"></i> only ;-)"
 msgstr ""
-"Postleitzahl oder Ortsnamen. Hinweis: Zurzeit nur Schweiz <i class=\"icon-"
-"plus-sign-alt\" style=\"color: red;\"></i>"
+"Postleitzahl oder Ortsnamen. Hinweis: Zurzeit nur für die Schweiz <i class="
+"\"icon-plus-sign-alt\" style=\"color: red;\"></i> verfügbar"
 
 #: pubsite/templates/mgmt.html:26
 msgid "Add your business"
-msgstr "Firma hinzufügen"
+msgstr "Geschäft hinzufügen"
 
 #: pubsite/templates/mgmt.html:29
 msgid "About"
