@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 14:37+0100\n"
+"POT-Creation-Date: 2020-03-21 15:44+0100\n"
 "PO-Revision-Date: 2020-03-21 12:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -82,11 +82,11 @@ msgstr ""
 "Liste passende Kategorien des Angebots auf (Bsp: Essen, Bücher, Trinken, "
 "Musik, Spiele, Mobilität, etc)"
 
-#: business/forms.py:74
+#: business/forms.py:72
 msgid "Delivery perimeter"
 msgstr "Umkreis"
 
-#: business/forms.py:75
+#: business/forms.py:73
 msgid "Where is the service available ?"
 msgstr "Wohin wird geliefert ?"
 
@@ -135,9 +135,16 @@ msgstr ""
 msgid "Send your request"
 msgstr "Absenden"
 
-#: pubsite/templates/base.html:26
+#: pubsite/templates/base.html:26 pubsite/templates/base.html:30
 msgid "Stay home ! We deliver..."
 msgstr "Bleib zu Hause, Wir liefern..."
+
+#: pubsite/templates/base.html:28 pubsite/templates/base.html:31
+msgid ""
+"StayHome.ch is a directory of delivery services available in Switzerland "
+"based on visitor's location. It has been created to help Swiss people and "
+"businesses coping with the COVID-19 crisis."
+msgstr ""
 
 #: pubsite/templates/content.html:7
 msgid "Results for"
@@ -223,7 +230,7 @@ msgstr "Alle Rechte vorbehalten"
 msgid "Your request has been submited ! Thank you !"
 msgstr "Deine Anfrage wurde gesendet! Danke dir!"
 
-#: pubsite/views.py:63
+#: pubsite/views.py:64
 msgid "NPA does not exist"
 msgstr "PLZ nicht gefunden"
 

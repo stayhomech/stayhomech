@@ -3,28 +3,28 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 14:37+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2020-03-21 15:44+0100\n"
+"PO-Revision-Date: 2020-03-21 15:55+0100\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3\n"
 
 #: business/forms.py:16
 msgid "Company name"
-msgstr "Nom"
+msgstr "Nom de l'entreprise"
 
 #: business/forms.py:18
 msgid "The name of the company."
-msgstr "Le nom de l'entreprise"
+msgstr "Le nom de l'entreprise."
 
 #: business/forms.py:23
 msgid "Description"
@@ -36,7 +36,7 @@ msgstr "Une brève description des activités de l'entreprise."
 
 #: business/forms.py:32
 msgid "Main location"
-msgstr "Emplacement"
+msgstr "Emplacement principal"
 
 #: business/forms.py:33
 msgid "Where is the company based?"
@@ -78,11 +78,11 @@ msgstr ""
 "Listez toutes les catégories possibles décrivant le service offert par "
 "l'entreprise (p.ex. Alimentation, Boissons, Livres, Musique, Jeux, Mobilité)"
 
-#: business/forms.py:74
+#: business/forms.py:72
 msgid "Delivery perimeter"
-msgstr "Livre à"
+msgstr "Périmètre de livraison"
 
-#: business/forms.py:75
+#: business/forms.py:73
 msgid "Where is the service available ?"
 msgstr "Où ce service est-il disponible ?"
 
@@ -131,9 +131,19 @@ msgstr ""
 msgid "Send your request"
 msgstr "Envoyer votre demande"
 
-#: pubsite/templates/base.html:26
+#: pubsite/templates/base.html:26 pubsite/templates/base.html:30
 msgid "Stay home ! We deliver..."
 msgstr "Restez à la maison ! Nous livrons..."
+
+#: pubsite/templates/base.html:28 pubsite/templates/base.html:31
+msgid ""
+"StayHome.ch is a directory of delivery services available in Switzerland "
+"based on visitor's location. It has been created to help Swiss people and "
+"businesses coping with the COVID-19 crisis."
+msgstr ""
+"StayHome.ch est un annuaire des services de livraison disponibles en Suisse "
+"basé sur l'emplacement du visiteur. Il a été créé pour aider la population "
+"et les entreprises suisses à faire face à la crise du COVID-19."
 
 #: pubsite/templates/content.html:7
 msgid "Results for"
@@ -215,7 +225,7 @@ msgstr "Tous droits réservés"
 msgid "Your request has been submited ! Thank you !"
 msgstr "Votre demande a été transmise ! Merci !"
 
-#: pubsite/views.py:63
+#: pubsite/views.py:64
 msgid "NPA does not exist"
 msgstr "Le NPA n'existe pas"
 

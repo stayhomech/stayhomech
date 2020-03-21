@@ -138,6 +138,8 @@ STATICFILES_FINDERS = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+WHITENOISE_ROOT = os.path.join(BASE_DIR, 'rootfiles')
+
 
 # REST framework
 

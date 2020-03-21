@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 14:37+0100\n"
+"POT-Creation-Date: 2020-03-21 15:44+0100\n"
 "PO-Revision-Date: 2020-03-20 13:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -80,11 +80,11 @@ msgid ""
 "Books, Drinks, Music, Games, Mobility)"
 msgstr ""
 
-#: business/forms.py:74
+#: business/forms.py:72
 msgid "Delivery perimeter"
 msgstr "Area di consegna"
 
-#: business/forms.py:75
+#: business/forms.py:73
 msgid "Where is the service available ?"
 msgstr ""
 
@@ -136,9 +136,16 @@ msgstr ""
 msgid "Send your request"
 msgstr "Invia la tua richiesta"
 
-#: pubsite/templates/base.html:26
+#: pubsite/templates/base.html:26 pubsite/templates/base.html:30
 msgid "Stay home ! We deliver..."
 msgstr "Restate a casa ! Noi consegnamo..."
+
+#: pubsite/templates/base.html:28 pubsite/templates/base.html:31
+msgid ""
+"StayHome.ch is a directory of delivery services available in Switzerland "
+"based on visitor's location. It has been created to help Swiss people and "
+"businesses coping with the COVID-19 crisis."
+msgstr ""
 
 #: pubsite/templates/content.html:7
 msgid "Results for"
@@ -224,7 +231,7 @@ msgstr "Tutti i diritti riservati"
 msgid "Your request has been submited ! Thank you !"
 msgstr "La tua richiesta é stata inoltrata ! Grazie !"
 
-#: pubsite/views.py:63
+#: pubsite/views.py:64
 msgid "NPA does not exist"
 msgstr "Il CAP non esiste"
 

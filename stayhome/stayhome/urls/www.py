@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
-from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView
+from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView
 
 
 urlpatterns = [
@@ -12,6 +12,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('i18n/', include('django.conf.urls.i18n')),
+
+    # Explicit lang views for search engines
+    path('en/', SetLanguageView.as_view(lang_code="en")),
+    path('fr/', SetLanguageView.as_view(lang_code="fr")),
+    path('de/', SetLanguageView.as_view(lang_code="de")),
+    path('it/', SetLanguageView.as_view(lang_code="it")),
 
     path('', HomeView.as_view(), name='home'),
     path('location/', HomeLocationView.as_view(), name='location'),
