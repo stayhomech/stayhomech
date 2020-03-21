@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-19 17:47+0100\n"
+"POT-Creation-Date: 2020-03-21 12:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,15 +23,17 @@ msgid "Company name"
 msgstr "Nom"
 
 #: business/forms.py:17
-msgid "The name of your company as shown on the website."
-msgstr "Le nom de l'entreprise tel qu'il sera affiché."
+msgid "The name of the company."
+msgstr ""
 
 #: business/forms.py:22
 msgid "Description"
 msgstr "Description"
 
 #: business/forms.py:24
-msgid "A short description of the activities of your company."
+#, fuzzy
+#| msgid "A short description of the activities of your company."
+msgid "A short description of the services of the company."
 msgstr "Une brève description des activités de votre entreprise."
 
 #: business/forms.py:29
@@ -39,7 +41,9 @@ msgid "Main location"
 msgstr "Emplacement"
 
 #: business/forms.py:30
-msgid "Where is based your company?"
+#, fuzzy
+#| msgid "Where is based your company?"
+msgid "Where is the company based?"
 msgstr "Où se situe votre entreprise ?"
 
 #: business/forms.py:36
@@ -67,24 +71,22 @@ msgid "Company email address, if any."
 msgstr "Adresse e-mail de l'entreprise, si existant."
 
 #: business/forms.py:60
-msgid "Service description"
-msgstr "Description du service"
+msgid "Categories"
+msgstr ""
 
 #: business/forms.py:62
 msgid ""
-"What kind of delivery service are you providing ? For example for food, what "
-"kind of food ?"
+"List possible categories of the service that the company provides (eg. Food, "
+"Books, Drinks, Music, Games, Mobility)"
 msgstr ""
-"Quel genre de service de livraison offrez-vous ? Quel type de nourriture par "
-"exemple ?"
 
 #: business/forms.py:67
 msgid "Delivery perimeter"
 msgstr "Livre à"
 
 #: business/forms.py:69
-msgid "Where are you delivering ?"
-msgstr "Où livrez-vous ?"
+msgid "Where is the service available ?"
+msgstr ""
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
@@ -104,13 +106,25 @@ msgstr ""
 msgid "Should you have any question, please contact"
 msgstr "Si vous avez des question, merci de contacter"
 
+#: pubsite/templates/about.html:24
+msgid ""
+"If you want to help by translating or adding new features, you can find the "
+"current website code on "
+msgstr ""
+
 #: pubsite/templates/add.html:18
 msgid "We need your help !"
 msgstr "Aidez-nous !"
 
 #: pubsite/templates/add.html:19
+#, fuzzy
+#| msgid ""
+#| "Currently, adding your business in <span style=\"color: seagreen;\">Stay</"
+#| "span>Home<span style=\"color: silver\">.ch</span> involves a manual "
+#| "process. Please fill the form below as thoroughly as possible to help us "
+#| "with this !"
 msgid ""
-"Currently, adding your business in <span style=\"color: seagreen;\">Stay</"
+"Currently, adding a business in <span style=\"color: seagreen;\">Stay</"
 "span>Home<span style=\"color: silver\">.ch</span> involves a manual process. "
 "Please fill the form below as thoroughly as possible to help us with this !"
 msgstr ""
@@ -175,11 +189,11 @@ msgstr ""
 msgid "adding your business"
 msgstr "l'ajout de votre service"
 
-#: pubsite/templates/home.html:17
+#: pubsite/templates/home.html:24
 msgid "Where are you ?"
 msgstr "Où êtes-vous ?"
 
-#: pubsite/templates/home.html:23
+#: pubsite/templates/home.html:30
 msgid ""
 "Enter your post code or city name. For Switzerland <i class=\"icon-plus-sign-"
 "alt\" style=\"color: red;\"></i> only ;-)"
@@ -187,9 +201,13 @@ msgstr ""
 "Entrez votre code postal ou le nom de votre ville. Pour la Suisse <i class="
 "\"icon-plus-sign-alt\" style=\"color: red;\"></i> uniquement ;-)"
 
-#: pubsite/templates/mgmt.html:26
+#: pubsite/templates/home.html:43 pubsite/templates/mgmt.html:26
 msgid "Add your business"
 msgstr "Ajouter votre service"
+
+#: pubsite/templates/home.html:43
+msgid "Help us on GitHub"
+msgstr ""
 
 #: pubsite/templates/mgmt.html:29
 msgid "About"
@@ -207,21 +225,37 @@ msgstr "Votre demande a été transmise ! Merci !"
 msgid "NPA does not exist"
 msgstr "Le NPA n'existe pas"
 
-#: stayhome/settings/base.py:98
+#: stayhome/settings/base.py:114
 msgid "English"
 msgstr "Anglais"
 
-#: stayhome/settings/base.py:99
+#: stayhome/settings/base.py:115
 msgid "German"
 msgstr "Allemand"
 
-#: stayhome/settings/base.py:100
+#: stayhome/settings/base.py:116
 msgid "French"
 msgstr "Français"
 
-#: stayhome/settings/base.py:101
+#: stayhome/settings/base.py:117
 msgid "Italian"
 msgstr "Italien"
+
+#~ msgid "The name of your company as shown on the website."
+#~ msgstr "Le nom de l'entreprise tel qu'il sera affiché."
+
+#~ msgid "Service description"
+#~ msgstr "Description du service"
+
+#~ msgid ""
+#~ "What kind of delivery service are you providing ? For example for food, "
+#~ "what kind of food ?"
+#~ msgstr ""
+#~ "Quel genre de service de livraison offrez-vous ? Quel type de nourriture "
+#~ "par exemple ?"
+
+#~ msgid "Where are you delivering ?"
+#~ msgstr "Où livrez-vous ?"
 
 #~ msgid "services found !"
 #~ msgstr "services trouvés !"
