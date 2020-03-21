@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from phonenumber_field.modelfields import PhoneNumberField
@@ -25,7 +27,17 @@ class Category(MPTTModel):
 
 class Request(models.Model):
 
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        primary_key = True
+    )
+
     handled = models.BooleanField(
+        default=False
+    )
+
+    deleted = models.BooleanField(
         default=False
     )
 
@@ -37,12 +49,30 @@ class Request(models.Model):
         auto_now=True
     )
 
+    ttl = models.PositiveIntegerField(
+        default=0
+    )
+
+    source = models.PositiveSmallIntegerField(
+        choices=[
+            (0, 'Manual'),
+            (1, 'Web form'),
+            (2, 'API')
+        ],
+        default=0
+    )
+
+    source_uuid = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
     name = models.CharField(
         max_length=255
     )
 
-    description = models.CharField(
-        max_length=255
+    description = models.TextField(
+        blank=False
     )
 
     location = models.ForeignKey(
@@ -53,7 +83,7 @@ class Request(models.Model):
     )
 
     website = models.URLField(
-        blank=False
+        blank=True
     )
 
     phone = PhoneNumberField(
@@ -64,12 +94,12 @@ class Request(models.Model):
         blank=True
     )
 
-    category = models.CharField(
-        max_length=255
+    category = models.TextField(
+        blank=False
     )
 
-    delivery = models.CharField(
-        max_length=255
+    delivery = models.TextField(
+        blank=False
     )
 
 class Business(models.Model):
