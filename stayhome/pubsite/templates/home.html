@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
+{% get_current_language as LANGUAGE_CODE %}
+
 {% block content %}
 <div class="container" style="padding-top: min(25vw, 200px);">
     <div class="row">
@@ -12,7 +14,12 @@
         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 text-center mx-auto">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-map-marker icon-large"></i></span>
+                    <span class="input-group-text">
+                        <div class="spinner-grow" id="locationLookup" role="status" style="display: none;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <i id="locationMarker" class="icon-map-marker icon-large" style="width: 32px; height: 34px; font-size: 24px; text-align: center;"></i>
+                    </span>
                 </div>
                 <input id="locInput" class="form-control form-control-lg" type="text" placeholder="{% trans 'Where are you ?' %}" data-url="/location" autocomplete="off">
             </div>
@@ -33,7 +40,7 @@
             &nbsp;&nbsp;|&nbsp;&nbsp;
             <a class="lang-select" data-lang="it" href="#">IT</a>
             <br />&nbsp;<br />
-            <a href="{% url 'about' %}">Help us translate...</a>
+            <a href="{% url 'add' %}">{% blocktrans %}Add your business{% endblocktrans %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://github.com/mageo/stayhomech" target="_blank">{% blocktrans %}Help us on GitHub{% endblocktrans %}</a>
         </div>
     </div>
     <div class="row text-center mt-5 pt-5">
@@ -59,13 +66,36 @@
 
         $(document).ready(() => {
 
-            $('#locInput').autoComplete().on('autocomplete.select', (event, item) => {
+            // Search display loopback
+            function startSearch () {
+                $('#locationMarker').hide();
+                $('#locationLookup').show();
+            }
+            function endSearch () {
+                $('#locationMarker').show();
+                $('#locationLookup').hide();
+            }
+
+            // Location validation
+            $('#locInput').autoComplete({
+                events: {
+                    searchPre: (values) => {
+                        startSearch();
+                        return values;
+                    },
+                    searchPost: (results) => {
+                        endSearch();
+                        return results;
+                    }
+                }
+            }).on('autocomplete.select', (event, item) => {
                 value = item.split(' ');
                 npa = value.shift();
                 name = value.join(' ');
                 window.location = "/" + npa + "/" + name + "/";
             });
 
+            // Language change
             $('.lang-select').on('click', (event) => {
                 lang = $(event.target).data('lang');
                 $.ajax({
@@ -81,6 +111,40 @@
                         location.reload();
                     }
                 });
+            });
+
+            // Geo-location
+            navigator.geolocation.getCurrentPosition((position) => {
+
+                // Display feedback                
+                startSearch();
+
+                // Postal code lookup
+                var jqxhr = $.getJSON(
+                    'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode',
+                    {
+                        location: position.coords.longitude + ',' + position.coords.latitude,
+                        f: 'json'
+                    },
+                    (result) => {
+                        if (!result.error) {
+                            const addr = result.address;
+                            if (addr.CountryCode != 'CHE') {
+                                return
+                            } else {
+                                console.log(addr.Postal);
+                                $('#locInput').val(addr.Postal).trigger('keyup');
+                            }
+                        } else {
+                            endSearch();
+                            console.debug(result);
+                        }
+                    }
+                ).fail((error) => {
+                    endSearch();
+                    console.debug(error);
+                });
+
             });
 
         });
