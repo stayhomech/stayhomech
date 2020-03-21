@@ -36,7 +36,6 @@ class AddForm(forms.Form):
     location.widget.attrs.update({'class': 'form-control form-control-sm'})
 
     website = forms.URLField(
-        initial='http://',
         label=_('Website'),
         max_length=255,
         help_text=_('Company website.'),
@@ -91,6 +90,7 @@ class AddForm(forms.Form):
             email=self.cleaned_data['email'],
             category=self.cleaned_data['category'],
             delivery=self.cleaned_data['delivery'],
-            source=1
+            source=1,
+            checksum='Web Form',
         )
         request.save()
