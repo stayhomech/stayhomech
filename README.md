@@ -2,7 +2,7 @@
 
 StayHome.ch is a directory of delivery services available in Switzerland. Compared to existing search engines, it bases the search on the location of the visitor and only show services that actually deliver there. This greatly simplify the visibility of available services at a given location.
 
-This website has been created to help the Swiss population to cope with the consequences of the COVID-19 crisis and also to help small businesses to gain visibiliy.
+This website has been created to help the Swiss population to cope with the consequences of the COVID-19 crisis and also to help small businesses to gain visibility.
 
 If you own a business and want to have your service listed, simply fill the form available on the website. This is free and as simple as possible. Thank you for your help!
 
