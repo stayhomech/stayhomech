@@ -16,8 +16,9 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'captcha',
     'rest_framework',
-    'rest_framework_api_key',
+    'rest_framework.authtoken',
     'django_hosts',
+    'django_filters',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -145,11 +146,13 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, 'rootfiles')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'stayhome.utils.rest.StayHomeAccessPermission'
+        'rest_framework.permissions.IsAuthenticated',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
 }

@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Request
 
 
-class RequestSerializer(serializers.HyperlinkedModelSerializer):
+class RequestSerializer(serializers.ModelSerializer):
 
     uuid = serializers.ReadOnlyField()
     handled = serializers.ReadOnlyField()
