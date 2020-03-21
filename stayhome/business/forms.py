@@ -14,20 +14,20 @@ class AddForm(forms.Form):
     name = forms.CharField(
         label=_('Company name'),
         max_length=150,
-        help_text=_('The name of your company as shown on the website.')
+        help_text=_('The name of the company.')
     )
     name.widget.attrs.update({'class':('form-control form-control-sm')})
 
     description = forms.CharField(
         label=_('Description'),
         max_length=255,
-        help_text=_('A short description of the activities of your company.')
+        help_text=_('A short description of the services of the company.')
     )
     description.widget.attrs.update({'class':('form-control form-control-sm')})
 
     location = forms.ModelChoiceField(
         label=_('Main location'),
-        help_text=_('Where is based your company?'),
+        help_text=_('Where is the company based?'),
         queryset=NPA.objects.all().order_by('npa', 'name')
     )
     location.widget.attrs.update({'class':('form-control form-control-sm')})
@@ -57,16 +57,16 @@ class AddForm(forms.Form):
     email.widget.attrs.update({'class':('form-control form-control-sm')})
 
     category = forms.CharField(
-        label=_('Service description'),
+        label=_('Categories'),
         max_length=255,
-        help_text=_('What kind of delivery service are you providing ? For example for food, what kind of food ?')
+        help_text=_('List possible categories of the service that the company provides (eg. Food, Books, Drinks, Music, Games, Mobility)')
     )
     category.widget.attrs.update({'class':('form-control form-control-sm')})
 
     delivery = forms.CharField(
         label=_('Delivery perimeter'),
         max_length=255,
-        help_text=_('Where are you delivering ?')
+        help_text=_('Where is the service available ?')
     )
     delivery.widget.attrs.update({'class':('form-control form-control-sm')})
 
