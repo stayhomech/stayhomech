@@ -14,7 +14,7 @@ class AddForm(forms.Form):
 
     name = forms.CharField(
         label=_('Company name'),
-        max_length=150,
+        max_length=255,
         help_text=_('The name of the company.')
     )
     name.widget.attrs.update({'class': 'form-control form-control-sm'})
@@ -28,10 +28,10 @@ class AddForm(forms.Form):
         })
     )
 
-    location = forms.ModelChoiceField(
+    location = forms.CharField(
         label=_('Main location'),
-        help_text=_('Where is the company based?'),
-        queryset=NPA.objects.all().order_by('npa', 'name')
+        max_length=255,
+        help_text=_('Where is the company based?')
     )
     location.widget.attrs.update({'class': 'form-control form-control-sm'})
 
