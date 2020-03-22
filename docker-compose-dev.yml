@@ -56,10 +56,9 @@ services:
     build: nodefetch/
     container_name: nodefetch
     environment:
-      - API_KEY=956d9a7fedb23ad3a1a36462d8fdb2be911aab80
-      - API_BASE_URL=http://web:8000/api
+      - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
     depends_on:
-      - web
+      - sync-service
     restart: always
 
 volumes:

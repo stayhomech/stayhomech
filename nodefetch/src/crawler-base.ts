@@ -1,15 +1,14 @@
 import fetch from "node-fetch";
-import { ApiRequest } from "./api-request";
+import { SyncRequest } from "./sync-request";
 import { Globals } from "./globals";
 
 export abstract class CrawlerBase {
     abstract loadData(): Promise<void>;
 
-    async postToApi(request: ApiRequest) : Promise<void> {
-        await fetch(Globals.ApiBaseUrl + 'requests/', {
+    async postToSyncService(request: SyncRequest) : Promise<void> {
+        await fetch(Globals.SyncServiceBaseUrl + 'business-entry', {
             method: 'POST',
             headers: {
-                'Authorization': 'Token ' + Globals.ApiKey,
                 'Content-Type': 'application/json'
               },
             body: JSON.stringify(request)

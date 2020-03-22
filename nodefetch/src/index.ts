@@ -1,11 +1,9 @@
 import { DerBund } from "./der-bund";
-import { CrawlerBase } from "./crawler-base";
 
 console.log('Starting node crawler (nodefetch)...');
 
 async function main() {
-    var derbund = new DerBund();
-    var crawlers = [ derbund ] as CrawlerBase[];
+    var crawlers = [ new DerBund() ];
 
     while (true) {
         crawlers.forEach(async crawler => {
@@ -18,7 +16,7 @@ async function main() {
             }
         });
 
-        var delay = new Promise(resolve => setTimeout(() => resolve(), 1 * 60 * 1000)); // wait 1 minute
+        var delay = new Promise(resolve => setTimeout(() => resolve(), 10 * 60 * 1000)); // wait 10 minutes
         await delay;
     }
 }
