@@ -2,75 +2,51 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 15:44+0100\n"
+"POT-Creation-Date: 2020-03-22 14:15+0100\n"
 "PO-Revision-Date: 2020-03-21 15:55+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.3\n"
 
-#: business/forms.py:16
+#: business/forms/add_form.py:16
 msgid "Company name"
 msgstr "Nom de l'entreprise"
 
-#: business/forms.py:18
+#: business/forms/add_form.py:18
 msgid "The name of the company."
 msgstr "Le nom de l'entreprise."
 
-#: business/forms.py:23
+#: business/forms/add_form.py:23
 msgid "Description"
 msgstr "Description"
 
-#: business/forms.py:24
+#: business/forms/add_form.py:24
 msgid "A short description of the services of the company."
 msgstr "Une brève description des activités de l'entreprise."
 
-#: business/forms.py:32
+#: business/forms/add_form.py:32
 msgid "Main location"
 msgstr "Emplacement principal"
 
-#: business/forms.py:33
+#: business/forms/add_form.py:33
 msgid "Where is the company based?"
 msgstr "Où se situe l'entreprise ?"
 
-#: business/forms.py:40
-msgid "Website"
-msgstr "Site Internet"
-
-#: business/forms.py:42
-msgid "Company website."
-msgstr "Site Internet."
-
-#: business/forms.py:48
-msgid "Phone number"
-msgstr "Téléphone"
-
-#: business/forms.py:51
-msgid "Company phone number, if any."
-msgstr "Numéro de téléphone de l'entreprise, si existant."
-
-#: business/forms.py:57
-msgid "Email address"
-msgstr "Adresse e-mail"
-
-#: business/forms.py:59
-msgid "Company email address, if any."
-msgstr "Adresse e-mail de l'entreprise, si existant."
-
-#: business/forms.py:65
+#: business/forms/add_form.py:39
 msgid "Categories"
 msgstr "Catégories"
 
-#: business/forms.py:66
+#: business/forms/add_form.py:41
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
@@ -78,13 +54,43 @@ msgstr ""
 "Listez toutes les catégories possibles décrivant le service offert par "
 "l'entreprise (p.ex. Alimentation, Boissons, Livres, Musique, Jeux, Mobilité)"
 
-#: business/forms.py:72
+#: business/forms/add_form.py:46
 msgid "Delivery perimeter"
 msgstr "Périmètre de livraison"
 
-#: business/forms.py:73
+#: business/forms/add_form.py:48
 msgid "Where is the service available ?"
 msgstr "Où ce service est-il disponible ?"
+
+#: business/forms/add_form.py:53
+msgid "Website"
+msgstr "Site Internet"
+
+#: business/forms/add_form.py:55
+#, fuzzy
+#| msgid "Company website."
+msgid "Company website, if any."
+msgstr "Site Internet."
+
+#: business/forms/add_form.py:61
+msgid "Phone number"
+msgstr "Téléphone"
+
+#: business/forms/add_form.py:63
+msgid "Company phone number, if any."
+msgstr "Numéro de téléphone de l'entreprise, si existant."
+
+#: business/forms/add_form.py:69
+msgid "Email address"
+msgstr "Adresse e-mail"
+
+#: business/forms/add_form.py:71
+msgid "Company email address, if any."
+msgstr "Adresse e-mail de l'entreprise, si existant."
+
+#: business/templates/admin/business/request/change_form.html:6
+msgid "Convert to new business"
+msgstr ""
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
@@ -127,7 +133,7 @@ msgstr ""
 "devons réaliser à la main. Merci de nous aider en remplissant le formulaire "
 "ci-dessous de manière aussi complète que possible !"
 
-#: pubsite/templates/add.html:46
+#: pubsite/templates/add.html:48
 msgid "Send your request"
 msgstr "Envoyer votre demande"
 
@@ -229,19 +235,19 @@ msgstr "Votre demande a été transmise ! Merci !"
 msgid "NPA does not exist"
 msgstr "Le NPA n'existe pas"
 
-#: stayhome/settings/base.py:114
+#: stayhome/settings/base.py:115
 msgid "English"
 msgstr "Anglais"
 
-#: stayhome/settings/base.py:115
+#: stayhome/settings/base.py:116
 msgid "German"
 msgstr "Allemand"
 
-#: stayhome/settings/base.py:116
+#: stayhome/settings/base.py:117
 msgid "French"
 msgstr "Français"
 
-#: stayhome/settings/base.py:117
+#: stayhome/settings/base.py:118
 msgid "Italian"
 msgstr "Italien"
 

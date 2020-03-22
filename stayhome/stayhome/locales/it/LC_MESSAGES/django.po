@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 15:44+0100\n"
+"POT-Creation-Date: 2020-03-22 14:15+0100\n"
 "PO-Revision-Date: 2020-03-20 13:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,74 +18,80 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: business/forms.py:16
+#: business/forms/add_form.py:16
 msgid "Company name"
 msgstr "Nome"
 
-#: business/forms.py:18
+#: business/forms/add_form.py:18
 msgid "The name of the company."
 msgstr ""
 
-#: business/forms.py:23
+#: business/forms/add_form.py:23
 msgid "Description"
 msgstr "Descrizione"
 
-#: business/forms.py:24
+#: business/forms/add_form.py:24
 #, fuzzy
 #| msgid "A short description of the activities of your company."
 msgid "A short description of the services of the company."
 msgstr "Una breve descrizione dei servizi della vostra azienda."
 
-#: business/forms.py:32
+#: business/forms/add_form.py:32
 msgid "Main location"
 msgstr "Sede principale"
 
-#: business/forms.py:33
+#: business/forms/add_form.py:33
 #, fuzzy
 #| msgid "Where is based your company?"
 msgid "Where is the company based?"
 msgstr "Dove è situata la vostra azienda?"
 
-#: business/forms.py:40
-msgid "Website"
-msgstr "Sito web"
-
-#: business/forms.py:42
-msgid "Company website."
-msgstr "Sito web."
-
-#: business/forms.py:48
-msgid "Phone number"
-msgstr "Numero di telefono"
-
-#: business/forms.py:51
-msgid "Company phone number, if any."
-msgstr "Numero di telefono dell'azienda, se disponibile."
-
-#: business/forms.py:57
-msgid "Email address"
-msgstr "Indirizzo email"
-
-#: business/forms.py:59
-msgid "Company email address, if any."
-msgstr "Indirizzo email dell'azienda, se disponibile."
-
-#: business/forms.py:65
+#: business/forms/add_form.py:39
 msgid "Categories"
 msgstr ""
 
-#: business/forms.py:66
+#: business/forms/add_form.py:41
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
 msgstr ""
 
-#: business/forms.py:72
+#: business/forms/add_form.py:46
 msgid "Delivery perimeter"
 msgstr "Area di consegna"
 
-#: business/forms.py:73
+#: business/forms/add_form.py:48
 msgid "Where is the service available ?"
+msgstr ""
+
+#: business/forms/add_form.py:53
+msgid "Website"
+msgstr "Sito web"
+
+#: business/forms/add_form.py:55
+#, fuzzy
+#| msgid "Company website."
+msgid "Company website, if any."
+msgstr "Sito web."
+
+#: business/forms/add_form.py:61
+msgid "Phone number"
+msgstr "Numero di telefono"
+
+#: business/forms/add_form.py:63
+msgid "Company phone number, if any."
+msgstr "Numero di telefono dell'azienda, se disponibile."
+
+#: business/forms/add_form.py:69
+msgid "Email address"
+msgstr "Indirizzo email"
+
+#: business/forms/add_form.py:71
+msgid "Company email address, if any."
+msgstr "Indirizzo email dell'azienda, se disponibile."
+
+#: business/templates/admin/business/request/change_form.html:6
+msgid "Convert to new business"
 msgstr ""
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
@@ -132,7 +138,7 @@ msgstr ""
 "manuale. Grazie per aiutarci compilando il formulario seguente nel modo più "
 "completo possibile !"
 
-#: pubsite/templates/add.html:46
+#: pubsite/templates/add.html:48
 msgid "Send your request"
 msgstr "Invia la tua richiesta"
 
@@ -235,19 +241,19 @@ msgstr "La tua richiesta é stata inoltrata ! Grazie !"
 msgid "NPA does not exist"
 msgstr "Il CAP non esiste"
 
-#: stayhome/settings/base.py:114
+#: stayhome/settings/base.py:115
 msgid "English"
 msgstr "Inglese"
 
-#: stayhome/settings/base.py:115
+#: stayhome/settings/base.py:116
 msgid "German"
 msgstr "Tedesco"
 
-#: stayhome/settings/base.py:116
+#: stayhome/settings/base.py:117
 msgid "French"
 msgstr "Francese"
 
-#: stayhome/settings/base.py:117
+#: stayhome/settings/base.py:118
 msgid "Italian"
 msgstr "Italiano"
 
