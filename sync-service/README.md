@@ -32,7 +32,7 @@ phone | string | -
 delivery | string | -
 website | string | -
 categories | string | -
-ttl | long | the datasource providers defines how long the entry shall be available. each time the provider sends the data again to the sync-service the ttl is renewed
+ttl | number | In seconds. The datasource providers defines how long the entry shall be available. each time the provider sends the data again to the sync-service the ttl is renewed
 
 Fields in bold are mandatory.
 
