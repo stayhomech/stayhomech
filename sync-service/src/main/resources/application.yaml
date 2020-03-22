@@ -12,3 +12,8 @@ feign:
       default:
         connectTimeout: 30000
         readTimeout: 30000
+
+management:
+  endpoints:
+    web:
+      base-path: /management
