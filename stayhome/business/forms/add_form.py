@@ -28,51 +28,50 @@ class AddForm(forms.Form):
         })
     )
 
-    location = forms.ModelChoiceField(
+    location = forms.CharField(
         label=_('Main location'),
+        max_length=255,
         help_text=_('Where is the company based?'),
-        queryset=NPA.objects.all().order_by('npa', 'name')
     )
     location.widget.attrs.update({'class': 'form-control form-control-sm'})
 
-    website = forms.URLField(
+    category = forms.CharField(
+        label=_('Categories'),
+        max_length=255,
+        help_text=_('List possible categories of the service that the company provides (eg. Food, Books, Drinks, Music, Games, Mobility)')
+    )
+    category.widget.attrs.update({'class': 'form-control form-control-sm'})
+
+    delivery = forms.CharField(
+        label=_('Delivery perimeter'),
+        max_length=255,
+        help_text=_('Where is the service available ?')
+    )
+    delivery.widget.attrs.update({'class': 'form-control form-control-sm'})
+
+    website = forms.CharField(
         label=_('Website'),
         max_length=255,
-        help_text=_('Company website.'),
+        help_text=_('Company website, if any.'),
         required=False
     )
     website.widget.attrs.update({'class': 'form-control form-control-sm'})
 
-    phone = PhoneNumberField(
+    phone = forms.CharField(
         label=_('Phone number'),
-        region='CH',
         max_length=100,
         help_text=_('Company phone number, if any.'),
         required=False
     )
     phone.widget.attrs.update({'class': 'form-control form-control-sm'})
 
-    email = forms.EmailField(
+    email = forms.CharField(
         label=_('Email address'),
         max_length=255,
         help_text=_('Company email address, if any.'),
         required=False
     )
     email.widget.attrs.update({'class': 'form-control form-control-sm'})
-
-    category = forms.CharField(
-        label=_('Categories'),
-        help_text=_('List possible categories of the service that the company provides (eg. Food, Books, Drinks, Music, Games, Mobility)'),
-        max_length=255
-    )
-    category.widget.attrs.update({'class': 'form-control form-control-sm'})
-
-    delivery = forms.CharField(
-        label=_('Delivery perimeter'),
-        help_text=_('Where is the service available ?'),
-        max_length=255
-    )
-    delivery.widget.attrs.update({'class': 'form-control form-control-sm'})
 
     if os.environ.get("RUNNING_ENV", default='dev') != 'dev':
         captcha = ReCaptchaField(
