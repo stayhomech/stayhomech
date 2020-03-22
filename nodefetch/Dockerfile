@@ -21,6 +21,9 @@ FROM node:12-buster-slim
 # Create Directory for the Container
 WORKDIR /usr/src/app
 
+# Copy wait-for-it script
+COPY wait-for-it.sh ./wait-for-it.sh
+
 # Only copy the package.json file to work directory
 COPY package.json .
 
@@ -34,5 +37,4 @@ COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/out ./out
 
 # Start
-CMD [ "npm", "start" ]
-#CMD [ "bash", "-c", "ls -laR ." ]
+CMD [ "./wait-for-it.sh" , "-h", "sync-service", "-p", "8080" , "--strict" , "--timeout=600" , "--", "npm", "start" ]
