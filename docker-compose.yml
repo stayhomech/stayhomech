@@ -67,8 +67,8 @@ services:
     container_name: web
     environment:
       - RUNNING_ENV=prod
-      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch,api.stayhome.ch
-      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch,api.stayhome.ch
+      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch
+      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch
       - VIRTUAL_PORT=8000
       - MYSQL_APP_DB=${MYSQL_APP_DB}
       - MYSQL_APP_USER=${MYSQL_APP_USER}
@@ -97,8 +97,8 @@ services:
     build: .
     container_name: sync-service
     environment:
-      - LETSENCRYPT_HOST=sync-api.stayhome.ch
-      - VIRTUAL_HOST=sync-api.stayhome.ch
+      - LETSENCRYPT_HOST=api.stayhome.ch
+      - VIRTUAL_HOST=api.stayhome.ch
       - VIRTUAL_PORT=8080
       - STAYHOME_API_URL=${STAYHOME_API_URL}
       - STAYHOME_API_TOKEN=${STAYHOME_API_TOKEN}
