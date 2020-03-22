@@ -11,11 +11,26 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-# Running environment
-RUNNING_ENV = os.environ.get("RUNNING_ENV", default='dev')
-if RUNNING_ENV == 'prod':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.prod')
-else:
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.dev')
 
+# Utility variable to detect environment to use
+def set_environment():
+
+    # Choosing environment
+    RUNNING_ENV = os.environ.get("RUNNING_ENV", default='dev-nodb')
+    print('******************************************************************************')
+    print('  Running env : %s' % RUNNING_ENV)
+    print('******************************************************************************')
+    if RUNNING_ENV == 'prod':
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.prod')
+    elif RUNNING_ENV == 'dev':
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.dev')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.dev-nodb')
+
+
+# Set environment
+set_environment()
+
+
+# Running environment
 application = get_wsgi_application()

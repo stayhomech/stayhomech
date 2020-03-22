@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+  cache:
+    type: simple
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+stayhome:
+  api:
+    url: "http://api.stayhome.ch"

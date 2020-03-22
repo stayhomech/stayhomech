@@ -17,7 +17,6 @@ INSTALLED_APPS = [
     'captcha',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_hosts',
     'django_filters',
 
     'django.contrib.admin',
@@ -34,7 +33,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -44,12 +42,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
-ROOT_HOSTCONF = 'stayhome.hosts'
-DEFAULT_HOST = 'www'
-ROOT_URLCONF = 'stayhome.urls.www'
+ROOT_URLCONF = 'stayhome.urls'
 
 TEMPLATES = [
     {

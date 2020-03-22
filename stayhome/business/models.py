@@ -75,22 +75,28 @@ class Request(models.Model):
         blank=False
     )
 
-    location = models.ForeignKey(
-        'geodata.NPA',
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='located_request'
+    location = models.CharField(
+        max_length=255,
+        blank=False
     )
 
-    website = models.URLField(
+    contact = models.CharField(
+        max_length=255,
         blank=True
     )
 
-    phone = PhoneNumberField(
+    website = models.CharField(
+        max_length=255,
         blank=True
     )
 
-    email = models.EmailField(
+    phone = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    email = models.CharField(
+        max_length=255,
         blank=True
     )
 

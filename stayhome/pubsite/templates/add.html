@@ -24,7 +24,9 @@
                     {% for field in form %}
 
                     <div class="form-group row">
-                        <label for="{{ field.id_for_label }}" class="col-3">{{ field.label }}</label>
+                        <label for="{{ field.id_for_label }}" class="col-3{% if field.field.required %} font-weight-bold{% endif %}">
+                        {{ field.label }}
+                        </label>
                         <div class="col-9">
                             {% if field.errors %}
                             <div class="alert alert-danger" role="alert">

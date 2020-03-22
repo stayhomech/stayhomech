@@ -19,4 +19,4 @@ class RequestSerializer(serializers.ModelSerializer):
         model = Request
         fields = ['uuid', 'handled', 'deleted', 'creation', 'update', 'ttl', 'source', 
         'source_uuid', 'name', 'description', 'location', 'website', 'phone', 'email', 
-        'category', 'delivery']
+        'category', 'delivery', 'contact']

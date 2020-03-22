@@ -17,6 +17,8 @@ services:
       - 80:80
       - 443:443
     restart: always
+    networks:
+      - default
 
   letsencrypt-nginx-proxy-companion:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -24,14 +26,16 @@ services:
     environment:
       - DEFAULT_EMAIL=${LETSENCRYPT_EMAIL}
       - NGINX_PROXY_CONTAINER=nginx-proxy
-    depends_on:
-      - nginx-proxy
-    restart: always
     volumes:
       - certs:/etc/nginx/certs
       - vhosts:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - nginx-proxy
+    restart: always
+    networks:
+      - default
 
   db:
     image: mariadb
@@ -44,6 +48,8 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: always
+    networks:
+      - default
 
   memcached:
     image: memcached:alpine
@@ -53,14 +59,16 @@ services:
       - -m
       - '256'
     restart: always
+    networks:
+      - default
 
   web:
     build: stayhome/
     container_name: web
     environment:
       - RUNNING_ENV=prod
-      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch,api.stayhome.ch
-      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch,api.stayhome.ch
+      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch
+      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch
       - VIRTUAL_PORT=8000
       - MYSQL_APP_DB=${MYSQL_APP_DB}
       - MYSQL_APP_USER=${MYSQL_APP_USER}
@@ -82,6 +90,23 @@ services:
     restart: always
     volumes:
       - ./stayhome/:/code/
+    networks:
+      - default
+
+  sync-service:
+    build: .
+    container_name: sync-service
+    environment:
+      - LETSENCRYPT_HOST=api.stayhome.ch
+      - VIRTUAL_HOST=api.stayhome.ch
+      - VIRTUAL_PORT=8080
+      - STAYHOME_API_URL=${STAYHOME_API_URL}
+      - STAYHOME_API_TOKEN=${STAYHOME_API_TOKEN}
+    expose:
+      - 8080
+    restart: always
+    networks:
+      - stayhome_default
 
 volumes:
   db_data:
@@ -89,3 +114,7 @@ volumes:
   vhosts:
   html:
   dhparam:
+
+networks:
+  default:
+    driver: bridge
