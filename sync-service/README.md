@@ -39,6 +39,9 @@ Fields in bold are mandatory.
 
 # Usage
 
+ In the following examples we use the localhost as an url
+ If you use docker-compose option the url is: ```http://sync-service:8080/api```
+ 
 Curl:
 
     curl -X POST "http://localhost:8080/api/business-entry/" \
