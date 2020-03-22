@@ -18,7 +18,7 @@ services:
       - 443:443
     restart: always
     networks:
-      - stayhome_default
+      - default
 
   letsencrypt-nginx-proxy-companion:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -35,7 +35,7 @@ services:
       - nginx-proxy
     restart: always
     networks:
-      - stayhome_default
+      - default
 
   db:
     image: mariadb
@@ -49,7 +49,7 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     networks:
-      - stayhome_default
+      - default
 
   memcached:
     image: memcached:alpine
@@ -60,7 +60,7 @@ services:
       - '256'
     restart: always
     networks:
-      - stayhome_default
+      - default
 
   web:
     build: stayhome/
@@ -91,7 +91,7 @@ services:
     volumes:
       - ./stayhome/:/code/
     networks:
-      - stayhome_default
+      - default
 
 volumes:
   db_data:
@@ -101,5 +101,5 @@ volumes:
   dhparam:
 
 networks:
-  stayhome_default:                                                                                                                                                                                              driver: bridge
+  default:
     driver: bridge
