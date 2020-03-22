@@ -17,26 +17,34 @@ public class BusinessEntryDto {
 	private String description;
 
 	@NotBlank
+	@Size(max = 255)
 	private String contact;
 
+	@Size(max = 255)
 	private String email;
 
 	@NotNull
+	@Size(max = 255)
 	private String id;
 
 	@Size(max = 255)
 	@NotBlank
 	private String name;
 
+	@Size(max = 255)
 	private String phone;
 
 	@NotBlank
 	@Size(max = 20)
 	private String providerName;
 
+	@Size(max = 255)
 	private String website;
 
+	@Size(max = 255)
 	private String location;
+
+	private Long ttl;
 
 	public String getCategories() {
 		return categories;
@@ -137,4 +145,12 @@ public class BusinessEntryDto {
 		return this;
 	}
 
+	public Long getTtl() {
+		return ttl;
+	}
+
+	public BusinessEntryDto setTtl(Long ttl) {
+		this.ttl = ttl;
+		return this;
+	}
 }

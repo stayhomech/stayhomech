@@ -16,7 +16,7 @@ public class BusinessRequest {
 
 	private LocalDateTime update;
 
-	private int ttl;
+	private Long ttl;
 
 	@JsonProperty("source_uuid")
 	private String sourceUUid;
@@ -26,6 +26,8 @@ public class BusinessRequest {
 	private String description;
 
 	private String location;
+
+	private String contact;
 
 	private String website;
 
@@ -84,11 +86,11 @@ public class BusinessRequest {
 		return this;
 	}
 
-	public int getTtl() {
+	public Long getTtl() {
 		return ttl;
 	}
 
-	public BusinessRequest setTtl(int ttl) {
+	public BusinessRequest setTtl(Long ttl) {
 		this.ttl = ttl;
 		return this;
 	}
@@ -126,6 +128,15 @@ public class BusinessRequest {
 
 	public BusinessRequest setLocation(String location) {
 		this.location = location;
+		return this;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public BusinessRequest setContact(String contact) {
+		this.contact = contact;
 		return this;
 	}
 
