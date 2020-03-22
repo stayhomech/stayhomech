@@ -37,5 +37,17 @@ services:
     volumes:
       - ./stayhome/:/code/
 
+  sync-service:
+    build: sync-service/
+    container_name: sync-service
+    environment:
+      - STAYHOME_API_URL=http://api.localhost:8000
+      - STAYHOME_API_TOKEN=dddfb27febfae38ac4c7c873a2871f1a8c9ede45
+    expose:
+      - 8080
+    ports:
+      - 127.0.0.1:8080:8080
+    restart: always
+
 volumes:
   db_data:

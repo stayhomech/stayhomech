@@ -93,6 +93,21 @@ services:
     networks:
       - default
 
+  sync-service:
+    build: .
+    container_name: sync-service
+    environment:
+      - LETSENCRYPT_HOST=sync-api.stayhome.ch
+      - VIRTUAL_HOST=sync-api.stayhome.ch
+      - VIRTUAL_PORT=8080
+      - STAYHOME_API_URL=${STAYHOME_API_URL}
+      - STAYHOME_API_TOKEN=${STAYHOME_API_TOKEN}
+    expose:
+      - 8080
+    restart: always
+    networks:
+      - stayhome_default
+
 volumes:
   db_data:
   certs:

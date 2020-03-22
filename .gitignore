@@ -22,3 +22,10 @@ stayhome/stayhome/staticfiles/
 
 # stunnel log
 stunnel.log
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
