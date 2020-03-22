@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 15:44+0100\n"
-"PO-Revision-Date: 2020-03-21 12:21+0100\n"
+"POT-Creation-Date: 2020-03-22 14:15+0100\n"
+"PO-Revision-Date: 2020-03-22 14:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,63 +18,37 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: business/forms.py:16
+#: business/forms/add_form.py:16
 msgid "Company name"
 msgstr "Firmenname"
 
-#: business/forms.py:18
+#: business/forms/add_form.py:18
 msgid "The name of the company."
 msgstr "Der Name des Geschäfts."
 
-#: business/forms.py:23
+#: business/forms/add_form.py:23
 msgid "Description"
 msgstr "Beschreibung"
 
-#: business/forms.py:24
+#: business/forms/add_form.py:24
 msgid "A short description of the services of the company."
 msgstr "Beschreibe was angeboten wird."
 
-#: business/forms.py:32
+#: business/forms/add_form.py:32
 msgid "Main location"
 msgstr "Ort"
 
-#: business/forms.py:33
+#: business/forms/add_form.py:33
 #, fuzzy
 #| msgid "Where is based your company?"
 msgid "Where is the company based?"
 msgstr "Wo ist das Geschäft?"
 
-#: business/forms.py:40
-msgid "Website"
-msgstr "Homepage"
-
-#: business/forms.py:42
-msgid "Company website."
-msgstr ""
-"Homepage-Link (Kann auch eine Facebook-Seite sein, Instagram-Profil oder "
-"Whatsapp-Link)"
-
-#: business/forms.py:48
-msgid "Phone number"
-msgstr "Telefonnummer"
-
-#: business/forms.py:51
-msgid "Company phone number, if any."
-msgstr "Telefon, falls vorhanden."
-
-#: business/forms.py:57
-msgid "Email address"
-msgstr "E-Mail"
-
-#: business/forms.py:59
-msgid "Company email address, if any."
-msgstr "E-Mail, falls vorhanden."
-
-#: business/forms.py:65
+#: business/forms/add_form.py:39
 msgid "Categories"
 msgstr "Kategorien"
 
-#: business/forms.py:66
+#: business/forms/add_form.py:41
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
@@ -82,13 +56,45 @@ msgstr ""
 "Liste passende Kategorien des Angebots auf (Bsp: Essen, Bücher, Trinken, "
 "Musik, Spiele, Mobilität, etc)"
 
-#: business/forms.py:72
+#: business/forms/add_form.py:46
 msgid "Delivery perimeter"
 msgstr "Umkreis"
 
-#: business/forms.py:73
+#: business/forms/add_form.py:48
 msgid "Where is the service available ?"
 msgstr "Wohin wird geliefert ?"
+
+#: business/forms/add_form.py:53
+msgid "Website"
+msgstr "Homepage"
+
+#: business/forms/add_form.py:55
+#, fuzzy
+#| msgid "Company website."
+msgid "Company website, if any."
+msgstr ""
+"Homepage-Link (Kann auch eine Facebook-Seite sein, Instagram-Profil oder "
+"Whatsapp-Link)"
+
+#: business/forms/add_form.py:61
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: business/forms/add_form.py:63
+msgid "Company phone number, if any."
+msgstr "Telefon, falls vorhanden."
+
+#: business/forms/add_form.py:69
+msgid "Email address"
+msgstr "E-Mail"
+
+#: business/forms/add_form.py:71
+msgid "Company email address, if any."
+msgstr "E-Mail, falls vorhanden."
+
+#: business/templates/admin/business/request/change_form.html:6
+msgid "Convert to new business"
+msgstr ""
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
@@ -131,7 +137,7 @@ msgstr ""
 "Diensleistungen angeboten warden können, welche KEINEN direkten Kontakt mit "
 "Kunden erfordert !"
 
-#: pubsite/templates/add.html:46
+#: pubsite/templates/add.html:48
 msgid "Send your request"
 msgstr "Absenden"
 
@@ -145,6 +151,9 @@ msgid ""
 "based on visitor's location. It has been created to help Swiss people and "
 "businesses coping with the COVID-19 crisis."
 msgstr ""
+"StayHome.ch is ein Verzeichnis von Lieferservices in der Schweiz.  Diese "
+"Seite wurde im Rahmen der COVID-19 Krise erstellt, um Schweizern und KMU's "
+"eine Platform zu geben."
 
 #: pubsite/templates/content.html:7
 msgid "Results for"
@@ -183,20 +192,16 @@ msgid "No delivery service available at that location :-("
 msgstr "Leider haben wir noch keine Angebote gefunden für diesen Ort :("
 
 #: pubsite/templates/content.html:85
-#, fuzzy
-#| msgid ""
-#| "If you own a company that offers a delivery service at this location, "
-#| "please consider"
 msgid ""
 "If you own or know a company that offers a delivery service at this "
 "location, please consider"
 msgstr ""
-"Falls du eine Firma kennst, welche Lieferservices anbietet für diesen Ort, "
-"nutze den folgenden Link"
+"Falls du eine Firma hast oder kennst, welche Lieferservices anbietet für "
+"diesen Ort, nutze das folgende Formular"
 
 #: pubsite/templates/content.html:85
 msgid "adding the service"
-msgstr ""
+msgstr "Geschäft hinzufügen"
 
 #: pubsite/templates/home.html:24
 msgid "Where are you ?"
@@ -234,19 +239,19 @@ msgstr "Deine Anfrage wurde gesendet! Danke dir!"
 msgid "NPA does not exist"
 msgstr "PLZ nicht gefunden"
 
-#: stayhome/settings/base.py:114
+#: stayhome/settings/base.py:115
 msgid "English"
 msgstr "English"
 
-#: stayhome/settings/base.py:115
+#: stayhome/settings/base.py:116
 msgid "German"
 msgstr "Deutsch"
 
-#: stayhome/settings/base.py:116
+#: stayhome/settings/base.py:117
 msgid "French"
 msgstr "Französisch"
 
-#: stayhome/settings/base.py:117
+#: stayhome/settings/base.py:118
 msgid "Italian"
 msgstr "Italienisch"
 
