@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "commonjs",
+    "sourceRoot": "src",
+    "outDir": "out",
+    "sourceMap": true
+  }
+}

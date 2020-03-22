@@ -1,0 +1,66 @@
+import fetch from "node-fetch";
+import * as esprima from "esprima";
+import { CrawlerBase } from "./crawler-base";
+
+export class DerBund extends CrawlerBase {
+    private readonly baseUrl = 'https://interaktiv.derbund.ch/2020/bern-liefert/';
+
+    constructor() {
+        super();
+    }
+    
+    async loadData(): Promise<void> {
+        var result = await fetch(this.baseUrl);
+        var html = await result.text();
+        var match = html.match(/assets\/main\.[0-9a-f]+\.js/i);
+        if (!match) {
+            throw new Error('main.js not found on website');
+        }
+        
+        result = await fetch(this.baseUrl + match[0]);
+        var js = await result.text();
+        var geometries = undefined;
+        esprima.parse(js, {}, node => {
+            if (node.type === 'Property'
+                && node.key
+                && node.key.type === 'Identifier'
+                && node.key.name === 'geometries'
+                && node.value
+                && node.value.type === 'ArrayExpression') {
+                    /* the node we are looking for looks like this:
+                    geometries: [{
+                        type: "Point",
+                        features: [[
+                    */
+                    geometries = node;
+            }
+        });
+
+        if (!geometries) {
+            throw new Error('Geometries not found on website');
+        }
+        
+        var obj = geometries.value.elements[0];
+        var elements = obj.properties[1].value.elements;
+        for (const element of elements) {
+            var loc = this.unmingleArray(element.elements[0]);
+            var [category, title, description, contact, address] = this.unmingleArray(element.elements[1]);
+            this.log('Adding', title);
+
+            this.log('TODO: actually post to API'); // see code below
+            /*await this.postToApi({
+                ttl: 1000,
+                source_uuid: JSON.stringify({ category, title }),
+                name: title,
+                description: description,
+                category: category,
+                delivery: 'Kontakt: ' + contact + '\nAdresse: ' + address
+            });
+            break;*/
+        }
+    }
+
+    private unmingleArray(astNode: any): any[] {
+        return Array.from(astNode.elements, (e: any) => e.value);
+    }
+}
