@@ -47,11 +47,7 @@ services:
       - 8080
     ports:
       - 127.0.0.1:8080:8080
-    volumes:
-      # cache the maven-repo
-      - maven-repo:/root/.m2
     restart: always
 
 volumes:
   db_data:
-  maven-repo:
