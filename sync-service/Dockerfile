@@ -13,6 +13,6 @@ FROM openjdk:11-jdk-slim
 COPY --from=build /workspace/target/*.jar app.jar
 EXPOSE 8080
 COPY start.sh /start.sh
-
+RUN chmod +x /start.sh
 # TODO use the wait-for-it.sh
 CMD [ "./start.sh" ]
