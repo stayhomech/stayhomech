@@ -1,9 +1,10 @@
 import { DerBund } from "./der-bund";
+import { Tagesanzeiger } from "./tagesanzeiger";
 
 console.log('Starting node crawler (nodefetch)...');
 
 async function main() {
-    var crawlers = [ new DerBund() ];
+    var crawlers = [ new DerBund(), new Tagesanzeiger() ];
 
     while (true) {
         crawlers.forEach(async crawler => {
