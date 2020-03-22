@@ -25,6 +25,8 @@ services:
       - DJANGO_SUPERUSER_USERNAME=stayhome
       - DJANGO_SUPERUSER_EMAIL=dev@stayhome.ch
       - DJANGO_SUPERUSER_PASSWORD=stayhome
+      - SYNC_USER=sync
+      - SYNC_PASSWORD=sync
       - RECAPTCHA_PUBLIC_KEY=""
       - RECAPTCHA_PRIVATE_KEY=""
       - DJANGO_SECRET_KEY=verynotsecretkey
@@ -35,19 +37,21 @@ services:
       - db
     restart: always
     volumes:
-      - ./stayhome/:/code/
+      - api_key:/api
 
   sync-service:
     build: sync-service/
     container_name: sync-service
     environment:
       - STAYHOME_API_URL=http://web:8000/api
-      - STAYHOME_API_TOKEN=${STAYHOME_API_TOKEN}
     ports:
       - 127.0.0.1:8080:8080
     depends_on:
       - web
     restart: always
+    volumes:
+      - api_key:/api
 
 volumes:
   db_data:
+  api_key:

@@ -15,7 +15,6 @@ from django.core.wsgi import get_wsgi_application
 # Utility variable to detect environment to use
 def set_environment():
 
-
     # Choosing environment
     RUNNING_ENV = os.environ.get("RUNNING_ENV", default='dev-nodb')
     print('******************************************************************************')
