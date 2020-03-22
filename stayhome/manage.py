@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-import os
 import sys
+
+from stayhome.wsgi import set_environment
 
 
 def main():
 
     # Running environment
-    RUNNING_ENV = os.environ.get("RUNNING_ENV", default='dev')
-    if RUNNING_ENV == 'prod':
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.prod')
-    else:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.dev')
+    set_environment()
 
     try:
         from django.core.management import execute_from_command_line
@@ -22,7 +19,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()
