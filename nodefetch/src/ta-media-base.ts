@@ -43,7 +43,6 @@ export abstract class TaMediaBase extends CrawlerBase {
         for (const element of elements) {
             var [lat, lon] = this.unmingleArray(element.elements[0]);
             var [category, title, description, contact, address] = this.unmingleArray(element.elements[1]);
-            this.log('Adding', title);
 
             await this.postToSyncService({
                 id: `${lat}_${lon}`,
@@ -52,10 +51,16 @@ export abstract class TaMediaBase extends CrawlerBase {
                 description: description,
                 contact: contact,
                 location: address,
-                categories: category
+                categories: category,
+                // TODO: remove those fields once they are no longer required:
+                website: '',
+                phone: '',
+                email: '',
+                delivery: 'n/a'
             });
-            break;
         }
+
+        this.log(`Posted a total of ${elements.length} entries`);
     }
 
     private unmingleArray(astNode: any): any[] {
