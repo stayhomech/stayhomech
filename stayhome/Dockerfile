@@ -13,4 +13,6 @@ RUN pip install -r requirements.txt
 
 RUN apk del build-base
 
+COPY . .
+
 CMD [ "./wait-for-it.sh" , "-h", "db", "-p", "3306" , "--strict" , "--timeout=300" , "--", "./start.sh" ]

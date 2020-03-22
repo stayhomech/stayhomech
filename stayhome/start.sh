@@ -9,12 +9,11 @@ python manage.py createsuperuser --no-input
 # Import data, only with new repo
 # Do it manually in container later if necessary
 # This is to avoid a very long startup delay
-if [ -f "datasets/post_data.csv.bz2" ]; then
+if [ ! -f "datasets/.imported" ]; then
 
     # Uncompress Swiss Post dataset
     cd datasets
-    bunzip2 post_data.csv.bz2
-    mv post_data.csv.bz2 post_data.csv.bz2.imported
+    bunzip2 -f post_data.csv.bz2
     cd ..
 
     # Import Swiss Post dataset - Creates municipalities and postal codes (NPA)
@@ -29,6 +28,9 @@ if [ -f "datasets/post_data.csv.bz2" ]; then
     # Attach municipalities to districts
     python manage.py geo_import_municipalities datasets/municipalities.csv
 
+    # Not importing anymore
+    touch datasets/.imported
+
 fi
 
 # Compile language files
@@ -39,6 +41,9 @@ python manage.py collectstatic --noinput
 
 # Translations
 python manage.py update_translation_fields
+
+# Generate API key for sync-service
+python create_api_key.py
 
 # Run application
 gunicorn -b 0.0.0.0:8000 stayhome.wsgi
