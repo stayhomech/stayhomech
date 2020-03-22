@@ -75,10 +75,11 @@ class Request(models.Model):
         blank=False
     )
 
-    location = models.CharField(
-        blank=False,
-        max_length=255,
-        default=''
+    location = models.ForeignKey(
+        'geodata.NPA',
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='located_request'
     )
 
     website = models.CharField(
