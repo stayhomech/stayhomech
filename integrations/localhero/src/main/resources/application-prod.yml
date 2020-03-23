@@ -1,0 +1,5 @@
+stayhome:
+  integrations:
+    localhero:
+      source-url: 'tbd'
+      target-url: 'tdb'

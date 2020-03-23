@@ -1,0 +1,11 @@
+stayhome:
+  integrations:
+    localhero:
+      scrape-cron: '*/5 * * * * *'
+      source-url: 'http://localhost:3001'
+      target-url: 'tbd'
+      chunk-size: 1
+
+logging:
+  level:
+    org.springframework.scheduling: 'DEBUG'

@@ -1,0 +1,5 @@
+stayhome:
+  integrations:
+    localhero:
+      scrape-cron: '* * */6 * * *'
+      provider-name: 'local-hero.ch'
