@@ -17,8 +17,6 @@ services:
       - 80:80
       - 443:443
     restart: always
-    networks:
-      - default
 
   letsencrypt-nginx-proxy-companion:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -34,8 +32,6 @@ services:
     depends_on:
       - nginx-proxy
     restart: always
-    networks:
-      - default
 
   db:
     image: mariadb
@@ -48,8 +44,6 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: always
-    networks:
-      - default
 
   memcached:
     image: memcached:alpine
@@ -59,8 +53,6 @@ services:
       - -m
       - '256'
     restart: always
-    networks:
-      - default
 
   web:
     build: stayhome/
@@ -92,8 +84,6 @@ services:
     restart: always
     volumes:
       - api_key:/api
-    networks:
-      - default
 
   sync-service:
     build: sync-service/
@@ -107,8 +97,6 @@ services:
     restart: always
     volumes:
       - api_key:/api
-    networks:
-      - default
   
   nodefetch:
     build: nodefetch/
@@ -118,8 +106,6 @@ services:
     depends_on:
       - sync-service
     restart: always
-    networks:
-      - default
 
 volumes:
   db_data:
@@ -128,7 +114,3 @@ volumes:
   vhosts:
   html:
   dhparam:
-
-networks:
-  default:
-    driver: bridge
