@@ -13,5 +13,5 @@ FROM openjdk:11-jdk-slim
 COPY --from=build /workspace/target/*.jar app.jar
 EXPOSE 8080
 COPY start.sh /start.sh
-# TODO use the wait-for-it.sh
-CMD [ "./start.sh" ]
+COPY wait-for-it.sh /wait-for-it.sh
+CMD [ "/wait-for-it.sh" , "-h", "web", "-p", "8000" , "--strict" , "--timeout=600" , "--", "/start.sh" ]
