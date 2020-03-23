@@ -1,0 +1,206 @@
+{% extends "contribute.html" %}
+{% load i18n %}
+
+{% block contrib-content %}
+<form id="businessAddForm" _lpchecked="1" method="post" action="{% url 'mgmt:convert' object.uuid %}">
+{% csrf_token %}
+<div class="row mb-5">
+    <div class="col-12 px-3 pb-3">
+        <table class="container-fluid" style="width: 100%">
+            <tr class="row p-3 border-top border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Business name</strong>
+                </td>
+                <td class="col-4 p-2 border" id="request-name">
+                    {{ object.name }}
+                </td>
+                {% include "includes/requests_convert_actions.html" with field='name' %}
+                <td class="col-5 p-2">
+                    {% include 'includes/requests_convert_errors.html' with field=form.name %}
+                    {{ form.name }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Description</strong>
+                </td>
+                <td class="col-4 p-2 border" id="request-description">
+                    {{ object.description }}
+                </td>
+                {% include "includes/requests_convert_actions.html" with field='description' %}
+                <td class="col-5 p-2">
+                    {% include 'includes/requests_convert_errors.html' with field=form.description %}
+                    {{ form.description }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Location</strong>
+                </td>
+                <td class="col-4 p-2 border" id="request-location">
+                    {{ object.location }}
+                </td>
+                <td class="col-1"></td>
+                <td class="col-5 p-2">
+                    {% include 'includes/requests_convert_errors.html' with field=form.location %}
+                    {{ form.location }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Categories</strong>
+                </td>
+                <td class="col-4 p-2 border">
+                    {{ object.category }}
+                </td>
+                <td class="col-1"></td>
+                <td class="col-5 p-2">
+                    <p class="font-weight-bold m-0 mb-2">Main category</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.main_category %}
+                    {{ form.main_category }}
+                    <p class="font-weight-bold m-0 mt-3 mb-2">Other categories</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.other_categories %}
+                    {{ form.other_categories }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Delivery perimeter</strong>
+                </td>
+                <td class="col-4 p-2 border">
+                    {{ object.delivery }}
+                </td>
+                <td class="col-1"></td>
+                <td class="col-5 p-2">
+                    <p class="font-weight-bold m-0 mb-2">Cantons</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_canton %}
+                    {{ form.delivers_to_canton }}
+                    <p class="font-weight-bold m-0 mt-3 mb-2">Districts</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_district %}
+                    {{ form.delivers_to_district }}
+                    <p class="font-weight-bold m-0 mt-3 mb-2">Municipalities</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_municipality %}
+                    {{ form.delivers_to_municipality }}
+                    <p class="font-weight-bold m-0 mt-3 mb-2">Postal codes</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.delivers_to %}
+                    {{ form.delivers_to }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Raw contact information</strong>
+                </td>
+                <td class="col-10 p-2 border">
+                    {{ object.contact }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Website</strong>
+                </td>
+                <td class="col-4 p-2 border" id="request-website">
+                    {{ object.website }}
+                </td>
+                {% include "includes/requests_convert_actions.html" with field='website' %}
+                <td class="col-5 p-2">
+                    {% include 'includes/requests_convert_errors.html' with field=form.website %}
+                    {{ form.website }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Phone</strong>
+                </td>
+                <td class="col-4 p-2 border" id="request-phone">
+                    {{ object.phone }}
+                </td>
+                {% include "includes/requests_convert_actions.html" with field='phone' %}
+                <td class="col-5 p-2">
+                    {% include 'includes/requests_convert_errors.html' with field=form.phone %}
+                    {{ form.phone }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>E-mail</strong>
+                </td>
+                <td class="col-4 p-2 border" id="request-email">
+                    {{ object.email }}
+                </td>
+                {% include "includes/requests_convert_actions.html" with field='email' %}
+                <td class="col-5 p-2">
+                    {% include 'includes/requests_convert_errors.html' with field=form.email %}
+                    {{ form.email }}
+                </td>
+            </tr>
+            <tr class="row p-3">
+                <td class="col-6 p-2 text-left">
+                    <button class="btn btn-sm btn-outline-danger">Drop request</button>
+                </td>
+                <td class="col-6 p-2 text-right">
+                    <button class="btn btn-sm btn-outline-secondary" type="submit" name="next" value="mgmt:next">Create business and go to next request</button>
+                    <button class="btn btn-sm btn-primary" type="submit" name="next" value="mgmt:index">Create business</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+
+    $(document).ready(() => {
+
+        // Styling of form elements
+        $('#businessAddForm').find('textarea, input, select').addClass('form-control');
+
+        // Select NPA option
+        window.selectNPA = (npa) => {
+            $("select[name='location'] option:contains(" + npa + ")").prop('selected', true);
+        }
+
+        // Actions
+        window.copyFromRequest = (field) => {
+            $("[name='" + field + "']").val($('#request-' + field).html().trim());
+            $('#businessAddForm').get(0).reportValidity();
+        }
+        window.clearBusiness = (field) => {
+            $("[name='" + field + "']").val('');
+        }
+
+        // Try to find NPA in location
+        var npa = $('#request-location').html().match(/[0-9]{4}/);
+        if (npa) {
+            $.getJSON(
+                '{% url 'location' %}', 
+                { 'q': npa[0] },
+                (data) => {
+                    if (data.length == 1) {
+                        selectNPA(data[0]);
+                    }
+                    else if (data.length > 1) {
+                        var bt = '<p>Found multiple possibilites :'
+                        data.forEach((el) => { 
+                            bt += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:selectNPA(\'' + el + '\')">' + el + '</a>';
+                        });
+                        bt += '</p>';
+                        $("select[name='location']").before(bt);
+                    }
+                }
+            );
+        }
+
+        // Categories
+        $('[name="main_category"]').select2();
+        $('[name="other_categories"]').select2();
+        $('[name="delivers_to"]').select2();
+        $('[name="delivers_to_municipality"]').select2();
+        $('[name="delivers_to_district"]').select2();
+        $('[name="delivers_to_canton"]').select2();
+
+    });
+
+</script>
+{% endblock %}

@@ -149,8 +149,26 @@ class Business(models.Model):
         blank=True
     )
 
+    delivers_to_canton = models.ManyToManyField(
+        'geodata.Canton',
+        related_name='delivers',
+        blank=True
+    )
+
+    delivers_to_district = models.ManyToManyField(
+        'geodata.District',
+        related_name='delivers',
+        blank=True
+    )
+
+    delivers_to_municipality = models.ManyToManyField(
+        'geodata.Municipality',
+        related_name='delivers',
+        blank=True
+    )
+
     website = models.URLField(
-        blank=False
+        blank=True
     )
 
     phone = PhoneNumberField(
@@ -159,6 +177,17 @@ class Business(models.Model):
 
     email = models.EmailField(
         blank=True
+    )
+
+    parent_request = models.ForeignKey(
+        'business.Request',
+        related_name='child_businesses',
+        null=True, blank=True,
+        on_delete=models.CASCADE
+    )
+
+    deleted = models.BooleanField(
+        default=False
     )
 
     class Meta:

@@ -1,0 +1,31 @@
+{% extends "contribute.html" %}
+{% load i18n %}
+
+{% block contrib-content %}
+<div class="row mb-5">
+    <div class="col-12 px-3 pb-3">
+        <table style="width: 100%">
+        {% for object in object_list %}
+        <tr class="px-3 border-top border-bottom">
+            <td class="p-2 align-middle">
+                {{ object.name }}
+            </td>
+            <td class="p-2 align-middle">
+                {{ object.description }}
+            </td>
+            <td class="p-2 align-middle">
+                {{ object.location }}
+            </td>
+            <td class="p-2 text-right align-middle">
+                <a class="btn btn-sm btn-primary" href="{% url 'mgmt:convert' object.pk %}">Convert to business</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td>
+        Nothing so far :)
+        </td></tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

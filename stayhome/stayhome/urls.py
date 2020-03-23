@@ -29,12 +29,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    # Explicit lang views for search engines
-    path('en/', SetLanguageView.as_view(lang_code="en")),
-    path('fr/', SetLanguageView.as_view(lang_code="fr")),
-    path('de/', SetLanguageView.as_view(lang_code="de")),
-    path('it/', SetLanguageView.as_view(lang_code="it")),
-
     # Main site
     path('', HomeView.as_view(), name='home'),
     path('location/', HomeLocationView.as_view(), name='location'),
@@ -42,6 +36,18 @@ urlpatterns = [
     path('add/', AddView.as_view(), name='add'),
     path('add/success/', TemplateView.as_view(template_name="success.html"), name='add_success'),
     path('<int:npa>/<path:name>/', ContentView.as_view(), name='content'),
+
+    # Authentication
+    path('accounts/', include('django.contrib.auth.urls')),
+
+    # Explicit lang views for search engines
+    path('en/', SetLanguageView.as_view(lang_code="en")),
+    path('fr/', SetLanguageView.as_view(lang_code="fr")),
+    path('de/', SetLanguageView.as_view(lang_code="de")),
+    path('it/', SetLanguageView.as_view(lang_code="it")),
+
+    # Management site
+    path('contribute/', include(('privsite.urls', 'privsite'), namespace='mgmt'))
 
 ]
 

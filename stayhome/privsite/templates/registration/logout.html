@@ -1,0 +1,27 @@
+{% extends "mgmt.html" %}
+{% load i18n %}
+
+{% block mgmt-content %}
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="row my-5">
+        <div class="col-4 mx-auto">
+                <h1 class="h4 mb-3 font-weight-normal">{{ title }}</h1>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-4 mx-auto">
+            <div class="alert alert-success" role="alert">
+                <strong>{% blocktrans %}Thank you for your time today !{% endblocktrans %}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-4 mx-auto">
+
+                <a href="/">{% trans 'Go back to homepage' %}</a>
+            
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -13,7 +13,7 @@ from .models import Business, Category, Request
 class BusinessAdmin(admin.ModelAdmin):
     list_display = ('name', 'location', 'main_category')
     ordering = ('name',)
-    filter_horizontal = ('other_categories', 'delivers_to')
+    filter_horizontal = ('other_categories', 'delivers_to', 'delivers_to_canton', 'delivers_to_municipality', 'delivers_to_district')
 
     def add_view(self, request, form_url='', extra_context=None):
 

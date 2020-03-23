@@ -1,0 +1,20 @@
+{% extends "mgmt.html" %}
+{% load i18n %}
+
+{% block mgmt-content %}
+<div class="row">
+    <div class="col-12 p-3">
+        <h1 class="h3">{{ title }}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 px-3 pb-3">
+        {{ description }}
+    </div>
+</div>
+
+{% block contrib-content %}
+Content goes there !
+{% endblock %}
+
+{% endblock %}
