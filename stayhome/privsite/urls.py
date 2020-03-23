@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
-from .views import RequestsListView, RequestsProcessView, RequestsProcessNextView
+from .views import RequestsListView, RequestsProcessView, RequestsProcessNextView, RequestsProcessDropView
 
 
 # URLs
@@ -12,6 +12,7 @@ urlpatterns = [
 
     # Requests processing
     path('convert/<uuid:pk>/', RequestsProcessView.as_view(), name='convert'),
+    path('convert/<uuid:pk>/drop/', RequestsProcessDropView.as_view(), name='drop'),
     path('convert/next/', RequestsProcessNextView.as_view(), name='next'),
 
     # Registration

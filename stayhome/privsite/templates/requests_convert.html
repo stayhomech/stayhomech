@@ -1,6 +1,25 @@
 {% extends "contribute.html" %}
 {% load i18n %}
 
+{% block modal %}
+<div class="modal fade" id="request_drop_modal" tabindex="-1" role="dialog" aria-labelledby="request_drop_modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation required</h5>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to drop this request ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="drop_request_confirm">Delete request</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 {% block contrib-content %}
 <form id="businessAddForm" _lpchecked="1" method="post" action="{% url 'mgmt:convert' object.uuid %}">
 {% csrf_token %}
@@ -61,6 +80,10 @@
                     <p class="font-weight-bold m-0 mt-3 mb-2">Other categories</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.other_categories %}
                     {{ form.other_categories }}
+                    <p class="font-weight-bold m-0 mt-3 mb-0">New categories</p>
+                    <p class="font-weight-light m-0 mt-0 mb-2">"XXX" or "XXX/XXX", separated by commas<br/>First one will be main category if none selected above</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.new_categories %}
+                    {{ form.new_categories }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
@@ -135,7 +158,7 @@
             </tr>
             <tr class="row p-3">
                 <td class="col-6 p-2 text-left">
-                    <button class="btn btn-sm btn-outline-danger">Drop request</button>
+                    <button class="btn btn-sm btn-outline-danger" id="drop_request_btn" type="button">Drop request</button>
                 </td>
                 <td class="col-6 p-2 text-right">
                     <button class="btn btn-sm btn-outline-secondary" type="submit" name="next" value="mgmt:next">Create business and go to next request</button>
@@ -200,6 +223,15 @@
         $('[name="delivers_to_district"]').select2();
         $('[name="delivers_to_canton"]').select2();
 
+        // Drop button
+        $('#drop_request_btn').on('click', (event) => {
+            $('#request_drop_modal').modal();
+            event.preventDefault();
+        });
+        $('#drop_request_confirm').on('click', (event) => {
+            event.preventDefault();
+            window.location = "{% url 'mgmt:drop' object.pk %}";
+        });
     });
 
 </script>

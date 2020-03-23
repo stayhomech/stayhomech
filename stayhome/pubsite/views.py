@@ -51,7 +51,9 @@ class HomeLocationView(View):
         # Default empty response
         return JsonResponse([], safe=False)
 
+
 class ContentView(TemplateView):
+
     template_name = "content.html"
 
     def get_context_data(self, **kwargs):
@@ -63,16 +65,28 @@ class ContentView(TemplateView):
             raise e
             raise Http404(_("NPA does not exist"))
         
+        municipality = npa.municipality
+        district = municipality.district_id
+        canton = district.canton
+
         context['npa'] = npa
         context['businesses'] = Business.objects.filter(
             Q(location=npa)
             |
             Q(delivers_to__in=[npa])
+            |
+            Q(delivers_to_municipality__in=[municipality])
+            |
+            Q(delivers_to_district__in=[district])
+            |
+            Q(delivers_to_canton__in=[canton])
         ).distinct().order_by('name')
         return context
 
+
 class AboutView(TemplateView):
     template_name = "about.html"
+
 
 class AddView(FormView):
     

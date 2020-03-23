@@ -3,7 +3,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, RedirectView
 from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import force_str
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 
 from business.models import Request
@@ -61,3 +61,14 @@ class RequestsProcessNextView(RedirectView):
             return reverse('mgmt:convert', kwargs={'pk': qs[0].pk})
         else:
             return reverse('mgmt:index')
+
+
+@method_decorator(login_required, name='dispatch')
+class RequestsProcessDropView(RedirectView):
+    
+    def get_redirect_url(self, *args, **kwargs):
+        req = get_object_or_404(Request, pk=kwargs['pk'])
+        req.handled = True
+        req.deleted = True
+        req.save()
+        return reverse('mgmt:index')
