@@ -39,7 +39,7 @@ public class BusinessRequest {
 
 	private String delivery;
 
-	private String checkSum;
+	private String checksum;
 
 	public String getUuid() {
 		return uuid;
@@ -185,12 +185,12 @@ public class BusinessRequest {
 		return this;
 	}
 
-	public String getCheckSum() {
-		return checkSum;
+	public String getChecksum() {
+		return checksum;
 	}
 
-	public BusinessRequest setCheckSum(String checkSum) {
-		this.checkSum = checkSum;
+	public BusinessRequest setChecksum(String checksum) {
+		this.checksum = checksum;
 		return this;
 	}
 }
