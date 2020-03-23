@@ -7,7 +7,7 @@ from .base import *
 # Application
 DEBUG = 0
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
-ALLOWED_HOSTS = ['stayhome.ch', 'www.stayhome.ch', 'api.stayhome.ch']
+ALLOWED_HOSTS = ['stayhome.ch', 'www.stayhome.ch', 'web']
 
 
 # Database
