@@ -44,6 +44,7 @@ services:
     container_name: sync-service
     environment:
       - STAYHOME_API_URL=http://web:8000/api
+      - SPRING_PROFILES=local
     ports:
       - 127.0.0.1:8080:8080
     depends_on:
