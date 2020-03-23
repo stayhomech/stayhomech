@@ -7,4 +7,4 @@ from .serializers import RequestSerializer
 class RequestViewSet(viewsets.ModelViewSet):
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
-    filterset_fields = ['uuid', 'source_uuid']
+    filterset_fields = ['uuid', 'source_uuid', 'checksum']

@@ -17,8 +17,6 @@ services:
       - 80:80
       - 443:443
     restart: always
-    networks:
-      - default
 
   letsencrypt-nginx-proxy-companion:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -34,8 +32,6 @@ services:
     depends_on:
       - nginx-proxy
     restart: always
-    networks:
-      - default
 
   db:
     image: mariadb
@@ -48,8 +44,6 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: always
-    networks:
-      - default
 
   memcached:
     image: memcached:alpine
@@ -59,8 +53,6 @@ services:
       - -m
       - '256'
     restart: always
-    networks:
-      - default
 
   web:
     build: stayhome/
@@ -76,6 +68,8 @@ services:
       - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
       - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
       - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+      - SYNC_USER=${SYNC_USER}
+      - SYNC_PASSWORD=${SYNC_PASSWORD}
       - RECAPTCHA_PUBLIC_KEY=${RECAPTCHA_PUBLIC_KEY}
       - RECAPTCHA_PRIVATE_KEY=${RECAPTCHA_PRIVATE_KEY}
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
@@ -89,32 +83,34 @@ services:
       - memcached
     restart: always
     volumes:
-      - ./stayhome/:/code/
-    networks:
-      - default
+      - api_key:/api
 
   sync-service:
-    build: .
+    build: sync-service/
     container_name: sync-service
     environment:
-      - LETSENCRYPT_HOST=api.stayhome.ch
-      - VIRTUAL_HOST=api.stayhome.ch
-      - VIRTUAL_PORT=8080
-      - STAYHOME_API_URL=${STAYHOME_API_URL}
-      - STAYHOME_API_TOKEN=${STAYHOME_API_TOKEN}
+      - STAYHOME_API_URL=http://web:8000/api
     expose:
       - 8080
+    depends_on:
+      - web
     restart: always
-    networks:
-      - stayhome_default
+    volumes:
+      - api_key:/api
+  
+  nodefetch:
+    build: nodefetch/
+    container_name: nodefetch
+    environment:
+      - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
+    depends_on:
+      - sync-service
+    restart: always
 
 volumes:
   db_data:
+  api_key:
   certs:
   vhosts:
   html:
   dhparam:
-
-networks:
-  default:
-    driver: bridge
