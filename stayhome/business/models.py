@@ -25,6 +25,13 @@ class Category(MPTTModel):
     def __str__(self):
         return self.name
 
+    def get_path(self):
+        if self.parent is None:
+            return self.name
+        else:
+            return "%s / %s" % (self.parent.name, self.name)
+
+
 class Request(models.Model):
 
     uuid = models.UUIDField(

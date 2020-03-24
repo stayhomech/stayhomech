@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers
 
-from business.views import RequestViewSet, BusinessViewSet
+from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet
 from geodata.views import NPAViewSet, MunicipalityViewSet, DistrictViewSet, CantonViewSet
 from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView
 
@@ -13,6 +13,7 @@ from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, Ad
 router = routers.DefaultRouter()
 router.register(r'requests', RequestViewSet)
 router.register(r'services', BusinessViewSet)
+router.register(r'categories', CategoryViewSet)
 #router.register(r'npas', NPAViewSet)
 #router.register(r'municipalities', MunicipalityViewSet)
 #router.register(r'districts', DistrictViewSet)
