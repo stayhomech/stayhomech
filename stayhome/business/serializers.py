@@ -29,4 +29,4 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Business
-        fields = ['id', 'location_npa', 'location_name', 'description', 'main_category', 'other_categories', 'website', 'phone', 'email']
+        fields = ['id', 'location_npa', 'location_name', 'name', 'description', 'main_category', 'other_categories', 'website', 'phone', 'email']
