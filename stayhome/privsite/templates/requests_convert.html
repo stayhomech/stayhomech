@@ -23,6 +23,7 @@
 {% block contrib-content %}
 <form id="businessAddForm" _lpchecked="1" method="post" action="{% url 'mgmt:convert' object.uuid %}">
 {% csrf_token %}
+<input type="hidden" name="parent_request" value="{{ object.uuid }}" />
 <div class="row mb-5">
     <div class="col-12 px-3 pb-3">
         <table class="container-fluid" style="width: 100%">
