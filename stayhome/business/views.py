@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from .models import Request, Business
-from .serializers import RequestSerializer, BusinessSerializer
+from .models import Request, Business, Category
+from .serializers import RequestSerializer, BusinessSerializer, CategorySerializer
 
 
 class RequestViewSet(viewsets.ModelViewSet):
@@ -11,6 +11,12 @@ class RequestViewSet(viewsets.ModelViewSet):
 
 
 class BusinessViewSet(viewsets.ModelViewSet):
-    queryset = Business.objects.all()
+    queryset = Business.objects.filter(deleted=False)
     serializer_class = BusinessSerializer
     filter_fields = ['id', 'location__npa', 'location__name']
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    filter_fields = ['id', 'name', 'name_en', 'name_fr', 'name_de', 'name_it', 'parent']

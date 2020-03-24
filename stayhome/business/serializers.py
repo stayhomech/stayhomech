@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Request, Business
+from .models import Request, Business, Category
 
 
 class RequestSerializer(serializers.ModelSerializer):
@@ -29,4 +29,12 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Business
-        fields = ['id', 'location_npa', 'location_name', 'name', 'description', 'main_category', 'other_categories', 'website', 'phone', 'email']
+        fields = ['id', 'location_npa', 'location_name', 'name', 'description', 'main_category', 
+        'other_categories', 'website', 'phone', 'email']
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'name_en', 'name_fr', 'name_de', 'name_it', 'parent']
