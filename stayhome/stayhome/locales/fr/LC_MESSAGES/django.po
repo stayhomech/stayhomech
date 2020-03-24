@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-22 14:15+0100\n"
+"POT-Creation-Date: 2020-03-24 12:08+0100\n"
 "PO-Revision-Date: 2020-03-21 15:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -38,7 +38,7 @@ msgstr "Une brève description des activités de l'entreprise."
 msgid "Main location"
 msgstr "Emplacement principal"
 
-#: business/forms/add_form.py:33
+#: business/forms/add_form.py:34
 msgid "Where is the company based?"
 msgstr "Où se situe l'entreprise ?"
 
@@ -67,10 +67,8 @@ msgid "Website"
 msgstr "Site Internet"
 
 #: business/forms/add_form.py:55
-#, fuzzy
-#| msgid "Company website."
 msgid "Company website, if any."
-msgstr "Site Internet."
+msgstr "Site Internet, si existant."
 
 #: business/forms/add_form.py:61
 msgid "Phone number"
@@ -90,7 +88,35 @@ msgstr "Adresse e-mail de l'entreprise, si existant."
 
 #: business/templates/admin/business/request/change_form.html:6
 msgid "Convert to new business"
-msgstr ""
+msgstr "Convertir en service"
+
+#: privsite/templates/registration/login.html:9
+msgid "Please sign in"
+msgstr "Veuillez vous identifier"
+
+#: privsite/templates/registration/login.html:16
+msgid "Your username and password didn't match. Please try again."
+msgstr "Votre nom d'utilisateur et votre mot de passe ne correspondent pas. Veuillez réessayer."
+
+#: privsite/templates/registration/logout.html:15
+msgid "Thank you for your time today !"
+msgstr "Merci pour votre temps aujourd'hui !"
+
+#: privsite/templates/registration/logout.html:22
+msgid "Go back to homepage"
+msgstr "Retour à l'accueil"
+
+#: privsite/views.py:21
+msgid "Pending requests"
+msgstr "Requêtes en attente"
+
+#: privsite/views.py:22
+msgid "The following requets are available to process."
+msgstr "Les requêtes suivantes sont disponibles au traitement."
+
+#: privsite/views.py:34
+msgid "Convert request to business"
+msgstr "Convertir en service"
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
@@ -137,11 +163,11 @@ msgstr ""
 msgid "Send your request"
 msgstr "Envoyer votre demande"
 
-#: pubsite/templates/base.html:26 pubsite/templates/base.html:30
+#: pubsite/templates/base.html:28 pubsite/templates/base.html:32
 msgid "Stay home ! We deliver..."
 msgstr "Restez à la maison ! Nous livrons..."
 
-#: pubsite/templates/base.html:28 pubsite/templates/base.html:31
+#: pubsite/templates/base.html:30 pubsite/templates/base.html:33
 msgid ""
 "StayHome.ch is a directory of delivery services available in Switzerland "
 "based on visitor's location. It has been created to help Swiss people and "
@@ -163,31 +189,31 @@ msgstr "Changer"
 msgid "Nothing left to show, try changing your filters."
 msgstr "Il ne nous reste rien à vous montrer, essayez de changer vos filtres."
 
-#: pubsite/templates/content.html:51
+#: pubsite/templates/content.html:52
 msgid "Located at"
 msgstr "Basé à"
 
-#: pubsite/templates/content.html:51
+#: pubsite/templates/content.html:52
 msgid "Delivers to"
 msgstr "Livre à"
 
-#: pubsite/templates/content.html:64
+#: pubsite/templates/content.html:66
 msgid "Visit website"
 msgstr "Site Internet"
 
-#: pubsite/templates/content.html:69
+#: pubsite/templates/content.html:71
 msgid "Call"
 msgstr "Appeler"
 
-#: pubsite/templates/content.html:74
+#: pubsite/templates/content.html:76
 msgid "Send email"
 msgstr "Envoyer e-mail"
 
-#: pubsite/templates/content.html:84
+#: pubsite/templates/content.html:86
 msgid "No delivery service available at that location :-("
 msgstr "Aucun service de livraison n'est disponible à cet endroit :-("
 
-#: pubsite/templates/content.html:85
+#: pubsite/templates/content.html:87
 msgid ""
 "If you own or know a company that offers a delivery service at this "
 "location, please consider"
@@ -195,7 +221,7 @@ msgstr ""
 "Si vous possédez ou connaissez une entreprise qui offre un service de "
 "livraison à cet endroit, vous pouvez demander"
 
-#: pubsite/templates/content.html:85
+#: pubsite/templates/content.html:87
 msgid "adding the service"
 msgstr "l'ajout du service"
 
@@ -223,7 +249,19 @@ msgstr "Aidez-nous sur GitHub"
 msgid "About"
 msgstr "A propos"
 
-#: pubsite/templates/mgmt.html:44
+#: pubsite/templates/mgmt.html:33
+msgid "Contribute"
+msgstr "Contribuer"
+
+#: pubsite/templates/mgmt.html:36
+msgid "Log out"
+msgstr "Log out"
+
+#: pubsite/templates/mgmt.html:40
+msgid "Sign in"
+msgstr "Sign in"
+
+#: pubsite/templates/mgmt.html:56
 msgid "All rights reserved"
 msgstr "Tous droits réservés"
 
@@ -231,23 +269,23 @@ msgstr "Tous droits réservés"
 msgid "Your request has been submited ! Thank you !"
 msgstr "Votre demande a été transmise ! Merci !"
 
-#: pubsite/views.py:64
+#: pubsite/views.py:66
 msgid "NPA does not exist"
 msgstr "Le NPA n'existe pas"
 
-#: stayhome/settings/base.py:115
+#: stayhome/settings/base.py:111
 msgid "English"
 msgstr "Anglais"
 
-#: stayhome/settings/base.py:116
+#: stayhome/settings/base.py:112
 msgid "German"
 msgstr "Allemand"
 
-#: stayhome/settings/base.py:117
+#: stayhome/settings/base.py:113
 msgid "French"
 msgstr "Français"
 
-#: stayhome/settings/base.py:118
+#: stayhome/settings/base.py:114
 msgid "Italian"
 msgstr "Italien"
 

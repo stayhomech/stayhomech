@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-22 14:15+0100\n"
+"POT-Creation-Date: 2020-03-24 12:08+0100\n"
 "PO-Revision-Date: 2020-03-20 13:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr "Una breve descrizione dei servizi della vostra azienda."
 msgid "Main location"
 msgstr "Sede principale"
 
-#: business/forms/add_form.py:33
+#: business/forms/add_form.py:34
 #, fuzzy
 #| msgid "Where is based your company?"
 msgid "Where is the company based?"
@@ -94,6 +94,38 @@ msgstr "Indirizzo email dell'azienda, se disponibile."
 msgid "Convert to new business"
 msgstr ""
 
+#: privsite/templates/registration/login.html:9
+msgid "Please sign in"
+msgstr ""
+
+#: privsite/templates/registration/login.html:16
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: privsite/templates/registration/logout.html:15
+msgid "Thank you for your time today !"
+msgstr ""
+
+#: privsite/templates/registration/logout.html:22
+#, fuzzy
+#| msgid "Go back to home"
+msgid "Go back to homepage"
+msgstr "Ritorna alla pagina principale"
+
+#: privsite/views.py:21
+#, fuzzy
+#| msgid "Send your request"
+msgid "Pending requests"
+msgstr "Invia la tua richiesta"
+
+#: privsite/views.py:22
+msgid "The following requets are available to process."
+msgstr ""
+
+#: privsite/views.py:34
+msgid "Convert request to business"
+msgstr ""
+
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
 msgid "Go back to home"
@@ -142,11 +174,11 @@ msgstr ""
 msgid "Send your request"
 msgstr "Invia la tua richiesta"
 
-#: pubsite/templates/base.html:26 pubsite/templates/base.html:30
+#: pubsite/templates/base.html:28 pubsite/templates/base.html:32
 msgid "Stay home ! We deliver..."
 msgstr "Restate a casa ! Noi consegnamo..."
 
-#: pubsite/templates/base.html:28 pubsite/templates/base.html:31
+#: pubsite/templates/base.html:30 pubsite/templates/base.html:33
 msgid ""
 "StayHome.ch is a directory of delivery services available in Switzerland "
 "based on visitor's location. It has been created to help Swiss people and "
@@ -165,31 +197,31 @@ msgstr "Modificare"
 msgid "Nothing left to show, try changing your filters."
 msgstr "Nessun risultato, provate a cambiare i vostri filtri."
 
-#: pubsite/templates/content.html:51
+#: pubsite/templates/content.html:52
 msgid "Located at"
 msgstr "Situato a"
 
-#: pubsite/templates/content.html:51
+#: pubsite/templates/content.html:52
 msgid "Delivers to"
 msgstr "Consegna a"
 
-#: pubsite/templates/content.html:64
+#: pubsite/templates/content.html:66
 msgid "Visit website"
 msgstr "Sito web"
 
-#: pubsite/templates/content.html:69
+#: pubsite/templates/content.html:71
 msgid "Call"
 msgstr "Chiamare"
 
-#: pubsite/templates/content.html:74
+#: pubsite/templates/content.html:76
 msgid "Send email"
 msgstr "Inviare email"
 
-#: pubsite/templates/content.html:84
+#: pubsite/templates/content.html:86
 msgid "No delivery service available at that location :-("
 msgstr "Nessun servizio di consegna disponibile in quest'area :-("
 
-#: pubsite/templates/content.html:85
+#: pubsite/templates/content.html:87
 #, fuzzy
 #| msgid ""
 #| "If you own a company that offers a delivery service at this location, "
@@ -201,7 +233,7 @@ msgstr ""
 "Se possedete un'azienda che offre consegne a domicilio in quest'area, potete "
 "richiedere"
 
-#: pubsite/templates/content.html:85
+#: pubsite/templates/content.html:87
 msgid "adding the service"
 msgstr ""
 
@@ -229,7 +261,19 @@ msgstr ""
 msgid "About"
 msgstr "Su di noi"
 
-#: pubsite/templates/mgmt.html:44
+#: pubsite/templates/mgmt.html:33
+msgid "Contribute"
+msgstr ""
+
+#: pubsite/templates/mgmt.html:36
+msgid "Log out"
+msgstr ""
+
+#: pubsite/templates/mgmt.html:40
+msgid "Sign in"
+msgstr ""
+
+#: pubsite/templates/mgmt.html:56
 msgid "All rights reserved"
 msgstr "Tutti i diritti riservati"
 
@@ -237,23 +281,23 @@ msgstr "Tutti i diritti riservati"
 msgid "Your request has been submited ! Thank you !"
 msgstr "La tua richiesta é stata inoltrata ! Grazie !"
 
-#: pubsite/views.py:64
+#: pubsite/views.py:66
 msgid "NPA does not exist"
 msgstr "Il CAP non esiste"
 
-#: stayhome/settings/base.py:115
+#: stayhome/settings/base.py:111
 msgid "English"
 msgstr "Inglese"
 
-#: stayhome/settings/base.py:116
+#: stayhome/settings/base.py:112
 msgid "German"
 msgstr "Tedesco"
 
-#: stayhome/settings/base.py:117
+#: stayhome/settings/base.py:113
 msgid "French"
 msgstr "Francese"
 
-#: stayhome/settings/base.py:118
+#: stayhome/settings/base.py:114
 msgid "Italian"
 msgstr "Italiano"
 
