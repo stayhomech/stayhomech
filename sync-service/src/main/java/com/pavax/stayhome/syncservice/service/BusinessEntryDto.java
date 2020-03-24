@@ -6,17 +6,13 @@ import javax.validation.constraints.Size;
 
 public class BusinessEntryDto {
 
-	@Size(max = 255)
 	private String categories;
 
-	@Size(max = 255)
 	private String delivery;
 
-	@Size(max = 1000)
 	@NotBlank
 	private String description;
 
-	@NotBlank
 	@Size(max = 255)
 	private String contact;
 
@@ -24,7 +20,7 @@ public class BusinessEntryDto {
 	private String email;
 
 	@NotNull
-	@Size(max = 255)
+	@Size(max = 200)
 	private String id;
 
 	@Size(max = 255)
@@ -35,7 +31,7 @@ public class BusinessEntryDto {
 	private String phone;
 
 	@NotBlank
-	@Size(max = 20)
+	@Size(max = 55)
 	private String providerName;
 
 	@Size(max = 255)
