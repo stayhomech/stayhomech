@@ -167,6 +167,11 @@ class Business(models.Model):
         blank=True
     )
 
+    delivers_to_ch = models.BooleanField(
+        default=False,
+        verbose_name='Delivers to whole Switzerland'
+    )
+
     website = models.URLField(
         blank=True
     )

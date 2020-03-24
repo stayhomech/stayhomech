@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render
 from django.views.generic import TemplateView, View, FormView
 from django.http import JsonResponse, Http404, HttpResponseRedirect
-from django.db.models import Q
+from django.db.models import Q, Case, When, Value, PositiveSmallIntegerField
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.translation import gettext_lazy as _
@@ -69,7 +69,10 @@ class ContentView(TemplateView):
         district = municipality.district_id
         canton = district.canton
 
+        npas = municipality.npa_set.all()
+
         context['npa'] = npa
+
         context['businesses'] = Business.objects.filter(
             Q(location=npa)
             |
@@ -80,7 +83,22 @@ class ContentView(TemplateView):
             Q(delivers_to_district__in=[district])
             |
             Q(delivers_to_canton__in=[canton])
-        ).distinct().order_by('name')
+            |
+            Q(delivers_to_ch=True)
+        ).distinct().annotate(
+            radius=Case(
+                When(location=npa, then=Value(0)),
+                When(location__in=npas, then=Value(1)),
+                When(delivers_to__in=[npa], then=Value(2)),
+                When(delivers_to_municipality__in=[municipality], then=Value(3)),
+                When(delivers_to_district__in=[district], then=Value(4)),
+                When(delivers_to_canton__in=[canton], then=Value(5)),
+                When(delivers_to_ch=True, then=Value(6)),
+                default=Value(7),
+                output_field=PositiveSmallIntegerField()
+            ),
+        ).order_by('radius', 'name')
+
         return context
 
 

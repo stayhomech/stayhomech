@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-22 14:15+0100\n"
+"POT-Creation-Date: 2020-03-24 12:08+0100\n"
 "PO-Revision-Date: 2020-03-22 14:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -38,7 +38,7 @@ msgstr "Beschreibe was angeboten wird."
 msgid "Main location"
 msgstr "Ort"
 
-#: business/forms/add_form.py:33
+#: business/forms/add_form.py:34
 #, fuzzy
 #| msgid "Where is based your company?"
 msgid "Where is the company based?"
@@ -96,6 +96,38 @@ msgstr "E-Mail, falls vorhanden."
 msgid "Convert to new business"
 msgstr ""
 
+#: privsite/templates/registration/login.html:9
+msgid "Please sign in"
+msgstr ""
+
+#: privsite/templates/registration/login.html:16
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: privsite/templates/registration/logout.html:15
+msgid "Thank you for your time today !"
+msgstr ""
+
+#: privsite/templates/registration/logout.html:22
+#, fuzzy
+#| msgid "Go back to home"
+msgid "Go back to homepage"
+msgstr "Zur Startseite"
+
+#: privsite/views.py:21
+#, fuzzy
+#| msgid "Send your request"
+msgid "Pending requests"
+msgstr "Absenden"
+
+#: privsite/views.py:22
+msgid "The following requets are available to process."
+msgstr ""
+
+#: privsite/views.py:34
+msgid "Convert request to business"
+msgstr ""
+
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
 msgid "Go back to home"
@@ -141,11 +173,11 @@ msgstr ""
 msgid "Send your request"
 msgstr "Absenden"
 
-#: pubsite/templates/base.html:26 pubsite/templates/base.html:30
+#: pubsite/templates/base.html:28 pubsite/templates/base.html:32
 msgid "Stay home ! We deliver..."
 msgstr "Bleib zu Hause, Wir liefern..."
 
-#: pubsite/templates/base.html:28 pubsite/templates/base.html:31
+#: pubsite/templates/base.html:30 pubsite/templates/base.html:33
 msgid ""
 "StayHome.ch is a directory of delivery services available in Switzerland "
 "based on visitor's location. It has been created to help Swiss people and "
@@ -167,31 +199,31 @@ msgstr "Neue Suche"
 msgid "Nothing left to show, try changing your filters."
 msgstr "Keine weiteren Angebote."
 
-#: pubsite/templates/content.html:51
+#: pubsite/templates/content.html:52
 msgid "Located at"
 msgstr "Standort"
 
-#: pubsite/templates/content.html:51
+#: pubsite/templates/content.html:52
 msgid "Delivers to"
 msgstr "Liefert nach"
 
-#: pubsite/templates/content.html:64
+#: pubsite/templates/content.html:66
 msgid "Visit website"
 msgstr "Besuche die Website"
 
-#: pubsite/templates/content.html:69
+#: pubsite/templates/content.html:71
 msgid "Call"
 msgstr "Anrufen"
 
-#: pubsite/templates/content.html:74
+#: pubsite/templates/content.html:76
 msgid "Send email"
 msgstr "E-Mail"
 
-#: pubsite/templates/content.html:84
+#: pubsite/templates/content.html:86
 msgid "No delivery service available at that location :-("
 msgstr "Leider haben wir noch keine Angebote gefunden für diesen Ort :("
 
-#: pubsite/templates/content.html:85
+#: pubsite/templates/content.html:87
 msgid ""
 "If you own or know a company that offers a delivery service at this "
 "location, please consider"
@@ -199,7 +231,7 @@ msgstr ""
 "Falls du eine Firma hast oder kennst, welche Lieferservices anbietet für "
 "diesen Ort, nutze das folgende Formular"
 
-#: pubsite/templates/content.html:85
+#: pubsite/templates/content.html:87
 msgid "adding the service"
 msgstr "Geschäft hinzufügen"
 
@@ -227,7 +259,19 @@ msgstr "Hilf uns auf GitHub"
 msgid "About"
 msgstr "Über uns"
 
-#: pubsite/templates/mgmt.html:44
+#: pubsite/templates/mgmt.html:33
+msgid "Contribute"
+msgstr ""
+
+#: pubsite/templates/mgmt.html:36
+msgid "Log out"
+msgstr ""
+
+#: pubsite/templates/mgmt.html:40
+msgid "Sign in"
+msgstr ""
+
+#: pubsite/templates/mgmt.html:56
 msgid "All rights reserved"
 msgstr "Alle Rechte vorbehalten"
 
@@ -235,23 +279,23 @@ msgstr "Alle Rechte vorbehalten"
 msgid "Your request has been submited ! Thank you !"
 msgstr "Deine Anfrage wurde gesendet! Danke dir!"
 
-#: pubsite/views.py:64
+#: pubsite/views.py:66
 msgid "NPA does not exist"
 msgstr "PLZ nicht gefunden"
 
-#: stayhome/settings/base.py:115
+#: stayhome/settings/base.py:111
 msgid "English"
 msgstr "English"
 
-#: stayhome/settings/base.py:116
+#: stayhome/settings/base.py:112
 msgid "German"
 msgstr "Deutsch"
 
-#: stayhome/settings/base.py:117
+#: stayhome/settings/base.py:113
 msgid "French"
 msgstr "Französisch"
 
-#: stayhome/settings/base.py:118
+#: stayhome/settings/base.py:114
 msgid "Italian"
 msgstr "Italienisch"
 

@@ -23,6 +23,7 @@
 {% block contrib-content %}
 <form id="businessAddForm" _lpchecked="1" method="post" action="{% url 'mgmt:convert' object.uuid %}">
 {% csrf_token %}
+<input type="hidden" name="parent_request" value="{{ object.uuid }}" />
 <div class="row mb-5">
     <div class="col-12 px-3 pb-3">
         <table class="container-fluid" style="width: 100%">
@@ -95,7 +96,9 @@
                 </td>
                 <td class="col-1"></td>
                 <td class="col-5 p-2">
-                    <p class="font-weight-bold m-0 mb-2">Cantons</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_ch %}
+                    {{ form.delivers_to_ch }}&nbsp;&nbsp;<span class="font-weight-bold">{{ form.delivers_to_ch.label }}</span>
+                    <p class="font-weight-bold m-0 mt-3 mb-2">Cantons</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_canton %}
                     {{ form.delivers_to_canton }}
                     <p class="font-weight-bold m-0 mt-3 mb-2">Districts</p>
@@ -177,11 +180,12 @@
     $(document).ready(() => {
 
         // Styling of form elements
-        $('#businessAddForm').find('textarea, input, select').addClass('form-control');
+        $('#businessAddForm').find('textarea, input:not([type="checkbox"]), select').addClass('form-control');
 
         // Select NPA option
         window.selectNPA = (npa) => {
-            $("select[name='location'] option:contains(" + npa + ")").prop('selected', true);
+            let val = $("select[name='location'] option:contains(" + npa + ")").val();
+            $('[name="location"]').val(val).trigger('change.select2');
         }
 
         // Actions
@@ -216,6 +220,7 @@
         }
 
         // Categories
+        $('[name="location"]').select2();
         $('[name="main_category"]').select2();
         $('[name="other_categories"]').select2();
         $('[name="delivers_to"]').select2();
