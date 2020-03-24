@@ -22,5 +22,6 @@ interface FeignBasedBusinessRepository {
 	BusinessRequest save(@RequestBody BusinessRequest businessRequest);
 
 	@PutMapping("/{id}/")
-	void update(@PathVariable String id, @RequestBody BusinessRequest businessRequest);
+	void update(@PathVariable("id") String id, @RequestBody BusinessRequest businessRequest);
+
 }
