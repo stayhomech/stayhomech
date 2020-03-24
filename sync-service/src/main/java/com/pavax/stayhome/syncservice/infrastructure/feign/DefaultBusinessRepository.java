@@ -5,11 +5,15 @@ import java.util.Optional;
 
 import com.pavax.stayhome.syncservice.domain.BusinessRequest;
 import com.pavax.stayhome.syncservice.domain.BusinessRequestRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
 class DefaultBusinessRepository implements BusinessRequestRepository {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBusinessRepository.class);
 
 	private final FeignBasedBusinessRepository feignBasedBusinessRepository;
 
@@ -28,6 +32,14 @@ class DefaultBusinessRepository implements BusinessRequestRepository {
 
 	@Override
 	public BusinessRequest save(BusinessRequest businessRequest) {
+		LOGGER.debug("Create a new Business-Request: {}", businessRequest.getSourceUUid());
 		return this.feignBasedBusinessRepository.save(businessRequest);
 	}
+
+	@Override
+	public void update(BusinessRequest businessRequest) {
+		LOGGER.debug("Update a existing Business-Request: {}", businessRequest.getUuid());
+		this.feignBasedBusinessRepository.update(businessRequest.getUuid(), businessRequest);
+	}
+
 }

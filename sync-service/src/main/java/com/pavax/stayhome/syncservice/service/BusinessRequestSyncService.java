@@ -38,11 +38,19 @@ public class BusinessRequestSyncService {
 				.setCategory(businessEntryDto.getCategories())
 				.setTtl(businessEntryDto.getTtl())
 				.setDelivery(businessEntryDto.getDelivery());
-		businessRequest.setCheckSum(this.buildCheckSum(businessRequest));
-		this.businessRequestRepository.save(businessRequest);
+		businessRequest.setChecksum(this.calculateChecksum(businessRequest));
+		if (isNew(businessRequest)) {
+			this.businessRequestRepository.save(businessRequest);
+		} else {
+			this.businessRequestRepository.update(businessRequest);
+		}
 	}
 
-	private String buildCheckSum(BusinessRequest businessRequest) {
+	private boolean isNew(BusinessRequest businessRequest) {
+		return businessRequest.getUuid() == null;
+	}
+
+	private String calculateChecksum(BusinessRequest businessRequest) {
 		final String checkSumString = businessRequest.getName() +
 				businessRequest.getDescription() +
 				businessRequest.getLocation() +

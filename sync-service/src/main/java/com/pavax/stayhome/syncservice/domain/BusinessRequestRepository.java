@@ -9,4 +9,6 @@ public interface BusinessRequestRepository {
 
 	BusinessRequest save(BusinessRequest businessRequest);
 
+	void update(BusinessRequest businessRequest);
+
 }
