@@ -3,12 +3,19 @@ import django
 
 from stayhome.wsgi import set_environment
 
+
 # Set environment and setup Django
 set_environment()
 django.setup()
 
-from django.contrib.auth.models import User
+
+from django.contrib.auth.models import User, Permission
 from rest_framework.authtoken.models import Token
+from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import get_object_or_404
+
+from business.models import Request
+
 
 def main():
 
@@ -24,7 +31,19 @@ def main():
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         user = User.objects.create_user(username, password=password)
-        user.save()
+
+    # Save user
+    user.save()
+
+    # Assign authorizations to user
+    perms = ['view_request', 'add_request', 'change_request']
+    for perm in perms:
+        content_type = ContentType.objects.get_for_model(Request)
+        permission = Permission.objects.get(
+            codename=perm,
+            content_type=content_type,
+        )
+        user.user_permissions.add(permission)
 
     # Create API key if it does not exist already
     try:
