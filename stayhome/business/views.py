@@ -1,10 +1,16 @@
 from rest_framework import viewsets
 
-from .models import Request
-from .serializers import RequestSerializer
+from .models import Request, Business
+from .serializers import RequestSerializer, BusinessSerializer
 
 
 class RequestViewSet(viewsets.ModelViewSet):
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
-    filterset_fields = ['uuid', 'source_uuid', 'checksum']
+    filter_fields = ['uuid', 'source_uuid', 'checksum']
+
+
+class BusinessViewSet(viewsets.ModelViewSet):
+    queryset = Business.objects.all()
+    serializer_class = BusinessSerializer
+    filter_fields = ['id', 'location__npa', 'location__name']
