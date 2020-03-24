@@ -73,7 +73,7 @@ class ContentView(TemplateView):
 
         context['npa'] = npa
 
-        context['businesses'] = Business.objects.filter(
+        context['businesses'] = Business.objects.filter(deleted=False).filter(
             Q(location=npa)
             |
             Q(delivers_to__in=[npa])
