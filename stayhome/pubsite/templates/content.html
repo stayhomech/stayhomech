@@ -41,6 +41,7 @@
                                 &nbsp;|&nbsp;
                             {% endif %}
                             {{ business.main_category }}
+                            <span class="align-right"></span>
                         </div>
                         <div class="card-body">
                             <div class="row mb-2">
@@ -48,7 +49,8 @@
                                     <h6 class="card-title mb-0" style="color: #B01E8D; font-weight: 800;">{{ business.name }}</h6>
                                 </div>
                                 <div class="col-6 text-right card-info">
-                                    <div class="card-text">{% blocktrans %}Located at{% endblocktrans %} {{ business.location.municipality }} - {% blocktrans %}Delivers to{% endblocktrans %} {{ npa }}</div>
+                                    <div class="card-text">{% blocktrans %}Located at{% endblocktrans %} {{ business.location }} - {% blocktrans %}Delivers to{% endblocktrans %} {{ npa }}</div>
+                                    <!-- Radius = {{ business.radius }} -->
                                 </div>
                             </div>
                             <div class="row mb-2">
