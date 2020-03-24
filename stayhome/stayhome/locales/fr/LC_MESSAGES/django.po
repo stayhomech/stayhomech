@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-24 12:08+0100\n"
+"POT-Creation-Date: 2020-03-24 23:23+0100\n"
 "PO-Revision-Date: 2020-03-21 15:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,35 +18,35 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: business/forms/add_form.py:16
+#: stayhome/business/forms/add_form.py:16
 msgid "Company name"
 msgstr "Nom de l'entreprise"
 
-#: business/forms/add_form.py:18
+#: stayhome/business/forms/add_form.py:18
 msgid "The name of the company."
 msgstr "Le nom de l'entreprise."
 
-#: business/forms/add_form.py:23
+#: stayhome/business/forms/add_form.py:23
 msgid "Description"
 msgstr "Description"
 
-#: business/forms/add_form.py:24
+#: stayhome/business/forms/add_form.py:24
 msgid "A short description of the services of the company."
 msgstr "Une brève description des activités de l'entreprise."
 
-#: business/forms/add_form.py:32
+#: stayhome/business/forms/add_form.py:32
 msgid "Main location"
 msgstr "Emplacement principal"
 
-#: business/forms/add_form.py:34
+#: stayhome/business/forms/add_form.py:34
 msgid "Where is the company based?"
 msgstr "Où se situe l'entreprise ?"
 
-#: business/forms/add_form.py:39
+#: stayhome/business/forms/add_form.py:39
 msgid "Categories"
 msgstr "Catégories"
 
-#: business/forms/add_form.py:41
+#: stayhome/business/forms/add_form.py:41
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
@@ -54,76 +54,79 @@ msgstr ""
 "Listez toutes les catégories possibles décrivant le service offert par "
 "l'entreprise (p.ex. Alimentation, Boissons, Livres, Musique, Jeux, Mobilité)"
 
-#: business/forms/add_form.py:46
+#: stayhome/business/forms/add_form.py:46
 msgid "Delivery perimeter"
 msgstr "Périmètre de livraison"
 
-#: business/forms/add_form.py:48
+#: stayhome/business/forms/add_form.py:48
 msgid "Where is the service available ?"
 msgstr "Où ce service est-il disponible ?"
 
-#: business/forms/add_form.py:53
+#: stayhome/business/forms/add_form.py:53
 msgid "Website"
 msgstr "Site Internet"
 
-#: business/forms/add_form.py:55
+#: stayhome/business/forms/add_form.py:55
 msgid "Company website, if any."
 msgstr "Site Internet, si existant."
 
-#: business/forms/add_form.py:61
+#: stayhome/business/forms/add_form.py:61
 msgid "Phone number"
 msgstr "Téléphone"
 
-#: business/forms/add_form.py:63
+#: stayhome/business/forms/add_form.py:63
 msgid "Company phone number, if any."
 msgstr "Numéro de téléphone de l'entreprise, si existant."
 
-#: business/forms/add_form.py:69
+#: stayhome/business/forms/add_form.py:69
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: business/forms/add_form.py:71
+#: stayhome/business/forms/add_form.py:71
 msgid "Company email address, if any."
 msgstr "Adresse e-mail de l'entreprise, si existant."
 
-#: business/templates/admin/business/request/change_form.html:6
+#: stayhome/business/templates/admin/business/request/change_form.html:6
 msgid "Convert to new business"
 msgstr "Convertir en service"
 
-#: privsite/templates/registration/login.html:9
+#: stayhome/privsite/templates/registration/login.html:9
 msgid "Please sign in"
 msgstr "Veuillez vous identifier"
 
-#: privsite/templates/registration/login.html:16
+#: stayhome/privsite/templates/registration/login.html:16
 msgid "Your username and password didn't match. Please try again."
-msgstr "Votre nom d'utilisateur et votre mot de passe ne correspondent pas. Veuillez réessayer."
+msgstr ""
+"Votre nom d'utilisateur et votre mot de passe ne correspondent pas. Veuillez "
+"réessayer."
 
-#: privsite/templates/registration/logout.html:15
+#: stayhome/privsite/templates/registration/logout.html:15
 msgid "Thank you for your time today !"
 msgstr "Merci pour votre temps aujourd'hui !"
 
-#: privsite/templates/registration/logout.html:22
+#: stayhome/privsite/templates/registration/logout.html:22
 msgid "Go back to homepage"
 msgstr "Retour à l'accueil"
 
-#: privsite/views.py:21
+#: stayhome/privsite/views.py:21
 msgid "Pending requests"
 msgstr "Requêtes en attente"
 
-#: privsite/views.py:22
+#: stayhome/privsite/views.py:22
 msgid "The following requets are available to process."
 msgstr "Les requêtes suivantes sont disponibles au traitement."
 
-#: privsite/views.py:34
+#: stayhome/privsite/views.py:34
 msgid "Convert request to business"
 msgstr "Convertir en service"
 
-#: pubsite/templates/about.html:8 pubsite/templates/add.html:8
-#: pubsite/templates/success.html:5
+#: stayhome/pubsite/templates/about.html:8
+#: stayhome/pubsite/templates/add.html:8
+#: stayhome/pubsite/templates/success.html:5
 msgid "Go back to home"
 msgstr "Retour à l'accueil"
 
-#: pubsite/templates/about.html:18
+#: stayhome/pubsite/templates/about.html:18
 msgid ""
 "is an initiative of a private person willing to help to cope with the "
 "consequences of the COVID-19 epidemy. It has no commercial purpose."
@@ -132,11 +135,11 @@ msgstr ""
 "faire face aux conséquences de l'épidémie de COVID-19. Elle n'a aucun "
 "objectif mercantile."
 
-#: pubsite/templates/about.html:21
+#: stayhome/pubsite/templates/about.html:21
 msgid "Should you have any question, please contact"
 msgstr "Si vous avez des question, merci de contacter"
 
-#: pubsite/templates/about.html:24
+#: stayhome/pubsite/templates/about.html:24
 msgid ""
 "If you want to help by translating or adding new features, you can find the "
 "current website code on "
@@ -144,11 +147,11 @@ msgstr ""
 "Si vous voulez aider à traduire ce site ou à ajouter de nouvelles "
 "fonctionnalités, vous pouvez trouver le code du projet sur "
 
-#: pubsite/templates/add.html:18
+#: stayhome/pubsite/templates/add.html:18
 msgid "We need your help !"
 msgstr "Aidez-nous !"
 
-#: pubsite/templates/add.html:19
+#: stayhome/pubsite/templates/add.html:19
 msgid ""
 "Currently, adding a business in <span style=\"color: seagreen;\">Stay</"
 "span>Home<span style=\"color: silver\">.ch</span> involves a manual process. "
@@ -159,15 +162,17 @@ msgstr ""
 "devons réaliser à la main. Merci de nous aider en remplissant le formulaire "
 "ci-dessous de manière aussi complète que possible !"
 
-#: pubsite/templates/add.html:48
+#: stayhome/pubsite/templates/add.html:48
 msgid "Send your request"
 msgstr "Envoyer votre demande"
 
-#: pubsite/templates/base.html:28 pubsite/templates/base.html:32
+#: stayhome/pubsite/templates/base.html:28
+#: stayhome/pubsite/templates/base.html:32
 msgid "Stay home ! We deliver..."
 msgstr "Restez à la maison ! Nous livrons..."
 
-#: pubsite/templates/base.html:30 pubsite/templates/base.html:33
+#: stayhome/pubsite/templates/base.html:30
+#: stayhome/pubsite/templates/base.html:33
 msgid ""
 "StayHome.ch is a directory of delivery services available in Switzerland "
 "based on visitor's location. It has been created to help Swiss people and "
@@ -177,43 +182,55 @@ msgstr ""
 "basé sur l'emplacement du visiteur. Il a été créé pour aider la population "
 "et les entreprises suisses à faire face à la crise du COVID-19."
 
-#: pubsite/templates/content.html:7
+#: stayhome/pubsite/templates/content.html:7
 msgid "Results for"
 msgstr "Résultats pour"
 
-#: pubsite/templates/content.html:11
+#: stayhome/pubsite/templates/content.html:11
 msgid "Change"
 msgstr "Changer"
 
-#: pubsite/templates/content.html:34
+#: stayhome/pubsite/templates/content.html:34
 msgid "Nothing left to show, try changing your filters."
 msgstr "Il ne nous reste rien à vous montrer, essayez de changer vos filtres."
 
-#: pubsite/templates/content.html:52
+#: stayhome/pubsite/templates/content.html:50
 msgid "Located at"
 msgstr "Basé à"
 
-#: pubsite/templates/content.html:52
-msgid "Delivers to"
-msgstr "Livre à"
+#: stayhome/pubsite/templates/content.html:62
+msgid "This service delivers to :"
+msgstr "Ce service livre à :"
 
-#: pubsite/templates/content.html:66
+#: stayhome/pubsite/templates/content.html:70
+msgid "Use this link to report any problem with this service."
+msgstr "Utilisez ce lien pour signaler un problème avec ce service."
+
+#: stayhome/pubsite/templates/content.html:77
+msgid "See less"
+msgstr "Voir moins"
+
+#: stayhome/pubsite/templates/content.html:82
+msgid "See more"
+msgstr "Voir plus"
+
+#: stayhome/pubsite/templates/content.html:90
 msgid "Visit website"
 msgstr "Site Internet"
 
-#: pubsite/templates/content.html:71
+#: stayhome/pubsite/templates/content.html:95
 msgid "Call"
 msgstr "Appeler"
 
-#: pubsite/templates/content.html:76
+#: stayhome/pubsite/templates/content.html:100
 msgid "Send email"
 msgstr "Envoyer e-mail"
 
-#: pubsite/templates/content.html:86
+#: stayhome/pubsite/templates/content.html:110
 msgid "No delivery service available at that location :-("
 msgstr "Aucun service de livraison n'est disponible à cet endroit :-("
 
-#: pubsite/templates/content.html:87
+#: stayhome/pubsite/templates/content.html:111
 msgid ""
 "If you own or know a company that offers a delivery service at this "
 "location, please consider"
@@ -221,15 +238,15 @@ msgstr ""
 "Si vous possédez ou connaissez une entreprise qui offre un service de "
 "livraison à cet endroit, vous pouvez demander"
 
-#: pubsite/templates/content.html:87
+#: stayhome/pubsite/templates/content.html:111
 msgid "adding the service"
 msgstr "l'ajout du service"
 
-#: pubsite/templates/home.html:24
+#: stayhome/pubsite/templates/home.html:24
 msgid "Where are you ?"
 msgstr "Où êtes-vous ?"
 
-#: pubsite/templates/home.html:30
+#: stayhome/pubsite/templates/home.html:30
 msgid ""
 "Enter your post code or city name. For Switzerland <i class=\"icon-plus-sign-"
 "alt\" style=\"color: red;\"></i> only ;-)"
@@ -237,57 +254,77 @@ msgstr ""
 "Entrez votre code postal ou le nom de votre ville. Pour la Suisse <i class="
 "\"icon-plus-sign-alt\" style=\"color: red;\"></i> uniquement ;-)"
 
-#: pubsite/templates/home.html:43 pubsite/templates/mgmt.html:26
+#: stayhome/pubsite/templates/home.html:43
+#: stayhome/pubsite/templates/mgmt.html:26
 msgid "Add your business"
 msgstr "Ajouter votre service"
 
-#: pubsite/templates/home.html:43
+#: stayhome/pubsite/templates/home.html:43
 msgid "Help us on GitHub"
 msgstr "Aidez-nous sur GitHub"
 
-#: pubsite/templates/mgmt.html:29
+#: stayhome/pubsite/templates/includes/deliver_to_list.html:4
+msgid "Everywhere in Switzerland"
+msgstr "Partout en Suisse"
+
+#: stayhome/pubsite/templates/includes/deliver_to_list.html:12
+msgid "District"
+msgstr "District"
+
+#: stayhome/pubsite/templates/includes/deliver_to_list.html:16
+msgid "Municipality"
+msgstr "Commune"
+
+#: stayhome/pubsite/templates/includes/deliver_to_list.html:20
+msgid "Postal code"
+msgstr "Code postal"
+
+#: stayhome/pubsite/templates/mgmt.html:29
 msgid "About"
 msgstr "A propos"
 
-#: pubsite/templates/mgmt.html:33
+#: stayhome/pubsite/templates/mgmt.html:33
 msgid "Contribute"
 msgstr "Contribuer"
 
-#: pubsite/templates/mgmt.html:36
+#: stayhome/pubsite/templates/mgmt.html:36
 msgid "Log out"
 msgstr "Log out"
 
-#: pubsite/templates/mgmt.html:40
+#: stayhome/pubsite/templates/mgmt.html:40
 msgid "Sign in"
 msgstr "Sign in"
 
-#: pubsite/templates/mgmt.html:56
+#: stayhome/pubsite/templates/mgmt.html:56
 msgid "All rights reserved"
 msgstr "Tous droits réservés"
 
-#: pubsite/templates/success.html:12
+#: stayhome/pubsite/templates/success.html:12
 msgid "Your request has been submited ! Thank you !"
 msgstr "Votre demande a été transmise ! Merci !"
 
-#: pubsite/views.py:66
+#: stayhome/pubsite/views.py:66
 msgid "NPA does not exist"
 msgstr "Le NPA n'existe pas"
 
-#: stayhome/settings/base.py:111
+#: stayhome/stayhome/settings/base.py:111
 msgid "English"
 msgstr "Anglais"
 
-#: stayhome/settings/base.py:112
+#: stayhome/stayhome/settings/base.py:112
 msgid "German"
 msgstr "Allemand"
 
-#: stayhome/settings/base.py:113
+#: stayhome/stayhome/settings/base.py:113
 msgid "French"
 msgstr "Français"
 
-#: stayhome/settings/base.py:114
+#: stayhome/stayhome/settings/base.py:114
 msgid "Italian"
 msgstr "Italien"
+
+#~ msgid "Delivers to"
+#~ msgstr "Livre à"
 
 #~ msgid "The name of your company as shown on the website."
 #~ msgstr "Le nom de l'entreprise tel qu'il sera affiché."
