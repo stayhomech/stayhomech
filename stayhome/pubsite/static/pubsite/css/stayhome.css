@@ -38,7 +38,6 @@ A:hover:not(.btn) {
 }
 
 .card-header {
-    font-size: .9em;
     padding: 8px 16px;
 }
 
@@ -50,17 +49,14 @@ A:hover:not(.btn) {
     font-size: .9em;
 }
 
-.card-description {
+.sh-crop {
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    max-height: 4.5em;
 }
 
 .card-footer {
     font-size: .9em;
-    padding: 8px 16px;
 }
 
 .select2-results__option[aria-selected=true] {

@@ -1,0 +1,21 @@
+{% load static %}
+
+{% if business.delivers_to_ch %}
+<p><img src="{% static 'pubsite/flags/CH.webp' %}" style="width: 12px">&nbsp;&nbsp;{% blocktrans %}Everywhere in Switzerland{% endblocktrans %}</p>
+{% endif %}
+
+{% for canton in business.delivers_to_canton.all %}
+<p><img src="{% static 'pubsite/flags/'|add:canton.code|add:'.webp' %}" style="width: 12px">&nbsp;&nbsp;{{ canton }}</p>
+{% endfor %}
+
+{% for district in business.delivers_to_district.all %}
+<p>{% blocktrans %}District{% endblocktrans %}: {{ district }}</p>
+{% endfor %}
+
+{% for municipality in business.delivers_to_municipality.all %}
+<p>{% blocktrans %}Municipality{% endblocktrans %}: {{ municipality }}</p>
+{% endfor %}
+
+{% for npa in business.delivers_to.all %}
+<p>{% blocktrans %}Postal code{% endblocktrans %}: {{ npa }}</p>
+{% endfor %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-24 12:08+0100\n"
+"POT-Creation-Date: 2020-03-24 23:27+0100\n"
 "PO-Revision-Date: 2020-03-20 13:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -197,31 +197,43 @@ msgstr "Modificare"
 msgid "Nothing left to show, try changing your filters."
 msgstr "Nessun risultato, provate a cambiare i vostri filtri."
 
-#: pubsite/templates/content.html:52
+#: pubsite/templates/content.html:50
 msgid "Located at"
 msgstr "Situato a"
 
-#: pubsite/templates/content.html:52
-msgid "Delivers to"
-msgstr "Consegna a"
+#: pubsite/templates/content.html:62
+msgid "This service delivers to :"
+msgstr ""
 
-#: pubsite/templates/content.html:66
+#: pubsite/templates/content.html:70
+msgid "Use this link to report any problem with this service."
+msgstr ""
+
+#: pubsite/templates/content.html:77
+msgid "See less"
+msgstr ""
+
+#: pubsite/templates/content.html:82
+msgid "See more"
+msgstr ""
+
+#: pubsite/templates/content.html:90
 msgid "Visit website"
 msgstr "Sito web"
 
-#: pubsite/templates/content.html:71
+#: pubsite/templates/content.html:95
 msgid "Call"
 msgstr "Chiamare"
 
-#: pubsite/templates/content.html:76
+#: pubsite/templates/content.html:100
 msgid "Send email"
 msgstr "Inviare email"
 
-#: pubsite/templates/content.html:86
+#: pubsite/templates/content.html:110
 msgid "No delivery service available at that location :-("
 msgstr "Nessun servizio di consegna disponibile in quest'area :-("
 
-#: pubsite/templates/content.html:87
+#: pubsite/templates/content.html:111
 #, fuzzy
 #| msgid ""
 #| "If you own a company that offers a delivery service at this location, "
@@ -233,7 +245,7 @@ msgstr ""
 "Se possedete un'azienda che offre consegne a domicilio in quest'area, potete "
 "richiedere"
 
-#: pubsite/templates/content.html:87
+#: pubsite/templates/content.html:111
 msgid "adding the service"
 msgstr ""
 
@@ -255,6 +267,22 @@ msgstr "Aggiungi il tuo servizio"
 
 #: pubsite/templates/home.html:43
 msgid "Help us on GitHub"
+msgstr ""
+
+#: pubsite/templates/includes/deliver_to_list.html:4
+msgid "Everywhere in Switzerland"
+msgstr ""
+
+#: pubsite/templates/includes/deliver_to_list.html:12
+msgid "District"
+msgstr ""
+
+#: pubsite/templates/includes/deliver_to_list.html:16
+msgid "Municipality"
+msgstr ""
+
+#: pubsite/templates/includes/deliver_to_list.html:20
+msgid "Postal code"
 msgstr ""
 
 #: pubsite/templates/mgmt.html:29
@@ -300,6 +328,9 @@ msgstr "Francese"
 #: stayhome/settings/base.py:114
 msgid "Italian"
 msgstr "Italiano"
+
+#~ msgid "Delivers to"
+#~ msgstr "Consegna a"
 
 #~ msgid "adding your business"
 #~ msgstr "l'aggiunta del vostro servizio"

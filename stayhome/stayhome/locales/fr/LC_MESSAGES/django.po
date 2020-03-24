@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-24 12:08+0100\n"
+"POT-Creation-Date: 2020-03-24 23:27+0100\n"
 "PO-Revision-Date: 2020-03-21 15:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -96,7 +96,9 @@ msgstr "Veuillez vous identifier"
 
 #: privsite/templates/registration/login.html:16
 msgid "Your username and password didn't match. Please try again."
-msgstr "Votre nom d'utilisateur et votre mot de passe ne correspondent pas. Veuillez réessayer."
+msgstr ""
+"Votre nom d'utilisateur et votre mot de passe ne correspondent pas. Veuillez "
+"réessayer."
 
 #: privsite/templates/registration/logout.html:15
 msgid "Thank you for your time today !"
@@ -189,31 +191,43 @@ msgstr "Changer"
 msgid "Nothing left to show, try changing your filters."
 msgstr "Il ne nous reste rien à vous montrer, essayez de changer vos filtres."
 
-#: pubsite/templates/content.html:52
+#: pubsite/templates/content.html:50
 msgid "Located at"
 msgstr "Basé à"
 
-#: pubsite/templates/content.html:52
-msgid "Delivers to"
-msgstr "Livre à"
+#: pubsite/templates/content.html:62
+msgid "This service delivers to :"
+msgstr "Ce service livre à :"
 
-#: pubsite/templates/content.html:66
+#: pubsite/templates/content.html:70
+msgid "Use this link to report any problem with this service."
+msgstr "Utilisez ce lien pour signaler un problème avec ce service."
+
+#: pubsite/templates/content.html:77
+msgid "See less"
+msgstr "Voir moins"
+
+#: pubsite/templates/content.html:82
+msgid "See more"
+msgstr "Voir plus"
+
+#: pubsite/templates/content.html:90
 msgid "Visit website"
 msgstr "Site Internet"
 
-#: pubsite/templates/content.html:71
+#: pubsite/templates/content.html:95
 msgid "Call"
 msgstr "Appeler"
 
-#: pubsite/templates/content.html:76
+#: pubsite/templates/content.html:100
 msgid "Send email"
 msgstr "Envoyer e-mail"
 
-#: pubsite/templates/content.html:86
+#: pubsite/templates/content.html:110
 msgid "No delivery service available at that location :-("
 msgstr "Aucun service de livraison n'est disponible à cet endroit :-("
 
-#: pubsite/templates/content.html:87
+#: pubsite/templates/content.html:111
 msgid ""
 "If you own or know a company that offers a delivery service at this "
 "location, please consider"
@@ -221,7 +235,7 @@ msgstr ""
 "Si vous possédez ou connaissez une entreprise qui offre un service de "
 "livraison à cet endroit, vous pouvez demander"
 
-#: pubsite/templates/content.html:87
+#: pubsite/templates/content.html:111
 msgid "adding the service"
 msgstr "l'ajout du service"
 
@@ -244,6 +258,22 @@ msgstr "Ajouter votre service"
 #: pubsite/templates/home.html:43
 msgid "Help us on GitHub"
 msgstr "Aidez-nous sur GitHub"
+
+#: pubsite/templates/includes/deliver_to_list.html:4
+msgid "Everywhere in Switzerland"
+msgstr "Partout en Suisse"
+
+#: pubsite/templates/includes/deliver_to_list.html:12
+msgid "District"
+msgstr "District"
+
+#: pubsite/templates/includes/deliver_to_list.html:16
+msgid "Municipality"
+msgstr "Commune"
+
+#: pubsite/templates/includes/deliver_to_list.html:20
+msgid "Postal code"
+msgstr "Code postal"
 
 #: pubsite/templates/mgmt.html:29
 msgid "About"
@@ -288,6 +318,9 @@ msgstr "Français"
 #: stayhome/settings/base.py:114
 msgid "Italian"
 msgstr "Italien"
+
+#~ msgid "Delivers to"
+#~ msgstr "Livre à"
 
 #~ msgid "The name of your company as shown on the website."
 #~ msgstr "Le nom de l'entreprise tel qu'il sera affiché."
