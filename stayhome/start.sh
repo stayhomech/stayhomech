@@ -29,7 +29,7 @@ if [ ! -f "datasets/.imported" ]; then
     python manage.py geo_import_municipalities datasets/municipalities.csv
 
     # Not importing anymore
-    touch datasets/.imported
+    echo "" > datasets/.imported
 
 fi
 

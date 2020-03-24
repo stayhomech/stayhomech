@@ -17,9 +17,6 @@ def set_environment():
 
     # Choosing environment
     RUNNING_ENV = os.environ.get("RUNNING_ENV", default='dev-nodb')
-    print('******************************************************************************')
-    print('  Running env : %s' % RUNNING_ENV)
-    print('******************************************************************************')
     if RUNNING_ENV == 'prod':
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.prod')
     elif RUNNING_ENV == 'dev':
