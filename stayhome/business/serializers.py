@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Request
+from .models import Request, Business
 
 
 class RequestSerializer(serializers.ModelSerializer):
@@ -20,3 +20,13 @@ class RequestSerializer(serializers.ModelSerializer):
         fields = ['uuid', 'handled', 'deleted', 'creation', 'update', 'ttl', 'source', 
         'source_uuid', 'name', 'description', 'location', 'contact', 'website', 'phone', 'email', 
         'category', 'delivery', 'checksum']
+
+
+class BusinessSerializer(serializers.ModelSerializer):
+
+    location_npa = serializers.IntegerField(source="location.npa", read_only=True)
+    location_name = serializers.CharField(source="location.name", read_only=True)
+
+    class Meta:
+        model = Business
+        fields = ['id', 'location_npa', 'location_name', 'description', 'main_category', 'other_categories', 'website', 'phone', 'email']
