@@ -55,19 +55,6 @@
             </tr>
             <tr class="row p-3 border-bottom">
                 <td class="col-2 p-2">
-                    <strong>Location</strong>
-                </td>
-                <td class="col-4 p-2 border" id="request-location">
-                    {{ object.location }}
-                </td>
-                <td class="col-1"></td>
-                <td class="col-5 p-2">
-                    {% include 'includes/requests_convert_errors.html' with field=form.location %}
-                    {{ form.location }}
-                </td>
-            </tr>
-            <tr class="row p-3 border-bottom">
-                <td class="col-2 p-2">
                     <strong>Categories</strong>
                 </td>
                 <td class="col-4 p-2 border">
@@ -118,6 +105,32 @@
                 </td>
                 <td class="col-10 p-2 border">
                     {{ object.contact }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>Address</strong>
+                </td>
+                <td class="col-4 p-2 border" id="request-address">
+                    {{ object.address }}
+                </td>
+                {% include "includes/requests_convert_actions.html" with field='address' %}
+                <td class="col-5 p-2">
+                    {% include 'includes/requests_convert_errors.html' with field=form.address %}
+                    {{ form.address }}
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-2 p-2">
+                    <strong>City</strong>
+                </td>
+                <td class="col-4 p-2 border" id="request-location">
+                    {{ object.location }}
+                </td>
+                <td class="col-1"></td>
+                <td class="col-5 p-2">
+                    {% include 'includes/requests_convert_errors.html' with field=form.location %}
+                    {{ form.location }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
@@ -198,25 +211,31 @@
         }
 
         // Try to find NPA in location
-        var npa = $('#request-location').html().match(/[0-9]{4}/);
-        if (npa) {
-            $.getJSON(
-                '{% url 'location' %}', 
-                { 'q': npa[0] },
-                (data) => {
-                    if (data.length == 1) {
-                        selectNPA(data[0]);
+        var npa_pk = [...$('#request-location').html().matchAll(/\[PK:([0-9]+)\]/g)];
+        if (npa_pk) {
+            console.log(npa_pk);
+            $('[name="location"]').val(npa_pk[0][1]).trigger('change.select2');
+        } else {
+            var npa = $('#request-location').html().match(/[0-9]{4}/);
+            if (npa) {
+                $.getJSON(
+                    '{% url 'location' %}', 
+                    { 'q': npa[0] },
+                    (data) => {
+                        if (data.length == 1) {
+                            selectNPA(data[0]);
+                        }
+                        else if (data.length > 1) {
+                            var bt = '<p>Found multiple possibilites :'
+                            data.forEach((el) => { 
+                                bt += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:selectNPA(\'' + el + '\')">' + el + '</a>';
+                            });
+                            bt += '</p>';
+                            $("select[name='location']").before(bt);
+                        }
                     }
-                    else if (data.length > 1) {
-                        var bt = '<p>Found multiple possibilites :'
-                        data.forEach((el) => { 
-                            bt += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:selectNPA(\'' + el + '\')">' + el + '</a>';
-                        });
-                        bt += '</p>';
-                        $("select[name='location']").before(bt);
-                    }
-                }
-            );
+                );
+            }
         }
 
         // Categories

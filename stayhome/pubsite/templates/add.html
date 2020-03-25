@@ -17,6 +17,7 @@
                 <div class="alert alert-info" role="alert">
                 <h4 class="alert-heading">{% blocktrans %}We need your help !{% endblocktrans %}</h4>
                 {% blocktrans %}Currently, adding a business in <span style="color: seagreen;">Stay</span>Home<span style="color: silver">.ch</span> involves a manual process. Please fill the form below as thoroughly as possible to help us with this !{% endblocktrans %}
+                {% blocktrans %}The processing of your request may take up to 24 hours. Please be patient. Thank you!{% endblocktrans %}
                 </div>
                 <form method="POST" action="{% url 'add' %}">
                     {% csrf_token %}
@@ -55,4 +56,13 @@
 
 {% block script %}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script>
+    
+        $(document).ready(() => {
+            $('[name="location"]').select2();
+        });
+    
+    </script>
+
 {% endblock %}

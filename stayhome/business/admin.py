@@ -11,9 +11,11 @@ from .models import Business, Category, Request
 
 @admin.register(Business)
 class BusinessAdmin(admin.ModelAdmin):
+    
     list_display = ('name', 'location', 'main_category')
     ordering = ('name',)
     filter_horizontal = ('other_categories', 'delivers_to', 'delivers_to_canton', 'delivers_to_municipality', 'delivers_to_district')
+    search_fields = ('name', 'location__npa', 'location__name')
 
     def add_view(self, request, form_url='', extra_context=None):
 
@@ -50,8 +52,10 @@ class BusinessAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin):
-    list_display = ('name',)
+
+    list_display = ('name', 'name_en', 'name_fr', 'name_de', 'name_it')
     mptt_level_indent = 20
+
 
 @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
@@ -59,4 +63,4 @@ class RequestAdmin(admin.ModelAdmin):
     list_display = ('creation', 'name', 'location', 'source', 'handled', 'deleted')
     ordering = ('-creation',)
     list_filter = ('source', 'handled', 'deleted')
-    search_fields = ('name', 'location__npa', 'location__name')
+    search_fields = ('name',)

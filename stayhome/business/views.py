@@ -13,7 +13,7 @@ class RequestViewSet(viewsets.ModelViewSet):
 class BusinessViewSet(viewsets.ModelViewSet):
     queryset = Business.objects.filter(deleted=False)
     serializer_class = BusinessSerializer
-    filter_fields = ['id', 'location__npa', 'location__name']
+    filter_fields = ['id', 'location__npa']
 
 
 class CategoryViewSet(viewsets.ModelViewSet):

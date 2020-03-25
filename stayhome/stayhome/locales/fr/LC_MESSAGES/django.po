@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-24 23:27+0100\n"
+"POT-Creation-Date: 2020-03-25 12:08+0100\n"
 "PO-Revision-Date: 2020-03-21 15:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,27 +26,35 @@ msgstr "Nom de l'entreprise"
 msgid "The name of the company."
 msgstr "Le nom de l'entreprise."
 
-#: business/forms/add_form.py:23
+#: business/forms/add_form.py:25
 msgid "Description"
 msgstr "Description"
 
-#: business/forms/add_form.py:24
+#: business/forms/add_form.py:26
 msgid "A short description of the services of the company."
 msgstr "Une brève description des activités de l'entreprise."
 
-#: business/forms/add_form.py:32
-msgid "Main location"
-msgstr "Emplacement principal"
-
 #: business/forms/add_form.py:34
+msgid "Street and number"
+msgstr "Rue et numéro"
+
+#: business/forms/add_form.py:36
+msgid "The street and street number of your address"
+msgstr "La rue et le numéro de bâtiment"
+
+#: business/forms/add_form.py:43
+msgid "City"
+msgstr "Localité"
+
+#: business/forms/add_form.py:44
 msgid "Where is the company based?"
 msgstr "Où se situe l'entreprise ?"
 
-#: business/forms/add_form.py:39
+#: business/forms/add_form.py:52
 msgid "Categories"
 msgstr "Catégories"
 
-#: business/forms/add_form.py:41
+#: business/forms/add_form.py:54
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
@@ -54,35 +62,37 @@ msgstr ""
 "Listez toutes les catégories possibles décrivant le service offert par "
 "l'entreprise (p.ex. Alimentation, Boissons, Livres, Musique, Jeux, Mobilité)"
 
-#: business/forms/add_form.py:46
-msgid "Delivery perimeter"
-msgstr "Périmètre de livraison"
+#: business/forms/add_form.py:61
+msgid "Delivery locations"
+msgstr "Livre à"
 
-#: business/forms/add_form.py:48
-msgid "Where is the service available ?"
-msgstr "Où ce service est-il disponible ?"
+#: business/forms/add_form.py:63
+msgid ""
+"Where are you delivering ? Whole Switzerland, cantons, districts, "
+"municipalities, be as precise as possible."
+msgstr "Où livrez-vous? Toute la Suisse, cantons, districts, communes, soyez aussi précis que possible."
 
-#: business/forms/add_form.py:53
+#: business/forms/add_form.py:70
 msgid "Website"
 msgstr "Site Internet"
 
-#: business/forms/add_form.py:55
+#: business/forms/add_form.py:72
 msgid "Company website, if any."
 msgstr "Site Internet, si existant."
 
-#: business/forms/add_form.py:61
+#: business/forms/add_form.py:80
 msgid "Phone number"
 msgstr "Téléphone"
 
-#: business/forms/add_form.py:63
+#: business/forms/add_form.py:82
 msgid "Company phone number, if any."
 msgstr "Numéro de téléphone de l'entreprise, si existant."
 
-#: business/forms/add_form.py:69
+#: business/forms/add_form.py:90
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: business/forms/add_form.py:71
+#: business/forms/add_form.py:92
 msgid "Company email address, if any."
 msgstr "Adresse e-mail de l'entreprise, si existant."
 
@@ -161,7 +171,13 @@ msgstr ""
 "devons réaliser à la main. Merci de nous aider en remplissant le formulaire "
 "ci-dessous de manière aussi complète que possible !"
 
-#: pubsite/templates/add.html:48
+#: pubsite/templates/add.html:20
+msgid ""
+"The processing of your request may take up to 24 hours. Please be patient. "
+"Thank you!"
+msgstr "Le traitement de votre demande peut prendre jusqu'à 24 heures. Merci de votre patience."
+
+#: pubsite/templates/add.html:49
 msgid "Send your request"
 msgstr "Envoyer votre demande"
 
@@ -296,8 +312,13 @@ msgid "All rights reserved"
 msgstr "Tous droits réservés"
 
 #: pubsite/templates/success.html:12
-msgid "Your request has been submited ! Thank you !"
-msgstr "Votre demande a été transmise ! Merci !"
+msgid "Your request has been submited! Thank you!"
+msgstr "Votre demande a été transmise! Merci!"
+
+#: pubsite/templates/success.html:13
+msgid ""
+"The processing of your request may take up to 24 hours. Please be patient."
+msgstr "Le traitement de votre demande peut prendre jusqu'à 24 heures. Merci de votre patience."
 
 #: pubsite/views.py:66
 msgid "NPA does not exist"
@@ -319,8 +340,14 @@ msgstr "Français"
 msgid "Italian"
 msgstr "Italien"
 
-#~ msgid "Delivers to"
-#~ msgstr "Livre à"
+#~ msgid "Main location"
+#~ msgstr "Emplacement principal"
+
+#~ msgid "Delivery perimeter"
+#~ msgstr "Périmètre de livraison"
+
+#~ msgid "Where is the service available ?"
+#~ msgstr "Où ce service est-il disponible ?"
 
 #~ msgid "The name of your company as shown on the website."
 #~ msgstr "Le nom de l'entreprise tel qu'il sera affiché."
