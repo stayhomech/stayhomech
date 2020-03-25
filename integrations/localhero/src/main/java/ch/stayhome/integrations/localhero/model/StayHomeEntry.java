@@ -15,6 +15,10 @@ public class StayHomeEntry {
 
     @NotNull
     @NonNull
+    private String providerName;
+
+    @NotNull
+    @NonNull
     private String name;
 
     @NotNull
@@ -22,10 +26,27 @@ public class StayHomeEntry {
     private String description;
 
     @NotNull
+    private String contact;
+
     @NonNull
-    private String website;
+    private String location;
+
+    @NonNull
+    private String email;
+
+    @NonNull
+    private String phone;
+
+    @NonNull
+    private String delivery;
+
+    @NonNull
+    private String categories;
+
+    @NonNull
+    private Integer ttl;
 
     @NotNull
     @NonNull
-    private String providerName;
+    private String website;
 }
