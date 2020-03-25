@@ -84,6 +84,7 @@ services:
     restart: always
     volumes:
       - api_key:/api
+      - datasets:/code/datasets
 
   sync-service:
     build: sync-service/
@@ -110,6 +111,7 @@ services:
 volumes:
   db_data:
   api_key:
+  datasets:
   certs:
   vhosts:
   html:
