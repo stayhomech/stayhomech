@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-25 12:08+0100\n"
-"PO-Revision-Date: 2020-03-22 14:56+0100\n"
+"POT-Creation-Date: 2020-03-26 00:13+0100\n"
+"PO-Revision-Date: 2020-03-26 00:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -36,19 +36,17 @@ msgstr "Beschreibe was angeboten wird."
 
 #: business/forms/add_form.py:34
 msgid "Street and number"
-msgstr ""
+msgstr "Strasse + Nr"
 
 #: business/forms/add_form.py:36
 msgid "The street and street number of your address"
-msgstr ""
+msgstr "Strasse und Nummer der Geschäftes"
 
 #: business/forms/add_form.py:43
 msgid "City"
-msgstr ""
+msgstr "Ort"
 
 #: business/forms/add_form.py:44
-#, fuzzy
-#| msgid "Where is based your company?"
 msgid "Where is the company based?"
 msgstr "Wo ist das Geschäft?"
 
@@ -65,8 +63,6 @@ msgstr ""
 "Musik, Spiele, Mobilität, etc)"
 
 #: business/forms/add_form.py:61
-#, fuzzy
-#| msgid "Delivers to"
 msgid "Delivery locations"
 msgstr "Liefert nach"
 
@@ -75,14 +71,14 @@ msgid ""
 "Where are you delivering ? Whole Switzerland, cantons, districts, "
 "municipalities, be as precise as possible."
 msgstr ""
+"Bis wohin wird geliefert? Ganze Schweiz, Kantone, Bezirke, Orte - Sei so "
+"genau wie möglich."
 
 #: business/forms/add_form.py:70
 msgid "Website"
 msgstr "Homepage"
 
 #: business/forms/add_form.py:72
-#, fuzzy
-#| msgid "Company website."
 msgid "Company website, if any."
 msgstr ""
 "Homepage-Link (Kann auch eine Facebook-Seite sein, Instagram-Profil oder "
@@ -106,39 +102,36 @@ msgstr "E-Mail, falls vorhanden."
 
 #: business/templates/admin/business/request/change_form.html:6
 msgid "Convert to new business"
-msgstr ""
+msgstr "In ein neues Geschäfts umwandeln"
 
 #: privsite/templates/registration/login.html:9
 msgid "Please sign in"
-msgstr ""
+msgstr "Bitte einloggen"
 
 #: privsite/templates/registration/login.html:16
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
+"Benutzername und Passwort stimmen nicht überein. Bitte nochmals versuichen."
 
 #: privsite/templates/registration/logout.html:15
 msgid "Thank you for your time today !"
-msgstr ""
+msgstr "Danke für deine Zeit!"
 
 #: privsite/templates/registration/logout.html:22
-#, fuzzy
-#| msgid "Go back to home"
 msgid "Go back to homepage"
 msgstr "Zur Startseite"
 
 #: privsite/views.py:21
-#, fuzzy
-#| msgid "Send your request"
 msgid "Pending requests"
-msgstr "Absenden"
+msgstr "Offene Anfragen"
 
 #: privsite/views.py:22
 msgid "The following requets are available to process."
-msgstr ""
+msgstr "Die folgenden Anfragen sind bereit zum verarbeiten."
 
 #: privsite/views.py:34
 msgid "Convert request to business"
-msgstr ""
+msgstr "Anfrage in ein Geschäft umwandeln"
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
@@ -186,6 +179,8 @@ msgid ""
 "The processing of your request may take up to 24 hours. Please be patient. "
 "Thank you!"
 msgstr ""
+"Die Verarbeitung deiner Anfrage kann bis zu 24h dauern. Danke für deine "
+"Geduld!"
 
 #: pubsite/templates/add.html:49
 msgid "Send your request"
@@ -223,19 +218,19 @@ msgstr "Standort"
 
 #: pubsite/templates/content.html:62
 msgid "This service delivers to :"
-msgstr ""
+msgstr "Liefert nach:"
 
 #: pubsite/templates/content.html:70
 msgid "Use this link to report any problem with this service."
-msgstr ""
+msgstr "Eintrag melden."
 
 #: pubsite/templates/content.html:77
 msgid "See less"
-msgstr ""
+msgstr "Weniger Infos"
 
 #: pubsite/templates/content.html:82
 msgid "See more"
-msgstr ""
+msgstr "Mehr Infos"
 
 #: pubsite/templates/content.html:90
 msgid "Visit website"
@@ -287,19 +282,19 @@ msgstr "Hilf uns auf GitHub"
 
 #: pubsite/templates/includes/deliver_to_list.html:4
 msgid "Everywhere in Switzerland"
-msgstr ""
+msgstr "Überall in CH"
 
 #: pubsite/templates/includes/deliver_to_list.html:12
 msgid "District"
-msgstr ""
+msgstr "Bezirk"
 
 #: pubsite/templates/includes/deliver_to_list.html:16
 msgid "Municipality"
-msgstr ""
+msgstr "Gemeinde"
 
 #: pubsite/templates/includes/deliver_to_list.html:20
 msgid "Postal code"
-msgstr ""
+msgstr "Postleitzahl"
 
 #: pubsite/templates/mgmt.html:29
 msgid "About"
@@ -311,11 +306,11 @@ msgstr ""
 
 #: pubsite/templates/mgmt.html:36
 msgid "Log out"
-msgstr ""
+msgstr "Abmelden"
 
 #: pubsite/templates/mgmt.html:40
 msgid "Sign in"
-msgstr ""
+msgstr "Anmelden"
 
 #: pubsite/templates/mgmt.html:56
 msgid "All rights reserved"
