@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-26 00:13+0100\n"
-"PO-Revision-Date: 2020-03-26 00:28+0100\n"
+"PO-Revision-Date: 2020-03-26 00:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -302,7 +302,7 @@ msgstr "Über uns"
 
 #: pubsite/templates/mgmt.html:33
 msgid "Contribute"
-msgstr ""
+msgstr "Anfragen verarbeiten"
 
 #: pubsite/templates/mgmt.html:36
 msgid "Log out"
@@ -317,8 +317,6 @@ msgid "All rights reserved"
 msgstr "Alle Rechte vorbehalten"
 
 #: pubsite/templates/success.html:12
-#, fuzzy
-#| msgid "Your request has been submited ! Thank you !"
 msgid "Your request has been submited! Thank you!"
 msgstr "Deine Anfrage wurde gesendet! Danke dir!"
 
@@ -326,6 +324,8 @@ msgstr "Deine Anfrage wurde gesendet! Danke dir!"
 msgid ""
 "The processing of your request may take up to 24 hours. Please be patient."
 msgstr ""
+"Die Verarbeitung deiner Anfrage kann bis zu 24h dauern. Danke für deine "
+"Geduld."
 
 #: pubsite/views.py:66
 msgid "NPA does not exist"
