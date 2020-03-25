@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-26 00:13+0100\n"
-"PO-Revision-Date: 2020-03-26 00:40+0100\n"
+"PO-Revision-Date: 2020-03-26 00:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -282,7 +282,7 @@ msgstr "Hilf uns auf GitHub"
 
 #: pubsite/templates/includes/deliver_to_list.html:4
 msgid "Everywhere in Switzerland"
-msgstr "Überall in CH"
+msgstr "Ganze Schweiz"
 
 #: pubsite/templates/includes/deliver_to_list.html:12
 msgid "District"
