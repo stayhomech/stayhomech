@@ -212,8 +212,7 @@
 
         // Try to find NPA in location
         var npa_pk = [...$('#request-location').html().matchAll(/\[PK:([0-9]+)\]/g)];
-        if (npa_pk) {
-            console.log(npa_pk);
+        if (npa_pk.length > 0 && npa_pk[0].length > 0) {
             $('[name="location"]').val(npa_pk[0][1]).trigger('change.select2');
         } else {
             var npa = $('#request-location').html().match(/[0-9]{4}/);
