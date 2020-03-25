@@ -82,6 +82,11 @@ class Request(models.Model):
         blank=False
     )
 
+    address = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
     location = models.CharField(
         max_length=255,
         blank=False
@@ -131,6 +136,11 @@ class Business(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         related_name='located'
+    )
+
+    address = models.CharField(
+        max_length=255,
+        default=''
     )
 
     description = models.TextField(

@@ -26,10 +26,11 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     location_npa = serializers.IntegerField(source="location.npa", read_only=True)
     location_name = serializers.CharField(source="location.name", read_only=True)
+    location_address = serializers.CharField(source="address", read_only=True)
 
     class Meta:
         model = Business
-        fields = ['id', 'location_npa', 'location_name', 'name', 'description', 'main_category', 
+        fields = ['id', 'location_npa', 'location_name', 'location_address', 'name', 'description', 'main_category', 
         'other_categories', 'website', 'phone', 'email']
 
 

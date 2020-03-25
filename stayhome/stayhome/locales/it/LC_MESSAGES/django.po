@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-24 23:27+0100\n"
+"POT-Creation-Date: 2020-03-25 12:08+0100\n"
 "PO-Revision-Date: 2020-03-20 13:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,67 +26,79 @@ msgstr "Nome"
 msgid "The name of the company."
 msgstr ""
 
-#: business/forms/add_form.py:23
+#: business/forms/add_form.py:25
 msgid "Description"
 msgstr "Descrizione"
 
-#: business/forms/add_form.py:24
+#: business/forms/add_form.py:26
 #, fuzzy
 #| msgid "A short description of the activities of your company."
 msgid "A short description of the services of the company."
 msgstr "Una breve descrizione dei servizi della vostra azienda."
 
-#: business/forms/add_form.py:32
-msgid "Main location"
-msgstr "Sede principale"
-
 #: business/forms/add_form.py:34
+msgid "Street and number"
+msgstr ""
+
+#: business/forms/add_form.py:36
+msgid "The street and street number of your address"
+msgstr ""
+
+#: business/forms/add_form.py:43
+msgid "City"
+msgstr ""
+
+#: business/forms/add_form.py:44
 #, fuzzy
 #| msgid "Where is based your company?"
 msgid "Where is the company based?"
 msgstr "Dove è situata la vostra azienda?"
 
-#: business/forms/add_form.py:39
+#: business/forms/add_form.py:52
 msgid "Categories"
 msgstr ""
 
-#: business/forms/add_form.py:41
+#: business/forms/add_form.py:54
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
 msgstr ""
 
-#: business/forms/add_form.py:46
-msgid "Delivery perimeter"
-msgstr "Area di consegna"
+#: business/forms/add_form.py:61
+#, fuzzy
+#| msgid "Delivers to"
+msgid "Delivery locations"
+msgstr "Consegna a"
 
-#: business/forms/add_form.py:48
-msgid "Where is the service available ?"
+#: business/forms/add_form.py:63
+msgid ""
+"Where are you delivering ? Whole Switzerland, cantons, districts, "
+"municipalities, be as precise as possible."
 msgstr ""
 
-#: business/forms/add_form.py:53
+#: business/forms/add_form.py:70
 msgid "Website"
 msgstr "Sito web"
 
-#: business/forms/add_form.py:55
+#: business/forms/add_form.py:72
 #, fuzzy
 #| msgid "Company website."
 msgid "Company website, if any."
 msgstr "Sito web."
 
-#: business/forms/add_form.py:61
+#: business/forms/add_form.py:80
 msgid "Phone number"
 msgstr "Numero di telefono"
 
-#: business/forms/add_form.py:63
+#: business/forms/add_form.py:82
 msgid "Company phone number, if any."
 msgstr "Numero di telefono dell'azienda, se disponibile."
 
-#: business/forms/add_form.py:69
+#: business/forms/add_form.py:90
 msgid "Email address"
 msgstr "Indirizzo email"
 
-#: business/forms/add_form.py:71
+#: business/forms/add_form.py:92
 msgid "Company email address, if any."
 msgstr "Indirizzo email dell'azienda, se disponibile."
 
@@ -170,7 +182,13 @@ msgstr ""
 "manuale. Grazie per aiutarci compilando il formulario seguente nel modo più "
 "completo possibile !"
 
-#: pubsite/templates/add.html:48
+#: pubsite/templates/add.html:20
+msgid ""
+"The processing of your request may take up to 24 hours. Please be patient. "
+"Thank you!"
+msgstr ""
+
+#: pubsite/templates/add.html:49
 msgid "Send your request"
 msgstr "Invia la tua richiesta"
 
@@ -306,8 +324,15 @@ msgid "All rights reserved"
 msgstr "Tutti i diritti riservati"
 
 #: pubsite/templates/success.html:12
-msgid "Your request has been submited ! Thank you !"
+#, fuzzy
+#| msgid "Your request has been submited ! Thank you !"
+msgid "Your request has been submited! Thank you!"
 msgstr "La tua richiesta é stata inoltrata ! Grazie !"
+
+#: pubsite/templates/success.html:13
+msgid ""
+"The processing of your request may take up to 24 hours. Please be patient."
+msgstr ""
 
 #: pubsite/views.py:66
 msgid "NPA does not exist"
@@ -329,8 +354,11 @@ msgstr "Francese"
 msgid "Italian"
 msgstr "Italiano"
 
-#~ msgid "Delivers to"
-#~ msgstr "Consegna a"
+#~ msgid "Main location"
+#~ msgstr "Sede principale"
+
+#~ msgid "Delivery perimeter"
+#~ msgstr "Area di consegna"
 
 #~ msgid "adding your business"
 #~ msgstr "l'aggiunta del vostro servizio"

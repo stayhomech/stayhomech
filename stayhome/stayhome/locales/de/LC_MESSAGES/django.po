@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-24 23:27+0100\n"
+"POT-Creation-Date: 2020-03-25 12:08+0100\n"
 "PO-Revision-Date: 2020-03-22 14:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,29 +26,37 @@ msgstr "Firmenname"
 msgid "The name of the company."
 msgstr "Der Name des Geschäfts."
 
-#: business/forms/add_form.py:23
+#: business/forms/add_form.py:25
 msgid "Description"
 msgstr "Beschreibung"
 
-#: business/forms/add_form.py:24
+#: business/forms/add_form.py:26
 msgid "A short description of the services of the company."
 msgstr "Beschreibe was angeboten wird."
 
-#: business/forms/add_form.py:32
-msgid "Main location"
-msgstr "Ort"
-
 #: business/forms/add_form.py:34
+msgid "Street and number"
+msgstr ""
+
+#: business/forms/add_form.py:36
+msgid "The street and street number of your address"
+msgstr ""
+
+#: business/forms/add_form.py:43
+msgid "City"
+msgstr ""
+
+#: business/forms/add_form.py:44
 #, fuzzy
 #| msgid "Where is based your company?"
 msgid "Where is the company based?"
 msgstr "Wo ist das Geschäft?"
 
-#: business/forms/add_form.py:39
+#: business/forms/add_form.py:52
 msgid "Categories"
 msgstr "Kategorien"
 
-#: business/forms/add_form.py:41
+#: business/forms/add_form.py:54
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
@@ -56,19 +64,23 @@ msgstr ""
 "Liste passende Kategorien des Angebots auf (Bsp: Essen, Bücher, Trinken, "
 "Musik, Spiele, Mobilität, etc)"
 
-#: business/forms/add_form.py:46
-msgid "Delivery perimeter"
-msgstr "Umkreis"
+#: business/forms/add_form.py:61
+#, fuzzy
+#| msgid "Delivers to"
+msgid "Delivery locations"
+msgstr "Liefert nach"
 
-#: business/forms/add_form.py:48
-msgid "Where is the service available ?"
-msgstr "Wohin wird geliefert ?"
+#: business/forms/add_form.py:63
+msgid ""
+"Where are you delivering ? Whole Switzerland, cantons, districts, "
+"municipalities, be as precise as possible."
+msgstr ""
 
-#: business/forms/add_form.py:53
+#: business/forms/add_form.py:70
 msgid "Website"
 msgstr "Homepage"
 
-#: business/forms/add_form.py:55
+#: business/forms/add_form.py:72
 #, fuzzy
 #| msgid "Company website."
 msgid "Company website, if any."
@@ -76,19 +88,19 @@ msgstr ""
 "Homepage-Link (Kann auch eine Facebook-Seite sein, Instagram-Profil oder "
 "Whatsapp-Link)"
 
-#: business/forms/add_form.py:61
+#: business/forms/add_form.py:80
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: business/forms/add_form.py:63
+#: business/forms/add_form.py:82
 msgid "Company phone number, if any."
 msgstr "Telefon, falls vorhanden."
 
-#: business/forms/add_form.py:69
+#: business/forms/add_form.py:90
 msgid "Email address"
 msgstr "E-Mail"
 
-#: business/forms/add_form.py:71
+#: business/forms/add_form.py:92
 msgid "Company email address, if any."
 msgstr "E-Mail, falls vorhanden."
 
@@ -169,7 +181,13 @@ msgstr ""
 "Diensleistungen angeboten warden können, welche KEINEN direkten Kontakt mit "
 "Kunden erfordert !"
 
-#: pubsite/templates/add.html:48
+#: pubsite/templates/add.html:20
+msgid ""
+"The processing of your request may take up to 24 hours. Please be patient. "
+"Thank you!"
+msgstr ""
+
+#: pubsite/templates/add.html:49
 msgid "Send your request"
 msgstr "Absenden"
 
@@ -304,8 +322,15 @@ msgid "All rights reserved"
 msgstr "Alle Rechte vorbehalten"
 
 #: pubsite/templates/success.html:12
-msgid "Your request has been submited ! Thank you !"
+#, fuzzy
+#| msgid "Your request has been submited ! Thank you !"
+msgid "Your request has been submited! Thank you!"
 msgstr "Deine Anfrage wurde gesendet! Danke dir!"
+
+#: pubsite/templates/success.html:13
+msgid ""
+"The processing of your request may take up to 24 hours. Please be patient."
+msgstr ""
 
 #: pubsite/views.py:66
 msgid "NPA does not exist"
@@ -327,8 +352,14 @@ msgstr "Französisch"
 msgid "Italian"
 msgstr "Italienisch"
 
-#~ msgid "Delivers to"
-#~ msgstr "Liefert nach"
+#~ msgid "Main location"
+#~ msgstr "Ort"
+
+#~ msgid "Delivery perimeter"
+#~ msgstr "Umkreis"
+
+#~ msgid "Where is the service available ?"
+#~ msgstr "Wohin wird geliefert ?"
 
 #~ msgid "adding your business"
 #~ msgstr "Geschäft hinzufügen"
