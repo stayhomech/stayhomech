@@ -1,6 +1,7 @@
 package ch.stayhome.integrations.localhero.job;
 
-import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroCh;
+import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
+import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
 import feign.Feign;
 import feign.RetryableException;
@@ -10,19 +11,28 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Slf4j
 public class LocalHeroPostReader implements ItemReader<LocalHeroPost> {
-    private final LocalHeroCh source;
+    private final LocalHeroProperties config;
+    private final List<LocalHeroChApi> sources = new ArrayList<>();
 
     private Deque<LocalHeroPost> postDeque = new ArrayDeque<>();
 
-    LocalHeroPostReader(String target) {
-        source = Feign.builder()
-                .decoder(new GsonDecoder())
-                .retryer(new Retryer.Default())
-                .target(LocalHeroCh.class, target);
+    LocalHeroPostReader(LocalHeroProperties config) {
+        this.config = config;
+        this.config.getSourceUrls().forEach(target -> sources.add(
+                Feign.builder()
+                        .decoder(new GsonDecoder())
+                        .retryer(new Retryer.Default())
+                        .target(LocalHeroChApi.class, target)
+                )
+        );
+
     }
 
     @Override
@@ -36,11 +46,19 @@ public class LocalHeroPostReader implements ItemReader<LocalHeroPost> {
             }
         }
 
-        return postDeque.pop();
+        try {
+            return postDeque.pop();
+        } catch (NoSuchElementException e) {
+            // no posts
+            return null;
+        }
     }
 
     private void fetchPosts() {
-        postDeque =  new ArrayDeque<>();
-        source.findAll().forEach(post -> postDeque.push(post));
+        postDeque = new ArrayDeque<>();
+
+        sources.forEach(source -> source.findAll(config.getRestRoute())
+                .forEach(post -> postDeque.push(post))
+        );
     }
 }

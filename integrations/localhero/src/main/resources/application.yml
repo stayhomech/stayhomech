@@ -3,3 +3,4 @@ stayhome:
     localhero:
       scrape-cron: '* * */6 * * *'
       provider-name: 'local-hero.ch'
+      restRoute: '/wp-json/wp/v2/posts'

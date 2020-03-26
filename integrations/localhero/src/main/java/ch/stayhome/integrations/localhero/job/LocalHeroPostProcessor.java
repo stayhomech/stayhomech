@@ -1,5 +1,6 @@
 package ch.stayhome.integrations.localhero.job;
 
+import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
 import ch.stayhome.integrations.localhero.model.StayHomeEntry;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +10,8 @@ import org.springframework.batch.item.ItemProcessor;
 public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, StayHomeEntry> {
     private String providerName;
 
-    LocalHeroPostProcessor(final String providerName) {
-        this.providerName = providerName;
+    LocalHeroPostProcessor(final LocalHeroProperties config) {
+        this.providerName = config.getProviderName();
     }
 
     @Override

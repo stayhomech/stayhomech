@@ -2,7 +2,8 @@ stayhome:
   integrations:
     localhero:
       scrape-cron: '*/5 * * * * *'
-      source-url: 'http://localhost:3001'
+      source-urls:
+        - 'http://localhost:3001'
       target-url: 'tbd'
       chunk-size: 1
 

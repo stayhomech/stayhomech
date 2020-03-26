@@ -72,12 +72,12 @@ public class ImportBatch {
 
     @Bean
     public LocalHeroPostProcessor processor() {
-        return new LocalHeroPostProcessor(localHeroProperties.getProviderName());
+        return new LocalHeroPostProcessor(localHeroProperties);
     }
 
     @Bean
     public LocalHeroPostReader reader() {
-        return new LocalHeroPostReader(localHeroProperties.getSourceUrl());
+        return new LocalHeroPostReader(localHeroProperties);
     }
 
     @Bean

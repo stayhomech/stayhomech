@@ -1,5 +1,7 @@
 stayhome:
   integrations:
     localhero:
-      source-url: 'tbd'
+      source-urls:
+        - 'https://bern.local-hero.ch'
+        - 'https://winterthur.local-hero.ch'
       target-url: 'tdb'

@@ -1,3 +1,3 @@
 {
-  "/wp-json/wp/v2/posts": "/posts"
+  "/index.php?rest_route=/wp-json/wp/v2/posts": "/posts"
 }
