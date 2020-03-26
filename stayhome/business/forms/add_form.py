@@ -5,12 +5,13 @@ from django import forms
 from captcha.fields import ReCaptchaField
 from phonenumber_field.formfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import get_language
 
 from geodata.models import NPA
 from business.models import Request
 
 
-class AddForm(forms.Form):
+class BusinessAddForm(forms.Form):
 
     name = forms.CharField(
         label=_('Company name'),
@@ -110,7 +111,8 @@ class AddForm(forms.Form):
 
         location = str(self.cleaned_data['location']) + ' [PK:' + str(self.cleaned_data['location'].pk) + ']'
 
-        request = Request(
+        # Create request
+        r = Request(
             name=self.cleaned_data['name'],
             description=self.cleaned_data['description'],
             address=self.cleaned_data['address'],
@@ -122,5 +124,9 @@ class AddForm(forms.Form):
             delivery=self.cleaned_data['delivery'],
             source=1,
             checksum='Web Form',
+            lang=get_language()
         )
-        request.save()
+        r.save()
+
+        # Set status
+        r.set_status(r.events.NEW)

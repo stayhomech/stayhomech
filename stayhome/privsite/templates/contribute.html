@@ -2,9 +2,41 @@
 {% load i18n %}
 
 {% block mgmt-content %}
+<nav class="navbar navbar-expand-lg navbar-dark mt-3" style="background-color: seagreen;">
+    <span class="navbar-brand">Contribute Area</span>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarRequestsMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Requests
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarRequestsMenuLink">
+                    <a class="dropdown-item" href="{% url 'mgmt:index' %}">
+                        Pending requests 
+                        {% if pending_requests > 0 %}<span class="badge badge-info">{{ pending_requests }}</span>{% endif %}
+                    </a>
+                    <a class="dropdown-item" href="{% url 'mgmt:reserved.index' %}">
+                        Your requests 
+                        {% if pending_user_requests > 0 %}<span class="badge badge-info">{{ pending_user_requests }}</span>{% endif %}
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarCategoriesMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarCategoriesMenuLink">
+                    <a class="dropdown-item" href="{% url 'mgmt:categories.list' %}">
+                         Translations
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="row">
-    <div class="col-12 p-3">
-        <h1 class="h3">{{ title }}</h1>
+    <div class="col-12 p-3 mt-2">
+        <h1 class="h4 font-weight-bold">{{ title }}</h1>
     </div>
 </div>
 <div class="row">
