@@ -23,4 +23,9 @@ class SentryConfig {
 		return new SentryServletContextInitializer();
 	}
 
+	@Bean
+	public SentryCustomHeaderFilter sentryCustomHeaderFilter() {
+		return new SentryCustomHeaderFilter();
+	}
+
 }

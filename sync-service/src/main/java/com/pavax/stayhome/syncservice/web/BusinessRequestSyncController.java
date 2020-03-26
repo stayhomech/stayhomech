@@ -7,7 +7,6 @@ import javax.validation.constraints.NotEmpty;
 
 import com.pavax.stayhome.syncservice.service.BusinessEntryDto;
 import com.pavax.stayhome.syncservice.service.BusinessRequestSyncService;
-import com.pavax.stayhome.syncservice.service.MonitoringContext;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +25,6 @@ public class BusinessRequestSyncController {
 	}
 
 	@PostMapping("/")
-	@MonitoringContext(variables = {"id=#businessEntryDto.id", "providerName=#businessEntryDto.providerName"})
 	public void upsert(@RequestBody @Validated BusinessEntryDto businessEntryDto) {
 		this.businessRequestSyncService.sync(businessEntryDto);
 	}
