@@ -13,7 +13,7 @@ export abstract class CrawlerBase {
             headers: {
                 'Content-Type': 'application/json',
                 'X-SYNC-PROVIDER-NAME': request.providerName,
-                'X-SYNC-PROVIDER-ENTRY-ID': request.id,
+                'X-SYNC-PROVIDER-ENTRY-ID': request.id
             },
             body: JSON.stringify(request)
         });
