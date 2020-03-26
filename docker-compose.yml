@@ -91,6 +91,8 @@ services:
     container_name: sync-service
     environment:
       - STAYHOME_API_URL=http://web:8000/api
+      - SPRING_PROFILES=prod
+      - SENTRY_DSN=${SYNC_SERVICE_SENTRY_DSN}
     expose:
       - 8080
     depends_on:
