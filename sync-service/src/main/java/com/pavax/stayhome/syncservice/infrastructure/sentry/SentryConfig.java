@@ -1,4 +1,4 @@
-package com.pavax.stayhome.syncservice.infrastructure.web;
+package com.pavax.stayhome.syncservice.infrastructure.sentry;
 
 import io.sentry.spring.SentryExceptionResolver;
 import io.sentry.spring.SentryServletContextInitializer;
