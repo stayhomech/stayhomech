@@ -21,6 +21,15 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
                 .description(item.getExcerpt().getRendered())
                 .website(item.getGuid().getRendered())
                 .providerName(providerName)
+
+                .categories("")
+                .contact("")
+                .delivery("")
+                .email("")
+                .location("")
+                .phone("")
+                .ttl(1)
+
                 .build();
     }
 }
