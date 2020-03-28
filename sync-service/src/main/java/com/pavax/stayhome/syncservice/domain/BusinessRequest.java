@@ -1,20 +1,10 @@
 package com.pavax.stayhome.syncservice.domain;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BusinessRequest {
 
 	private String uuid;
-
-	private boolean handled;
-
-	private boolean deleted;
-
-	private LocalDateTime creation;
-
-	private LocalDateTime update;
 
 	private Long ttl;
 
@@ -41,48 +31,16 @@ public class BusinessRequest {
 
 	private String checksum;
 
+	private String lang;
+
+	private String status;
+
 	public String getUuid() {
 		return uuid;
 	}
 
 	public BusinessRequest setUuid(String uuid) {
 		this.uuid = uuid;
-		return this;
-	}
-
-	public boolean isHandled() {
-		return handled;
-	}
-
-	public BusinessRequest setHandled(boolean handled) {
-		this.handled = handled;
-		return this;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public BusinessRequest setDeleted(boolean deleted) {
-		this.deleted = deleted;
-		return this;
-	}
-
-	public LocalDateTime getCreation() {
-		return creation;
-	}
-
-	public BusinessRequest setCreation(LocalDateTime creation) {
-		this.creation = creation;
-		return this;
-	}
-
-	public LocalDateTime getUpdate() {
-		return update;
-	}
-
-	public BusinessRequest setUpdate(LocalDateTime update) {
-		this.update = update;
 		return this;
 	}
 
@@ -191,6 +149,24 @@ public class BusinessRequest {
 
 	public BusinessRequest setChecksum(String checksum) {
 		this.checksum = checksum;
+		return this;
+	}
+
+	public String getLang() {
+		return lang;
+	}
+
+	public BusinessRequest setLang(String lang) {
+		this.lang = lang;
+		return this;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public BusinessRequest setStatus(String status) {
+		this.status = status;
 		return this;
 	}
 }

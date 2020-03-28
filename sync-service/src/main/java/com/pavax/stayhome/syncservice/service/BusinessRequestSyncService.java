@@ -11,13 +11,21 @@ import org.springframework.util.DigestUtils;
 @EnableConfigurationProperties(SyncServiceProperties.class)
 public class BusinessRequestSyncService {
 
+	private static final String FALLBACK_LANG = "en";
+
 	private final BusinessRequestRepository businessRequestRepository;
 
 	private final SyncServiceProperties syncServiceProperties;
 
-	public BusinessRequestSyncService(BusinessRequestRepository businessRequestRepository, SyncServiceProperties syncServiceProperties) {
+	private final LanguageDetectionService languageDetectionService;
+
+	public BusinessRequestSyncService(
+			BusinessRequestRepository businessRequestRepository,
+			SyncServiceProperties syncServiceProperties,
+			LanguageDetectionService languageDetectionService) {
 		this.businessRequestRepository = businessRequestRepository;
 		this.syncServiceProperties = syncServiceProperties;
+		this.languageDetectionService = languageDetectionService;
 	}
 
 	public void sync(BusinessEntryDto businessEntryDto) {
@@ -38,12 +46,21 @@ public class BusinessRequestSyncService {
 				.setCategory(businessEntryDto.getCategories())
 				.setTtl(businessEntryDto.getTtl())
 				.setDelivery(businessEntryDto.getDelivery());
+
+		businessRequest.setLang(businessEntryDto.getLanguage() != null ? businessEntryDto.getLanguage().getKey() : this.determineLanguage(businessRequest));
+
 		businessRequest.setChecksum(this.calculateChecksum(businessRequest));
 		if (isNew(businessRequest)) {
 			this.businessRequestRepository.save(businessRequest);
 		} else {
 			this.businessRequestRepository.update(businessRequest);
 		}
+	}
+
+	private String determineLanguage(BusinessRequest businessRequest) {
+		return this.languageDetectionService.detect(businessRequest)
+				.map(Language::getKey)
+				.orElse(FALLBACK_LANG);
 	}
 
 	private boolean isNew(BusinessRequest businessRequest) {
@@ -59,6 +76,7 @@ public class BusinessRequestSyncService {
 				businessRequest.getEmail() +
 				businessRequest.getCategory() +
 				businessRequest.getContact() +
+				businessRequest.getLang() +
 				businessRequest.getDelivery();
 		return DigestUtils.md5DigestAsHex(checkSumString.getBytes());
 	}

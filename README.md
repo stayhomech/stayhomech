@@ -81,7 +81,7 @@ This solution is probably the simplest to get the website running quickly.
    
     ```
     cd stayhomech
-    docker-compose -f docker-compose-dev.yml up --build
+    docker-compose -f docker-compose.dev.yml up --build
     ```
 
     Note that the import of the geographical data in the database can take some time upon first run!
