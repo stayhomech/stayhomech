@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-26 00:13+0100\n"
-"PO-Revision-Date: 2020-03-26 00:47+0100\n"
+"POT-Creation-Date: 2020-03-28 15:07+0100\n"
+"PO-Revision-Date: 2020-03-28 15:10+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,43 +18,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: business/forms/add_form.py:16
+#: business/admin.py:14
+msgid "status"
+msgstr ""
+
+#: business/forms/add_form.py:17
 msgid "Company name"
 msgstr "Firmenname"
 
-#: business/forms/add_form.py:18
+#: business/forms/add_form.py:19
 msgid "The name of the company."
 msgstr "Der Name des Geschäfts."
 
-#: business/forms/add_form.py:25
+#: business/forms/add_form.py:26
 msgid "Description"
 msgstr "Beschreibung"
 
-#: business/forms/add_form.py:26
+#: business/forms/add_form.py:27
 msgid "A short description of the services of the company."
 msgstr "Beschreibe was angeboten wird."
 
-#: business/forms/add_form.py:34
+#: business/forms/add_form.py:35
 msgid "Street and number"
 msgstr "Strasse + Nr"
 
-#: business/forms/add_form.py:36
+#: business/forms/add_form.py:37
 msgid "The street and street number of your address"
 msgstr "Strasse und Nummer der Geschäftes"
 
-#: business/forms/add_form.py:43
+#: business/forms/add_form.py:44
 msgid "City"
 msgstr "Ort"
 
-#: business/forms/add_form.py:44
+#: business/forms/add_form.py:45
 msgid "Where is the company based?"
 msgstr "Wo ist das Geschäft?"
 
-#: business/forms/add_form.py:52
+#: business/forms/add_form.py:53
 msgid "Categories"
 msgstr "Kategorien"
 
-#: business/forms/add_form.py:54
+#: business/forms/add_form.py:55
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
@@ -62,11 +66,11 @@ msgstr ""
 "Liste passende Kategorien des Angebots auf (Bsp: Essen, Bücher, Trinken, "
 "Musik, Spiele, Mobilität, etc)"
 
-#: business/forms/add_form.py:61
+#: business/forms/add_form.py:62
 msgid "Delivery locations"
 msgstr "Liefert nach"
 
-#: business/forms/add_form.py:63
+#: business/forms/add_form.py:64
 msgid ""
 "Where are you delivering ? Whole Switzerland, cantons, districts, "
 "municipalities, be as precise as possible."
@@ -74,35 +78,31 @@ msgstr ""
 "Bis wohin wird geliefert? Ganze Schweiz, Kantone, Bezirke, Orte - Sei so "
 "genau wie möglich."
 
-#: business/forms/add_form.py:70
+#: business/forms/add_form.py:71
 msgid "Website"
 msgstr "Homepage"
 
-#: business/forms/add_form.py:72
+#: business/forms/add_form.py:73
 msgid "Company website, if any."
 msgstr ""
 "Homepage-Link (Kann auch eine Facebook-Seite sein, Instagram-Profil oder "
 "Whatsapp-Link)"
 
-#: business/forms/add_form.py:80
+#: business/forms/add_form.py:81
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: business/forms/add_form.py:82
+#: business/forms/add_form.py:83
 msgid "Company phone number, if any."
 msgstr "Telefon, falls vorhanden."
 
-#: business/forms/add_form.py:90
+#: business/forms/add_form.py:91
 msgid "Email address"
 msgstr "E-Mail"
 
-#: business/forms/add_form.py:92
+#: business/forms/add_form.py:93
 msgid "Company email address, if any."
 msgstr "E-Mail, falls vorhanden."
-
-#: business/templates/admin/business/request/change_form.html:6
-msgid "Convert to new business"
-msgstr "In ein neues Geschäfts umwandeln"
 
 #: privsite/templates/registration/login.html:9
 msgid "Please sign in"
@@ -121,17 +121,39 @@ msgstr "Danke für deine Zeit!"
 msgid "Go back to homepage"
 msgstr "Zur Startseite"
 
-#: privsite/views.py:21
+#: privsite/views.py:38
 msgid "Pending requests"
 msgstr "Offene Anfragen"
 
-#: privsite/views.py:22
-msgid "The following requets are available to process."
-msgstr "Die folgenden Anfragen sind bereit zum verarbeiten."
+#: privsite/views.py:41 privsite/views.py:63
+#, python-format
+msgid "%d requets are available to process."
+msgstr "%d  Anfragen sind bereit zum verarbeiten."
 
-#: privsite/views.py:34
+#: privsite/views.py:43 privsite/views.py:65
+msgid "No pending request."
+msgstr "Keine offene Anfragen."
+
+#: privsite/views.py:60
+msgid "Your requests"
+msgstr "Deine Anfragen"
+
+#: privsite/views.py:87
 msgid "Convert request to business"
 msgstr "Anfrage in ein Geschäft umwandeln"
+
+#: privsite/views.py:150
+msgid "Categories translations"
+msgstr "Kategorie Übersetzungen"
+
+#: privsite/views.py:153
+#, python-format
+msgid "%d categories exist."
+msgstr "%d  Kategorien."
+
+#: privsite/views.py:155
+msgid "No category defined."
+msgstr "Keine Kategorie definiert."
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
@@ -346,6 +368,9 @@ msgstr "Französisch"
 #: stayhome/settings/base.py:114
 msgid "Italian"
 msgstr "Italienisch"
+
+#~ msgid "Convert to new business"
+#~ msgstr "In ein neues Geschäfts umwandeln"
 
 #~ msgid "Main location"
 #~ msgstr "Ort"

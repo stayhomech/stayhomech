@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-26 00:13+0100\n"
+"POT-Creation-Date: 2020-03-28 15:07+0100\n"
 "PO-Revision-Date: 2020-03-20 13:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,93 +18,93 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: business/forms/add_form.py:16
+#: business/admin.py:14
+msgid "status"
+msgstr ""
+
+#: business/forms/add_form.py:17
 msgid "Company name"
 msgstr "Nome"
 
-#: business/forms/add_form.py:18
+#: business/forms/add_form.py:19
 msgid "The name of the company."
 msgstr ""
 
-#: business/forms/add_form.py:25
+#: business/forms/add_form.py:26
 msgid "Description"
 msgstr "Descrizione"
 
-#: business/forms/add_form.py:26
+#: business/forms/add_form.py:27
 #, fuzzy
 #| msgid "A short description of the activities of your company."
 msgid "A short description of the services of the company."
 msgstr "Una breve descrizione dei servizi della vostra azienda."
 
-#: business/forms/add_form.py:34
+#: business/forms/add_form.py:35
 msgid "Street and number"
 msgstr ""
 
-#: business/forms/add_form.py:36
+#: business/forms/add_form.py:37
 msgid "The street and street number of your address"
 msgstr ""
 
-#: business/forms/add_form.py:43
+#: business/forms/add_form.py:44
 msgid "City"
 msgstr ""
 
-#: business/forms/add_form.py:44
+#: business/forms/add_form.py:45
 #, fuzzy
 #| msgid "Where is based your company?"
 msgid "Where is the company based?"
 msgstr "Dove è situata la vostra azienda?"
 
-#: business/forms/add_form.py:52
+#: business/forms/add_form.py:53
 msgid "Categories"
 msgstr ""
 
-#: business/forms/add_form.py:54
+#: business/forms/add_form.py:55
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
 msgstr ""
 
-#: business/forms/add_form.py:61
+#: business/forms/add_form.py:62
 #, fuzzy
 #| msgid "Delivers to"
 msgid "Delivery locations"
 msgstr "Consegna a"
 
-#: business/forms/add_form.py:63
+#: business/forms/add_form.py:64
 msgid ""
 "Where are you delivering ? Whole Switzerland, cantons, districts, "
 "municipalities, be as precise as possible."
 msgstr ""
 
-#: business/forms/add_form.py:70
+#: business/forms/add_form.py:71
 msgid "Website"
 msgstr "Sito web"
 
-#: business/forms/add_form.py:72
+#: business/forms/add_form.py:73
 #, fuzzy
 #| msgid "Company website."
 msgid "Company website, if any."
 msgstr "Sito web."
 
-#: business/forms/add_form.py:80
+#: business/forms/add_form.py:81
 msgid "Phone number"
 msgstr "Numero di telefono"
 
-#: business/forms/add_form.py:82
+#: business/forms/add_form.py:83
 msgid "Company phone number, if any."
 msgstr "Numero di telefono dell'azienda, se disponibile."
 
-#: business/forms/add_form.py:90
+#: business/forms/add_form.py:91
 msgid "Email address"
 msgstr "Indirizzo email"
 
-#: business/forms/add_form.py:92
+#: business/forms/add_form.py:93
 msgid "Company email address, if any."
 msgstr "Indirizzo email dell'azienda, se disponibile."
-
-#: business/templates/admin/business/request/change_form.html:6
-msgid "Convert to new business"
-msgstr ""
 
 #: privsite/templates/registration/login.html:9
 msgid "Please sign in"
@@ -124,18 +124,44 @@ msgstr ""
 msgid "Go back to homepage"
 msgstr "Ritorna alla pagina principale"
 
-#: privsite/views.py:21
+#: privsite/views.py:38
 #, fuzzy
 #| msgid "Send your request"
 msgid "Pending requests"
 msgstr "Invia la tua richiesta"
 
-#: privsite/views.py:22
-msgid "The following requets are available to process."
+#: privsite/views.py:41 privsite/views.py:63
+#, python-format
+msgid "%d requets are available to process."
 msgstr ""
 
-#: privsite/views.py:34
+#: privsite/views.py:43 privsite/views.py:65
+#, fuzzy
+#| msgid "Send your request"
+msgid "No pending request."
+msgstr "Invia la tua richiesta"
+
+#: privsite/views.py:60
+#, fuzzy
+#| msgid "Send your request"
+msgid "Your requests"
+msgstr "Invia la tua richiesta"
+
+#: privsite/views.py:87
 msgid "Convert request to business"
+msgstr ""
+
+#: privsite/views.py:150
+msgid "Categories translations"
+msgstr ""
+
+#: privsite/views.py:153
+#, python-format
+msgid "%d categories exist."
+msgstr ""
+
+#: privsite/views.py:155
+msgid "No category defined."
 msgstr ""
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
