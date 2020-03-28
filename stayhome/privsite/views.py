@@ -26,9 +26,18 @@ def add_navigation_context(context, user):
 class RequestsListView(ListView):
 
     template_name = "requests_list.html"
-    queryset = Request.objects.filter(status=Request.events.NEW).order_by('creation')
     prefix = ''
     paginate_by = 10
+
+    def get_queryset(self):
+
+        objects = Request.objects.filter(status=Request.events.NEW)
+
+        lang = self.request.GET.get('lang')
+        if lang is not None and lang != '':
+            objects = objects.filter(lang=lang)
+
+        return objects.order_by('creation')
 
     def get_context_data(self, **kwargs):
 
@@ -37,12 +46,14 @@ class RequestsListView(ListView):
 
         context['title'] = _('Pending requests')
 
-        if context['pending_requests'] > 0:
-            context['description'] = _('%d requets are available to process.' % context['pending_requests'])
+        if self.get_queryset().count() > 0:
+            context['description'] = _('%d requets are available to process.' %  self.get_queryset().count())
         else:
             context['description'] = _('No pending request.')
 
         context['prefix'] = self.prefix
+
+        context['lang'] = self.request.GET.get('lang')
 
         return context
 
@@ -51,6 +62,7 @@ class RequestsListView(ListView):
 class RequestsUserListView(RequestsListView):
 
     def get_queryset(self):
+
         return Request.objects.filter(status=Request.events.RESERVED, owner=self.request.user.id).order_by('creation')
 
     def get_context_data(self, **kwargs):
