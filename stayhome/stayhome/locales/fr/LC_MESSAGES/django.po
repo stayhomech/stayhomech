@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-25 12:08+0100\n"
+"POT-Creation-Date: 2020-03-26 00:13+0100\n"
 "PO-Revision-Date: 2020-03-21 15:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -70,7 +70,9 @@ msgstr "Livre à"
 msgid ""
 "Where are you delivering ? Whole Switzerland, cantons, districts, "
 "municipalities, be as precise as possible."
-msgstr "Où livrez-vous? Toute la Suisse, cantons, districts, communes, soyez aussi précis que possible."
+msgstr ""
+"Où livrez-vous? Toute la Suisse, cantons, districts, communes, soyez aussi "
+"précis que possible."
 
 #: business/forms/add_form.py:70
 msgid "Website"
@@ -175,7 +177,9 @@ msgstr ""
 msgid ""
 "The processing of your request may take up to 24 hours. Please be patient. "
 "Thank you!"
-msgstr "Le traitement de votre demande peut prendre jusqu'à 24 heures. Merci de votre patience."
+msgstr ""
+"Le traitement de votre demande peut prendre jusqu'à 24 heures. Merci de "
+"votre patience."
 
 #: pubsite/templates/add.html:49
 msgid "Send your request"
@@ -318,7 +322,9 @@ msgstr "Votre demande a été transmise! Merci!"
 #: pubsite/templates/success.html:13
 msgid ""
 "The processing of your request may take up to 24 hours. Please be patient."
-msgstr "Le traitement de votre demande peut prendre jusqu'à 24 heures. Merci de votre patience."
+msgstr ""
+"Le traitement de votre demande peut prendre jusqu'à 24 heures. Merci de "
+"votre patience."
 
 #: pubsite/views.py:66
 msgid "NPA does not exist"
