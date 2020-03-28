@@ -79,7 +79,7 @@ class RequestsProcessView(DetailView):
     def get_context_data(self, **kwargs):
 
         r = self.get_object()
-        r.set_status(Request.events.RESERVED, self.request.user)
+        r.set_status(Request.events.RESERVED, user=self.request.user)
 
         context = super(RequestsProcessView, self).get_context_data(**kwargs)
         context = add_navigation_context(context, self.request.user.id)
@@ -100,7 +100,7 @@ class RequestsProcessView(DetailView):
             
             self.object = self.get_object()
             form.save()
-            self.object.set_status(Request.events.HANDLED, self.request.user)
+            self.object.set_status(Request.events.HANDLED, user=self.request.user)
             
             return redirect(request.POST.get('next'))
 
@@ -131,7 +131,7 @@ class RequestsProcessDropView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         req = get_object_or_404(Request, pk=kwargs['pk'])
-        req.set_status(Request.events.DELETED, self.request.user)
+        req.set_status(Request.events.DELETED, user=self.request.user)
         return reverse('mgmt:' + self.prefix + 'index')
 
 
