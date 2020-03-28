@@ -152,3 +152,8 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend'
     ]
 }
+
+
+# SYNC user
+
+SYNC_USER = os.environ.get('SYNC_USER')

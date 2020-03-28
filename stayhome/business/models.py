@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from django.db.models import OuterRef, Subquery, Case, When, Exists, Value
 from django.conf import settings
+from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -117,20 +118,36 @@ class EventModel(models.Model):
         event.save()
 
     def get_creation(self):
-        events = self.events.objects.filter(parent=self).order_by('-time').values('time')[:1]
+        events = self.events.objects.filter(parent=self).order_by('time').values('time')[:1]
         if events.count() == 0:
             return None
         else:
             return events[0]['time']
 
+    def get_owner(self):
+        events = self.events.objects.filter(parent=self).order_by('-time').values('user')[:1]
+        if events.count() == 0:
+            return None
+        else:
+            return events[0]['user']
+
     def add_event(self, event_type, event_data=None, user=None):
+
+        # Update the user only if it is not None or the SYNC user
+        current_owner = self.get_owner()
+        sync_user = User.objects.get(username=settings.SYNC_USER)
+        if current_owner is None or current_owner == sync_user.pk:
+            new_owner = user
+        else:
+            new_owner = current_owner
+
         event = self.events(
             parent=self,
             old_status=self.get_status(),
             new_status=self.get_status(),
             event_type=event_type,
             event_data=event_data,
-            user=user
+            user=new_owner
         )
         event.save()
 
