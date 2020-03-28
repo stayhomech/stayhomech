@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_APP_DB}
+      - MYSQL_USER=${MYSQL_APP_USER}
+      - MYSQL_PASSWORD=${MYSQL_APP_PASSWORD}
+    volumes:
+      - /data/pre-prod/db/data:/var/lib/mysql
+    restart: always
+    networks:
+      - pre-prod
+
+  memcached:
+    image: memcached:alpine
+    entrypoint:
+      - memcached
+      - -m
+      - '256'
+    restart: always
+    networks:
+      - pre-prod
+
+  web:
+    build: stayhome/
+    environment:
+      - RUNNING_ENV=pre-prod
+      - LETSENCRYPT_HOST=preview.stayhome.ch
+      - VIRTUAL_HOST=preview.stayhome.ch
+      - VIRTUAL_PORT=8000
+      - MYSQL_APP_DB=${MYSQL_APP_DB}
+      - MYSQL_APP_USER=${MYSQL_APP_USER}
+      - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+      - SYNC_USER=${SYNC_USER}
+      - SYNC_PASSWORD=${SYNC_PASSWORD}
+      - RECAPTCHA_PUBLIC_KEY=${RECAPTCHA_PUBLIC_KEY}
+      - RECAPTCHA_PRIVATE_KEY=${RECAPTCHA_PRIVATE_KEY}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - GOOGLE_UA=${GOOGLE_UA}
+    expose:
+      - 8000
+    depends_on:
+      - db
+      - memcached
+    restart: always
+    volumes:
+      - api_key:/api
+      - datasets:/code/datasets
+    networks:
+      - pre-prod
+
+volumes:
+  api_key:
+  datasets:
+
+networks:
+  pre-prod:
+    external:
+      name: infra_pre-prod

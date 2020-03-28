@@ -1,6 +1,8 @@
 import uuid
 
 from django.db import models
+from django.db.models import OuterRef, Subquery, Case, When, Exists, Value
+from django.conf import settings
 from mptt.models import MPTTModel, TreeForeignKey
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -22,6 +24,9 @@ class Category(MPTTModel):
     class Meta:
         verbose_name_plural = 'categories'
 
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
     def __str__(self):
         return self.name
 
@@ -32,28 +37,159 @@ class Category(MPTTModel):
             return "%s / %s" % (self.parent.name, self.name)
 
 
-class Request(models.Model):
+class HistoryEvent(models.Model):
+
+    STATUS_CHOICES = []
+
+    UNKNOWN = 0
+    STATUS = 1
+    KEEPALIVE = 2
+
+    TYPE_CHOICES = [
+        (0, 'Unknown'),
+        (1, 'Status update'),
+        (2, 'API keepalive')
+    ]
+
+    class Meta:
+        abstract = True
+
+    old_status = models.PositiveSmallIntegerField(
+    )
+
+    new_status = models.PositiveSmallIntegerField(
+    )
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True, blank=True, on_delete=models.SET_NULL
+    )
+
+    time = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    event_type = models.PositiveIntegerField(
+        choices=TYPE_CHOICES,
+        default=0
+    )
+
+    event_data = models.TextField(
+        blank=True
+    )
+
+
+class EventModel(models.Model):
+
+    events = HistoryEvent
+
+    class Meta:
+        abstract = True
+
+    def get_status(self):
+        events = self.events.objects.filter(parent=self).order_by('-time').values('new_status')[:1]
+        if events.count() == 0:
+            return 0
+        else:
+            return events[0]['new_status']
+
+    def get_status_text(self):
+        events = self.events.objects.filter(parent=self).order_by('-time').values('new_status')[:1]
+        if events.count() == 0:
+            return 0
+        else:
+            return dict(self.events.STATUS_CHOICES)[events[0]['new_status']]
+
+    def set_status(self, new_status, user=None):
+
+        if new_status == self.get_status():
+            return
+
+        event = self.events(
+            parent=self,
+            old_status=self.get_status(),
+            new_status=new_status,
+            event_type=self.events.STATUS,
+            user=user
+        )
+        event.save()
+
+    def get_creation(self):
+        events = self.events.objects.filter(parent=self).order_by('-time').values('time')[:1]
+        if events.count() == 0:
+            return None
+        else:
+            return events[0]['time']
+
+    def add_event(self, event_type, event_data=None, user=None):
+        event = self.events(
+            parent=self,
+            old_status=self.get_status(),
+            new_status=self.get_status(),
+            event_type=event_type,
+            event_data=event_data,
+            user=user
+        )
+        event.save()
+
+
+class RequestHistoryEvent(HistoryEvent):
+
+    VOID = 0
+    NEW = 1
+    RESERVED = 2
+    HANDLED = 3
+    UPDATED = 4
+    DELETED = 5
+    KEEPALIVE = 6
+
+    STATUS_CHOICES = [
+        (VOID, 'In error'),
+        (NEW, 'New'),
+        (RESERVED, 'In process'),
+        (HANDLED, 'Handled'),
+        (UPDATED, 'Updated'),
+        (DELETED, 'Deleted'),
+        (KEEPALIVE, 'Keepalive')
+    ]
+
+    parent = models.ForeignKey(
+        'Request',
+        on_delete=models.CASCADE
+    )
+
+
+class RequestEventManager(models.Manager):
+
+    def get_queryset(self):
+
+        events = RequestHistoryEvent.objects.filter(parent=OuterRef('pk')).order_by('-time')
+
+        return super().get_queryset().annotate(
+            status=Case(
+                When(Exists(events), then=Subquery(events.values('new_status')[:1])),
+                default=Value(0)
+            ),
+            creation=Case(
+                When(Exists(events), then=Subquery(events.values('time')[:1])),
+                default=Value(None)
+            ),
+            owner=Case(
+                When(Exists(events), then=Subquery(events.values('user')[:1])),
+                default=Value(None)
+            )
+        ).order_by('-creation')
+
+
+class Request(EventModel):
+
+    events = RequestHistoryEvent
+    objects = RequestEventManager()
 
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
-        primary_key = True
-    )
-
-    handled = models.BooleanField(
-        default=False
-    )
-
-    deleted = models.BooleanField(
-        default=False
-    )
-
-    creation = models.DateTimeField(
-        auto_now_add=True
-    )
-
-    update = models.DateTimeField(
-        auto_now=True
+        primary_key=True
     )
 
     ttl = models.PositiveIntegerField(
@@ -74,6 +210,17 @@ class Request(models.Model):
         blank=True
     )
 
+    lang = models.CharField(
+        max_length=2,
+        default='en',
+        choices=[
+            ('en', 'English'),
+            ('fr', 'French'),
+            ('de', 'German'),
+            ('it', 'Italian')
+        ]
+    )
+
     name = models.CharField(
         max_length=255
     )
@@ -92,8 +239,7 @@ class Request(models.Model):
         blank=False
     )
 
-    contact = models.CharField(
-        max_length=255,
+    contact = models.TextField(
         blank=True
     )
 
@@ -125,7 +271,43 @@ class Request(models.Model):
         max_length=255
     )
 
-class Business(models.Model):
+
+class BusinessHistoryEvent(HistoryEvent):
+
+    VOID = 0
+    VALID = 1
+    DELETED = 2
+
+    STATUS_CHOICES = [
+        (VOID, 'In error'),
+        (VALID, 'Valid'),
+        (DELETED, 'Deleted')
+    ]
+
+    parent = models.ForeignKey(
+        'Business',
+        on_delete=models.CASCADE
+    )
+
+
+class BusinessEventManager(models.Manager):
+
+    def get_queryset(self):
+
+        events = BusinessHistoryEvent.objects.filter(parent=OuterRef('pk')).order_by('-time')
+
+        return super().get_queryset().annotate(
+            status=Case(
+                When(Exists(events), then=Subquery(events.values('new_status')[:1])),
+                default=Value(0)
+            )
+        )
+
+
+class Business(EventModel):
+
+    objects = BusinessEventManager()
+    events = BusinessHistoryEvent
 
     name = models.CharField(
         max_length=255
@@ -202,14 +384,10 @@ class Business(models.Model):
     )
 
     parent_request = models.ForeignKey(
-        'business.Request',
+        Request,
         related_name='child_businesses',
         null=True, blank=True,
         on_delete=models.CASCADE
-    )
-
-    deleted = models.BooleanField(
-        default=False
     )
 
     class Meta:

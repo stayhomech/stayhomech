@@ -11,7 +11,7 @@ class RequestViewSet(viewsets.ModelViewSet):
 
 
 class BusinessViewSet(viewsets.ModelViewSet):
-    queryset = Business.objects.filter(deleted=False)
+    queryset = Business.objects.filter(status=Business.events.VALID)
     serializer_class = BusinessSerializer
     filter_fields = ['id', 'location__npa']
 
@@ -19,4 +19,4 @@ class BusinessViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    filter_fields = ['id', 'name', 'name_en', 'name_fr', 'name_de', 'name_it', 'parent']
+    filter_fields = ['id']

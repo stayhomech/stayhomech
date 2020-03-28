@@ -12,8 +12,8 @@ from django.conf import settings
 
 
 from geodata.models import NPA
-from business.models import Business, Request
-from business.forms import AddForm
+from business.models import Business, Request, Category
+from business.forms import BusinessAddForm
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -66,14 +66,19 @@ class ContentView(TemplateView):
             raise Http404(_("NPA does not exist"))
         
         municipality = npa.municipality
+        context['municipality'] = municipality
+
         district = municipality.district_id
+        context['district'] = district
+
         canton = district.canton
+        context['canton'] = canton
 
         npas = municipality.npa_set.all()
 
         context['npa'] = npa
 
-        context['businesses'] = Business.objects.filter(deleted=False).filter(
+        context['businesses'] = Business.objects.filter(status=Business.events.VALID).filter(
             Q(location=npa)
             |
             Q(delivers_to__in=[npa])
@@ -99,6 +104,12 @@ class ContentView(TemplateView):
             ),
         ).order_by('radius', 'name')
 
+        context['categories'] = Category.objects.filter(
+            Q(as_main_category__in=context['businesses'])
+            |
+            Q(as_other_category__in=context['businesses'])
+        ).distinct().order_by('parent__tree_id', 'tree_id')
+
         return context
 
 
@@ -109,7 +120,7 @@ class AboutView(TemplateView):
 class AddView(FormView):
     
     template_name = "add.html"
-    form_class = AddForm
+    form_class = BusinessAddForm
     success_url = '/add/success/'
 
     def form_valid(self, form):

@@ -3,29 +3,50 @@
 
 {% block contrib-content %}
 <div class="row mb-5">
-    <div class="col-12 px-3 pb-3">
-        <table style="width: 100%">
-        {% for object in object_list %}
-        <tr class="px-3 border-top border-bottom">
-            <td class="p-2 align-middle">
-                {{ object.name }}
-            </td>
-            <td class="p-2 align-middle">
-                {{ object.description }}
-            </td>
-            <td class="p-2 align-middle">
-                {{ object.location }}
-            </td>
-            <td class="p-2 text-right align-middle">
-                <a class="btn btn-sm btn-primary" href="{% url 'mgmt:convert' object.pk %}">Convert to business</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td>
-        Nothing so far :)
-        </td></tr>
-        {% endfor %}
+    <div class="col-12 px-3 pb-3 px-3">
+        {% if object_list.count > 0 %}
+        <table class="container">
+            <tr class="row mx-0 px-0  border-top border-bottom font-weight-bold sh-table-head">
+                <td class="col-2 p-2 align-middle">Name</td>
+                <td class="col-6 p-2 align-middle">Description</td>
+                <td class="col-2 p-2 align-middle">Location</td>
+                <td class="col-2 p-2 align-middle">&nbsp;</td>
+            </tr>
+            {% for object in object_list %}
+            <tr class="row mx-0 px-0  border-bottom {% cycle '' 'sh-table-row' %}">
+                <td class="col-2 p-2 align-middle">
+                    {{ object.name }}
+                </td>
+                <td class="col-6 p-2 align-middle">
+                    {{ object.description }}
+                </td>
+                <td class="col-2 p-2 align-middle">
+                    {{ object.location }}
+                </td>
+                <td class="col-2 p-2 text-right align-middle">
+                    <a class="btn btn-sm btn-primary" href="{% url 'mgmt:'|add:prefix|add:'convert' object.pk %}">Convert to business</a>
+                </td>
+            </tr>
+            {% endfor %}
         </table>
+        <div class="pagination row pt-2">
+            <span class="step-links col-12 text-center">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
