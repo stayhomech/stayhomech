@@ -57,6 +57,31 @@ services:
     networks:
       - pre-prod
 
+  sync-service:
+    build: sync-service/
+    environment:
+      - STAYHOME_API_URL=http://web:8000/api
+      - SPRING_PROFILES=pre-prod
+    expose:
+      - 8080
+    depends_on:
+      - web
+    restart: always
+    volumes:
+      - api_key:/api
+    networks:
+      - pre-prod
+  
+  nodefetch:
+    build: nodefetch/
+    environment:
+      - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - pre-prod
+
 volumes:
   api_key:
   datasets:
