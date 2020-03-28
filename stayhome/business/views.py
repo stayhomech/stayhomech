@@ -11,7 +11,7 @@ class RequestViewSet(viewsets.ModelViewSet):
 
 
 class BusinessViewSet(viewsets.ModelViewSet):
-    queryset = Business.objects.filter(deleted=False)
+    queryset = Business.objects.filter(status=Business.events.VALID)
     serializer_class = BusinessSerializer
     filter_fields = ['id', 'location__npa']
 

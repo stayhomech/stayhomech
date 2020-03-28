@@ -6,48 +6,32 @@ from django.template.response import TemplateResponse
 
 from mptt.admin import MPTTModelAdmin
 
-from .models import Business, Category, Request
+from .models import Business, Category, Request, BusinessHistoryEvent, RequestHistoryEvent
+
+
+class StatusFilter(admin.SimpleListFilter):
+    
+    title = _('status')
+    parameter_name = 'status'
+
+    def lookups(self, request, model_admin):
+        return model_admin.model.events.STATUS_CHOICES
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset.all()
+        else:
+            return queryset.filter(status=self.value())
 
 
 @admin.register(Business)
 class BusinessAdmin(admin.ModelAdmin):
     
-    list_display = ('name', 'location', 'main_category')
+    list_display = ('name', 'location', 'main_category', 'get_creation', 'get_status_text')
     ordering = ('name',)
     filter_horizontal = ('other_categories', 'delivers_to', 'delivers_to_canton', 'delivers_to_municipality', 'delivers_to_district')
     search_fields = ('name', 'location__npa', 'location__name')
-
-    def add_view(self, request, form_url='', extra_context=None):
-
-        self.add_form_template = None
-
-        return super(BusinessAdmin, self).add_view(
-            request, form_url, extra_context=extra_context,
-        )
-
-    def get_urls(self):
-        urls = super().get_urls()
-        custom_urls = [
-            re_path(
-                r'^build/(?P<request_uuid>.*)/$',
-                self.admin_site.admin_view(self.build_business),
-                name='build-business'
-            )
-        ]
-        return custom_urls + urls
-
-    def build_business(self, request, request_uuid, form_url='', extra_context=None):
-
-        extra_context = extra_context or {}
-
-        extra_context['request_uuid'] = request_uuid
-        extra_context['request_obj'] = Request.objects.get(uuid=request_uuid)
-
-        self.add_form_template = 'admin/business/business/build_form.html'
-
-        return super(BusinessAdmin, self).add_view(
-            request, form_url, extra_context=extra_context,
-        )
+    list_filter = (StatusFilter,)
 
 
 @admin.register(Category)
@@ -60,7 +44,6 @@ class CategoryAdmin(MPTTModelAdmin):
 @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
     
-    list_display = ('creation', 'name', 'location', 'source', 'handled', 'deleted')
-    ordering = ('-creation',)
-    list_filter = ('source', 'handled', 'deleted')
+    list_display = ('name', 'location', 'source', 'lang', 'get_creation', 'get_status_text')
+    list_filter = ('source', 'lang', StatusFilter)
     search_fields = ('name',)

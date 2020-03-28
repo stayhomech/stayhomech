@@ -175,10 +175,11 @@
             <tr class="row p-3">
                 <td class="col-6 p-2 text-left">
                     <button class="btn btn-sm btn-outline-danger" id="drop_request_btn" type="button">Drop request</button>
+                    <a href="{{ return }}" class="btn btn-sm btn-outline-secondary">Cancel</a>
                 </td>
                 <td class="col-6 p-2 text-right">
-                    <button class="btn btn-sm btn-outline-secondary" type="submit" name="next" value="mgmt:next">Create business and go to next request</button>
-                    <button class="btn btn-sm btn-primary" type="submit" name="next" value="mgmt:index">Create business</button>
+                    <button class="btn btn-sm btn-outline-secondary" type="submit" name="next" value="{{ next }}">Create business and go to next request</button>
+                    <button class="btn btn-sm btn-primary" type="submit" name="next" value="{{ return }}">Create business</button>
                 </td>
             </tr>
         </table>
@@ -253,7 +254,7 @@
         });
         $('#drop_request_confirm').on('click', (event) => {
             event.preventDefault();
-            window.location = "{% url 'mgmt:drop' object.pk %}";
+            window.location = "{% url 'mgmt:'|add:prefix|add:'drop' object.pk %}";
         });
     });
 
