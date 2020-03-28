@@ -13,7 +13,6 @@ public class BusinessEntryDto {
 	@NotBlank
 	private String description;
 
-	@Size(max = 255)
 	private String contact;
 
 	@Size(max = 255)
@@ -39,6 +38,8 @@ public class BusinessEntryDto {
 
 	@Size(max = 255)
 	private String location;
+
+	private Language language;
 
 	private Long ttl;
 
@@ -149,4 +150,14 @@ public class BusinessEntryDto {
 		this.ttl = ttl;
 		return this;
 	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public BusinessEntryDto setLanguage(Language language) {
+		this.language = language;
+		return this;
+	}
+
 }

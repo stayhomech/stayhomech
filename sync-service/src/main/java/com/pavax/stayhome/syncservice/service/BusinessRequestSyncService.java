@@ -15,9 +15,15 @@ public class BusinessRequestSyncService {
 
 	private final SyncServiceProperties syncServiceProperties;
 
-	public BusinessRequestSyncService(BusinessRequestRepository businessRequestRepository, SyncServiceProperties syncServiceProperties) {
+	private final LanguageDetectionService languageDetectionService;
+
+	public BusinessRequestSyncService(
+			BusinessRequestRepository businessRequestRepository,
+			SyncServiceProperties syncServiceProperties,
+			LanguageDetectionService languageDetectionService) {
 		this.businessRequestRepository = businessRequestRepository;
 		this.syncServiceProperties = syncServiceProperties;
+		this.languageDetectionService = languageDetectionService;
 	}
 
 	public void sync(BusinessEntryDto businessEntryDto) {
@@ -38,12 +44,21 @@ public class BusinessRequestSyncService {
 				.setCategory(businessEntryDto.getCategories())
 				.setTtl(businessEntryDto.getTtl())
 				.setDelivery(businessEntryDto.getDelivery());
+
+		businessRequest.setLang(businessEntryDto.getLanguage() != null ? businessEntryDto.getLanguage().getKey() : this.determineLanguage(businessRequest));
+
 		businessRequest.setChecksum(this.calculateChecksum(businessRequest));
 		if (isNew(businessRequest)) {
 			this.businessRequestRepository.save(businessRequest);
 		} else {
 			this.businessRequestRepository.update(businessRequest);
 		}
+	}
+
+	private String determineLanguage(BusinessRequest businessRequest) {
+		return this.languageDetectionService.detect(businessRequest)
+				.map(Language::getKey)
+				.orElse(null);
 	}
 
 	private boolean isNew(BusinessRequest businessRequest) {
@@ -59,6 +74,7 @@ public class BusinessRequestSyncService {
 				businessRequest.getEmail() +
 				businessRequest.getCategory() +
 				businessRequest.getContact() +
+				businessRequest.getLang() +
 				businessRequest.getDelivery();
 		return DigestUtils.md5DigestAsHex(checkSumString.getBytes());
 	}
