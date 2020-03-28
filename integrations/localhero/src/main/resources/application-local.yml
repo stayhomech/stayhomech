@@ -1,11 +1,17 @@
 stayhome:
   integrations:
     localhero:
-      scrape-cron: '*/5 * * * * *'
+      scrape-cron: '* */5 * * * *'
       source-urls:
         - 'http://localhost:3001'
       target-url: 'http://localhost:8080'
-      chunk-size: 1
+      chunk-size: 10
+      ttl-seconds: 1000
+
+spring:
+  batch:
+    job:
+      enabled: true
 
 logging:
   level:
