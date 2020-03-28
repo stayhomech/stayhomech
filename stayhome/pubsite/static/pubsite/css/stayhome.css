@@ -12,6 +12,23 @@ A:hover:not(.btn) {
   text-decoration: none;
 }
 
+.sh-home-logo {
+    height: 15vh;
+    margin-bottom: 5vh;
+}
+
+.sh-location-marker {
+    width: 50px;
+    padding: 0;
+    margin: 0;
+    font-size: 1.6em;
+}
+
+.sh-ofsp-icon {
+    color: seagreen;
+    font-size: 2em;
+}
+
 .navbar-custom {
     background-color: transparent;
 }
@@ -35,6 +52,15 @@ A:hover:not(.btn) {
 
 #left-nav {
     border-right: 1px solid #dee2e6!important;
+}
+
+#radius-slider .ui-slider-range {
+    background-color: seagreen;
+    opacity: 60%;
+}
+
+#radius-slider .ui-state-active {
+    background-color: seagreen;
 }
 
 .card-header {
@@ -61,6 +87,14 @@ A:hover:not(.btn) {
 
 .select2-results__option[aria-selected=true] {
     display: none;
+}
+
+.sh-table-head {
+    background-color: #bbb;
+}
+
+.sh-table-row {
+    background-color: #ddd;
 }
 
 @media(max-width: 767px) {

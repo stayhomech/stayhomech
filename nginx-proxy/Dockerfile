@@ -1,3 +1,4 @@
+# Original nginx-proxy container
 FROM jwilder/nginx-proxy
 
 # New configuration template        

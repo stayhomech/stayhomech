@@ -1,0 +1,70 @@
+{% extends "contribute.html" %}
+{% load i18n %}
+
+{% block contrib-content %}
+<div class="row mb-5">
+    <div class="col-12 px-3 pb-3">
+        {% if success %}
+        <div class="alert alert-success">{{ success }}</div>
+        {% endif %}
+        {% if errors %}
+        <div class="alert alert-danger">{{ errors }}</div>
+        {% endif %}
+        {% if object_list.count > 0 %}
+        <table class="container">
+            <tr class="row mx-0 px-0 border-top border-bottom font-weight-bold sh-table-head">
+                <td class="col-2 p-2 align-middle">Category</td>
+                <td class="col-2 p-2 align-middle">English</td>
+                <td class="col-2 p-2 align-middle">French</td>
+                <td class="col-2 p-2 align-middle">German</td>
+                <td class="col-2 p-2 align-middle">Italian</td>
+                <td class="col-2 p-2 align-middle">&nbsp;</td>
+            </tr>
+            {% for object in object_list %}
+            <form method="post" action="#">
+            <tr class="row mx-0 px-0  border-bottom {% cycle '' 'sh-table-row' %}">
+                <td class="col-2 p-2 align-middle">
+                    {{ object.name }}
+                </td>
+                <td class="col-2 p-2 align-middle">
+                    <input class="form-control form-control-sm" name="name_en" type="text" value="{{ object.name_en }}" />
+                </td>
+                <td class="col-2 p-2 align-middle">
+                    <input class="form-control form-control-sm" name="name_fr" type="text" value="{{ object.name_fr }}" />
+                </td>
+                <td class="col-2 p-2 align-middle">
+                    <input class="form-control form-control-sm" name="name_de" type="text" value="{{ object.name_de }}" />
+                </td>
+                <td class="col-2 p-2 align-middle">
+                    <input class="form-control form-control-sm" name="name_it" type="text" value="{{ object.name_it }}" />
+                </td>
+                <td class="col-2 p-2 text-right align-middle">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ object.pk }}" />
+                    <button type="submit" class="btn btn-sm btn-primary">Update translation</button>
+                </td>
+            </tr>
+            </form>
+            {% endfor %}
+        </table>
+        <div class="pagination row pt-2">
+            <span class="step-links col-12 text-center">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
