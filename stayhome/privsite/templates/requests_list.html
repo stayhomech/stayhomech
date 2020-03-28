@@ -1,6 +1,19 @@
 {% extends "contribute.html" %}
 {% load i18n %}
 
+{% block contrib-filters %}
+{% if prefix == '' %}
+{% blocktrans %}See requests in:{% endblocktrans %} 
+<select id="lang_filter">
+    <option value=""  {% ifequal lang none %}selected{% endifequal %}>{% trans 'All languages' %}</option>
+    <option value="en" {% ifequal lang 'en' %}selected{% endifequal %}>{% trans 'English' %}</option>
+    <option value="fr" {% ifequal lang 'fr' %}selected{% endifequal %}>{% trans 'French' %}</option>
+    <option value="de" {% ifequal lang 'de' %}selected{% endifequal %}>{% trans 'German' %}</option>
+    <option value="it" {% ifequal lang 'it' %}selected{% endifequal %}>{% trans 'Italian' %}</option>
+</select>
+{% endif %}
+{% endblock %}
+
 {% block contrib-content %}
 <div class="row mb-5">
     <div class="col-12 px-3 pb-3 px-3">
@@ -49,4 +62,19 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+    $(document).ready(() => {
+
+        $('#lang_filter').on('change', (event) => {
+            var lang = $(event.target).val();
+            window.location = '?lang=' + lang
+        });
+
+    });
+
+</script>
 {% endblock %}
