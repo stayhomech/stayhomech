@@ -16,7 +16,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('MYSQL_APP_PASSWORD'),
         'HOST': 'db',
         'PORT': '3306',
-        'CHARSET': 'utf-8'
+        'CHARSET': 'utf8mb4'
     }
 }
 

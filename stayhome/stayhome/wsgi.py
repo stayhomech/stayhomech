@@ -26,6 +26,9 @@ def set_environment():
     else:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stayhome.settings.dev-nodb')
 
+    # Return
+    return RUNNING_ENV
+
 
 # Set environment
 set_environment()

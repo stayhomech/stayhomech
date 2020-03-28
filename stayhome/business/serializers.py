@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Request, Business, Category
+from .models import Request, Business, Category, HistoryEvent
 
 
 class RequestSerializer(serializers.ModelSerializer):
@@ -16,6 +16,26 @@ class RequestSerializer(serializers.ModelSerializer):
         model = Request
         fields = ['uuid', 'ttl', 'source', 'source_uuid', 'lang', 'name', 'description', 'address',
         'location', 'contact', 'website', 'phone', 'email', 'category', 'delivery', 'checksum', 'status']
+
+    def create(self, validated_data):
+
+        req = Request.objects.create(**validated_data)
+        req.set_status(Request.events.NEW, user=self.context['request'].user)
+        return req
+
+    def update(self, instance, validated_data):
+        
+        if instance.checksum == validated_data['checksum']:
+
+            # Keepalive
+            instance.add_event(HistoryEvent.KEEPALIVE, user=self.context['request'].user)
+
+        else:
+
+            # Update
+            instance.set_status(Request.events.UPDATED, user=self.context['request'].user)
+
+        return super(RequestSerializer, self).update(instance, validated_data)
 
 
 class BusinessSerializer(serializers.ModelSerializer):

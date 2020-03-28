@@ -62,6 +62,7 @@ services:
     environment:
       - STAYHOME_API_URL=http://web:8000/api
       - SPRING_PROFILES=pre-prod
+      - SENTRY_DSN=${SENTRY_DSN_SYNC}
     expose:
       - 8080
     depends_on:
