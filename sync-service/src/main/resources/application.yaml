@@ -17,3 +17,5 @@ management:
   endpoints:
     web:
       base-path: /management
+      exposure:
+        include: '*'

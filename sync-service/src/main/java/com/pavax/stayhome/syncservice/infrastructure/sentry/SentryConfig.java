@@ -1,4 +1,4 @@
-package com.pavax.stayhome.syncservice.infrastructure.web;
+package com.pavax.stayhome.syncservice.infrastructure.sentry;
 
 import io.sentry.spring.SentryExceptionResolver;
 import io.sentry.spring.SentryServletContextInitializer;
@@ -21,6 +21,11 @@ class SentryConfig {
 	@Bean
 	public ServletContextInitializer sentryServletContextInitializer() {
 		return new SentryServletContextInitializer();
+	}
+
+	@Bean
+	public SentryCustomHeaderFilter sentryCustomHeaderFilter() {
+		return new SentryCustomHeaderFilter();
 	}
 
 }

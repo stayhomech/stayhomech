@@ -11,8 +11,10 @@ export abstract class CrawlerBase {
         let response = await fetch(Globals.SyncServiceBaseUrl + 'business-entry/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
-              },
+                'Content-Type': 'application/json',
+                'X-SYNC-PROVIDER-NAME': request.providerName,
+                'X-SYNC-PROVIDER-ENTRY-ID': request.id
+            },
             body: JSON.stringify(request)
         });
         if (response.status < 200 && response.status >= 300) {

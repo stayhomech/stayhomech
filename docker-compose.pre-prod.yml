@@ -53,12 +53,13 @@ services:
     restart: always
     volumes:
       - api_key:/api
-      - /data/pre-prod/web/code/datasets:/code/datasets
+      - datasets:/code/datasets
     networks:
       - pre-prod
 
 volumes:
   api_key:
+  datasets:
 
 networks:
   pre-prod:
