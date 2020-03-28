@@ -4,7 +4,7 @@ stayhome:
       scrape-cron: '*/5 * * * * *'
       source-urls:
         - 'http://localhost:3001'
-      target-url: 'tbd'
+      target-url: 'http://localhost:8080'
       chunk-size: 1
 
 logging:

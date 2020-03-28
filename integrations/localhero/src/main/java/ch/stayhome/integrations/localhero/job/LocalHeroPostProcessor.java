@@ -8,28 +8,29 @@ import org.springframework.batch.item.ItemProcessor;
 
 @Slf4j
 public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, StayHomeEntry> {
-    private String providerName;
+    private final LocalHeroProperties config;
 
     LocalHeroPostProcessor(final LocalHeroProperties config) {
-        this.providerName = config.getProviderName();
+        this.config = config;
     }
 
     @Override
     public StayHomeEntry process(LocalHeroPost item) {
         return StayHomeEntry.builder()
-                .id(providerName + "-" + item.getId())
+                .id(config.getProviderName() + "-" + item.getId())
                 .name(item.getTitle().getRendered())
                 .description(item.getExcerpt().getRendered())
                 .website(item.getGuid().getRendered())
-                .providerName(providerName)
+                .providerName(config.getProviderName())
 
-                .categories("")
+                .location("Bern")                   // FIXME: don't hard code, there are multiple locations
+                .categories("local-hero.ch")        // FIXME: don't know yet what to put in here
+                .delivery("Bern")                   // FIXME: What's the exact requirement for this
+
                 .contact("")
-                .delivery("")
                 .email("")
-                .location("")
                 .phone("")
-                .ttl(1)
+                .ttl(config.getTtlSeconds())
 
                 .build();
     }

@@ -19,13 +19,13 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class LocalHeroPostReader implements ItemReader<LocalHeroPost> {
     private final LocalHeroProperties config;
-    private final List<LocalHeroChApi> sources = new ArrayList<>();
+    private final List<LocalHeroChApi> apis = new ArrayList<>();
 
     private Deque<LocalHeroPost> postDeque = new ArrayDeque<>();
 
     LocalHeroPostReader(LocalHeroProperties config) {
         this.config = config;
-        this.config.getSourceUrls().forEach(target -> sources.add(
+        this.config.getSourceUrls().forEach(target -> apis.add(
                 Feign.builder()
                         .decoder(new GsonDecoder())
                         .retryer(new Retryer.Default())
@@ -57,7 +57,7 @@ public class LocalHeroPostReader implements ItemReader<LocalHeroPost> {
     private void fetchPosts() {
         postDeque = new ArrayDeque<>();
 
-        sources.forEach(source -> source.findAll(config.getRestRoute())
+        apis.forEach(source -> source.findAll(config.getRestRoute())
                 .forEach(post -> postDeque.push(post))
         );
     }

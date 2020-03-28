@@ -82,6 +82,6 @@ public class ImportBatch {
 
     @Bean
     public ItemWriter<StayHomeEntry> writer() {
-        return new StayHomeEntryWriter();
+        return new StayHomeEntryWriter(localHeroProperties);
     }
 }

@@ -32,4 +32,8 @@ public class LocalHeroProperties {
     private String providerName;
 
     private Integer chunkSize = 10;
+
+    @NonNull
+    @NotNull
+    private Integer ttlSeconds;
 }
