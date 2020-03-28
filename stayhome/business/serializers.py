@@ -6,10 +6,7 @@ from .models import Request, Business, Category
 class RequestSerializer(serializers.ModelSerializer):
 
     uuid = serializers.ReadOnlyField()
-    handled = serializers.ReadOnlyField()
-    deleted = serializers.ReadOnlyField()
-    creation = serializers.ReadOnlyField()
-    update = serializers.ReadOnlyField()
+    status = serializers.ReadOnlyField()
 
     source = serializers.HiddenField(
         default=2
@@ -17,9 +14,8 @@ class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Request
-        fields = ['uuid', 'handled', 'deleted', 'creation', 'update', 'ttl', 'source', 
-        'source_uuid', 'name', 'description', 'location', 'contact', 'website', 'phone', 'email', 
-        'category', 'delivery', 'checksum']
+        fields = ['uuid', 'ttl', 'source', 'source_uuid', 'lang', 'name', 'description', 'address',
+        'location', 'contact', 'website', 'phone', 'email', 'category', 'delivery', 'checksum', 'status']
 
 
 class BusinessSerializer(serializers.ModelSerializer):
