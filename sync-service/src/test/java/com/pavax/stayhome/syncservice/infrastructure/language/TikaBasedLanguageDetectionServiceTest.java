@@ -88,4 +88,18 @@ class TikaBasedLanguageDetectionServiceTest {
 		// then
 		assertThat(language).isNotPresent();
 	}
+
+
+	@Test
+	void testDetectUnsupportedLanguage() {
+		// given
+		final BusinessRequest businessRequest = BusinessRequestFixture.test("001");
+		businessRequest.setDescription("StayHome.ch es una iniciativa privada de una persona que desea ayudar a hacer frente a las consecuencias de la epidemia de COVID-19. No tiene objetivo mercantil.");
+
+		// when
+		final Optional<Language> language = languageDetectionService.detect(businessRequest);
+
+		// then
+		assertThat(language).isNotPresent();
+	}
 }
