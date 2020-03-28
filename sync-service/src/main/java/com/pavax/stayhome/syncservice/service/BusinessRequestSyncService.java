@@ -11,6 +11,8 @@ import org.springframework.util.DigestUtils;
 @EnableConfigurationProperties(SyncServiceProperties.class)
 public class BusinessRequestSyncService {
 
+	private static final String FALLBACK_LANG = "en";
+
 	private final BusinessRequestRepository businessRequestRepository;
 
 	private final SyncServiceProperties syncServiceProperties;
@@ -58,7 +60,7 @@ public class BusinessRequestSyncService {
 	private String determineLanguage(BusinessRequest businessRequest) {
 		return this.languageDetectionService.detect(businessRequest)
 				.map(Language::getKey)
-				.orElse(null);
+				.orElse(FALLBACK_LANG);
 	}
 
 	private boolean isNew(BusinessRequest businessRequest) {
