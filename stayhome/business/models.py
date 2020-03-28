@@ -75,7 +75,9 @@ class HistoryEvent(models.Model):
     )
 
     event_data = models.TextField(
-        blank=True
+        blank=True,
+        null=True,
+        default=''
     )
 
 

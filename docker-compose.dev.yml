@@ -3,7 +3,7 @@ version: '3'
 services:
 
   db:
-    image: mariadb
+    build: mariadb/
     container_name: db
     environment:
       - MYSQL_ROOT_PASSWORD=stayhome

@@ -8,8 +8,10 @@ from stayhome.wsgi import set_environment
 def main():
 
     # Running environment
-    set_environment()
+    running_env = set_environment()
+    print('Running in %s environment' % running_env)
 
+    # Load Django
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
