@@ -69,6 +69,8 @@ services:
     restart: always
     volumes:
       - api_key:/api
+    networks:
+      - pre-prod
   
   nodefetch:
     build: nodefetch/
@@ -77,6 +79,8 @@ services:
     depends_on:
       - sync-service
     restart: always
+    networks:
+      - pre-prod
 
 volumes:
   api_key:
