@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+
+  nginx-proxy:
+    build: nginx-proxy/
+    container_name: nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhosts:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    networks:
+      - infra
+      - prod
+      - pre-prod
+
+  letsencrypt-nginx-proxy-companion:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt-nginx-proxy-companion
+    environment:
+      - DEFAULT_EMAIL=${LETSENCRYPT_EMAIL}
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhosts:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - nginx-proxy
+    restart: always
+    networks:
+      - infra
+
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    volumes:
+      - /data/infra/portainer/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 127.0.0.1:9000:9000
+    restart: always
+    networks:
+      - infra
+
+volumes:
+  certs:
+  vhosts:
+  html:
+  dhparam:
+
+networks:
+  infra:
+  prod:
+  pre-prod:

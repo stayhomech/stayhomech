@@ -2,37 +2,6 @@ version: '3'
 
 services:
 
-  nginx-proxy:
-    build: nginx-proxy/
-    container_name: nginx-proxy
-    environment:
-      - DEFAULT_HOST=www.stayhome.ch
-    volumes:
-      - certs:/etc/nginx/certs
-      - vhosts:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - dhparam:/etc/nginx/dhparam
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    ports:
-      - 80:80
-      - 443:443
-    restart: always
-
-  letsencrypt-nginx-proxy-companion:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: letsencrypt-nginx-proxy-companion
-    environment:
-      - DEFAULT_EMAIL=${LETSENCRYPT_EMAIL}
-      - NGINX_PROXY_CONTAINER=nginx-proxy
-    volumes:
-      - certs:/etc/nginx/certs
-      - vhosts:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    depends_on:
-      - nginx-proxy
-    restart: always
-
   db:
     image: mariadb
     container_name: db
@@ -44,6 +13,8 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: always
+    networks:
+      - prod
 
   memcached:
     image: memcached:alpine
@@ -53,6 +24,8 @@ services:
       - -m
       - '256'
     restart: always
+    networks:
+      - prod
 
   web:
     build: stayhome/
@@ -79,40 +52,20 @@ services:
       - 8000
     depends_on:
       - db
-      - nginx-proxy
       - memcached
     restart: always
     volumes:
       - api_key:/api
       - datasets:/code/datasets
-
-  sync-service:
-    build: sync-service/
-    container_name: sync-service
-    environment:
-      - STAYHOME_API_URL=http://web:8000/api
-    expose:
-      - 8080
-    depends_on:
-      - web
-    restart: always
-    volumes:
-      - api_key:/api
-  
-  nodefetch:
-    build: nodefetch/
-    container_name: nodefetch
-    environment:
-      - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
-    depends_on:
-      - sync-service
-    restart: always
+    networks:
+      - prod
 
 volumes:
   db_data:
   api_key:
   datasets:
-  certs:
-  vhosts:
-  html:
-  dhparam:
+
+networks:
+  prod:
+    external:
+      name: infra_prod
