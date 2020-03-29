@@ -1,12 +1,13 @@
 stayhome:
   integrations:
     localhero:
-      scrape-cron: '* */5 * * * *'
+      scrape-cron: '-'
       source-urls:
         - 'https://bern.local-hero.ch/wp-json/wp/v2/posts'
       target-url: 'http://localhost:8080'
       chunk-size: 10
       ttl-seconds: 1000
+      page-size: 10
 
 spring:
   batch:
