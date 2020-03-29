@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import translation
 from django.conf import settings
 from django.core.cache import cache
+from django.utils.translation import get_language
 from datadog import statsd
 
 from geodata.models import NPA
@@ -21,6 +22,14 @@ from business.forms import BusinessAddForm
 class HomeView(TemplateView):
 
     template_name = "home.html"
+
+    def get(self, request, *args, **kwargs):
+
+        # Stats
+        statsd.increment('stayhome.landing.count')
+        statsd.increment('stayhome.landing.lang.' + get_language())
+
+        return super(HomeView, self).get(self, request, *args, **kwargs)
 
 
 class HomeLocationView(View):
@@ -80,7 +89,7 @@ class ContentView(TemplateView):
         context['npa'] = npa
 
         # Stats
-        statsd.increment('stayhome.search.n.' + str(npa.npa))
+        statsd.increment('stayhome.search.n.' + str(npa.pk))
         statsd.increment('stayhome.search.m.' + str(municipality.pk))
         statsd.increment('stayhome.search.d.' + str(district.pk))
         statsd.increment('stayhome.search.c.' + str(canton.pk))
@@ -120,7 +129,7 @@ class ContentView(TemplateView):
         context['businesses'] = businesses
 
         # Stats
-        statsd.gauge('stayhome.results.npa.' + str(npa.npa), businesses.count())
+        statsd.gauge('stayhome.results.npa.' + str(npa.pk), businesses.count())
         statsd.gauge('stayhome.results.total', businesses.count())
 
         context['categories'] = Category.objects.filter(
