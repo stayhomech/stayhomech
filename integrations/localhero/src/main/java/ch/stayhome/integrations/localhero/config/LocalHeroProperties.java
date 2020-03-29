@@ -23,9 +23,6 @@ public class LocalHeroProperties {
 	@NotEmpty
 	private List<SourceConfig> sources;
 
-	@NotBlank(message = "No rest route has been defined in application.yml")
-	private String restRoute;
-
 	@NotBlank(message = "No target url has been defined in application.yml")
 	private String targetUrl;
 
