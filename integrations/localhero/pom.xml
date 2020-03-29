@@ -58,6 +58,11 @@
             <artifactId>validation-api</artifactId>
             <version>${javax-validation.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <!-- Testing -->
         <dependency>
