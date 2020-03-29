@@ -38,13 +38,17 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableBatchProcessing
 @EnableScheduling
 @Slf4j
-public class ImportBatch {
+public class LocalHeroBatchConfig {
+
 	private final LocalHeroProperties localHeroProperties;
+
 	private final JobBuilderFactory jobBuilderFactory;
+
 	private final StepBuilderFactory stepBuilderFactory;
+
 	private final JobLauncher jobLauncher;
 
-	public ImportBatch(final LocalHeroProperties localHeroProperties, final JobBuilderFactory jobBuilderFactory, final StepBuilderFactory stepBuilderFactory, final JobLauncher jobLauncher) {
+	public LocalHeroBatchConfig(final LocalHeroProperties localHeroProperties, final JobBuilderFactory jobBuilderFactory, final StepBuilderFactory stepBuilderFactory, final JobLauncher jobLauncher) {
 		this.localHeroProperties = localHeroProperties;
 		this.jobBuilderFactory = jobBuilderFactory;
 		this.stepBuilderFactory = stepBuilderFactory;
@@ -71,8 +75,7 @@ public class ImportBatch {
 				.build();
 	}
 
-	@Bean
-	Step parallelFlow() {
+	private Step parallelFlow() {
 		final List<SourceConfig> sourceConfigs = this.localHeroProperties.getSources();
 		return this.stepBuilderFactory.get("importing-steps")
 				.flow(new FlowBuilder<Flow>("importing-flows")
@@ -84,15 +87,15 @@ public class ImportBatch {
 				.build();
 	}
 
-	Flow stepFlow(SourceConfig sourceConfig) {
+	private Flow stepFlow(SourceConfig sourceConfig) {
 		return new FlowBuilder<Flow>("flow-" + sourceConfig.getKey())
 				.start(step(sourceConfig))
 				.build();
 	}
 
-	Step step(SourceConfig sourceConfig) {
+	private Step step(SourceConfig sourceConfig) {
 		final LocalHeroChApi localHeroChApi = this.buildApi(sourceConfig);
-		return stepBuilderFactory.get("import-step")
+		return stepBuilderFactory.get("import-step-" + sourceConfig.getKey())
 				.<LocalHeroPost, StayHomeEntry>chunk(localHeroProperties.getChunkSize())
 				.reader(reader(localHeroChApi))
 				.processor(processor(sourceConfig, localHeroChApi))
@@ -100,19 +103,19 @@ public class ImportBatch {
 				.build();
 	}
 
-	public LocalHeroPostProcessor processor(SourceConfig sourceConfig, LocalHeroChApi localHeroChApi) {
+	private LocalHeroPostProcessor processor(SourceConfig sourceConfig, LocalHeroChApi localHeroChApi) {
 		return new LocalHeroPostProcessor(sourceConfig, localHeroChApi, this.localHeroProperties.getRequestTtl());
 	}
 
-	public LocalHeroPostReader reader(LocalHeroChApi localHeroChApi) {
+	private LocalHeroPostReader reader(LocalHeroChApi localHeroChApi) {
 		return new LocalHeroPostReader(localHeroProperties.getPageSize(), localHeroChApi);
 	}
 
-	public ItemWriter<StayHomeEntry> writer() {
+	private ItemWriter<StayHomeEntry> writer() {
 		return new StayHomeEntryWriter(localHeroProperties);
 	}
 
-	public LocalHeroChApi buildApi(SourceConfig sourceConfig) {
+	private LocalHeroChApi buildApi(SourceConfig sourceConfig) {
 		return Feign.builder()
 				.decoder(new PagedWordPressResultDecoder(new GsonDecoder()))
 				.encoder(new GsonEncoder())
