@@ -156,6 +156,11 @@ SYNC_USER = os.environ.get('SYNC_USER')
 
 # Datadog
 initialize({
+    'api_key': os.environ.get('DD_WEB_API_KEY'),
+    'app_key': os.environ.get('DD_WEB_APP_KEY'),
+    'host_name': 'stayhome_web',
     'statsd_host': 'datadog',
-    'statsd_port': 8125
+    'statsd_port': 8125,
+    'statsd_constant_tags': ["env:" + RUNNING_ENV],
+    'statsd_namespace': 'stayhome'
 })
