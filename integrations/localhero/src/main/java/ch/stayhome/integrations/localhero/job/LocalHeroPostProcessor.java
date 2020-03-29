@@ -1,5 +1,7 @@
 package ch.stayhome.integrations.localhero.job;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
@@ -17,6 +19,8 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
 	private final LocalHeroProperties config;
 
 	private final LocalHeroChApi localHeroChApi;
+
+	private final Map<String, LocalHeroCategory> categoryCache = new HashMap<>();
 
 	LocalHeroPostProcessor(final LocalHeroProperties config, LocalHeroChApi localHeroChApi) {
 		this.config = config;
@@ -44,8 +48,13 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
 
 	private String determineCategories(LocalHeroPost item) {
 		return item.getCategories().stream()
-				.map(localHeroChApi::getCategory)
+				.map(this::resolveCategory)
 				.map(LocalHeroCategory::getName)
 				.collect(Collectors.joining(", "));
 	}
+
+	private LocalHeroCategory resolveCategory(String key) {
+		return this.categoryCache.computeIfAbsent(key, s -> localHeroChApi.getCategory(key));
+	}
+
 }
