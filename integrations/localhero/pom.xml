@@ -16,7 +16,7 @@
     <description>localhero.ch integration for stayhome.ch</description>
 
     <properties>
-        <java.version>13</java.version>
+        <java.version>11</java.version>
         <javax-validation.version>2.0.1.Final</javax-validation.version>
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
         <feign.version>10.7.4</feign.version>
@@ -86,8 +86,12 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <parameters>true</parameters>
+                    <release>${java.version}</release>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
