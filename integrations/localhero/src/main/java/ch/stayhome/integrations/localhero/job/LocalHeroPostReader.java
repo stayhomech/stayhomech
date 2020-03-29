@@ -25,6 +25,8 @@ public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost>
 
 	private final List<LocalHeroChApi> apis = new ArrayList<>();
 
+	private Integer totalPages;
+
 	LocalHeroPostReader(LocalHeroProperties config) {
 		this.config = config;
 		this.config.getSourceUrls().forEach(target -> apis.add(
@@ -47,13 +49,14 @@ public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost>
 			results.clear();
 		}
 		apis.forEach(source -> {
-			final PagedWordPressResult<LocalHeroPost> results = source.findAll(getPage() + 1, getPageSize());
 			final int currentPage = super.getPage() + 1;
-			if (currentPage <= results.getTotalPages()) {
-				this.results.addAll(results.getContent());
-			} else {
-				logger.info("Last Page reached. Total-Pages: " + results.getTotalPages() + ", Total:items: " + results.getTotalItems());
+			if (this.totalPages != null && currentPage > this.totalPages) {
+				logger.info("No more pages to fetch");
+				return;
 			}
+			final PagedWordPressResult<LocalHeroPost> results = source.findAll(getPage() + 1, getPageSize());
+			this.totalPages = results.getTotalPages();
+			this.results.addAll(results.getContent());
 		});
 	}
 
