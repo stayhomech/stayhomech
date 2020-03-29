@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'ddtrace.contrib.django',
+    'corsheaders',
 
     'geodata',
     'business',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -166,3 +168,11 @@ options = {
     'statsd_namespace': 'stayhome'
 }
 initialize(**options)
+
+
+# CORS headers
+CORS_ORIGIN_WHITELIST = [
+    'https://stayhome.ch',
+    'https://www.stayhome.ch',
+    'https://stay-home.squarespace.com'
+]

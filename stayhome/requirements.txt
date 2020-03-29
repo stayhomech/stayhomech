@@ -33,3 +33,4 @@ django-hosts==4.0
 ipython==7.13.0
 datadog==0.35.0
 ddtrace[profile]==0.35.0
+django-cors-headers==3.2.1
