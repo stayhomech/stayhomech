@@ -26,8 +26,8 @@ class HomeView(TemplateView):
     def get(self, request, *args, **kwargs):
 
         # Stats
-        statsd.increment('stayhome.landing.count')
-        statsd.increment('stayhome.landing.lang.' + get_language())
+        statsd.increment('landing.count')
+        statsd.increment('landing.lang.' + get_language())
 
         return super(HomeView, self).get(self, request, *args, **kwargs)
 
@@ -89,10 +89,10 @@ class ContentView(TemplateView):
         context['npa'] = npa
 
         # Stats
-        statsd.increment('stayhome.search.n.' + str(npa.pk))
-        statsd.increment('stayhome.search.m.' + str(municipality.pk))
-        statsd.increment('stayhome.search.d.' + str(district.pk))
-        statsd.increment('stayhome.search.c.' + str(canton.pk))
+        statsd.increment('search.n.' + str(npa.pk))
+        statsd.increment('search.m.' + str(municipality.pk))
+        statsd.increment('search.d.' + str(district.pk))
+        statsd.increment('search.c.' + str(canton.pk))
 
         cache_key = str(npa.pk) + '_businesses'
         businesses = cache.get(cache_key)
@@ -129,8 +129,8 @@ class ContentView(TemplateView):
         context['businesses'] = businesses
 
         # Stats
-        statsd.gauge('stayhome.results.npa.' + str(npa.pk), businesses.count())
-        statsd.gauge('stayhome.results.total', businesses.count())
+        statsd.gauge('results.npa.' + str(npa.pk), businesses.count())
+        statsd.gauge('results.total', businesses.count())
 
         context['categories'] = Category.objects.filter(
             Q(as_main_category__in=context['businesses'])
