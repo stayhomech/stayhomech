@@ -89,7 +89,7 @@ public class LocalHeroBatchConfig {
 	}
 
 	private Flow stepFlow(SourceConfig sourceConfig) {
-		return new FlowBuilder<Flow>("flow-" + sourceConfig.getKey())
+		return new FlowBuilder<Flow>("import-flow-" + sourceConfig.getKey())
 				.start(step(sourceConfig))
 				.build();
 	}
