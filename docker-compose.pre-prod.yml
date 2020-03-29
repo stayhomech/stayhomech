@@ -45,6 +45,8 @@ services:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - SENTRY_DSN=${SENTRY_DSN}
       - GOOGLE_UA=${GOOGLE_UA}
+      - DATADOG_ENV=pre-prod
+      - DD_AGENT_HOST=datadog
     expose:
       - 8000
     depends_on:
