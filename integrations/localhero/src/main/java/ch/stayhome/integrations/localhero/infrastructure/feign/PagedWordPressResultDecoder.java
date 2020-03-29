@@ -13,7 +13,9 @@ import feign.codec.Decoder;
 
 public class PagedWordPressResultDecoder implements Decoder {
 
-	private static final ParameterizedType LIST_TYPE = (ParameterizedType) new TypeToken<List<Object>>() {}.getType();
+	private static final String WP_HEADER_TOTAL_POSTS = "x-wp-total";
+
+	private static final String WP_HEADER_TOTAL_PAGES = "x-wp-totalpages";
 
 	private final Decoder delegate;
 
@@ -23,17 +25,17 @@ public class PagedWordPressResultDecoder implements Decoder {
 
 	@Override
 	public Object decode(Response response, Type type) throws FeignException, IOException {
-		if (supports(type)) {
-			final String totalItems = firstHeader(response, "x-wp-total");
-			final String totalPages = firstHeader(response, "x-wp-totalpages");
-			final Object decode = delegate.decode(response, new ListParameterType(actualTypeArgument(type)));
-			return PagedWordPressResult.builder()
-					.totalItems(Integer.parseInt(totalItems))
-					.totalPages(Integer.parseInt(totalPages))
-					.content((List<Object>) decode)
-					.build();
+		if (!isPagedWorkdPressResult(type)) {
+			return delegate.decode(response, type);
 		}
-		return delegate.decode(response, type);
+		final String totalItems = firstHeader(response, WP_HEADER_TOTAL_POSTS);
+		final String totalPages = firstHeader(response, WP_HEADER_TOTAL_PAGES);
+		final Object content = delegate.decode(response, new ListParameterType(actualTypeArgument(type)));
+		return PagedWordPressResult.builder()
+				.totalItems(Integer.parseInt(totalItems))
+				.totalPages(Integer.parseInt(totalPages))
+				.content((List<Object>) content)
+				.build();
 	}
 
 	private Type actualTypeArgument(Type type) {
@@ -45,11 +47,14 @@ public class PagedWordPressResultDecoder implements Decoder {
 		return response.headers().get(s).iterator().next();
 	}
 
-	private boolean supports(Type type) {
+	private boolean isPagedWorkdPressResult(Type type) {
+		// TODO Improve this check
 		return type.getTypeName().contains("PagedWordPressResult");
 	}
 
 	static class ListParameterType implements ParameterizedType {
+
+		private static final ParameterizedType LIST_TYPE = (ParameterizedType) new TypeToken<List<Object>>() {}.getType();
 
 		private final Type actualArgumentType;
 
