@@ -11,6 +11,7 @@ services:
       - html:/usr/share/nginx/html
       - dhparam:/etc/nginx/dhparam
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /data/infra/nginx-proxy/auth/:/etc/nginx/htpasswd/
     ports:
       - 80:80
       - 443:443
