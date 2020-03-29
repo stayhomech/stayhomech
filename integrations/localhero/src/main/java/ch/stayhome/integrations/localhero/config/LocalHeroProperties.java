@@ -10,12 +10,10 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "stayhome.integrations.localhero")
-@EnableConfigurationProperties({LocalHeroProperties.class})
 @Data
 public class LocalHeroProperties {
 
@@ -30,9 +28,6 @@ public class LocalHeroProperties {
 
 	@NotBlank(message = "No target url has been defined in application.yml")
 	private String targetUrl;
-
-	@NotBlank(message = "No provider name has been defined in application.yml")
-	private String providerName;
 
 	private int chunkSize = 10;
 
