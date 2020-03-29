@@ -3,16 +3,12 @@ stayhome:
     localhero:
       scrape-cron: '* */5 * * * *'
       source-urls:
-        - 'http://localhost:3001'
+        - 'http://localhost:3001/bern'
+        - 'http://localhost:3001/winterthur'
       target-url: 'http://localhost:8080'
-      chunk-size: 10
-      ttl-seconds: 1000
 
 spring:
   batch:
     job:
       enabled: true
 
-logging:
-  level:
-    org.springframework.scheduling: 'DEBUG'
