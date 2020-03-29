@@ -80,12 +80,10 @@ class ContentView(TemplateView):
         context['npa'] = npa
 
         # Stats
-        prefix = 'stayhome_search.'
-        tags = ["env:" + settings.RUNNING_ENV]
-        statsd.increment(prefix + 'n.' + str(npa.npa), tags=tags)
-        statsd.increment(prefix + 'm.' + str(municipality.pk), tags=tags)
-        statsd.increment(prefix + 'd.' + str(district.pk), tags=tags)
-        statsd.increment(prefix + 'c.' + str(canton.pk), tags=tags)
+        statsd.increment('n.' + str(npa.npa))
+        statsd.increment('m.' + str(municipality.pk))
+        statsd.increment('d.' + str(district.pk))
+        statsd.increment('c.' + str(canton.pk))
 
         cache_key = str(npa.pk) + '_businesses'
         businesses = cache.get(cache_key)
@@ -122,10 +120,8 @@ class ContentView(TemplateView):
         context['businesses'] = businesses
 
         # Stats
-        prefix = 'stayhome_search.'
-        tags = ["env:" + settings.RUNNING_ENV]
-        statsd.gauge(prefix + 'results.npa.' + str(npa.npa), businesses.count(), tags=tags)
-        statsd.gauge(prefix + 'results.total', businesses.count(), tags=tags)
+        statsd.gauge('results.npa.' + str(npa.npa), businesses.count())
+        statsd.gauge('results.total', businesses.count())
 
         context['categories'] = Category.objects.filter(
             Q(as_main_category__in=context['businesses'])

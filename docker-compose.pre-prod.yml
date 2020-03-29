@@ -50,6 +50,8 @@ services:
       - DD_TRACE_ANALYTICS_ENABLED=true
       - DD_PROFILING_API_KEY=${DD_PROFILING_API_KEY}
       - DD_PROFILING_TAGS=env:pre-prod,service:stayhome,version:1
+      - DD_WEB_API_KEY=${DD_WEB_API_KEY}
+      - DD_WEB_APP_KEY=$DD_WEB_APP_KEY{}
     expose:
       - 8000
     depends_on:
