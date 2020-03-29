@@ -3,8 +3,7 @@ version: '3'
 services:
 
   db:
-    image: mariadb
-    container_name: db
+    build: mariadb/
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_APP_DB}
@@ -18,7 +17,6 @@ services:
 
   memcached:
     image: memcached:alpine
-    container_name: memcached
     entrypoint:
       - memcached
       - -m
@@ -29,7 +27,6 @@ services:
 
   web:
     build: stayhome/
-    container_name: web
     environment:
       - RUNNING_ENV=prod
       - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch
@@ -48,6 +45,13 @@ services:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - SENTRY_DSN=${SENTRY_DSN}
       - GOOGLE_UA=${GOOGLE_UA}
+      - DATADOG_ENV=prod
+      - DD_AGENT_HOST=datadog
+      - DD_TRACE_ANALYTICS_ENABLED=true
+      - DD_PROFILING_API_KEY=${DD_PROFILING_API_KEY}
+      - DD_PROFILING_TAGS=env:prod,service:stayhome,version:1
+      - DD_WEB_API_KEY=${DD_WEB_API_KEY}
+      - DD_WEB_APP_KEY=$DD_WEB_APP_KEY{}
     expose:
       - 8000
     depends_on:
@@ -61,9 +65,9 @@ services:
       - prod
 
 volumes:
-  db_data:
   api_key:
   datasets:
+  db_data:
 
 networks:
   prod:
