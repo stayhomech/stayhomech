@@ -41,7 +41,7 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
 				.providerName(this.sourceConfig.getProviderName())
 				.location(this.sourceConfig.getPlace())
 				.categories(determineCategories(item))
-				.delivery("")
+				.delivery(this.sourceConfig.getPlace())
 				.contact("")
 				.email("")
 				.phone("")
