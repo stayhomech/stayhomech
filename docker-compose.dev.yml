@@ -62,6 +62,15 @@ services:
       - sync-service
     restart: always
 
+  local-hero:
+    build: integrations/localhero/
+    container_name: local-hero
+    environment:
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080/api/
+    depends_on:
+      - sync-service
+    restart: always
+
 volumes:
   db_data:
   api_key:
