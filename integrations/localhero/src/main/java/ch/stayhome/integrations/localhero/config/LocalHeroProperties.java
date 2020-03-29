@@ -1,14 +1,16 @@
 package ch.stayhome.integrations.localhero.config;
 
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
-import lombok.NonNull;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Configuration
 @ConfigurationProperties(prefix = "stayhome.integrations.localhero")
@@ -18,8 +20,7 @@ public class LocalHeroProperties {
     @NotBlank(message = "No cron expression has been defined in application.yml")
     private String scrapeCron;
 
-    @NotNull
-    @NonNull
+    @NotEmpty
     private List<String> sourceUrls;
     
     @NotBlank(message = "No rest route has been defined in application.yml")
@@ -33,7 +34,6 @@ public class LocalHeroProperties {
 
     private Integer chunkSize = 10;
 
-    @NonNull
     @NotNull
     private Integer ttlSeconds;
 }
