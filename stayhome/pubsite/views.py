@@ -9,7 +9,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.translation import gettext_lazy as _
 from django.utils import translation
 from django.conf import settings
-
+from django.core.cache import cache
+from django.utils.translation import get_language
+from datadog import statsd
 
 from geodata.models import NPA
 from business.models import Business, Request, Category
@@ -20,6 +22,15 @@ from business.forms import BusinessAddForm
 class HomeView(TemplateView):
 
     template_name = "home.html"
+
+    def get(self, request, *args, **kwargs):
+
+        # Stats
+        statsd.increment('landing.count', tags=[
+            'lang:' + get_language()
+        ])
+
+        return super(HomeView, self).get(self, request, *args, **kwargs)
 
 
 class HomeLocationView(View):
@@ -78,31 +89,59 @@ class ContentView(TemplateView):
 
         context['npa'] = npa
 
-        context['businesses'] = Business.objects.filter(status=Business.events.VALID).filter(
-            Q(location=npa)
-            |
-            Q(delivers_to__in=[npa])
-            |
-            Q(delivers_to_municipality__in=[municipality])
-            |
-            Q(delivers_to_district__in=[district])
-            |
-            Q(delivers_to_canton__in=[canton])
-            |
-            Q(delivers_to_ch=True)
-        ).distinct().annotate(
-            radius=Case(
-                When(location=npa, then=Value(0)),
-                When(location__in=npas, then=Value(1)),
-                When(delivers_to__in=[npa], then=Value(2)),
-                When(delivers_to_municipality__in=[municipality], then=Value(3)),
-                When(delivers_to_district__in=[district], then=Value(4)),
-                When(delivers_to_canton__in=[canton], then=Value(5)),
-                When(delivers_to_ch=True, then=Value(6)),
-                default=Value(7),
-                output_field=PositiveSmallIntegerField()
-            ),
-        ).order_by('radius', 'name')
+        # Stats
+        statsd.increment('search', tags=[
+            'n_pk:' + str(npa.pk),
+            'n_code:' + str(npa.npa),
+            'n_name:' + str(npa.name_en).replace(' ', '_'),
+            'm_pk:' + str(municipality.pk),
+            'm_name:' + str(municipality.name_en).replace(' ', '_'),
+            'd_pk:' + str(district.pk),
+            'd_name:' + str(district.name_en).replace(' ', '_'),
+            'c_pk:' + str(canton.pk),
+            'c_code:' + str(canton.code).replace(' ', '_')
+        ])
+
+        cache_key = str(npa.pk) + '_businesses'
+        businesses = cache.get(cache_key)
+        if businesses is None:
+
+            businesses = Business.objects.filter(status=Business.events.VALID).filter(
+                Q(location=npa)
+                |
+                Q(delivers_to__in=[npa])
+                |
+                Q(delivers_to_municipality__in=[municipality])
+                |
+                Q(delivers_to_district__in=[district])
+                |
+                Q(delivers_to_canton__in=[canton])
+                |
+                Q(delivers_to_ch=True)
+            ).distinct().annotate(
+                radius=Case(
+                    When(location=npa, then=Value(0)),
+                    When(location__in=npas, then=Value(1)),
+                    When(delivers_to__in=[npa], then=Value(2)),
+                    When(delivers_to_municipality__in=[municipality], then=Value(3)),
+                    When(delivers_to_district__in=[district], then=Value(4)),
+                    When(delivers_to_canton__in=[canton], then=Value(5)),
+                    When(delivers_to_ch=True, then=Value(6)),
+                    default=Value(7),
+                    output_field=PositiveSmallIntegerField()
+                ),
+            ).order_by('radius', 'name')
+
+            cache.set(cache_key, businesses, 3600)
+
+        context['businesses'] = businesses
+
+        # Stats
+        statsd.gauge('results', businesses.count(), tags=[
+            'n_pk:' + str(npa.pk),
+            'n_code:' + str(npa.npa),
+            'n_name:' + str(npa.name_en).replace(' ', '_')
+        ])
 
         context['categories'] = Category.objects.filter(
             Q(as_main_category__in=context['businesses'])

@@ -46,4 +46,4 @@ python manage.py update_translation_fields
 python create_api_key.py
 
 # Run application
-gunicorn -b 0.0.0.0:8000 --workers=17 stayhome.wsgi
+ddtrace-run gunicorn -b 0.0.0.0:8000 --workers=17 --name="stayhome-$RUNNING_ENV" --statsd-host="datadog:8125" stayhome.wsgi
