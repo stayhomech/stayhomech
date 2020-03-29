@@ -47,6 +47,9 @@ services:
       - GOOGLE_UA=${GOOGLE_UA}
       - DATADOG_ENV=pre-prod
       - DD_AGENT_HOST=datadog
+      - DD_TRACE_ANALYTICS_ENABLED=true
+      - DD_PROFILING_API_KEY=${DD_PROFILING_API_KEY}
+      - DD_PROFILING_TAGS=env:pre-prod,service:web,version:1
     expose:
       - 8000
     depends_on:
