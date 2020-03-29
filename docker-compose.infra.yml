@@ -50,6 +50,26 @@ services:
     networks:
       - infra
 
+  datadog:
+    image: datadog/agent:7
+    container_name: datadog
+    environment: 
+      - DD_SITE=datadoghq.eu
+      - DD_API_KEY=${DD_API_KEY}
+      - DOCKER_CONTENT_TRUST=1
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+    volumes: 
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+      - /proc/:/host/proc/:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 127.0.0.1:8125:8125/udp
+    restart: always
+    networks:
+      - infra
+      - prod
+      - pre-prod
+
 volumes:
   certs:
   vhosts:
