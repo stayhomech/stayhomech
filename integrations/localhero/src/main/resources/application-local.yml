@@ -3,7 +3,7 @@ stayhome:
     localhero:
       scrape-cron: '-'
       source-urls:
-        - 'https://bern.local-hero.ch/wp-json/wp/v2/posts'
+        - 'https://bern.local-hero.ch'
       target-url: 'http://localhost:8080'
       chunk-size: 10
       ttl-seconds: 1000
