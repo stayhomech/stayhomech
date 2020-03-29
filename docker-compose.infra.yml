@@ -58,12 +58,14 @@ services:
       - DD_API_KEY=${DD_API_KEY}
       - DOCKER_CONTENT_TRUST=1
       - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+      - DD_APM_ENABLED=true
     volumes: 
       - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
       - /proc/:/host/proc/:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    ports:
-      - 127.0.0.1:8125:8125/udp
+    expose:
+      - 8125/udp
+      - 8126
     restart: always
     networks:
       - infra

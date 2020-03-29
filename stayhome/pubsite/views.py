@@ -11,7 +11,6 @@ from django.utils import translation
 from django.conf import settings
 from django.core.cache import cache
 
-
 from geodata.models import NPA
 from business.models import Business, Request, Category
 from business.forms import BusinessAddForm
