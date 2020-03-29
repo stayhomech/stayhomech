@@ -1,5 +1,6 @@
 package ch.stayhome.integrations.localhero.config;
 
+import java.time.Duration;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -40,7 +41,7 @@ public class LocalHeroProperties {
 	private int parallelThreads = 1;
 
 	@NotNull
-	private Integer ttlSeconds;
+	private Duration requestTtl;
 
 	@Data
 	public static class SourceConfig {

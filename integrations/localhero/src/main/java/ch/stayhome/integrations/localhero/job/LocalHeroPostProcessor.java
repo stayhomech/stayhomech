@@ -1,5 +1,6 @@
 package ch.stayhome.integrations.localhero.job;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,14 +21,14 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
 
 	private final LocalHeroChApi localHeroChApi;
 
-	private final int defaultTTL;
+	private final Long defaultTTL;
 
 	private final Map<String, LocalHeroCategory> categoryCache = new HashMap<>();
 
-	LocalHeroPostProcessor(SourceConfig sourceConfig, LocalHeroChApi localHeroChApi, int defaultTTL) {
+	LocalHeroPostProcessor(SourceConfig sourceConfig, LocalHeroChApi localHeroChApi, Duration defaultTTL) {
 		this.sourceConfig = sourceConfig;
 		this.localHeroChApi = localHeroChApi;
-		this.defaultTTL = defaultTTL;
+		this.defaultTTL = defaultTTL.getSeconds();
 	}
 
 	@Override

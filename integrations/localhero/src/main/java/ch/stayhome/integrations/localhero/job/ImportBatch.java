@@ -101,7 +101,7 @@ public class ImportBatch {
 	}
 
 	public LocalHeroPostProcessor processor(SourceConfig sourceConfig, LocalHeroChApi localHeroChApi) {
-		return new LocalHeroPostProcessor(sourceConfig, localHeroChApi, this.localHeroProperties.getTtlSeconds());
+		return new LocalHeroPostProcessor(sourceConfig, localHeroChApi, this.localHeroProperties.getRequestTtl());
 	}
 
 	public LocalHeroPostReader reader(LocalHeroChApi localHeroChApi) {

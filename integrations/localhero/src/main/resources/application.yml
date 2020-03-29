@@ -6,9 +6,9 @@ stayhome:
       restRoute: '/wp-json/wp/v2/posts'
       target-url: 'http://localhost:8080'
       chunk-size: 50
-      ttl-seconds: 21600  # 6 hours
       page-size: 50
       parallel-threads: 2
+      request-ttl: 3d
       sources:
         - key: 'bern'
           providerName: 'winterhur-local-hero'
