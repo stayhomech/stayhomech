@@ -33,8 +33,6 @@ def set_environment():
 # Set environment
 set_environment()
 
-# Datadog
-import ddtrace.profile.auto
 
 # Running environment
 application = get_wsgi_application()
