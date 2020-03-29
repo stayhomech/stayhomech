@@ -10,6 +10,7 @@ import ch.stayhome.integrations.localhero.infrastructure.feign.PagedWordPressRes
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
 import ch.stayhome.integrations.localhero.model.StayHomeEntry;
 import feign.Feign;
+import feign.FeignException;
 import feign.Retryer;
 import feign.gson.GsonDecoder;
 import feign.gson.GsonEncoder;
@@ -31,14 +32,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @Configuration
 @EnableConfigurationProperties({LocalHeroProperties.class})
-@EnableScheduling
 @Slf4j
 public class LocalHeroBatchConfig {
+
+	private static final int SKIP_LIMIT = 10;
 
 	private final LocalHeroProperties localHeroProperties;
 
@@ -97,6 +98,9 @@ public class LocalHeroBatchConfig {
 		final LocalHeroChApi localHeroChApi = this.buildApi(sourceConfig);
 		return stepBuilderFactory.get("import-step-" + sourceConfig.getKey())
 				.<LocalHeroPost, StayHomeEntry>chunk(localHeroProperties.getChunkSize())
+				.faultTolerant()
+				.skipLimit(SKIP_LIMIT)
+				.skip(FeignException.class)
 				.reader(reader(localHeroChApi))
 				.processor(processor(sourceConfig, localHeroChApi))
 				.writer(writer())
