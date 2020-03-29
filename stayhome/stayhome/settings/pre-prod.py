@@ -5,7 +5,7 @@ from .base import *
 
 
 # Application
-DEBUG = 0
+DEBUG = False
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 ALLOWED_HOSTS = ['preview.stayhome.ch', 'web']
 
@@ -13,7 +13,7 @@ ALLOWED_HOSTS = ['preview.stayhome.ch', 'web']
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'NAME': os.environ.get('MYSQL_APP_DB'),
         'USER': os.environ.get('MYSQL_APP_USER'),
         'PASSWORD': os.environ.get('MYSQL_APP_PASSWORD'),
@@ -36,9 +36,9 @@ sentry_sdk.init(
 
 
 # Cache
-CACHES = {
+""" CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': 'memcached:11211',
     }
-}
+} """

@@ -29,3 +29,7 @@ stunnel.log
 *.iws
 *.iml
 *.ipr
+
+
+# NPN
+stayhome/node_modules/

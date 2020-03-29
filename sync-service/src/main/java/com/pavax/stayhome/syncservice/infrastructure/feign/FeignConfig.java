@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 class FeignConfig {
 
 	@Bean
-	public ApiTokenInterceptor basicAuthRequestInterceptor(@Value("${stayhome.api.token}") String apiToken) {
+	ApiTokenInterceptor basicAuthRequestInterceptor(@Value("${stayhome.api.token}") String apiToken) {
 		return new ApiTokenInterceptor(apiToken);
 	}
 

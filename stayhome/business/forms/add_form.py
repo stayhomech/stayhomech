@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 
 from django import forms
 from captcha.fields import ReCaptchaField
@@ -124,6 +125,7 @@ class BusinessAddForm(forms.Form):
             delivery=self.cleaned_data['delivery'],
             source=1,
             checksum='Web Form',
+            source_uuid=str(uuid.uuid4()),
             lang=get_language()
         )
         r.save()

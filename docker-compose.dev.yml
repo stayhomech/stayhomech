@@ -4,7 +4,6 @@ services:
 
   db:
     build: mariadb/
-    container_name: db
     environment:
       - MYSQL_ROOT_PASSWORD=stayhome
       - MYSQL_DATABASE=stayhome
@@ -12,11 +11,12 @@ services:
       - MYSQL_PASSWORD=stayhome
     volumes:
       - db_data:/var/lib/mysql
+    ports:
+      - 127.0.0.1:3306:3306
     restart: always
 
   web:
     build: stayhome/
-    container_name: web
     environment:
       - RUNNING_ENV=dev
       - MYSQL_APP_DB=stayhome
@@ -31,17 +31,17 @@ services:
       - RECAPTCHA_PRIVATE_KEY=""
       - DJANGO_SECRET_KEY=verynotsecretkey
       - GOOGLE_UA=""
-    ports:
-      - 127.0.0.1:8000:8000
+    expose:
+      - 8000
     depends_on:
       - db
     restart: always
     volumes:
       - api_key:/api
+      - datasets:/code/datasets
 
   sync-service:
     build: sync-service/
-    container_name: sync-service
     environment:
       - STAYHOME_API_URL=http://web:8000/api
       - SPRING_PROFILES=local
@@ -55,16 +55,25 @@ services:
   
   nodefetch:
     build: nodefetch/
-    container_name: nodefetch
     environment:
       - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
     depends_on:
       - sync-service
     restart: always
 
+  integration-kml:
+    build: integrations/kml-parser
+    environment:
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
+      - STAYHOME_RUN_ON_START=true
+      # every 6h
+      - STAYHOME_INTEGRATIONS_KML_SCRAPE_CRON=* * */6 * * *
+    depends_on:
+      - sync-service
+    restart: always
+
   local-hero:
     build: integrations/localhero/
-    container_name: local-hero
     environment:
       - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
       - STAYHOME_RUN_ON_START=false
@@ -73,6 +82,24 @@ services:
       - sync-service
     restart: always
 
+  contribute:
+    build: contribute/
+    expose:
+      - 80
+    depends_on:
+      - web
+    restart: always
+
+  haproxy:
+    build: haproxy/
+    ports:
+      - 127.0.0.1:8000:8000
+    depends_on:
+      - web
+      - contribute
+    restart: always
+
 volumes:
   db_data:
   api_key:
+  datasets:

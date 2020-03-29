@@ -2,6 +2,9 @@ import fetch from "node-fetch";
 import * as esprima from "esprima";
 import { CrawlerBase } from "./crawler-base";
 
+const crypto = require('crypto');
+
+
 export abstract class TaMediaBase extends CrawlerBase {
     constructor(private readonly baseUrl: string) {
         super();
@@ -44,8 +47,11 @@ export abstract class TaMediaBase extends CrawlerBase {
             var [lat, lon] = this.unmingleArray(element.elements[0]);
             var [category, title, description, contact, address] = this.unmingleArray(element.elements[1]);
 
+            const hash = crypto.createHash('md5');
+            hash.update(title);
+
             await this.postToSyncService({
-                id: `${lat}_${lon}`,
+                id: `${lat}_${lon}_${hash.digest('hex')}`,
                 providerName: 'DerBund',
                 name: title,
                 description: description,

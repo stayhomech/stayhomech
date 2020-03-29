@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.cache import cache
 
 
 class Category(MPTTModel):
@@ -54,6 +55,20 @@ class HistoryEvent(models.Model):
 
     class Meta:
         abstract = True
+        indexes = [
+            models.Index(
+                fields=['parent', '-time']
+            ),
+            models.Index(
+                fields=['parent', '-time', 'new_status']
+            ),
+            models.Index(
+                fields=['parent', 'event_type', '-time']
+            ),
+            models.Index(
+                fields=['parent', 'event_type', '-time', 'new_status']
+            ),
+        ]
 
     old_status = models.PositiveSmallIntegerField(
     )
@@ -103,8 +118,17 @@ class EventModel(models.Model):
         else:
             return dict(self.events.STATUS_CHOICES)[events[0]['new_status']]
 
+    def get_history_status(self, index):
+        db_index = abs(index)
+        events = self.events.objects.filter(parent=self, event_type__lt=HistoryEvent.KEEPALIVE).order_by('-time').values('new_status')
+        if events.count() < db_index + 1:
+            return None
+        else:
+            return events[db_index]['new_status']
+
     def set_status(self, new_status, user=None):
 
+        # Don't update status if no change
         if new_status == self.get_status():
             return
 
@@ -117,6 +141,22 @@ class EventModel(models.Model):
         )
         event.save()
 
+    def set_status_with_reason(self, new_status, reason, user=None):
+
+        # Don't update status if no change
+        if new_status == self.get_status():
+            return
+
+        event = self.events(
+            parent=self,
+            old_status=self.get_status(),
+            new_status=new_status,
+            event_type=self.events.STATUS,
+            event_data=reason,
+            user=user
+        )
+        event.save()
+
     def get_creation(self):
         events = self.events.objects.filter(parent=self).order_by('time').values('time')[:1]
         if events.count() == 0:
@@ -125,11 +165,11 @@ class EventModel(models.Model):
             return events[0]['time']
 
     def get_owner(self):
-        events = self.events.objects.filter(parent=self).order_by('-time').values('user')[:1]
+        events = self.events.objects.filter(parent=self).order_by('-time')[:1]
         if events.count() == 0:
             return None
         else:
-            return events[0]['user']
+            return events[0].user
 
     def add_event(self, event_type, event_data=None, user=None):
 
@@ -230,7 +270,8 @@ class Request(EventModel):
 
     source_uuid = models.CharField(
         max_length=255,
-        blank=True
+        blank=False,
+        unique=True
     )
 
     lang = models.CharField(
@@ -294,6 +335,15 @@ class Request(EventModel):
         max_length=255
     )
 
+    def set_status(self, new_status, user=None):
+        
+        # Only allow updated status on handled requests
+        if new_status == self.events.UPDATED and self.get_status() != self.events.HANDLED:
+            return
+
+        # Call parent
+        return super().set_status(new_status, user)
+
 
 class BusinessHistoryEvent(HistoryEvent):
 
@@ -333,7 +383,7 @@ class Business(EventModel):
     events = BusinessHistoryEvent
 
     name = models.CharField(
-        max_length=255
+        max_length=255,
     )
 
     location = models.ForeignKey(
@@ -356,7 +406,8 @@ class Business(EventModel):
         'Category',
         on_delete=models.SET_NULL,
         null=True,
-        related_name='as_main_category'
+        related_name='as_main_category',
+        blank=False
     )
 
     other_categories = models.ManyToManyField(
@@ -410,7 +461,7 @@ class Business(EventModel):
         Request,
         related_name='child_businesses',
         null=True, blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.SET_NULL
     )
 
     class Meta:
@@ -418,3 +469,7 @@ class Business(EventModel):
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.location)
+
+    def clear_npa_cache(self):
+        cache_key = str(self.location.pk) + '_businesses'
+        cache.delete(cache_key)
