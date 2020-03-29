@@ -17,23 +17,25 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties({LocalHeroProperties.class})
 @Data
 public class LocalHeroProperties {
-    @NotBlank(message = "No cron expression has been defined in application.yml")
-    private String scrapeCron;
+	@NotBlank(message = "No cron expression has been defined in application.yml")
+	private String scrapeCron;
 
-    @NotEmpty
-    private List<String> sourceUrls;
-    
-    @NotBlank(message = "No rest route has been defined in application.yml")
-    private String restRoute;
+	@NotEmpty
+	private List<String> sourceUrls;
 
-    @NotBlank(message = "No target url has been defined in application.yml")
-    private String targetUrl;
+	@NotBlank(message = "No rest route has been defined in application.yml")
+	private String restRoute;
 
-    @NotBlank(message = "No provider name has been defined in application.yml")
-    private String providerName;
+	@NotBlank(message = "No target url has been defined in application.yml")
+	private String targetUrl;
 
-    private Integer chunkSize = 10;
+	@NotBlank(message = "No provider name has been defined in application.yml")
+	private String providerName;
 
-    @NotNull
-    private Integer ttlSeconds;
+	private Integer chunkSize = 10;
+
+	private Integer pageSize = 10;
+
+	@NotNull
+	private Integer ttlSeconds;
 }

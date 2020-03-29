@@ -1,68 +1,65 @@
 package ch.stayhome.integrations.localhero.job;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
 import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
+import ch.stayhome.integrations.localhero.infrastructure.feign.PagedWordPressResultDecoder;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
+import ch.stayhome.integrations.localhero.model.PagedWordPressResult;
 import feign.Feign;
 import feign.Retryer;
 import feign.gson.GsonDecoder;
+import feign.gson.GsonEncoder;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.batch.item.support.AbstractItemCountingItemStreamItemReader;
+import org.springframework.batch.item.database.AbstractPagingItemReader;
 import org.springframework.util.ClassUtils;
 
 @Slf4j
-public class LocalHeroPostReader extends AbstractItemCountingItemStreamItemReader<LocalHeroPost> {
-	private final LocalHeroProperties config;
-	private final List<LocalHeroChApi> apis = new ArrayList<>();
+public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost> {
 
-	private Deque<LocalHeroPost> postDeque = new ArrayDeque<>();
+	private final LocalHeroProperties config;
+
+	private final List<LocalHeroChApi> apis = new ArrayList<>();
 
 	LocalHeroPostReader(LocalHeroProperties config) {
 		this.config = config;
 		this.config.getSourceUrls().forEach(target -> apis.add(
 				Feign.builder()
-						.decoder(new GsonDecoder())
+						.decoder(new PagedWordPressResultDecoder(new GsonDecoder()))
+						.encoder(new GsonEncoder())
 						.retryer(new Retryer.Default())
 						.target(LocalHeroChApi.class, target)
 				)
 		);
-		this.setExecutionContextName(ClassUtils.getShortName(LocalHeroPostReader.class));
+		setName(ClassUtils.getShortName(LocalHeroPostReader.class));
+		setPageSize(config.getPageSize());
 	}
 
 	@Override
-	protected LocalHeroPost doRead() {
-		try {
-			return postDeque.pop();
-		} catch (NoSuchElementException e) {
-			// no posts
-			return null;
+	protected void doReadPage() {
+		if (results == null) {
+			results = new CopyOnWriteArrayList<>();
+		} else {
+			results.clear();
 		}
+		apis.forEach(source -> {
+			final PagedWordPressResult<LocalHeroPost> results = source.findAll(getPage() + 1, getPageSize());
+			final int currentPage = super.getPage() + 1;
+			if (currentPage <= results.getTotalPages()) {
+				this.results.addAll(results.getContent());
+			} else {
+				logger.info("Last Page reached. Total-Pages: " + results.getTotalPages() + ", Total:items: " + results.getTotalItems());
+			}
+		});
 	}
 
 	@Override
-	protected void doOpen() {
-		if (postDeque.isEmpty()) {
-			fetchPosts();
-		}
-	}
-
-	@Override
-	protected void doClose() {
-		this.postDeque.clear();
-	}
-
-	private void fetchPosts() {
-		postDeque = new ArrayDeque<>();
-		apis.forEach(source -> source.findAll(config.getRestRoute())
-				.forEach(post -> postDeque.push(post))
-		);
+	protected void doJumpToPage(int itemIndex) {
+		// nothing to do
 	}
 
 }
