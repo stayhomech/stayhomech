@@ -4,7 +4,6 @@ stayhome:
   integrations:
     localhero:
       scrape-cron: '* * */6 * * *'
-      restRoute: '/wp-json/wp/v2/posts'
       target-url: ${stayhome.sync-service-url}
       chunk-size: 50
       page-size: 50
