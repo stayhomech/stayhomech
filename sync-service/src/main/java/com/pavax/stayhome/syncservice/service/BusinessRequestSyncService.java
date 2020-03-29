@@ -2,14 +2,17 @@ package com.pavax.stayhome.syncservice.service;
 
 import com.pavax.stayhome.syncservice.domain.BusinessRequest;
 import com.pavax.stayhome.syncservice.domain.BusinessRequestRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
 @Service
 @EnableConfigurationProperties(SyncServiceProperties.class)
 public class BusinessRequestSyncService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(BusinessRequestSyncService.class);
 
 	private static final String FALLBACK_LANG = "en";
 
@@ -19,46 +22,55 @@ public class BusinessRequestSyncService {
 
 	private final LanguageDetectionService languageDetectionService;
 
+	private final ChecksumCalculator checksumCalculator;
+
 	public BusinessRequestSyncService(
 			BusinessRequestRepository businessRequestRepository,
 			SyncServiceProperties syncServiceProperties,
-			LanguageDetectionService languageDetectionService) {
+			LanguageDetectionService languageDetectionService,
+			ChecksumCalculator checksumCalculator) {
 		this.businessRequestRepository = businessRequestRepository;
 		this.syncServiceProperties = syncServiceProperties;
 		this.languageDetectionService = languageDetectionService;
+		this.checksumCalculator = checksumCalculator;
 	}
 
-	public void sync(BusinessEntryDto businessEntryDto) {
-		if (businessEntryDto.getTtl() == null) {
-			businessEntryDto.setTtl(this.syncServiceProperties.getDefaultTimeToLive().getSeconds());
-		}
-		final String correlationId = extractCorrelationId(businessEntryDto);
-		final BusinessRequest businessRequest = this.businessRequestRepository.findByCorrelationId(correlationId)
-				.orElse(new BusinessRequest())
-				.setSourceUUid(correlationId)
-				.setName(businessEntryDto.getName())
-				.setDescription(businessEntryDto.getDescription())
-				.setLocation(businessEntryDto.getLocation())
-				.setWebsite(businessEntryDto.getWebsite())
-				.setPhone(businessEntryDto.getPhone())
-				.setEmail(businessEntryDto.getEmail())
-				.setContact(businessEntryDto.getContact())
-				.setCategory(businessEntryDto.getCategories())
-				.setTtl(businessEntryDto.getTtl())
-				.setDelivery(businessEntryDto.getDelivery());
-
-		businessRequest.setLang(businessEntryDto.getLanguage() != null ? businessEntryDto.getLanguage().getKey() : this.determineLanguage(businessRequest));
-
-		businessRequest.setChecksum(this.calculateChecksum(businessRequest));
+	public void sync(BusinessRequestDto businessRequestDto) {
+		final BusinessRequest businessRequest = prepareBusinessRequest(businessRequestDto);
+		final String newChecksum = this.checksumCalculator.calculate(businessRequestDto);
 		if (isNew(businessRequest)) {
+			businessRequest.setChecksum(newChecksum);
 			this.businessRequestRepository.save(businessRequest);
 		} else {
+			if (!businessRequest.getChecksum().equals(newChecksum)) {
+				LOGGER.info("Checksum changed for Request: {}", businessRequest);
+			}
+			businessRequest.setChecksum(newChecksum);
 			this.businessRequestRepository.update(businessRequest);
 		}
 	}
 
-	private String determineLanguage(BusinessRequest businessRequest) {
-		return this.languageDetectionService.detect(businessRequest)
+	private BusinessRequest prepareBusinessRequest(BusinessRequestDto businessRequestDto) {
+		final String sourceId = extractSourceId(businessRequestDto);
+		return this.businessRequestRepository.findBySourceId(sourceId)
+				.orElse(new BusinessRequest())
+				.setSourceUUid(sourceId)
+				.setName(businessRequestDto.getName())
+				.setDescription(businessRequestDto.getDescription())
+				.setLocation(businessRequestDto.getLocation())
+				.setAddress(businessRequestDto.getAddress())
+				.setWebsite(businessRequestDto.getWebsite())
+				.setPhone(businessRequestDto.getPhone())
+				.setEmail(businessRequestDto.getEmail())
+				.setContact(businessRequestDto.getContact())
+				.setCategory(businessRequestDto.getCategories())
+				.setDelivery(businessRequestDto.getDelivery())
+				.setLang(businessRequestDto.getLanguage() != null ? businessRequestDto.getLanguage().getKey() : this.determineLanguage(businessRequestDto))
+				.setTtl(businessRequestDto.getTtl() != null ? businessRequestDto.getTtl() : this.syncServiceProperties.getDefaultTimeToLive().getSeconds());
+	}
+
+	private String determineLanguage(BusinessRequestDto businessRequestDto) {
+		return this.languageDetectionService.detect(businessRequestDto.getName(), businessRequestDto.getDescription())
 				.map(Language::getKey)
 				.orElse(FALLBACK_LANG);
 	}
@@ -67,22 +79,8 @@ public class BusinessRequestSyncService {
 		return businessRequest.getUuid() == null;
 	}
 
-	private String calculateChecksum(BusinessRequest businessRequest) {
-		final String checkSumString = businessRequest.getName() +
-				businessRequest.getDescription() +
-				businessRequest.getLocation() +
-				businessRequest.getWebsite() +
-				businessRequest.getPhone() +
-				businessRequest.getEmail() +
-				businessRequest.getCategory() +
-				businessRequest.getContact() +
-				businessRequest.getLang() +
-				businessRequest.getDelivery();
-		return DigestUtils.md5DigestAsHex(checkSumString.getBytes());
-	}
-
-	private String extractCorrelationId(BusinessEntryDto businessEntryDto) {
-		return String.format("%s-%s", businessEntryDto.getProviderName(), businessEntryDto.getId());
+	private String extractSourceId(BusinessRequestDto businessRequestDto) {
+		return String.format("%s-%s", businessRequestDto.getProviderName(), businessRequestDto.getId());
 	}
 
 }

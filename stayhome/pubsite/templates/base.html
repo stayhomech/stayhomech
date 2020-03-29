@@ -1,4 +1,5 @@
 {% load i18n static sh_tags %}
+{% load render_bundle from webpack_loader %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,14 +17,12 @@
     </script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-    <link href="{% static 'pubsite/css/stayhome.css' %}" rel="stylesheet">
+    {% render_bundle 'css/stayhome' %}
 
-    <link rel="shortcut icon" type="image/jpg" href="{% static 'pubsite/stay_home_logo.png' %}"/>
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
 
     <title>{% blocktrans %}Stay home ! We deliver...{% endblocktrans %}</title>
 
@@ -31,7 +30,7 @@
 
     <meta property="og:title" content="{% blocktrans %}Stay home ! We deliver...{% endblocktrans %}">
     <meta property="og:description" content="{% blocktrans %}StayHome.ch is a directory of delivery services available in Switzerland based on visitor's location. It has been created to help Swiss people and businesses coping with the COVID-19 crisis.{% endblocktrans %}">
-    <meta property="og:image" content="https://www.stayhome.ch{% static 'pubsite/stay_home_banner.jpg' %}">
+    <meta property="og:image" content="https://www.stayhome.ch/banner.jpg">
     <meta property="og:url" content="https://www.stayhome.ch/">
     <meta property="og:type" content="website">
     <meta property="fb:app_id" content="2714022128726331">
@@ -41,7 +40,7 @@
     
     {% block modal %}{% endblock %}
 
-    {% block content %}{% endblock %}
+    {% block navigation %}{% endblock %}
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -55,13 +54,28 @@
 
       $(document).ready(() => {
 
-        $('#sh_logo').on('click', () => {
-          window.location = "/";
-        });
-
         $(function () {
          $('[data-toggle="tooltip"]').tooltip()
         })
+
+        // Language change
+        $('.lang-select').on('click', (event) => {
+            event.preventDefault();
+            var lang = $(event.target).data('lang');
+            $.ajax({
+                url: "{% url 'set_language' %}",
+                headers: {
+                    'X-CSRFToken': Cookies.get('csrftoken')
+                },
+                data: {
+                    'language': lang
+                },
+                method: 'POST',
+                success: () => {
+                    location.reload();
+                }
+            });
+        });
 
       });
 

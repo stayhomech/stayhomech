@@ -1,0 +1,288 @@
+@import "~bootstrap";
+
+$sh-green: #308a57;
+
+.btn-sh {
+    @include button-variant($sh-green, darken($sh-green, 7.5%), darken($sh-green, 10%), lighten($sh-green,5%), lighten($sh-green, 10%), darken($sh-green,30%));
+}
+
+.btn-outline-sh {
+    @include button-outline-variant($sh-green, #ffffff, lighten($sh-green,5%), $sh-green);
+}
+
+BODY {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.sh-nav-link {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.sh-nav-link:hover {
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+}
+
+P > A {
+    color: $sh-green;
+}
+  
+P > A:hover {
+    color: $sh-green;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+}
+
+.nav-link:hover {
+    font-weight: 550;
+}
+
+.sh-home-logo {
+    height: 9vh;
+}
+
+.sh-bottom-logo {
+    width: 100px;
+}
+
+.sh-container-main {
+    height: 50vh; 
+    background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url('../img/background.jpeg'); 
+    background-size: 100% auto; 
+    background-position: center;
+    color: white;
+    padding: 4vh 4vw;
+}
+
+.sh-container-main H1 {
+    font-weight: bold;
+}
+
+.sh-container-main H2 {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.sh-container-dark {
+    background: #333;
+    color: white;
+}
+
+.sh-container-cream {
+    background: #f1e7de;
+}
+
+.sh-testimony {
+    min-height: 35vh;
+}
+
+.sh-testimony-text {
+    color: rgb(51,51,51); 
+    font-size: 1.6em; 
+    text-align: center; 
+    line-height: 1.1;
+}
+
+.sh-testimony-author {
+    font-size: 1.1em;
+}
+
+.sh-location-marker {
+    width: 50px;
+    padding: 0;
+    margin: 0;
+    font-size: 1.6em;
+}
+
+.locationMarker {
+    font-size: 28px;
+    text-align: center;
+}
+
+.sh-copyright {
+    border-top: 1px solid $sh-green;
+    font-size: .9em;
+}
+
+.navbar-custom {
+    background-color: transparent;
+}
+
+.navbar-custom .navbar-text {
+    color: black;
+    padding: 8px;
+    margin: 0;
+}
+
+.navbar-custom .nav-item .nav-link {
+    color: $sh-green;
+    padding: 8px;
+    margin: 0;
+}
+
+.navbar-custom .nav-item:hover .nav-link {
+    color: $sh-green;
+    text-decoration: none;
+}
+
+#left-nav {
+    border-right: 1px solid #dee2e6!important;
+}
+
+#slider-parent {
+    width: 100%;
+
+    .slider {
+        width: calc(100% - 5em);
+        margin: 0.5em 0.8em;
+    }
+}
+
+.slider-handle {
+    background-color: $sh-green;
+    background-image: linear-gradient(to bottom,$sh-green 0,$sh-green 100%);;
+}
+
+#area-slider {
+    width: 100%;
+}
+
+#radius-slider .ui-slider-range {
+    background-color: $sh-green;
+    opacity: 60%;
+}
+
+#radius-slider .ui-state-active {
+    background-color: $sh-green;
+}
+
+.sh-categories-tree {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.sh-categories-tree LI {
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.sh-categories-tree LI:hover {
+    cursor: pointer;
+    font-weight: 550;
+}
+
+.sh-categories-tree LI.selected {
+    background-color: lighten($sh-green,50%);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.sh-all-categories {
+    display: none;
+    background-color: $sh-green;
+    font-weight: bold;
+    color: white;
+}
+
+.sh-child-tree {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sh-card {
+    border: 0;
+    border-bottom: 1px solid rgb(222, 226, 230);
+    width: 100%;
+}
+
+.card-header {
+    padding: 8px 16px;
+    border: 0;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.03), white);
+}
+
+.card-title {
+    color: $sh-green;
+    font-weight: 800;
+}
+
+.card-description {
+    font-size: .9em;
+}
+
+.card-body {
+    padding: 8px 16px 16px 16px;
+}
+
+.card-info {
+    font-size: .9em;
+}
+
+A.sh-report {
+    color: $sh-green;
+}
+  
+A.sh-report:hover {
+    color: $sh-green;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.sh-crop {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.5em;
+}
+
+.card-footer {
+    font-size: .9em;
+}
+
+.select2-results__option[aria-selected=true] {
+    display: none;
+}
+
+.sh-table-head {
+    background-color: #bbb;
+}
+
+.sh-table-row {
+    background-color: #ddd;
+}
+
+@media(max-width: 767px) {
+
+    .navbar-custom .navbar-text {
+        padding: 0 8px;
+    }
+
+    .navbar-custom .navbar-collapse .nav-item {
+        padding: 8px;
+        border-top: 1px solid #dee2e6!important;
+    }
+
+    #left-nav {
+        border: none!important;
+    }
+
+    .nav-filter {
+        display: none;
+    }
+
+    .sh-filter-toggle {
+        background-color:rgb(233, 236, 239);
+        border:1px solid rgb(206, 212, 218);
+        border-radius: 3.2px;
+        width: 32px;
+        height: 32px;
+    }
+
+}

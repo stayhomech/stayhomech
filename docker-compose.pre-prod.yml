@@ -3,7 +3,7 @@ version: '3'
 services:
 
   db:
-    image: mariadb
+    build: mariadb/
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_APP_DB}
@@ -29,9 +29,6 @@ services:
     build: stayhome/
     environment:
       - RUNNING_ENV=pre-prod
-      - LETSENCRYPT_HOST=preview.stayhome.ch
-      - VIRTUAL_HOST=preview.stayhome.ch
-      - VIRTUAL_PORT=8000
       - MYSQL_APP_DB=${MYSQL_APP_DB}
       - MYSQL_APP_USER=${MYSQL_APP_USER}
       - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
@@ -45,6 +42,14 @@ services:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - SENTRY_DSN=${SENTRY_DSN}
       - GOOGLE_UA=${GOOGLE_UA}
+      - DATADOG_ENV=pre-prod
+      - DD_AGENT_HOST=datadog
+      - DD_TRACE_ANALYTICS_ENABLED=true
+      - DD_PROFILING_API_KEY=${DD_PROFILING_API_KEY}
+      - DD_PROFILING_TAGS=env:pre-prod,service:stayhome,version:1
+      - DD_WEB_API_KEY=${DD_WEB_API_KEY}
+      - DD_WEB_APP_KEY=${DD_WEB_APP_KEY}
+      - LOCIZE_API_KEY=${LOCIZE_API_KEY}
     expose:
       - 8000
     depends_on:
@@ -79,6 +84,44 @@ services:
       - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
     depends_on:
       - sync-service
+    restart: always
+    networks:
+      - pre-prod
+
+  integration-kml:
+    build: integrations/kml-parser
+    environment:
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
+      - STAYHOME_RUN_ON_START=true
+      # every 6h
+      - STAYHOME_INTEGRATIONS_KML_SCRAPE_CRON=* * */6 * * *
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - pre-prod
+
+  contribute:
+    build: contribute/
+    expose:
+      - 80
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - pre-prod
+
+  haproxy:
+    build: haproxy/
+    environment:
+    - LETSENCRYPT_HOST=preview.stayhome.ch
+    - VIRTUAL_HOST=preview.stayhome.ch
+    - VIRTUAL_PORT=8000
+    expose:
+      - 8000
+    depends_on:
+      - web
+      - contribute
     restart: always
     networks:
       - pre-prod

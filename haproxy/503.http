@@ -1,0 +1,16 @@
+HTTP/1.0 503 Service Unavailable
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html
+
+<html>
+    <head>
+        <title>Oups... something went wrong!</title>
+    </head>
+    <body>
+        <div style="width: 100%; margin-top: 10vh; text-align: center; font-family: sans-serif, Verdana; font-size: 150%;">
+            <p style="font-size: 150%; font-weight: bold; color: seagreen">Oups... something went wrong!</p>
+            <p>But don't worry, we are working on it !</p>
+        </div>
+    </body>
+</html>

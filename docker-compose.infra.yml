@@ -11,6 +11,7 @@ services:
       - html:/usr/share/nginx/html
       - dhparam:/etc/nginx/dhparam
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /data/infra/nginx-proxy/auth/:/etc/nginx/htpasswd/
     ports:
       - 80:80
       - 443:443
@@ -48,6 +49,28 @@ services:
     restart: always
     networks:
       - infra
+
+  datadog:
+    image: datadog/agent:7
+    container_name: datadog
+    environment: 
+      - DD_SITE=datadoghq.eu
+      - DD_API_KEY=${DD_API_KEY}
+      - DOCKER_CONTENT_TRUST=1
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+      - DD_APM_ENABLED=true
+    volumes: 
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+      - /proc/:/host/proc/:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    expose:
+      - 8125/udp
+      - 8126
+    restart: always
+    networks:
+      - infra
+      - prod
+      - pre-prod
 
 volumes:
   certs:

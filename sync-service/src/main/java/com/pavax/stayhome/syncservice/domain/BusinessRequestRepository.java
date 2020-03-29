@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface BusinessRequestRepository {
 
-	Optional<BusinessRequest> findByCorrelationId(String correlationId);
+	Optional<BusinessRequest> findBySourceId(String sourceId);
 
 	BusinessRequest save(BusinessRequest businessRequest);
 

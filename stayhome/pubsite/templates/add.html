@@ -1,57 +1,41 @@
-{% extends "mgmt.html" %}
+{% extends "navigation.html" %}
 {% load i18n %}
 
-{% block mgmt-content-header %}
-<div class="navbar-nav mx-2">
-    <ul class="nav navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="/">{% blocktrans %}Go back to home{% endblocktrans %}</a>
-        </li>
-    </ul>
-</div>
-{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 col-md-5 p-3">
+            <h1 class="pb-2">{% blocktrans %}Add your business{% endblocktrans %}</h1>
+            <p>{% blocktrans %}List your business here on stayhome.ch to show that it is still there for customers. Please note that only services can be offered that do NOT require direct contact with customers!{% endblocktrans %}</p>
+            <p>{% blocktrans %}Please be as complete as possible when filling the form, especially about the description of your service and the delivery locations.{% endblocktrans %}</p>
+            <p>{% blocktrans %}It may take up to 24 hours to process your request. Thank you for your patience.{% endblocktrans %}</p>
+            <p>{% blocktrans %}If you have any questions, please{% endblocktrans %} <a href="{% url 'about' %}">{% trans 'contact us' %}</a>.</p>
+        </div>
+        <div class="col-12 offset-md-1 col-md-6">
+            <form method="POST" action="{% url 'add' %}">
+                {% csrf_token %}
 
-{% block mgmt-content %}
-        <div class="row">
-            <div class="col-12 p-3">
-                <div class="alert alert-info" role="alert">
-                <h4 class="alert-heading">{% blocktrans %}We need your help !{% endblocktrans %}</h4>
-                {% blocktrans %}Currently, adding a business in <span style="color: seagreen;">Stay</span>Home<span style="color: silver">.ch</span> involves a manual process. Please fill the form below as thoroughly as possible to help us with this !{% endblocktrans %}
-                {% blocktrans %}The processing of your request may take up to 24 hours. Please be patient. Thank you!{% endblocktrans %}
-                </div>
-                <form method="POST" action="{% url 'add' %}">
-                    {% csrf_token %}
+                {% for field in form %}
 
-                    {% for field in form %}
-
-                    <div class="form-group row">
-                        <label for="{{ field.id_for_label }}" class="col-3{% if field.field.required %} font-weight-bold{% endif %}">
-                        {{ field.label }}
-                        </label>
-                        <div class="col-9">
-                            {% if field.errors %}
-                            <div class="alert alert-danger" role="alert">
-                            {% for error in field.errors %}
-                            {{ error }}
-                            {% endfor %}
-                            </div>
-                            {% endif %}
-                            {{ field }}
-                            <small id="inputNameHelp" class="form-text text-muted">{{ field.help_text|safe }}</small>
-                        </div>
-                    </div>
-
+                    <p class="m-0 mt-3 p-0">{{ field.label }} {% if field.field.required %}*{% endif %}</p>
+                    <small id="inputNameHelp" class="form-text text-muted">{{ field.help_text|safe }}</small>
+                    {% if field.errors %}
+                    <div class="alert alert-danger" role="alert">
+                    {% for error in field.errors %}
+                    {{ error }}
                     {% endfor %}
-
-                    <div class="row mt-3">
-                        <div class="col-3"></div>
-                        <div class="col-9">
-                            <button class="btn btn-primary" type="submit">{% blocktrans %}Send your request{% endblocktrans %}</button>
-                        </div>
                     </div>
-                </form>
-            </div>
-         </div>
+                    {% endif %}
+                    {{ field }}
+
+                {% endfor %}
+
+                <button class="btn btn-sh push-center my-3" type="submit">{% blocktrans %}Send your request{% endblocktrans %}</button>
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block script %}

@@ -3,22 +3,20 @@ version: '3'
 services:
 
   db:
-    image: mariadb
-    container_name: db
+    build: mariadb/
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_APP_DB}
       - MYSQL_USER=${MYSQL_APP_USER}
       - MYSQL_PASSWORD=${MYSQL_APP_PASSWORD}
     volumes:
-      - db_data:/var/lib/mysql
+      - /data/prod/db/data:/var/lib/mysql
     restart: always
     networks:
       - prod
 
   memcached:
     image: memcached:alpine
-    container_name: memcached
     entrypoint:
       - memcached
       - -m
@@ -29,7 +27,6 @@ services:
 
   web:
     build: stayhome/
-    container_name: web
     environment:
       - RUNNING_ENV=prod
       - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch
@@ -48,6 +45,14 @@ services:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - SENTRY_DSN=${SENTRY_DSN}
       - GOOGLE_UA=${GOOGLE_UA}
+      - DATADOG_ENV=prod
+      - DD_AGENT_HOST=datadog
+      - DD_TRACE_ANALYTICS_ENABLED=true
+      - DD_PROFILING_API_KEY=${DD_PROFILING_API_KEY}
+      - DD_PROFILING_TAGS=env:prod,service:stayhome,version:1
+      - DD_WEB_API_KEY=${DD_WEB_API_KEY}
+      - DD_WEB_APP_KEY=${DD_WEB_APP_KEY}
+      - LOCIZE_API_KEY=${LOCIZE_API_KEY}
     expose:
       - 8000
     depends_on:
@@ -60,8 +65,46 @@ services:
     networks:
       - prod
 
+  sync-service:
+    build: sync-service/
+    environment:
+      - STAYHOME_API_URL=http://web:8000/api
+      - SPRING_PROFILES=prod
+      - SENTRY_DSN=${SENTRY_DSN_SYNC}
+    expose:
+      - 8080
+    depends_on:
+      - web
+    restart: always
+    volumes:
+      - api_key:/api
+    networks:
+      - prod
+  
+  nodefetch:
+    build: nodefetch/
+    environment:
+      - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - prod
+
+  integration-kml:
+    build: integrations/kml-parser
+    environment:
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
+      - STAYHOME_RUN_ON_START=true
+      # every 6h
+      - STAYHOME_INTEGRATIONS_KML_SCRAPE_CRON=* * */6 * * *
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - prod
+
 volumes:
-  db_data:
   api_key:
   datasets:
 

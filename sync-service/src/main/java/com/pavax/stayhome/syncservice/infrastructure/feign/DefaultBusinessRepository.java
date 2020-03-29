@@ -5,12 +5,16 @@ import java.util.Optional;
 
 import com.pavax.stayhome.syncservice.domain.BusinessRequest;
 import com.pavax.stayhome.syncservice.domain.BusinessRequestRepository;
+import feign.RetryableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Retryable(value = RetryableException.class, maxAttempts = 5, backoff = @Backoff(value = 5_000, multiplier = 1.5, maxDelay = 30_000))
 class DefaultBusinessRepository implements BusinessRequestRepository {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBusinessRepository.class);
@@ -22,8 +26,8 @@ class DefaultBusinessRepository implements BusinessRequestRepository {
 	}
 
 	@Override
-	public Optional<BusinessRequest> findByCorrelationId(String correlationId) {
-		final List<BusinessRequest> byCorrelationId = this.feignBasedBusinessRepository.findByCorrelationId(correlationId);
+	public Optional<BusinessRequest> findBySourceId(String sourceId) {
+		final List<BusinessRequest> byCorrelationId = this.feignBasedBusinessRepository.findBySourceId(sourceId);
 		if (byCorrelationId.isEmpty()) {
 			return Optional.empty();
 		}

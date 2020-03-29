@@ -1,5 +1,6 @@
 from django import forms
 from mptt.forms import TreeNodeChoiceField, TreeNodeMultipleChoiceField
+from django.urls import reverse_lazy
 
 from business.models import Business, Category
 
@@ -10,81 +11,79 @@ class BusinessAddForm(forms.ModelForm):
         required=False
     )
 
-    def __init__(self, *args, **kwargs):
-        super(BusinessAddForm, self).__init__(*args, **kwargs)
-
-        leaf_categories = Category.objects.filter(children__isnull=True)
-
-        cat_list = [(0, '----------')]
-        for cat in leaf_categories:
-            path = cat.get_ancestors(include_self=True)
-            name = []
-            for node in path:
-                name.append(node.name)
-            cat_list.append((cat.pk, ' / '.join(name)))
-
-        self.fields.update({
-            'main_category': forms.ChoiceField(
-                choices=cat_list,
-                required=False
-            ),
-            'other_categories = ': forms.MultipleChoiceField(
-                choices=cat_list,
-                required=False
-            )
-        }) 
-
     class Meta:
         model = Business
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super(BusinessAddForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['description'].widget.attrs.update({'class': 'form-control'})
+        self.fields['address'].widget.attrs.update({'class': 'form-control'})
+        self.fields['website'].widget.attrs.update({'class': 'form-control'})
+        self.fields['phone'].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})
+        self.fields['main_category'].required = False
+
     def clean(self):
 
-        cleaned_data = super().clean()
+        # Get cleaned data
+        super().clean()
+        d = self.cleaned_data
 
+        # New categories
         added_categories = []
+        if 'new_categories' in d:
+            blocks = str(d['new_categories']).split(',')
+            for categories in blocks:
+                categories = categories.strip().split('/')
+                parent = None
+                for category in categories:
+                    name = category.strip()
+                    if name != '':
+                        parent, created = Category.objects.get_or_create(name=name, parent=parent)
+                if parent is not None:
+                    added_categories.append(parent)
 
-        data = int(cleaned_data['main_category'])
-        if data == 0:
-            if cleaned_data['new_categories'] == '':
-                raise forms.ValidationError("No main category selected.")
+        # Main category
+        if 'main_category' not in d or d['main_category'] == '' or d['main_category'] is None:
+            if len(added_categories) == 0:
+                raise forms.ValidationError("No main category selected and no new category provided.")
             else:
-                cleaned_data['main_category'] = None
-        else:
-            try:
-                cleaned_data['main_category'] = Category.objects.get(pk=data)
-            except Category.DoesNotExist:
-                raise forms.ValidationError("This category does not exist.")
+                d['main_category'] = added_categories.pop(0)
 
-        data = cleaned_data['other_categories']
+        # Other categories
+        if len(added_categories) > 0:
+            if 'other_categories' in d:
+                categories = []
+                for cat in added_categories:
+                    categories.append(cat)
+                for cat in d['other_categories']:
+                    categories.append(cat)
+                d['other_categories'] = categories
+            else:
+                d['other_categories'] = added_categories
+
+        # Check for delivery information
+        has_info = False
+
+        if 'delivers_to_ch' in d:
+            has_info = d['delivers_to_ch']
+
         try:
-            data = Category.objects.filter(pk__in=data)
-        except Category.DoesNotExist:
-            raise forms.ValidationError("A selected category does not exist.")
-        cleaned_data['other_categories'] = data
+            fields = ['delivers_to_canton', 'delivers_to_district', 'delivers_to_municipality', 'delivers_to']
+            for field in fields:
+                if d[field].count() > 0:
+                    has_info = True
+        except Exception:
+            raise forms.ValidationError("No delivery information provided.")
 
-        data = cleaned_data['new_categories']
-        blocks = str(data).split(',')
-        for cats in blocks:
-            cats = cats.strip().split('/')
-            p = None
-            for cat in cats:
-                p, created = Category.objects.get_or_create(name=cat.strip(), parent=p)
-            added_categories.append(p)
+        if not has_info:
+            raise forms.ValidationError("No delivery information provided.")
 
-        if cleaned_data['main_category'] is None and len(added_categories) == 0:
-            raise forms.ValidationError("No valid main category selected.")
+        # Remove non-utf8 chars from description
+        d['description'] = bytes(d['description'], 'utf-8').decode('utf-8', 'ignore')
 
-        if cleaned_data['main_category'] is None:
-            cleaned_data['main_category'] = added_categories.pop(0)
-
-        all_cats = []
-        for cat in added_categories:
-            all_cats.append(cat)
-        for cat in cleaned_data['other_categories']:
-            all_cats.append(cat)
-        cleaned_data['other_categories'] = all_cats
-
-        del cleaned_data['new_categories']
-
-        return cleaned_data
+        # Return data
+        self.cleaned_data = d
+        return d

@@ -5,7 +5,7 @@
 {% if prefix == '' %}
 {% blocktrans %}See requests in:{% endblocktrans %} 
 <select id="lang_filter">
-    <option value=""  {% ifequal lang none %}selected{% endifequal %}>{% trans 'All languages' %}</option>
+    <option value="all"  {% ifequal lang 'all' %}selected{% endifequal %}>{% trans 'All languages' %}</option>
     <option value="en" {% ifequal lang 'en' %}selected{% endifequal %}>{% trans 'English' %}</option>
     <option value="fr" {% ifequal lang 'fr' %}selected{% endifequal %}>{% trans 'French' %}</option>
     <option value="de" {% ifequal lang 'de' %}selected{% endifequal %}>{% trans 'German' %}</option>
@@ -17,6 +17,9 @@
 {% block contrib-content %}
 <div class="row mb-5">
     <div class="col-12 px-3 pb-3 px-3">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
         {% if object_list.count > 0 %}
         <table class="container">
             <tr class="row mx-0 px-0  border-top border-bottom font-weight-bold sh-table-head">
@@ -45,8 +48,8 @@
         <div class="pagination row pt-2">
             <span class="step-links col-12 text-center">
                 {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="?page=1&lang={{ lang }}">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}&lang={{ lang }}">previous</a>
                 {% endif %}
 
                 <span class="current">
@@ -54,8 +57,8 @@
                 </span>
 
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    <a href="?page={{ page_obj.next_page_number }}&lang={{ lang }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}&lang={{ lang }}">last &raquo;</a>
                 {% endif %}
             </span>
         </div>

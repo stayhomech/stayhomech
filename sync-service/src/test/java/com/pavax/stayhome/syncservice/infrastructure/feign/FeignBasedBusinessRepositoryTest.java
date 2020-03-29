@@ -23,7 +23,7 @@ class FeignBasedBusinessRepositoryTest {
 
 	@Test
 	void findByCorrelationId() {
-		final List<BusinessRequest> results = this.repository.findByCorrelationId("pado-test-001");
+		final List<BusinessRequest> results = this.repository.findBySourceId("pado-test-001");
 
 	}
 

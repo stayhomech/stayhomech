@@ -21,9 +21,18 @@
 {% endblock %}
 
 {% block contrib-content %}
+{% if errors %}
+<div class="alert alert-danger">
+<span class="alert-title">{% trans 'Some validation errors occured:' %}</span>
+<ul class="mb-0 mt-1">
+{% for error in errors %}<li>{{ error }}</li>{% endfor %}
+</ul>
+</div>
+{% endif %}
 <form id="businessAddForm" _lpchecked="1" method="post" action="{% url 'mgmt:convert' object.uuid %}">
 {% csrf_token %}
 <input type="hidden" name="parent_request" value="{{ object.uuid }}" />
+<input type="hidden" name="prefix" value="{{ prefix }}" />
 <div class="row mb-5">
     <div class="col-12 px-3 pb-3">
         <table class="container-fluid" style="width: 100%">
@@ -53,7 +62,7 @@
                     {{ form.description }}
                 </td>
             </tr>
-            <tr class="row p-3 border-bottom">
+            <tr class="row p-3">
                 <td class="col-2 p-2">
                     <strong>Categories</strong>
                 </td>
@@ -64,14 +73,30 @@
                 <td class="col-5 p-2">
                     <p class="font-weight-bold m-0 mb-2">Main category</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.main_category %}
-                    {{ form.main_category }}
+                    <select name="main_category" id="id_main_category" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}"></select>
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-6 p-2 small">
+                    <p class="font-weight-bold">Existing categories:</p>
+                    {% for parent in parent_categories %}
+                    <p><span class="font-weight-bold">{{ parent }}</span>: {{ parent.children.all|join:', ' }}</p>
+                    {% endfor %}
+                </td>
+                <td class="col-1"></td>
+                <td class="col-5 p-2">
                     <p class="font-weight-bold m-0 mt-3 mb-2">Other categories</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.other_categories %}
-                    {{ form.other_categories }}
+                    <select name="other_categories" id="id_other_categories" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}" multiple></select>
                     <p class="font-weight-bold m-0 mt-3 mb-0">New categories</p>
-                    <p class="font-weight-light m-0 mt-0 mb-2">"XXX" or "XXX/XXX", separated by commas<br/>First one will be main category if none selected above</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.new_categories %}
-                    {{ form.new_categories }}
+                    <ul class="small">
+                        <li>Existing parent categories: {{ parent_categories|join:", " }}.</li>
+                        <li>Always enter the categories on the form &lt;parent_category&gt;<strong>/</strong>&lt;child_category&gt;.
+                        <li>Several categories can be specified, separated by commas.</li>
+                        <li>First one will be main category if none selected above.</li>
+                    </ul>
+                    <input type="text" name="new_categories" id="id_new_categories" class="form-control" />
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
@@ -84,19 +109,19 @@
                 <td class="col-1"></td>
                 <td class="col-5 p-2">
                     {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_ch %}
-                    {{ form.delivers_to_ch }}&nbsp;&nbsp;<span class="font-weight-bold">{{ form.delivers_to_ch.label }}</span>
+                    {{ form.delivers_to_ch }} <span class="font-weight-bold">Delivers to whole Switzerland</span>
                     <p class="font-weight-bold m-0 mt-3 mb-2">Cantons</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_canton %}
-                    {{ form.delivers_to_canton }}
+                    <select name="delivers_to_canton" id="id_delivers_to_canton" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'canton' %}" multiple></select>
                     <p class="font-weight-bold m-0 mt-3 mb-2">Districts</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_district %}
-                    {{ form.delivers_to_district }}
+                    <select name="delivers_to_district" id="id_delivers_to_district" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'district' %}" multiple></select>
                     <p class="font-weight-bold m-0 mt-3 mb-2">Municipalities</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_municipality %}
-                    {{ form.delivers_to_municipality }}
+                    <select name="delivers_to_municipality" id="id_delivers_to_municipality" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'municipality' %}" multiple></select>
                     <p class="font-weight-bold m-0 mt-3 mb-2">Postal codes</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.delivers_to %}
-                    {{ form.delivers_to }}
+                    <select name="delivers_to" id="id_delivers_to" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'npa' %}" multiple></select>
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
@@ -129,13 +154,12 @@
                 </td>
                 <td class="col-1"></td>
                 <td class="col-5 p-2">
-                    {% include 'includes/requests_convert_errors.html' with field=form.location %}
-                    {{ form.location }}
+                    <select name="location" id="id_location" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'npa' %}"></select>
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
                 <td class="col-2 p-2">
-                    <strong>Website</strong>
+                    Website
                 </td>
                 <td class="col-4 p-2 border" id="request-website">
                     {{ object.website }}
@@ -143,12 +167,13 @@
                 {% include "includes/requests_convert_actions.html" with field='website' %}
                 <td class="col-5 p-2">
                     {% include 'includes/requests_convert_errors.html' with field=form.website %}
+                    <p class="mb-0 small">Must start with http:// or https://. Facebook pages are allowed.</p>
                     {{ form.website }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
                 <td class="col-2 p-2">
-                    <strong>Phone</strong>
+                    Phone
                 </td>
                 <td class="col-4 p-2 border" id="request-phone">
                     {{ object.phone }}
@@ -156,12 +181,13 @@
                 {% include "includes/requests_convert_actions.html" with field='phone' %}
                 <td class="col-5 p-2">
                     {% include 'includes/requests_convert_errors.html' with field=form.phone %}
+                    <p class="mb-0 small">Must be in international format (+41 xx xxx xx xx).</p>
                     {{ form.phone }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
                 <td class="col-2 p-2">
-                    <strong>E-mail</strong>
+                    E-mail
                 </td>
                 <td class="col-4 p-2 border" id="request-email">
                     {{ object.email }}
@@ -175,7 +201,7 @@
             <tr class="row p-3">
                 <td class="col-6 p-2 text-left">
                     <button class="btn btn-sm btn-outline-danger" id="drop_request_btn" type="button">Drop request</button>
-                    <a href="{{ return }}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+                    <a href="{{ cancel }}" class="btn btn-sm btn-outline-secondary">Cancel</a>
                 </td>
                 <td class="col-6 p-2 text-right">
                     <button class="btn btn-sm btn-outline-secondary" type="submit" name="next" value="{{ next }}">Create business and go to next request</button>
@@ -193,59 +219,79 @@
 
     $(document).ready(() => {
 
-        // Styling of form elements
-        $('#businessAddForm').find('textarea, input:not([type="checkbox"]), select').addClass('form-control');
-
         // Select NPA option
-        window.selectNPA = (npa) => {
-            let val = $("select[name='location'] option:contains(" + npa + ")").val();
-            $('[name="location"]').val(val).trigger('change.select2');
+        window.selectNPA = (data) => {
+            var newOption = new Option(data.text, data.id, true, true);
+            $('#id_location').append(newOption).trigger('change');
         }
 
         // Actions
         window.copyFromRequest = (field) => {
-            $("[name='" + field + "']").val($('#request-' + field).html().trim());
-            $('#businessAddForm').get(0).reportValidity();
+            var value = $('#request-' + field).html().trim();
+            if (field == 'website' && !value.startsWith('http')) {
+                value = 'http://' + value;
+            }
+            if (field == 'phone' && value.startsWith('0')) {
+                value = value.replace(/^0/, '+41');
+            }
+            $("[name='" + field + "']").val(value);
         }
         window.clearBusiness = (field) => {
             $("[name='" + field + "']").val('');
         }
 
         // Try to find NPA in location
-        var npa_pk = [...$('#request-location').html().matchAll(/\[PK:([0-9]+)\]/g)];
+        var q = false;
+        var npa_pk = [...$('#request-location').html().matchAll(/\[(PK:[0-9]+)\]/g)];
         if (npa_pk.length > 0 && npa_pk[0].length > 0) {
-            $('[name="location"]').val(npa_pk[0][1]).trigger('change.select2');
+            q = npa_pk[0][1];
         } else {
             var npa = $('#request-location').html().match(/[0-9]{4}/);
             if (npa) {
-                $.getJSON(
-                    '{% url 'location' %}', 
-                    { 'q': npa[0] },
-                    (data) => {
-                        if (data.length == 1) {
-                            selectNPA(data[0]);
-                        }
-                        else if (data.length > 1) {
-                            var bt = '<p>Found multiple possibilites :'
-                            data.forEach((el) => { 
-                                bt += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:selectNPA(\'' + el + '\')">' + el + '</a>';
-                            });
-                            bt += '</p>';
-                            $("select[name='location']").before(bt);
-                        }
-                    }
-                );
+                q = npa[0];
             }
         }
+        if (q) {
 
-        // Categories
-        $('[name="location"]').select2();
-        $('[name="main_category"]').select2();
-        $('[name="other_categories"]').select2();
-        $('[name="delivers_to"]').select2();
-        $('[name="delivers_to_municipality"]').select2();
-        $('[name="delivers_to_district"]').select2();
-        $('[name="delivers_to_canton"]').select2();
+            // Query for matching NPA
+            $.getJSON(
+                '{% url 'mgmt:lookup' 'npa' %}', 
+                { 'q': q },
+                (data) => {
+                    results = data.results;
+                    if (results.length == 1) {
+                        selectNPA(results[0]);
+                    }
+                    else if (results.length > 1) {
+                        var bt = '<p>Found multiple possibilites :'
+                        results.forEach((el) => { 
+                            bt += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:selectNPA({id:\'' + el.id + '\', text:\'' + el.text + '\'})">' + el.text + '</a>';
+                        });
+                        bt += '</p>';
+                        $("select[name='location']").before(bt);
+                    }
+                }
+            );
+
+        }
+
+
+        // Selects
+        $('.sh-select2').each((index, item) => {
+
+            $(item).select2({
+                minimumInputLength: 1,
+                selectOnClose: true,
+                ajax: {
+                    url: $(item).data('lookup-url'),
+                    dataType: 'json'
+                }
+            }).on('change', (event) => {
+                $(event.target).find('option').removeAttr('selected');
+                $(event.target).find(':selected').attr('selected','selected');
+            });
+
+        });
 
         // Drop button
         $('#drop_request_btn').on('click', (event) => {

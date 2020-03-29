@@ -1,7 +1,9 @@
 package com.pavax.stayhome.syncservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
+@ToString
 public class BusinessRequest {
 
 	private String uuid;
@@ -14,6 +16,8 @@ public class BusinessRequest {
 	private String name;
 
 	private String description;
+
+	private String address;
 
 	private String location;
 
@@ -76,7 +80,7 @@ public class BusinessRequest {
 	}
 
 	public BusinessRequest setDescription(String description) {
-		this.description = description;
+		this.description = sanitizeText(description);
 		return this;
 	}
 
@@ -169,4 +173,35 @@ public class BusinessRequest {
 		this.status = status;
 		return this;
 	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public BusinessRequest setAddress(String address) {
+		this.address = orEmpty(address);
+		return this;
+	}
+
+	private String orEmpty(String value) {
+		return value == null ? "" : value;
+	}
+
+	/**
+	 * remove all special-characters
+	 *
+	 * @param text to sanitize
+	 *
+	 * @return sanitized text
+	 */
+	private String sanitizeText(String text) {
+		if (text == null) {
+			return "";
+		}
+		return text
+				// remove all non-four-byte-UTF-8: https://stackoverflow.com/a/10574318
+				.replaceAll("[^\\u0000-\\uFFFF]", "")
+				.trim();
+	}
+
 }

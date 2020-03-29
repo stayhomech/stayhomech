@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+
+{% block content %}
+
+    <style>
+    body { 
+        background-color: transparent;
+    }
+    </style>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                <div class="spinner-grow" id="locationLookup" role="status" style="display: none;">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <i id="locationMarker" class="fas fa-map-marker-alt" style="width: 32px; height: 34px; font-size: 24px; text-align: center;"></i>
+            </span>
+        </div>
+        <input id="locInput" class="form-control form-control-lg" type="text" placeholder="{% trans 'Where are you ?' %}" data-url="/location" autocomplete="off">
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+
+        $(document).ready(() => {
+
+            // Search display loopback
+            function startSearch () {
+                $('#locationMarker').hide();
+                $('#locationLookup').show();
+            }
+            function endSearch () {
+                $('#locationMarker').show();
+                $('#locationLookup').hide();
+            }
+
+            // Location validation
+            $('#locInput').autoComplete({
+                events: {
+                    searchPre: (values) => {
+                        startSearch();
+                        return values;
+                    },
+                    searchPost: (results) => {
+                        endSearch();
+                        return results;
+                    }
+                }
+            }).on('autocomplete.select', (event, item) => {
+                value = item.split(' ');
+                npa = value.shift();
+                name = value.join(' ');
+                window.location = "/" + npa + "/" + encodeURIComponent(name) + "/";
+            });
+
+            // Language change
+            $('.lang-select').on('click', (event) => {
+                lang = $(event.target).data('lang');
+                $.ajax({
+                    url: "{% url 'set_language' %}",
+                    headers: {
+                        'X-CSRFToken': Cookies.get('csrftoken')
+                    },
+                    data: {
+                        'language': lang
+                    },
+                    method: 'POST',
+                    success: () => {
+                        location.reload();
+                    }
+                });
+            });
+
+            // Geo-location
+            navigator.geolocation.getCurrentPosition((position) => {
+
+                // Display feedback                
+                startSearch();
+
+                // Postal code lookup
+                var jqxhr = $.getJSON(
+                    'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode',
+                    {
+                        location: position.coords.longitude + ',' + position.coords.latitude,
+                        f: 'json'
+                    },
+                    (result) => {
+                        if (!result.error) {
+                            const addr = result.address;
+                            if (addr.CountryCode != 'CHE') {
+                                return
+                            } else {
+                                console.log(addr.Postal);
+                                $('#locInput').val(addr.Postal).trigger('keyup');
+                            }
+                        } else {
+                            endSearch();
+                            console.debug(result);
+                        }
+                    }
+                ).fail((error) => {
+                    endSearch();
+                    console.debug(error);
+                });
+
+            });
+
+        });
+
+    </script>
+
+{% endblock %}
+
+</body>
+</html>
