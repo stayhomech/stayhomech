@@ -1,13 +1,9 @@
 stayhome:
+  sync-service-url: 'http://localhost:8080'
+  run-on-start: true
   integrations:
     localhero:
       scrape-cron: '-'
-      target-url: 'http://localhost:8080'
-
-spring:
-  batch:
-    job:
-      enabled: true
 
 logging:
   level:

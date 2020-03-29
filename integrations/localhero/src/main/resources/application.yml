@@ -1,5 +1,6 @@
 stayhome:
   sync-service-url: 'http://localhost:8080'
+  run-on-start: true
   integrations:
     localhero:
       scrape-cron: '* * */6 * * *'
@@ -11,7 +12,7 @@ stayhome:
       request-ttl: 3d
       sources:
         - key: 'bern'
-          providerName: 'winterhur-local-hero'
+          providerName: 'bern-local-hero'
           url: 'https://bern.local-hero.ch'
           place: 'Bern'
         - key: 'winterthur'
@@ -22,8 +23,8 @@ stayhome:
 spring:
   batch:
     job:
-      enabled: false
+      enabled: ${stayhome.run-on-start}
 
 logging:
   level:
-    org.springframework.scheduling: 'DEBUG'
+    ROOT: INFO
