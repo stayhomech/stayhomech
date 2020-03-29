@@ -10,7 +10,7 @@ services:
       - MYSQL_USER=${MYSQL_APP_USER}
       - MYSQL_PASSWORD=${MYSQL_APP_PASSWORD}
     volumes:
-      - db_data:/var/lib/mysql
+      - /data/prod/db/data:/var/lib/mysql
     restart: always
     networks:
       - prod
@@ -64,10 +64,35 @@ services:
     networks:
       - prod
 
+  sync-service:
+    build: sync-service/
+    environment:
+      - STAYHOME_API_URL=http://web:8000/api
+      - SPRING_PROFILES=prod
+      - SENTRY_DSN=${SENTRY_DSN_SYNC}
+    expose:
+      - 8080
+    depends_on:
+      - web
+    restart: always
+    volumes:
+      - api_key:/api
+    networks:
+      - prod
+  
+  nodefetch:
+    build: nodefetch/
+    environment:
+      - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - prod
+
 volumes:
   api_key:
   datasets:
-  db_data:
 
 networks:
   prod:
