@@ -13,4 +13,4 @@ FROM openjdk:11-jdk-slim
 COPY --from=build /workspace/target/*.jar app.jar
 COPY start.sh /start.sh
 COPY wait-for-it.sh /wait-for-it.sh
-CMD [ "./wait-for-it.sh" , "-h", "sync-service", "-p", "8000" , "--strict" , "--timeout=600" , "--", "/start.sh" ]
+CMD [ "./wait-for-it.sh" , "-h", "sync-service", "-p", "8080" , "--strict" , "--timeout=600" , "--", "/start.sh" ]
