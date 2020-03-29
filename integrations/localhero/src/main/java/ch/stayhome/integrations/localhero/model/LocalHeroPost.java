@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,13 +33,11 @@ public class LocalHeroPost {
 	@NonNull
 	private RenderedContent guid;           // --> website
 
-    @NotNull
-    @NonNull
+	@NotNull
+	@NonNull
 	private List<String> categories;
 
-    private LocalHeroChApi api;
-
-    public class RenderedContent {
+	public class RenderedContent {
 		@Getter
 		@Setter
 		private String rendered;

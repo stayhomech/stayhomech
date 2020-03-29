@@ -32,9 +32,11 @@ public class LocalHeroProperties {
 	@NotBlank(message = "No provider name has been defined in application.yml")
 	private String providerName;
 
-	private Integer chunkSize = 10;
+	private int chunkSize = 10;
 
-	private Integer pageSize = 10;
+	private int pageSize = 10;
+
+	private int parallelThreads = 1;
 
 	@NotNull
 	private Integer ttlSeconds;

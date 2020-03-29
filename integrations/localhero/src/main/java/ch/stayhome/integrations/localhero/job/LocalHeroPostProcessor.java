@@ -3,6 +3,7 @@ package ch.stayhome.integrations.localhero.job;
 import java.util.stream.Collectors;
 
 import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
+import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
 import ch.stayhome.integrations.localhero.model.LocalHeroCategory;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
 import ch.stayhome.integrations.localhero.model.StayHomeEntry;
@@ -15,8 +16,11 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
 
 	private final LocalHeroProperties config;
 
-	LocalHeroPostProcessor(final LocalHeroProperties config) {
+	private final LocalHeroChApi localHeroChApi;
+
+	LocalHeroPostProcessor(final LocalHeroProperties config, LocalHeroChApi localHeroChApi) {
 		this.config = config;
+		this.localHeroChApi = localHeroChApi;
 	}
 
 	@Override
@@ -40,7 +44,7 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
 
 	private String determineCategories(LocalHeroPost item) {
 		return item.getCategories().stream()
-				.map(category -> item.getApi().getCategory(category))
+				.map(localHeroChApi::getCategory)
 				.map(LocalHeroCategory::getName)
 				.collect(Collectors.joining(", "));
 	}

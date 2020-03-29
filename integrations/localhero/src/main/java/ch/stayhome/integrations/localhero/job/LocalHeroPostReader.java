@@ -1,18 +1,11 @@
 package ch.stayhome.integrations.localhero.job;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
 import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
-import ch.stayhome.integrations.localhero.infrastructure.feign.PagedWordPressResultDecoder;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
 import ch.stayhome.integrations.localhero.model.PagedWordPressResult;
-import feign.Feign;
-import feign.Retryer;
-import feign.gson.GsonDecoder;
-import feign.gson.GsonEncoder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.batch.item.database.AbstractPagingItemReader;
@@ -21,24 +14,14 @@ import org.springframework.util.ClassUtils;
 @Slf4j
 public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost> {
 
-	private final LocalHeroProperties config;
-
-	private final List<LocalHeroChApi> apis = new ArrayList<>();
+	private final LocalHeroChApi api;
 
 	private Integer totalPages;
 
-	LocalHeroPostReader(LocalHeroProperties config) {
-		this.config = config;
-		this.config.getSourceUrls().forEach(target -> apis.add(
-				Feign.builder()
-						.decoder(new PagedWordPressResultDecoder(new GsonDecoder()))
-						.encoder(new GsonEncoder())
-						.retryer(new Retryer.Default())
-						.target(LocalHeroChApi.class, target)
-				)
-		);
+	public LocalHeroPostReader(int pageSize, LocalHeroChApi localHeroChApi) {
+		this.api = localHeroChApi;
 		setName(ClassUtils.getShortName(LocalHeroPostReader.class));
-		setPageSize(config.getPageSize());
+		setPageSize(pageSize);
 	}
 
 	@Override
@@ -48,20 +31,15 @@ public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost>
 		} else {
 			results.clear();
 		}
-		apis.forEach(source -> {
-			final int currentPage = super.getPage() + 1;
-			if (this.totalPages != null && currentPage > this.totalPages) {
-				logger.info("No more pages to fetch");
-				return;
-			}
-			final PagedWordPressResult<LocalHeroPost> results = source.findAll(getPage() + 1, getPageSize());
-			this.totalPages = results.getTotalPages();
-			final List<LocalHeroPost> content = results.getContent();
-			// TODO not so nice but works
-			content.forEach(localHeroPost -> localHeroPost.setApi(source));
-			this.results.addAll(content);
-
-		});
+		final int currentPage = super.getPage() + 1;
+		if (this.totalPages != null && currentPage > this.totalPages) {
+			logger.info("No more pages to fetch");
+			return;
+		}
+		final PagedWordPressResult<LocalHeroPost> results = api.findAll(getPage() + 1, getPageSize());
+		this.totalPages = results.getTotalPages();
+		final List<LocalHeroPost> content = results.getContent();
+		this.results.addAll(content);
 	}
 
 	@Override
