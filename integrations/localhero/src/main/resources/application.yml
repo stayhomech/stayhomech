@@ -1,10 +1,10 @@
 stayhome:
+  sync-service-url: 'http://localhost:8080'
   integrations:
     localhero:
       scrape-cron: '* * */6 * * *'
-      provider-name: 'local-hero.ch'
       restRoute: '/wp-json/wp/v2/posts'
-      target-url: 'http://localhost:8080'
+      target-url: ${stayhome.sync-service-url}
       chunk-size: 50
       page-size: 50
       parallel-threads: 2
