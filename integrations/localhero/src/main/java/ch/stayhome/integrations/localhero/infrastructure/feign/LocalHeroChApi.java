@@ -9,7 +9,7 @@ import feign.RequestLine;
 
 public interface LocalHeroChApi {
 
-	@RequestLine("GET /wp-json/wp/v2/posts?rest_route={restRoute}&page={page}&per_page={size}")
+	@RequestLine("GET /wp-json/wp/v2/posts?page={page}&per_page={size}")
 	PagedWordPressResult<LocalHeroPost> findAll(@Param("page") Integer page, @Param("size") Integer size);
 
 	@RequestLine("GET /wp-json/wp/v2/categories/{id}")
