@@ -46,4 +46,4 @@ python manage.py update_translation_fields
 python create_api_key.py
 
 # Run application
-gunicorn -b 0.0.0.0:8000 --workers=17 stayhome.wsgi
+gunicorn -b 0.0.0.0:8000 --workers=17 --name="shgc.$RUNNING_ENV" --statsd-host="datadog:8125" --statsd-prefix="shgc.$RUNNING_ENV" stayhome.wsgi
