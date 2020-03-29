@@ -1,7 +1,20 @@
 stayhome:
   integrations:
     localhero:
-      scrape-cron: '* * */6 * * *'
+      scrape-cron: ${STAYHOME_INTEGRATIONS_LOCALHERO_SCRAPE_CRON:'* */5 * * * *'}
       provider-name: 'local-hero.ch'
       restRoute: '/wp-json/wp/v2/posts'
-      ttlSeconds: 21600       # 6 hours
+      source-urls:
+        - 'https://bern.local-hero.ch'
+        - 'https://winterthur.local-hero.ch'
+      target-url: ${STAYHOME_SYNC_SERVICE_URL:'http://sync-service:8080'}
+      chunk-size: 10
+      ttl-seconds: 1000
+
+spring:
+  batch:
+    job:
+      enabled: true
+
+
+
