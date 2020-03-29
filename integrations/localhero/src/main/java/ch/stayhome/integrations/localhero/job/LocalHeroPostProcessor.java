@@ -57,7 +57,7 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
 	}
 
 	private LocalHeroCategory resolveCategory(String key) {
-		return this.categoryCache.computeIfAbsent(key, s -> localHeroChApi.getCategory(key));
+		return this.categoryCache.computeIfAbsent(key, localHeroChApi::getCategory);
 	}
 
 }
