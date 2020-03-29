@@ -141,6 +141,10 @@ class EventModel(models.Model):
         else:
             new_owner = current_owner
 
+        # Check type
+        if not isinstance(new_owner, User):
+            new_owner = User.objects.get(pk=new_owner)
+
         event = self.events(
             parent=self,
             old_status=self.get_status(),

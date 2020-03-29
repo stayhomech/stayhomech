@@ -9,7 +9,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.translation import gettext_lazy as _
 from django.utils import translation
 from django.conf import settings
-
+from django.core.cache import cache
+from django.utils.translation import get_language
+from datadog import statsd
 
 from geodata.models import NPA
 from business.models import Business, Request, Category
@@ -20,6 +22,14 @@ from business.forms import BusinessAddForm
 class HomeView(TemplateView):
 
     template_name = "home.html"
+
+    def get(self, request, *args, **kwargs):
+
+        # Stats
+        statsd.increment('landing.count')
+        statsd.increment('landing.lang.' + get_language())
+
+        return super(HomeView, self).get(self, request, *args, **kwargs)
 
 
 class HomeLocationView(View):
@@ -78,31 +88,49 @@ class ContentView(TemplateView):
 
         context['npa'] = npa
 
-        context['businesses'] = Business.objects.filter(status=Business.events.VALID).filter(
-            Q(location=npa)
-            |
-            Q(delivers_to__in=[npa])
-            |
-            Q(delivers_to_municipality__in=[municipality])
-            |
-            Q(delivers_to_district__in=[district])
-            |
-            Q(delivers_to_canton__in=[canton])
-            |
-            Q(delivers_to_ch=True)
-        ).distinct().annotate(
-            radius=Case(
-                When(location=npa, then=Value(0)),
-                When(location__in=npas, then=Value(1)),
-                When(delivers_to__in=[npa], then=Value(2)),
-                When(delivers_to_municipality__in=[municipality], then=Value(3)),
-                When(delivers_to_district__in=[district], then=Value(4)),
-                When(delivers_to_canton__in=[canton], then=Value(5)),
-                When(delivers_to_ch=True, then=Value(6)),
-                default=Value(7),
-                output_field=PositiveSmallIntegerField()
-            ),
-        ).order_by('radius', 'name')
+        # Stats
+        statsd.increment('search.n.' + str(npa.pk))
+        statsd.increment('search.m.' + str(municipality.pk))
+        statsd.increment('search.d.' + str(district.pk))
+        statsd.increment('search.c.' + str(canton.pk))
+
+        cache_key = str(npa.pk) + '_businesses'
+        businesses = cache.get(cache_key)
+        if businesses is None:
+
+            businesses = Business.objects.filter(status=Business.events.VALID).filter(
+                Q(location=npa)
+                |
+                Q(delivers_to__in=[npa])
+                |
+                Q(delivers_to_municipality__in=[municipality])
+                |
+                Q(delivers_to_district__in=[district])
+                |
+                Q(delivers_to_canton__in=[canton])
+                |
+                Q(delivers_to_ch=True)
+            ).distinct().annotate(
+                radius=Case(
+                    When(location=npa, then=Value(0)),
+                    When(location__in=npas, then=Value(1)),
+                    When(delivers_to__in=[npa], then=Value(2)),
+                    When(delivers_to_municipality__in=[municipality], then=Value(3)),
+                    When(delivers_to_district__in=[district], then=Value(4)),
+                    When(delivers_to_canton__in=[canton], then=Value(5)),
+                    When(delivers_to_ch=True, then=Value(6)),
+                    default=Value(7),
+                    output_field=PositiveSmallIntegerField()
+                ),
+            ).order_by('radius', 'name')
+
+            cache.set(cache_key, businesses, 3600)
+
+        context['businesses'] = businesses
+
+        # Stats
+        statsd.gauge('results.npa.' + str(npa.pk), businesses.count())
+        statsd.gauge('results.total', businesses.count())
 
         context['categories'] = Category.objects.filter(
             Q(as_main_category__in=context['businesses'])
