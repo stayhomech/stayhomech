@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
+import ch.stayhome.integrations.localhero.config.LocalHeroProperties.SourceConfig;
 import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
 import ch.stayhome.integrations.localhero.infrastructure.feign.PagedWordPressResultDecoder;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
@@ -72,35 +73,35 @@ public class ImportBatch {
 
 	@Bean
 	Step parallelFlow() {
-		final List<String> sourceUrls = this.localHeroProperties.getSourceUrls();
+		final List<SourceConfig> sourceConfigs = this.localHeroProperties.getSources();
 		return this.stepBuilderFactory.get("importing-steps")
 				.flow(new FlowBuilder<Flow>("importing-flows")
 						.split(this.parallelTaskExecutor())
-						.add(sourceUrls.stream()
+						.add(sourceConfigs.stream()
 								.map(this::stepFlow)
 								.toArray(Flow[]::new))
 						.build())
 				.build();
 	}
 
-	Flow stepFlow(String sourceUrl) {
-		return new FlowBuilder<Flow>("flow-" + sourceUrl)
-				.start(step(sourceUrl))
+	Flow stepFlow(SourceConfig sourceConfig) {
+		return new FlowBuilder<Flow>("flow-" + sourceConfig.getKey())
+				.start(step(sourceConfig))
 				.build();
 	}
 
-	Step step(String sourceUrl) {
-		final LocalHeroChApi localHeroChApi = this.buildApi(sourceUrl);
+	Step step(SourceConfig sourceConfig) {
+		final LocalHeroChApi localHeroChApi = this.buildApi(sourceConfig);
 		return stepBuilderFactory.get("import-step")
 				.<LocalHeroPost, StayHomeEntry>chunk(localHeroProperties.getChunkSize())
 				.reader(reader(localHeroChApi))
-				.processor(processor(localHeroChApi))
+				.processor(processor(sourceConfig, localHeroChApi))
 				.writer(writer())
 				.build();
 	}
 
-	public LocalHeroPostProcessor processor(LocalHeroChApi localHeroChApi) {
-		return new LocalHeroPostProcessor(localHeroProperties, localHeroChApi);
+	public LocalHeroPostProcessor processor(SourceConfig sourceConfig, LocalHeroChApi localHeroChApi) {
+		return new LocalHeroPostProcessor(sourceConfig, localHeroChApi, this.localHeroProperties.getTtlSeconds());
 	}
 
 	public LocalHeroPostReader reader(LocalHeroChApi localHeroChApi) {
@@ -111,12 +112,12 @@ public class ImportBatch {
 		return new StayHomeEntryWriter(localHeroProperties);
 	}
 
-	public LocalHeroChApi buildApi(String targetUrl) {
+	public LocalHeroChApi buildApi(SourceConfig sourceConfig) {
 		return Feign.builder()
 				.decoder(new PagedWordPressResultDecoder(new GsonDecoder()))
 				.encoder(new GsonEncoder())
 				.retryer(new Retryer.Default())
-				.target(LocalHeroChApi.class, targetUrl);
+				.target(LocalHeroChApi.class, sourceConfig.getUrl());
 	}
 
 	private SimpleAsyncTaskExecutor parallelTaskExecutor() {

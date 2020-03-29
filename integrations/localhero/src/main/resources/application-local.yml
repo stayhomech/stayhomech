@@ -2,14 +2,7 @@ stayhome:
   integrations:
     localhero:
       scrape-cron: '-'
-      source-urls:
-        - 'https://bern.local-hero.ch'
-        - 'https://winterthur.local-hero.ch'
       target-url: 'http://localhost:8080'
-      chunk-size: 50
-      ttl-seconds: 1000
-      page-size: 50
-      parallel-threads: 2
 
 spring:
   batch:

@@ -16,11 +16,10 @@ import org.springframework.batch.item.ItemWriter;
 
 @Slf4j
 public class StayHomeEntryWriter implements ItemWriter<StayHomeEntry> {
-	private final LocalHeroProperties config;
+
 	private final StayHomeApi api;
 
 	StayHomeEntryWriter(LocalHeroProperties config) {
-		this.config = config;
 		this.api = Feign.builder()
 				.encoder(new GsonEncoder())
 				.retryer(new Retryer.Default())

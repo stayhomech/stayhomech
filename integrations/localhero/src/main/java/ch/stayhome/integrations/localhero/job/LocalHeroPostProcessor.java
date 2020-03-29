@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
+import ch.stayhome.integrations.localhero.config.LocalHeroProperties.SourceConfig;
 import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
 import ch.stayhome.integrations.localhero.model.LocalHeroCategory;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
@@ -16,15 +16,18 @@ import org.springframework.batch.item.ItemProcessor;
 @Slf4j
 public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, StayHomeEntry> {
 
-	private final LocalHeroProperties config;
+	private final SourceConfig sourceConfig;
 
 	private final LocalHeroChApi localHeroChApi;
 
+	private final int defaultTTL;
+
 	private final Map<String, LocalHeroCategory> categoryCache = new HashMap<>();
 
-	LocalHeroPostProcessor(final LocalHeroProperties config, LocalHeroChApi localHeroChApi) {
-		this.config = config;
+	LocalHeroPostProcessor(SourceConfig sourceConfig, LocalHeroChApi localHeroChApi, int defaultTTL) {
+		this.sourceConfig = sourceConfig;
 		this.localHeroChApi = localHeroChApi;
+		this.defaultTTL = defaultTTL;
 	}
 
 	@Override
@@ -34,15 +37,14 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
 				.name(item.getTitle().getRendered())
 				.description(item.getExcerpt().getRendered())
 				.website(item.getGuid().getRendered())
-				.providerName(config.getProviderName())
-				.location("Bern")                   // FIXME: don't hard code, there are multiple locations
+				.providerName(this.sourceConfig.getProviderName())
+				.location(this.sourceConfig.getPlace())
 				.categories(determineCategories(item))
-				.delivery("Bern")                   // FIXME: What's the exact requirement for this
+				.delivery("")
 				.contact("")
 				.email("")
 				.phone("")
-				.ttl(config.getTtlSeconds())
-
+				.ttl(defaultTTL)
 				.build();
 	}
 
