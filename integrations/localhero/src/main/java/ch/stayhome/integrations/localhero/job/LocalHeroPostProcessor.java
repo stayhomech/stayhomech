@@ -4,6 +4,7 @@ import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
 import ch.stayhome.integrations.localhero.model.StayHomeEntry;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.batch.item.ItemProcessor;
 
 @Slf4j
@@ -17,7 +18,7 @@ public class LocalHeroPostProcessor implements ItemProcessor<LocalHeroPost, Stay
     @Override
     public StayHomeEntry process(LocalHeroPost item) {
         return StayHomeEntry.builder()
-                .id(config.getProviderName() + "-" + item.getId())
+                .id(String.valueOf(item.getId()))
                 .name(item.getTitle().getRendered())
                 .description(item.getExcerpt().getRendered())
                 .website(item.getGuid().getRendered())
