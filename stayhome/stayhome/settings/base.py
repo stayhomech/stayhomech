@@ -12,18 +12,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUNNING_ENV = os.environ.get("RUNNING_ENV", default='dev-nodb')
 
 
-# CORS headers
-CORS_ORIGIN_WHITELIST = [
-    'https://stayhome.ch',
-    'https://www.stayhome.ch',
-    'https://stay-home.squarespace.com'
-]
-CORS_ALLOW_METHODS = [
-    'POST',
-    'GET',
-]
-CORS_URLS_REGEX = r'^/location.*$'
-
 # Application definition
 INSTALLED_APPS = [
 
@@ -52,8 +40,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -180,3 +168,11 @@ options = {
     'statsd_namespace': 'stayhome'
 }
 initialize(**options)
+
+
+# CORS headers
+CORS_ORIGIN_WHITELIST = [
+    'https://stayhome.ch',
+    'https://www.stayhome.ch',
+    'https://stay-home.squarespace.com'
+]
