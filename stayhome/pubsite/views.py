@@ -9,6 +9,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.translation import gettext_lazy as _
 from django.utils import translation
 from django.conf import settings
+from django.core.cache import cache
 
 
 from geodata.models import NPA
@@ -78,31 +79,39 @@ class ContentView(TemplateView):
 
         context['npa'] = npa
 
-        context['businesses'] = Business.objects.filter(status=Business.events.VALID).filter(
-            Q(location=npa)
-            |
-            Q(delivers_to__in=[npa])
-            |
-            Q(delivers_to_municipality__in=[municipality])
-            |
-            Q(delivers_to_district__in=[district])
-            |
-            Q(delivers_to_canton__in=[canton])
-            |
-            Q(delivers_to_ch=True)
-        ).distinct().annotate(
-            radius=Case(
-                When(location=npa, then=Value(0)),
-                When(location__in=npas, then=Value(1)),
-                When(delivers_to__in=[npa], then=Value(2)),
-                When(delivers_to_municipality__in=[municipality], then=Value(3)),
-                When(delivers_to_district__in=[district], then=Value(4)),
-                When(delivers_to_canton__in=[canton], then=Value(5)),
-                When(delivers_to_ch=True, then=Value(6)),
-                default=Value(7),
-                output_field=PositiveSmallIntegerField()
-            ),
-        ).order_by('radius', 'name')
+        cache_key = str(npa.pk) + '_businesses'
+        businesses = cache.get(cache_key)
+        if businesses is None:
+
+            businesses = Business.objects.filter(status=Business.events.VALID).filter(
+                Q(location=npa)
+                |
+                Q(delivers_to__in=[npa])
+                |
+                Q(delivers_to_municipality__in=[municipality])
+                |
+                Q(delivers_to_district__in=[district])
+                |
+                Q(delivers_to_canton__in=[canton])
+                |
+                Q(delivers_to_ch=True)
+            ).distinct().annotate(
+                radius=Case(
+                    When(location=npa, then=Value(0)),
+                    When(location__in=npas, then=Value(1)),
+                    When(delivers_to__in=[npa], then=Value(2)),
+                    When(delivers_to_municipality__in=[municipality], then=Value(3)),
+                    When(delivers_to_district__in=[district], then=Value(4)),
+                    When(delivers_to_canton__in=[canton], then=Value(5)),
+                    When(delivers_to_ch=True, then=Value(6)),
+                    default=Value(7),
+                    output_field=PositiveSmallIntegerField()
+                ),
+            ).order_by('radius', 'name')
+
+            cache.set(cache_key, businesses, 3600)
+
+        context['businesses'] = businesses
 
         context['categories'] = Category.objects.filter(
             Q(as_main_category__in=context['businesses'])
