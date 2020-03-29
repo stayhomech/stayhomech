@@ -12,6 +12,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUNNING_ENV = os.environ.get("RUNNING_ENV", default='dev-nodb')
 
 
+# CORS headers
+CORS_ORIGIN_WHITELIST = [
+    'https://stayhome.ch',
+    'https://www.stayhome.ch',
+    'https://stay-home.squarespace.com'
+]
+CORS_ALLOW_METHODS = [
+    'POST',
+    'GET',
+]
+CORS_URLS_REGEX = r'^/location.*$'
+
 # Application definition
 INSTALLED_APPS = [
 
@@ -30,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'ddtrace.contrib.django',
+    'corsheaders',
 
     'geodata',
     'business',
@@ -39,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
