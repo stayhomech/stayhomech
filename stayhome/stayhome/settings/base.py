@@ -1,14 +1,18 @@
 import os
 
 from django.utils.translation import gettext_lazy as _
+from datadog import initialize
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Application definition
+# Running environment
+RUNNING_ENV = os.environ.get("RUNNING_ENV", default='dev-nodb')
 
+
+# Application definition
 INSTALLED_APPS = [
 
     'django.contrib.admin',
@@ -68,20 +72,16 @@ WSGI_APPLICATION = 'stayhome.wsgi.application'
 
 
 # Recaptcha
-
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 RECAPTCHA_DOMAIN = 'www.google.com'
 
 
 # Google Analytics
-
 GOOGLE_UA = os.environ.get('GOOGLE_UA')
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -99,8 +99,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Europe/Zurich'
 
@@ -123,8 +121,6 @@ MODELTRANSLATION_FALLBACK_LANGUAGES = ('en', 'de', 'fr', 'it')
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -140,7 +136,6 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, 'rootfiles')
 
 
 # REST framework
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -156,5 +151,11 @@ REST_FRAMEWORK = {
 
 
 # SYNC user
-
 SYNC_USER = os.environ.get('SYNC_USER')
+
+
+# Datadog
+initialize({
+    'statsd_host': 'datadog',
+    'statsd_port': 8125
+})
