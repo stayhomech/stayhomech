@@ -56,7 +56,11 @@ public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost>
 			}
 			final PagedWordPressResult<LocalHeroPost> results = source.findAll(getPage() + 1, getPageSize());
 			this.totalPages = results.getTotalPages();
-			this.results.addAll(results.getContent());
+			final List<LocalHeroPost> content = results.getContent();
+			// TODO not so nice but works
+			content.forEach(localHeroPost -> localHeroPost.setApi(source));
+			this.results.addAll(content);
+
 		});
 	}
 

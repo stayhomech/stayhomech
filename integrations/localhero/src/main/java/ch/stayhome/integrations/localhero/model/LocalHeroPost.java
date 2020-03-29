@@ -1,5 +1,10 @@
 package ch.stayhome.integrations.localhero.model;
 
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,32 +13,36 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class LocalHeroPost {
-    @NotNull
-    @NonNull
-    private Integer id;
+	@NotNull
+	@NonNull
+	private Integer id;
+
+	@NotNull
+	@NonNull
+	private RenderedContent title;          // --> name
+
+	@NotNull
+	@NonNull
+	private RenderedContent excerpt;        // --> description
+
+	@NotNull
+	@NonNull
+	private RenderedContent guid;           // --> website
 
     @NotNull
     @NonNull
-    private RenderedContent title;          // --> name
+	private List<String> categories;
 
-    @NotNull
-    @NonNull
-    private RenderedContent excerpt;        // --> description
-
-    @NotNull
-    @NonNull
-    private RenderedContent guid;           // --> website
+    private LocalHeroChApi api;
 
     public class RenderedContent {
-        @Getter
-        @Setter
-        private String rendered;
-    }
+		@Getter
+		@Setter
+		private String rendered;
+	}
 }
