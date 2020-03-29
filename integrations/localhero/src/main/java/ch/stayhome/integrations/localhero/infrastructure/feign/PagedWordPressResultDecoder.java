@@ -25,7 +25,7 @@ public class PagedWordPressResultDecoder implements Decoder {
 
 	@Override
 	public Object decode(Response response, Type type) throws FeignException, IOException {
-		if (!isPagedWorkdPressResult(type)) {
+		if (!isPagedWordPressResult(type)) {
 			return delegate.decode(response, type);
 		}
 		final String totalItems = firstHeader(response, WP_HEADER_TOTAL_POSTS);
@@ -47,7 +47,7 @@ public class PagedWordPressResultDecoder implements Decoder {
 		return response.headers().get(s).iterator().next();
 	}
 
-	private boolean isPagedWorkdPressResult(Type type) {
+	private boolean isPagedWordPressResult(Type type) {
 		// TODO Improve this check
 		return type.getTypeName().contains("PagedWordPressResult");
 	}
