@@ -5,6 +5,6 @@ stayhome:
     localhero:
       scrape-cron: '-'
 
-logging:
-  level:
-    org.springframework.scheduling: 'DEBUG'
+     # source-urls:
+        #   - 'http://localhost:3001/bern'
+      # - 'http://localhost:3001/winterthur'
