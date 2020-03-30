@@ -1,71 +1,50 @@
 package ch.stayhome.integrations.localhero.job;
 
-import ch.stayhome.integrations.localhero.config.LocalHeroProperties;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
-import feign.Feign;
-import feign.Retryer;
-import feign.gson.GsonDecoder;
+import ch.stayhome.integrations.localhero.model.PagedWordPressResult;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.item.support.AbstractItemCountingItemStreamItemReader;
+
+import org.springframework.batch.item.database.AbstractPagingItemReader;
 import org.springframework.util.ClassUtils;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-
 @Slf4j
-public class LocalHeroPostReader extends AbstractItemCountingItemStreamItemReader<LocalHeroPost> {
-    private final LocalHeroProperties config;
-    //    private final List<LocalHeroChApi> apis = new ArrayList<>();
-    private final Map<String, LocalHeroChApi> apis = new HashMap<>();
+public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost> {
 
-    private Deque<LocalHeroPost> postDeque = new ArrayDeque<>();
+	private final LocalHeroChApi api;
 
-    LocalHeroPostReader(LocalHeroProperties config) {
-        this.config = config;
-        this.config.getSourceUrls().forEach(target -> apis.put(
-                target,
-                Feign.builder()
-                        .decoder(new GsonDecoder())
-                        .retryer(new Retryer.Default())
-                        .target(LocalHeroChApi.class, target)
-                )
-        );
-        this.setExecutionContextName(ClassUtils.getShortName(LocalHeroPostReader.class));
-    }
+	private Integer totalPages;
 
-    @Override
-    protected LocalHeroPost doRead() {
-        try {
-            return postDeque.pop();
-        } catch (NoSuchElementException e) {
-            // no posts
-            return null;
-        }
-    }
+	public LocalHeroPostReader(int pageSize, LocalHeroChApi localHeroChApi) {
+		this.api = localHeroChApi;
+		setName(ClassUtils.getShortName(LocalHeroPostReader.class));
+		setPageSize(pageSize);
+	}
 
-    @Override
-    protected void doOpen() {
-        if (postDeque.isEmpty()) {
-            fetchPosts();
-        }
-    }
+	@Override
+	protected void doReadPage() {
+		if (results == null) {
+			results = new CopyOnWriteArrayList<>();
+		} else {
+			results.clear();
+		}
+		final int currentPage = super.getPage() + 1;
+		if (this.totalPages != null && currentPage > this.totalPages) {
+			logger.info("No more pages to fetch");
+			return;
+		}
+		final PagedWordPressResult<LocalHeroPost> results = api.findAll(currentPage, getPageSize());
+		this.totalPages = results.getTotalPages();
+		final List<LocalHeroPost> content = results.getContent();
+		this.results.addAll(content);
+	}
 
-    @Override
-    protected void doClose() {
-        this.postDeque.clear();
-    }
-
-    private void fetchPosts() {
-        postDeque = new ArrayDeque<>();
-        apis.forEach((String key, LocalHeroChApi source) -> {
-                    source.findAll(config.getRestRoute()).forEach(post -> postDeque.push(post));
-                    log.info("Fetched {} posts from {}", postDeque.size(), key);
-                }
-        );
-    }
+	@Override
+	protected void doJumpToPage(int itemIndex) {
+		// nothing to do
+	}
 
 }

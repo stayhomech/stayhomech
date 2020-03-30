@@ -1,14 +1,17 @@
 stayhome:
+  sync-service-url: 'http://localhost:8080'
+  run-on-start: true
   integrations:
     localhero:
-      scrape-cron: '* */5 * * * *'
-      source-urls:
-        - 'http://localhost:3001/bern'
-        - 'http://localhost:3001/winterthur'
-      target-url: 'http://localhost:8080'
-
-spring:
-  batch:
-    job:
-      enabled: true
-
+      scrape-cron: '-'
+      sources:
+        - key: 'bern'
+          providerName: 'bern-local-hero'
+          #url: 'http://localhost:3001/bern' # doesn't work yet as we need to mock the pagination headers
+          url: 'https://bern.local-hero.ch'
+          place: 'Bern'
+        - key: 'winterthur'
+          providerName: 'winterhur-local-hero'
+          #url: 'http://localhost:3001/winterthur' # doesn't work yet as we need to mock the pagination headers
+          url: 'https://winterthur.local-hero.ch'
+          place: 'Winterthur'

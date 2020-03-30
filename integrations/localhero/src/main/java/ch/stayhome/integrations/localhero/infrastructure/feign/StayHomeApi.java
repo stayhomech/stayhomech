@@ -11,12 +11,10 @@ public interface StayHomeApi {
 
 	String PROVIDER_NAME = "X-SYNC-PROVIDER-NAME";
 
-    String ENTRY_ID = "X-SYNC-PROVIDER-ENTRY-ID";
+	String ENTRY_ID = "X-SYNC-PROVIDER-ENTRY-ID";
 
-    @RequestLine("POST /api/business-entry/")
-	@Headers({
-			"Content-Type: application/json",
-			"X-SYNC-PROVIDER-NAME: local-hero.ch",       // FIXME: this needs not to be hard coded
-	})
+	@RequestLine("POST /api/business-entry/")
+	@Headers({"Content-Type: application/json"})
 	void createEntry(@HeaderMap Map<String, String> headers, StayHomeEntry entry);
+
 }
