@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-26 00:13+0100\n"
-"PO-Revision-Date: 2020-03-26 00:47+0100\n"
+"POT-Creation-Date: 2020-03-30 19:24+0200\n"
+"PO-Revision-Date: 2020-03-30 19:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -18,55 +18,59 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: business/forms/add_form.py:16
+#: business/admin.py:14
+msgid "status"
+msgstr "Status"
+
+#: business/forms/add_form.py:17
 msgid "Company name"
 msgstr "Firmenname"
 
-#: business/forms/add_form.py:18
+#: business/forms/add_form.py:19
 msgid "The name of the company."
 msgstr "Der Name des Geschäfts."
 
-#: business/forms/add_form.py:25
+#: business/forms/add_form.py:26
 msgid "Description"
 msgstr "Beschreibung"
 
-#: business/forms/add_form.py:26
+#: business/forms/add_form.py:27
 msgid "A short description of the services of the company."
-msgstr "Beschreibe was angeboten wird."
+msgstr "Eine kurze Beschreibung der Dienstleistungen des Unternehmens."
 
-#: business/forms/add_form.py:34
+#: business/forms/add_form.py:35
 msgid "Street and number"
-msgstr "Strasse + Nr"
+msgstr "Strasse und Nummer"
 
-#: business/forms/add_form.py:36
+#: business/forms/add_form.py:37
 msgid "The street and street number of your address"
 msgstr "Strasse und Nummer der Geschäftes"
 
-#: business/forms/add_form.py:43
+#: business/forms/add_form.py:44
 msgid "City"
 msgstr "Ort"
 
-#: business/forms/add_form.py:44
+#: business/forms/add_form.py:45
 msgid "Where is the company based?"
 msgstr "Wo ist das Geschäft?"
 
-#: business/forms/add_form.py:52
+#: business/forms/add_form.py:53
 msgid "Categories"
 msgstr "Kategorien"
 
-#: business/forms/add_form.py:54
+#: business/forms/add_form.py:55
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
 msgstr ""
-"Liste passende Kategorien des Angebots auf (Bsp: Essen, Bücher, Trinken, "
-"Musik, Spiele, Mobilität, etc)"
+"Liste passende Kategorien des Angebots auf (z.B: Essen, Bücher, Trinken, "
+"Musik, Spiele, Mobilität)"
 
-#: business/forms/add_form.py:61
+#: business/forms/add_form.py:62
 msgid "Delivery locations"
-msgstr "Liefert nach"
+msgstr "Lieferorte"
 
-#: business/forms/add_form.py:63
+#: business/forms/add_form.py:64
 msgid ""
 "Where are you delivering ? Whole Switzerland, cantons, districts, "
 "municipalities, be as precise as possible."
@@ -74,35 +78,31 @@ msgstr ""
 "Bis wohin wird geliefert? Ganze Schweiz, Kantone, Bezirke, Orte - Sei so "
 "genau wie möglich."
 
-#: business/forms/add_form.py:70
+#: business/forms/add_form.py:71
 msgid "Website"
-msgstr "Homepage"
+msgstr "Webseite"
 
-#: business/forms/add_form.py:72
+#: business/forms/add_form.py:73
 msgid "Company website, if any."
 msgstr ""
-"Homepage-Link (Kann auch eine Facebook-Seite sein, Instagram-Profil oder "
-"Whatsapp-Link)"
+"Webseite-Link (Kann auch eine Facebook-Seite sein, Instagram-Profil oder "
+"WhatsApp Nummer)"
 
-#: business/forms/add_form.py:80
+#: business/forms/add_form.py:81
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: business/forms/add_form.py:82
+#: business/forms/add_form.py:83
 msgid "Company phone number, if any."
-msgstr "Telefon, falls vorhanden."
+msgstr "Telefonnummer, falls vorhanden."
 
-#: business/forms/add_form.py:90
+#: business/forms/add_form.py:91
 msgid "Email address"
-msgstr "E-Mail"
+msgstr "E-Mail Adresse"
 
-#: business/forms/add_form.py:92
+#: business/forms/add_form.py:93
 msgid "Company email address, if any."
-msgstr "E-Mail, falls vorhanden."
-
-#: business/templates/admin/business/request/change_form.html:6
-msgid "Convert to new business"
-msgstr "In ein neues Geschäfts umwandeln"
+msgstr "E-Mail Adresse, falls vorhanden."
 
 #: privsite/templates/registration/login.html:9
 msgid "Please sign in"
@@ -111,7 +111,7 @@ msgstr "Bitte einloggen"
 #: privsite/templates/registration/login.html:16
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
-"Benutzername und Passwort stimmen nicht überein. Bitte nochmals versuichen."
+"Benutzername und Passwort stimmen nicht überein. Bitte nochmals versuchen."
 
 #: privsite/templates/registration/logout.html:15
 msgid "Thank you for your time today !"
@@ -119,36 +119,83 @@ msgstr "Danke für deine Zeit!"
 
 #: privsite/templates/registration/logout.html:22
 msgid "Go back to homepage"
-msgstr "Zur Startseite"
+msgstr "Zurück zur Startseite"
 
-#: privsite/views.py:21
+#: privsite/templates/requests_list.html:6
+msgid "See requests in:"
+msgstr "Siehe Anfrage in:"
+
+#: privsite/templates/requests_list.html:8
+msgid "All languages"
+msgstr "Alle Sprachen"
+
+#: privsite/templates/requests_list.html:9 stayhome/settings/base.py:112
+msgid "English"
+msgstr "English"
+
+#: privsite/templates/requests_list.html:10 stayhome/settings/base.py:114
+msgid "French"
+msgstr "Französisch"
+
+#: privsite/templates/requests_list.html:11 stayhome/settings/base.py:113
+msgid "German"
+msgstr "Deutsch"
+
+#: privsite/templates/requests_list.html:12 stayhome/settings/base.py:115
+msgid "Italian"
+msgstr "Italienisch"
+
+#: privsite/views.py:47
 msgid "Pending requests"
 msgstr "Offene Anfragen"
 
-#: privsite/views.py:22
-msgid "The following requets are available to process."
-msgstr "Die folgenden Anfragen sind bereit zum verarbeiten."
+#: privsite/views.py:50 privsite/views.py:75
+#, python-format
+msgid "%d requets are available to process."
+msgstr "%d  Anfragen sind bereit zum verarbeiten."
 
-#: privsite/views.py:34
+#: privsite/views.py:52 privsite/views.py:77
+msgid "No pending request."
+msgstr "Keine offene Anfragen."
+
+#: privsite/views.py:72
+msgid "Your requests"
+msgstr "Deine Anfragen"
+
+#: privsite/views.py:99
 msgid "Convert request to business"
 msgstr "Anfrage in ein Geschäft umwandeln"
+
+#: privsite/views.py:163
+msgid "Categories translations"
+msgstr "Übersetzungskategorien"
+
+#: privsite/views.py:166
+#, python-format
+msgid "%d categories exist."
+msgstr "%d Kategorien existieren."
+
+#: privsite/views.py:168
+msgid "No category defined."
+msgstr "Keine Kategorie definiert."
 
 #: pubsite/templates/about.html:8 pubsite/templates/add.html:8
 #: pubsite/templates/success.html:5
 msgid "Go back to home"
-msgstr "Zur Startseite"
+msgstr "Zurück zur Startseite"
 
 #: pubsite/templates/about.html:18
 msgid ""
 "is an initiative of a private person willing to help to cope with the "
 "consequences of the COVID-19 epidemy. It has no commercial purpose."
 msgstr ""
-"ist eine Initative von privaten Personen, welche in Zeiten der Corona/"
-"Covid-19 Epidemie helfen möchten! Wir haben keinen kommerziellen Zweck."
+"ist eine Initiative einer Privatperson, die bereit ist, bei der Bewältigung "
+"der Folgen der COVID-19-Epidemie zu helfen. Es hat keinen kommerziellen "
+"Zweck."
 
 #: pubsite/templates/about.html:21
 msgid "Should you have any question, please contact"
-msgstr "Solltest du Fragen haben, dann kontaktiere"
+msgstr "Bei Fragen wenden Sie sich bitte an"
 
 #: pubsite/templates/about.html:24
 msgid ""
@@ -170,8 +217,8 @@ msgid ""
 msgstr ""
 "Trage ein Geschäft hier auf <span style=\"color: seagreen;\">Stay</"
 "span>Home<span style=\"color: silver\">.ch</span> ein, um zu zeigen, dass "
-"dieses nach wie vor noch da ist für Kunden. Bitte bachte, dass nur "
-"Diensleistungen angeboten warden können, welche KEINEN direkten Kontakt mit "
+"dieses nach wie vor noch da ist für Kunden. Bitte beachte, dass nur "
+"Dienstleistungen angeboten werden können, welche KEINEN direkten Kontakt mit "
 "Kunden erfordert !"
 
 #: pubsite/templates/add.html:20
@@ -188,7 +235,7 @@ msgstr "Absenden"
 
 #: pubsite/templates/base.html:28 pubsite/templates/base.html:32
 msgid "Stay home ! We deliver..."
-msgstr "Bleib zu Hause, Wir liefern..."
+msgstr "Bleib zu Hause! Wir liefern..."
 
 #: pubsite/templates/base.html:30 pubsite/templates/base.html:33
 msgid ""
@@ -210,7 +257,7 @@ msgstr "Neue Suche"
 
 #: pubsite/templates/content.html:34
 msgid "Nothing left to show, try changing your filters."
-msgstr "Keine weiteren Angebote."
+msgstr "Keine weiteren Angebote, versuchen Sie, die Filter zu wechseln."
 
 #: pubsite/templates/content.html:50
 msgid "Located at"
@@ -218,11 +265,11 @@ msgstr "Standort"
 
 #: pubsite/templates/content.html:62
 msgid "This service delivers to :"
-msgstr "Liefert nach:"
+msgstr "Dieser Service liefert an:"
 
 #: pubsite/templates/content.html:70
 msgid "Use this link to report any problem with this service."
-msgstr "Eintrag melden."
+msgstr "Verwenden Sie diesen Link, um Probleme mit diesem Dienst zu melden."
 
 #: pubsite/templates/content.html:77
 msgid "See less"
@@ -234,7 +281,7 @@ msgstr "Mehr Infos"
 
 #: pubsite/templates/content.html:90
 msgid "Visit website"
-msgstr "Besuche die Website"
+msgstr "Besuche die Webseite"
 
 #: pubsite/templates/content.html:95
 msgid "Call"
@@ -242,7 +289,7 @@ msgstr "Anrufen"
 
 #: pubsite/templates/content.html:100
 msgid "Send email"
-msgstr "E-Mail"
+msgstr "E-Mail senden"
 
 #: pubsite/templates/content.html:110
 msgid "No delivery service available at that location :-("
@@ -254,7 +301,7 @@ msgid ""
 "location, please consider"
 msgstr ""
 "Falls du eine Firma hast oder kennst, welche Lieferservices anbietet für "
-"diesen Ort, nutze das folgende Formular"
+"diesen Ort, verwende das folgende Formular"
 
 #: pubsite/templates/content.html:111
 msgid "adding the service"
@@ -269,8 +316,8 @@ msgid ""
 "Enter your post code or city name. For Switzerland <i class=\"icon-plus-sign-"
 "alt\" style=\"color: red;\"></i> only ;-)"
 msgstr ""
-"Postleitzahl oder Ortsnamen. Hinweis: Zurzeit nur für die Schweiz <i class="
-"\"icon-plus-sign-alt\" style=\"color: red;\"></i> verfügbar"
+"Postleitzahl oder Ortsnamen. Zurzeit nur für die Schweiz <i class=\"icon-"
+"plus-sign-alt\" style=\"color: red;\"></i> verfügbar"
 
 #: pubsite/templates/home.html:43 pubsite/templates/mgmt.html:26
 msgid "Add your business"
@@ -327,25 +374,12 @@ msgstr ""
 "Die Verarbeitung deiner Anfrage kann bis zu 24h dauern. Danke für deine "
 "Geduld."
 
-#: pubsite/views.py:66
+#: pubsite/views.py:77
 msgid "NPA does not exist"
 msgstr "PLZ nicht gefunden"
 
-#: stayhome/settings/base.py:111
-msgid "English"
-msgstr "English"
-
-#: stayhome/settings/base.py:112
-msgid "German"
-msgstr "Deutsch"
-
-#: stayhome/settings/base.py:113
-msgid "French"
-msgstr "Französisch"
-
-#: stayhome/settings/base.py:114
-msgid "Italian"
-msgstr "Italienisch"
+#~ msgid "Convert to new business"
+#~ msgstr "In ein neues Geschäfts umwandeln"
 
 #~ msgid "Main location"
 #~ msgstr "Ort"
