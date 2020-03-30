@@ -1,14 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, DetailView, RedirectView
+from django.views.generic import ListView, DetailView, RedirectView, View
 from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import force_str
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.forms import modelform_factory
+from django.http import JsonResponse, Http404
+from django.db.models import Q
 
 from business.models import Request, Category
 from .forms.business_add import BusinessAddForm
+from geodata.models import NPA, Municipality, District, Canton
 
 
 def add_navigation_context(context, user):
@@ -85,13 +88,12 @@ class RequestsUserListView(RequestsListView):
 class RequestsProcessView(DetailView):
 
     template_name = "requests_convert.html"
-    queryset = Request.objects.all()
     prefix=''
 
-    def get_context_data(self, **kwargs):
+    def get_queryset(self):
+        return Request.objects.filter(pk=self.kwargs['pk'])
 
-        r = self.get_object()
-        r.set_status(Request.events.RESERVED, user=self.request.user)
+    def get_context_data(self, **kwargs):
 
         context = super(RequestsProcessView, self).get_context_data(**kwargs)
         context = add_navigation_context(context, self.request.user.id)
@@ -106,6 +108,13 @@ class RequestsProcessView(DetailView):
 
         return context
 
+    def get(self, request, *args, **kwargs):
+
+        r = self.get_object()
+        r.set_status(Request.events.RESERVED, user=self.request.user)
+
+        return super(RequestsProcessView, self).get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         form = BusinessAddForm(request.POST, request.FILES)
         if form.is_valid():
@@ -119,7 +128,7 @@ class RequestsProcessView(DetailView):
 
         else:
             self.object = self.get_object()
-            context = super(RequestsProcessView, self).get_context_data(**kwargs)
+            context = self.get_context_data()
             context['form'] = form
             return self.render_to_response(context=context)
 
@@ -189,3 +198,66 @@ class CategoriesTransListView(ListView):
             context['errors'] = form.errors
             context['success'] = False
             return self.render_to_response(context=context)
+
+
+@method_decorator(login_required, name='dispatch')
+class AjaxLookupView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        query = request.GET.get('q')
+        if query == '':
+            raise Http404("Nothing to search.")
+
+        data = []
+
+        model = kwargs['model']
+        if model == 'npa':
+            
+            data = NPA.objects.rewrite(False).filter(
+                Q(npa__startswith=query)
+                |
+                Q(name__icontains=query)
+            ).order_by('npa', 'name')
+
+        elif model == 'municipality':
+
+            data = Municipality.objects.rewrite(False).filter(name__icontains=query).order_by('name')
+
+        elif model == 'district':
+
+            data = District.objects.rewrite(False).filter(name__icontains=query).order_by('name')
+
+        elif model == 'canton':
+
+            data = Canton.objects.rewrite(False).filter(
+                Q(name__icontains=query)
+                |
+                Q(code__icontains=query)
+            ).order_by('name')
+
+        elif model == 'category':
+
+            data = Category.objects.rewrite(False).filter(parent__isnull=False, name__icontains=query).order_by('parent__name', 'name')
+
+        else:
+            raise Http404("Request model does not exist.")
+
+        out = []
+        for obj in data:
+            if model == 'category':
+                out.append({
+                    'id': obj.pk,
+                    'text': obj.get_path()
+                })
+            else:
+                out.append({
+                    'id': obj.pk,
+                    'text': str(obj)
+                })
+
+        response = {
+            'results': out
+        }
+
+        return JsonResponse(response)

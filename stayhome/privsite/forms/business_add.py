@@ -1,42 +1,67 @@
 from django import forms
 from mptt.forms import TreeNodeChoiceField, TreeNodeMultipleChoiceField
+from django.urls import reverse_lazy
 
 from business.models import Business, Category
 
 
 class BusinessAddForm(forms.ModelForm):
 
+    main_category = forms.ChoiceField(
+        required=False,
+        widget=forms.Select(attrs={
+            'class': 'form-control form-control-sm sh-select2',
+            'data-lookup-url': reverse_lazy('mgmt:lookup', kwargs={'model':'category'})
+        })
+    )
+
+    other_categories = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.SelectMultiple(attrs={
+            'class': 'form-control form-control-sm sh-select2',
+            'data-lookup-url': reverse_lazy('mgmt:lookup', kwargs={'model':'category'})
+        })
+    )
+
     new_categories = forms.CharField(
         required=False
     )
 
-    def __init__(self, *args, **kwargs):
-        super(BusinessAddForm, self).__init__(*args, **kwargs)
+    delivers_to_canton = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.SelectMultiple(attrs={
+            'class': 'form-control form-control-sm sh-select2',
+            'data-lookup-url': reverse_lazy('mgmt:lookup', kwargs={'model':'canton'})
+        })
+    )
 
-        leaf_categories = Category.objects.filter(children__isnull=True)
+    delivers_to_district = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.SelectMultiple(attrs={
+            'class': 'form-control form-control-sm sh-select2',
+            'data-lookup-url': reverse_lazy('mgmt:lookup', kwargs={'model':'district'})
+        })
+    )
 
-        cat_list = [(0, '----------')]
-        for cat in leaf_categories:
-            path = cat.get_ancestors(include_self=True)
-            name = []
-            for node in path:
-                name.append(node.name)
-            cat_list.append((cat.pk, ' / '.join(name)))
+    delivers_to_municipality = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.SelectMultiple(attrs={
+            'class': 'form-control form-control-sm sh-select2',
+            'data-lookup-url': reverse_lazy('mgmt:lookup', kwargs={'model':'municipality'})
+        })
+    )
 
-        self.fields.update({
-            'main_category': forms.ChoiceField(
-                choices=cat_list,
-                required=False
-            ),
-            'other_categories = ': forms.MultipleChoiceField(
-                choices=cat_list,
-                required=False
-            )
-        }) 
+    delivers_to = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.SelectMultiple(attrs={
+            'class': 'form-control form-control-sm sh-select2',
+            'data-lookup-url': reverse_lazy('mgmt:lookup', kwargs={'model':'npa'})
+        })
+    )
 
     class Meta:
         model = Business
-        fields = '__all__'
+        fields = ['name', 'description', 'delivers_to_ch', 'address', 'location', 'website', 'phone', 'email']
 
     def clean(self):
 
@@ -44,6 +69,8 @@ class BusinessAddForm(forms.ModelForm):
 
         added_categories = []
 
+        if cleaned_data['main_category'] == '':
+            cleaned_data['main_category'] = 0
         data = int(cleaned_data['main_category'])
         if data == 0:
             if cleaned_data['new_categories'] == '':

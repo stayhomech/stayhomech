@@ -14,10 +14,6 @@ router = routers.DefaultRouter()
 router.register(r'requests', RequestViewSet)
 router.register(r'services', BusinessViewSet)
 router.register(r'categories', CategoryViewSet)
-#router.register(r'npas', NPAViewSet)
-#router.register(r'municipalities', MunicipalityViewSet)
-#router.register(r'districts', DistrictViewSet)
-#router.register(r'cantons', CantonViewSet)
 
 
 # URLs

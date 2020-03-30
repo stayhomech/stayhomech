@@ -21,9 +21,18 @@
 {% endblock %}
 
 {% block contrib-content %}
+{% if form.non_field_errors %}
+<div class="alert alert-danger">
+<span class="alert-title">{% trans 'Some validation errors occured:' %}</span>
+<ul class="mb-0 mt-1">
+{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+</ul>
+</div>
+{% endif %}
 <form id="businessAddForm" _lpchecked="1" method="post" action="{% url 'mgmt:convert' object.uuid %}">
 {% csrf_token %}
 <input type="hidden" name="parent_request" value="{{ object.uuid }}" />
+<input type="hidden" name="prefix" value="{{ prefix }}" />
 <div class="row mb-5">
     <div class="col-12 px-3 pb-3">
         <table class="container-fluid" style="width: 100%">
@@ -204,8 +213,14 @@
 
         // Actions
         window.copyFromRequest = (field) => {
-            $("[name='" + field + "']").val($('#request-' + field).html().trim());
-            $('#businessAddForm').get(0).reportValidity();
+            var value = $('#request-' + field).html().trim();
+            if (field == 'website' && !value.startsWith('http')) {
+                value = 'http://' + value;
+            }
+            if (field == 'phone' && value.startsWith('0')) {
+                value = value.replace(/^0/, '+41');
+            }
+            $("[name='" + field + "']").val(value);
         }
         window.clearBusiness = (field) => {
             $("[name='" + field + "']").val('');
@@ -238,14 +253,19 @@
             }
         }
 
-        // Categories
+        // Selects
+        $('.sh-select2').each((index, item) => {
+
+            $(item).select2({
+                minimumInputLength: 3,
+                ajax: {
+                    url: $(item).data('lookup-url'),
+                    dataType: 'json'
+                }
+            });
+
+        });
         $('[name="location"]').select2();
-        $('[name="main_category"]').select2();
-        $('[name="other_categories"]').select2();
-        $('[name="delivers_to"]').select2();
-        $('[name="delivers_to_municipality"]').select2();
-        $('[name="delivers_to_district"]').select2();
-        $('[name="delivers_to_canton"]').select2();
 
         // Drop button
         $('#drop_request_btn').on('click', (event) => {
