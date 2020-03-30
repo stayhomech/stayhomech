@@ -3,8 +3,8 @@ stayhome:
   run-on-start: true
   integrations:
     localhero:
-      scrape-cron: '* * */6 * * *'
-      target-url: ${stayhome.sync-service-url}
+      scrape-cron: ${STAYHOME_INTEGRATIONS_LOCALHERO_SCRAPE_CRON:'* * */6 * * *'}
+      target-url: ${STAYHOME_SYNC_SERVICE_URL:'http://sync-service:8080'}
       chunk-size: 50
       page-size: 50
       parallel-threads: 2
