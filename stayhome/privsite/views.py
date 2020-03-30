@@ -111,7 +111,8 @@ class RequestsProcessView(DetailView):
         if form.is_valid():
             
             self.object = self.get_object()
-            form.save()
+            business = form.save()
+            business.set_status(business.events.VALID, user=self.request.user)
             self.object.set_status(Request.events.HANDLED, user=self.request.user)
             
             return redirect(request.POST.get('next'))
