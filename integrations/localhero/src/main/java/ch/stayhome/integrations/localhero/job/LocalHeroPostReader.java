@@ -36,7 +36,7 @@ public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost>
 			logger.info("No more pages to fetch");
 			return;
 		}
-		final PagedWordPressResult<LocalHeroPost> results = api.findAll(getPage() + 1, getPageSize());
+		final PagedWordPressResult<LocalHeroPost> results = api.findAll(currentPage, getPageSize());
 		this.totalPages = results.getTotalPages();
 		final List<LocalHeroPost> content = results.getContent();
 		this.results.addAll(content);
