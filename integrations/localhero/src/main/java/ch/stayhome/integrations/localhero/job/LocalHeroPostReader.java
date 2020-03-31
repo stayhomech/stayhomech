@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import ch.stayhome.integrations.localhero.infrastructure.feign.LocalHeroChApi;
+import ch.stayhome.integrations.localhero.infrastructure.feign.querymap.PagingQueryMap;
 import ch.stayhome.integrations.localhero.model.LocalHeroPost;
 import ch.stayhome.integrations.localhero.model.PagedWordPressResult;
 import lombok.extern.slf4j.Slf4j;
@@ -15,11 +16,13 @@ import org.springframework.util.ClassUtils;
 public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost> {
 
 	private final LocalHeroChApi api;
+	private final PagingQueryMap queryMap;
 
 	private Integer totalPages;
 
-	public LocalHeroPostReader(int pageSize, LocalHeroChApi localHeroChApi) {
+	public LocalHeroPostReader(int pageSize, LocalHeroChApi localHeroChApi, PagingQueryMap queryMap) {
 		this.api = localHeroChApi;
+		this.queryMap = queryMap;
 		setName(ClassUtils.getShortName(LocalHeroPostReader.class));
 		setPageSize(pageSize);
 	}
@@ -36,7 +39,11 @@ public class LocalHeroPostReader extends AbstractPagingItemReader<LocalHeroPost>
 			logger.info("No more pages to fetch");
 			return;
 		}
-		final PagedWordPressResult<LocalHeroPost> results = api.findAll(currentPage, getPageSize());
+
+		queryMap.setPage(currentPage);
+		queryMap.setPageSize(getPageSize());
+
+		final PagedWordPressResult<LocalHeroPost> results = api.findAll(queryMap);
 		this.totalPages = results.getTotalPages();
 		final List<LocalHeroPost> content = results.getContent();
 		this.results.addAll(content);

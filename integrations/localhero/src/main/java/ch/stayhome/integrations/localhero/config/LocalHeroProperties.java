@@ -35,6 +35,9 @@ public class LocalHeroProperties {
 	@NotNull
 	private Duration requestTtl;
 
+	@NotBlank
+	private String QueryMapClass;
+
 	@Data
 	public static class SourceConfig {
 

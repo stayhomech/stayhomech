@@ -7,16 +7,19 @@ stayhome:
       target-url: ${STAYHOME_SYNC_SERVICE_URL:'http://sync-service:8080'}
       chunk-size: 50
       page-size: 50
+      query-map-class: ch.stayhome.integrations.localhero.infrastructure.feign.querymap.LocalHero
       parallel-threads: 2
       request-ttl: 3d
       sources:
         - key: 'bern'
           providerName: 'bern-local-hero'
           url: 'https://bern.local-hero.ch'
+          path: '/wp-json/wp/v2'
           place: 'Bern'
         - key: 'winterthur'
           providerName: 'winterhur-local-hero'
           url: 'https://winterthur.local-hero.ch'
+          path: '/wp-json/wp/v2'
           place: 'Winterthur'
 
 spring:
