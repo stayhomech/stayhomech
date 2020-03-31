@@ -34,21 +34,7 @@ class HomeView(TemplateView):
         return super(HomeView, self).get(self, request, *args, **kwargs)
 
 
-class EmbededView(View):
-
-    def get(self, request, *args, **kwargs):
-
-        return JsonResponse({
-            'success': True,
-            'version': '1.0',
-            'type': 'rich',
-            'provider_name': 'StayHome.ch',
-            'provider_url': 'https://www.satyhome.ch',
-            'title': 'Search in StayHome.ch',
-            'html': "<iframe style='width: 100%;' frameborder='0' scrolling='no' src='https://preview.stayhome.ch/embed/content'></iframe>"
-        })
-
-class EmbedContentView(TemplateView):
+class EmbededView(TemplateView):
 
     template_name = "embed.html"
 
