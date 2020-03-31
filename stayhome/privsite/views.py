@@ -100,8 +100,6 @@ class RequestsProcessView(DetailView):
 
         context['title'] = _('Convert request to business')
 
-        context['form'] = BusinessAddForm
-
         context['next'] = reverse('mgmt:' + self.prefix + 'next')
         context['return'] = reverse('mgmt:' + self.prefix + 'index')
         context['prefix'] = self.prefix
@@ -122,6 +120,7 @@ class RequestsProcessView(DetailView):
             self.object = self.get_object()
             business = form.save()
             business.set_status(business.events.VALID, user=self.request.user)
+            business.clear_npa_cache()
             self.object.set_status(Request.events.HANDLED, user=self.request.user)
             
             return redirect(request.POST.get('next'))
@@ -129,7 +128,7 @@ class RequestsProcessView(DetailView):
         else:
             self.object = self.get_object()
             context = self.get_context_data()
-            context['form'] = form
+            context['errors'] = form.errors
             return self.render_to_response(context=context)
 
 
@@ -213,12 +212,17 @@ class AjaxLookupView(View):
 
         model = kwargs['model']
         if model == 'npa':
+
+            if str(query).startswith('PK:'):
+                query = query.split(':')
+                data = NPA.objects.filter(pk=query[1])
+            else:
             
-            data = NPA.objects.rewrite(False).filter(
-                Q(npa__startswith=query)
-                |
-                Q(name__icontains=query)
-            ).order_by('npa', 'name')
+                data = NPA.objects.rewrite(False).filter(
+                    Q(npa__startswith=query)
+                    |
+                    Q(name__icontains=query)
+                ).order_by('npa', 'name')
 
         elif model == 'municipality':
 
@@ -248,12 +252,14 @@ class AjaxLookupView(View):
             if model == 'category':
                 out.append({
                     'id': obj.pk,
-                    'text': obj.get_path()
+                    'text': obj.get_path(),
+                    'selected': True
                 })
             else:
                 out.append({
                     'id': obj.pk,
-                    'text': str(obj)
+                    'text': str(obj),
+                    'selected': True
                 })
 
         response = {

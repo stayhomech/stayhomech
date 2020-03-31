@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.cache import cache
 
 
 class Category(MPTTModel):
@@ -418,3 +419,7 @@ class Business(EventModel):
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.location)
+
+    def clear_npa_cache(self):
+        cache_key = str(self.location.pk) + '_businesses'
+        cache.delete(cache_key)
