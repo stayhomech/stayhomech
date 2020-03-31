@@ -11,7 +11,7 @@ from django.utils import translation
 from django.conf import settings
 from django.core.cache import cache
 from django.utils.translation import get_language
-from django.template.loader import render_to_string
+from django.views.decorators.clickjacking import xframe_options_exempt
 from datadog import statsd
 
 from geodata.models import NPA
@@ -34,6 +34,7 @@ class HomeView(TemplateView):
         return super(HomeView, self).get(self, request, *args, **kwargs)
 
 
+@method_decorator(xframe_options_exempt, name='dispatch')
 class EmbededView(TemplateView):
 
     template_name = "embed.html"
