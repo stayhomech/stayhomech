@@ -1,5 +1,6 @@
 from django import forms
 from mptt.forms import TreeNodeChoiceField, TreeNodeMultipleChoiceField
+from django.urls import reverse_lazy
 
 from business.models import Business, Category
 
@@ -10,81 +11,43 @@ class BusinessAddForm(forms.ModelForm):
         required=False
     )
 
-    def __init__(self, *args, **kwargs):
-        super(BusinessAddForm, self).__init__(*args, **kwargs)
-
-        leaf_categories = Category.objects.filter(children__isnull=True)
-
-        cat_list = [(0, '----------')]
-        for cat in leaf_categories:
-            path = cat.get_ancestors(include_self=True)
-            name = []
-            for node in path:
-                name.append(node.name)
-            cat_list.append((cat.pk, ' / '.join(name)))
-
-        self.fields.update({
-            'main_category': forms.ChoiceField(
-                choices=cat_list,
-                required=False
-            ),
-            'other_categories = ': forms.MultipleChoiceField(
-                choices=cat_list,
-                required=False
-            )
-        }) 
-
     class Meta:
         model = Business
         fields = '__all__'
 
     def clean(self):
 
-        cleaned_data = super().clean()
+        # Get cleaned data
+        super().clean()
+        d = self.cleaned_data
 
+        # New categories
         added_categories = []
+        if 'new_categories' in d:
+            blocks = str(d['new_categories']).split(',')
+            for cats in blocks:
+                cats = cats.strip().split('/')
+                p = None
+                for cat in cats:
+                    name=cat.strip()
+                    if name != '':
+                        p, created = Category.objects.get_or_create(name=name, parent=p)
+                added_categories.append(p)
 
-        data = int(cleaned_data['main_category'])
-        if data == 0:
-            if cleaned_data['new_categories'] == '':
-                raise forms.ValidationError("No main category selected.")
+        # Main category
+        if 'main_category' not in d:
+            if len(added_categories) == 0:
+                raise forms.ValidationError("No main category selected and no new category provided.")
             else:
-                cleaned_data['main_category'] = None
+                d['main_category'] = added_categories.pop(0)
+
+        # Other categories
+        if 'other_categories' in d:
+            d['other_categories'] = d['other_categories'] | added_categories
         else:
-            try:
-                cleaned_data['main_category'] = Category.objects.get(pk=data)
-            except Category.DoesNotExist:
-                raise forms.ValidationError("This category does not exist.")
+            d['other_categories'] = added_categories
 
-        data = cleaned_data['other_categories']
-        try:
-            data = Category.objects.filter(pk__in=data)
-        except Category.DoesNotExist:
-            raise forms.ValidationError("A selected category does not exist.")
-        cleaned_data['other_categories'] = data
+        # ToDo: Check for delivery
 
-        data = cleaned_data['new_categories']
-        blocks = str(data).split(',')
-        for cats in blocks:
-            cats = cats.strip().split('/')
-            p = None
-            for cat in cats:
-                p, created = Category.objects.get_or_create(name=cat.strip(), parent=p)
-            added_categories.append(p)
-
-        if cleaned_data['main_category'] is None and len(added_categories) == 0:
-            raise forms.ValidationError("No valid main category selected.")
-
-        if cleaned_data['main_category'] is None:
-            cleaned_data['main_category'] = added_categories.pop(0)
-
-        all_cats = []
-        for cat in added_categories:
-            all_cats.append(cat)
-        for cat in cleaned_data['other_categories']:
-            all_cats.append(cat)
-        cleaned_data['other_categories'] = all_cats
-
-        del cleaned_data['new_categories']
-
-        return cleaned_data
+        # Return data
+        return d

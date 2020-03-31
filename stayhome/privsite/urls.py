@@ -1,7 +1,7 @@
 from django.urls import re_path, path, include
 from django.contrib.auth import views as auth_views
 
-from .views import RequestsListView, RequestsProcessView, RequestsProcessNextView, RequestsProcessDropView, RequestsUserListView, CategoriesTransListView
+from .views import RequestsListView, RequestsProcessView, RequestsProcessNextView, RequestsProcessDropView, RequestsUserListView, CategoriesTransListView, AjaxLookupView
 
 
 # URLs
@@ -24,5 +24,8 @@ urlpatterns = [
 
     # Registration
     path('logout/', auth_views.LogoutView.as_view(template_name="registration/logout.html"), name='logout'),
+
+    # Ajax lookup for forms
+    path('lookup/<str:model>/', AjaxLookupView.as_view(), name='lookup'),
 
 ]
