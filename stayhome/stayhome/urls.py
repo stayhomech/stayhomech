@@ -6,7 +6,7 @@ from rest_framework import routers
 
 from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet
 from geodata.views import NPAViewSet, MunicipalityViewSet, DistrictViewSet, CantonViewSet
-from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView
+from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView, EmbededView
 
 
 # API router
@@ -34,6 +34,9 @@ urlpatterns = [
     path('add/', AddView.as_view(), name='add'),
     path('add/success/', TemplateView.as_view(template_name="success.html"), name='add_success'),
     path('<int:npa>/<path:name>/', ContentView.as_view(), name='content'),
+
+    # Embeded search
+    path('embed/', EmbededView.as_view(), name='embed'),
 
     # Authentication
     path('accounts/', include('django.contrib.auth.urls')),

@@ -33,6 +33,12 @@ class HomeView(TemplateView):
         return super(HomeView, self).get(self, request, *args, **kwargs)
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class EmbededView(TemplateView):
+
+    template_name = "embed.html"
+
+
 class HomeLocationView(View):
 
     def get(self, request, *args, **kwargs):
