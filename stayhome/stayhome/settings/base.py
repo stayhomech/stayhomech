@@ -176,3 +176,9 @@ CORS_ORIGIN_WHITELIST = [
     'https://www.stayhome.ch',
     'https://stay-home.squarespace.com'
 ]
+
+
+# SMTP
+EMAIL_HOST = 'aspmx.l.google.com'
+EMAIL_PORT = 25
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

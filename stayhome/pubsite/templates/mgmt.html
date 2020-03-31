@@ -16,9 +16,7 @@
 
                 {% block mgmt-content-header %}{% endblock %}
 
-                <button class="navbar-toggler ml-auto m-2" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
@@ -51,10 +49,6 @@
 
     {% block mgmt-content %}{% endblock %}    
 
-    <div class="row">
-        <div class="col-12 text-right border-top py-2">
-            <span class="small">&copy; 2020 <a href="{% url 'about' %}">stayhome.ch</a> - {% blocktrans %}All rights reserved{% endblocktrans %}</span>
-        </div>
-    </div>
+    
 
 {% endblock %}
