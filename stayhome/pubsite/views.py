@@ -12,11 +12,13 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils.translation import get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.core.mail import send_mail
 from datadog import statsd
 
 from geodata.models import NPA
 from business.models import Business, Request, Category
 from business.forms import BusinessAddForm
+from .forms import ContactForm
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -160,7 +162,40 @@ class ContentView(TemplateView):
 
 
 class AboutView(TemplateView):
+
     template_name = "about.html"
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
+        context['form'] = ContactForm()
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+        
+            send_mail(
+                'New message from website',
+                request.POST.get('message'),
+                request.POST.get('name') + '<' + request.POST.get('email') + '>',
+                ['info@stayhome.ch'],
+                fail_silently=True,
+            )
+
+            context = self.get_context_data()
+            context['success'] = _('Your message has been sent.')
+            return self.render_to_response(context=context)
+
+        else:
+
+            context = self.get_context_data()
+            context['form'] = form
+            return self.render_to_response(context=context)
 
 
 class AddView(FormView):

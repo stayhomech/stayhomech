@@ -1,20 +1,8 @@
-{% extends "mgmt.html" %}
+{% extends "navigation.html" %}
 {% load mptt_tags i18n %}
 
-{% block mgmt-content-header %}
-<div class="navbar-nav mx-2">
-    <span class="navbar-text">
-        {% blocktrans %}Results for{% endblocktrans %} {{ npa }}
-    </span>
-    <ul class="nav navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="/">{% blocktrans %}Change{% endblocktrans %}</a>
-        </li>
-    </ul>
-</div>
-{% endblock %}
-
-{% block mgmt-content %}
+{% block content %}
+<div class="container border-top">
         <div class="row">
             {% if businesses|length > 0 %}
             <div class="col-xs-12 col-md-3 p3" id="left-nav">
@@ -22,7 +10,7 @@
                     <div class="col-12 pt-3">
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="icon-search"></i></span>
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
                             </div>
                             <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
                         </div>
@@ -112,6 +100,7 @@
             </div>
             {% endif %}
          </div>
+</div>
 {% endblock %}
 
 {% block script %}

@@ -18,7 +18,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{% static 'pubsite/css/stayhome.css' %}" rel="stylesheet">
@@ -41,7 +40,7 @@
     
     {% block modal %}{% endblock %}
 
-    {% block content %}{% endblock %}
+    {% block navigation %}{% endblock %}
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -55,13 +54,28 @@
 
       $(document).ready(() => {
 
-        $('#sh_logo').on('click', () => {
-          window.location = "/";
-        });
-
         $(function () {
          $('[data-toggle="tooltip"]').tooltip()
         })
+
+        // Language change
+        $('.lang-select').on('click', (event) => {
+            event.preventDefault();
+            var lang = $(event.target).data('lang');
+            $.ajax({
+                url: "{% url 'set_language' %}",
+                headers: {
+                    'X-CSRFToken': Cookies.get('csrftoken')
+                },
+                data: {
+                    'language': lang
+                },
+                method: 'POST',
+                success: () => {
+                    location.reload();
+                }
+            });
+        });
 
       });
 

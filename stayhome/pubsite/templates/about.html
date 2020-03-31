@@ -1,28 +1,38 @@
-{% extends "mgmt.html" %}
+{% extends "navigation.html" %}
 {% load i18n %}
 
-{% block mgmt-content-header %}
-<div class="navbar-nav mx-2">
-    <ul class="nav navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="/">{% blocktrans %}Go back to home{% endblocktrans %}</a>
-        </li>
-    </ul>
-</div>
-{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 col-md-5 p-3">
+            <h1 class="pb-2">{% blocktrans %}About us{% endblocktrans %}</h1>
+            <p>{% blocktrans %}StayHome.ch is an initiative of private individuals who want to help in times of the Corona / Covid-19 epidemic! We have no commercial purpose.{% endblocktrans %}</p>
+            <p>{% blocktrans %}If you want to help us translate or develop new functions, you can find our source code on <a href="https://github.com/stayhomech/stayhomech" target="_blank">GitHub</a>.{% endblocktrans %}</p>
+            <p><a href="https://www.facebook.com/stayhome.ch" target="_blank"><i class="fab fa-facebook"></i></a></p>
+        </div>
+        <div class="col-12 offset-md-1 col-md-6">
+            <form method="POST" action="{% url 'about' %}">
+                {% csrf_token %}
 
-{% block mgmt-content %}
-        <div class="row">
-            <div class="col-12 pt-3">
-                <p>
-                    <span style="color: seagreen;">Stay</span>Home<span style="color: silver">.ch</span> {% blocktrans %}is an initiative of a private person willing to help to cope with the consequences of the COVID-19 epidemy. It has no commercial purpose.{% endblocktrans %}
-                </p>
-                <p>
-                    {% blocktrans %}Should you have any question, please contact{% endblocktrans %} <a href="mailto:info@stayhome.ch">info@stayhome.ch</a>.
-                </p>
-                <p>
-                    {% blocktrans %}If you want to help by translating or adding new features, you can find the current website code on {% endblocktrans %}<a href="https://github.com/mageo/stayhomech" target="_blank">GitHub</a>.
-                </p>
-            </div>
-         </div>
+                {% for field in form %}
+
+                    <p class="m-0 mt-3 p-0">{{ field.label }} {% if field.field.required %}*{% endif %}</p>
+                    <small id="inputNameHelp" class="form-text text-muted">{{ field.help_text|safe }}</small>
+                    {% if field.errors %}
+                    <div class="alert alert-danger" role="alert">
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                    {{ field }}
+
+                {% endfor %}
+
+                <button class="btn btn-success push-center my-3" type="submit">{% blocktrans %}Send your message{% endblocktrans %}</button>
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
