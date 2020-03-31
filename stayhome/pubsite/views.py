@@ -11,6 +11,7 @@ from django.utils import translation
 from django.conf import settings
 from django.core.cache import cache
 from django.utils.translation import get_language
+from django.template.loader import render_to_string
 from datadog import statsd
 
 from geodata.models import NPA
@@ -34,9 +35,15 @@ class HomeView(TemplateView):
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-class EmbededView(TemplateView):
+class EmbededView(View):
 
-    template_name = "embed.html"
+    def get(self, request, *args, **kwargs):
+
+        return JsonResponse({
+            'version': '1.0',
+            'type': 'rich',
+            'html': render_to_string('embed.html')
+        })
 
 
 class HomeLocationView(View):
