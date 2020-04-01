@@ -1,4 +1,5 @@
 import uuid
+import re
 
 from django.db import models
 from django.db.models import OuterRef, Subquery, Case, When, Exists, Value
@@ -37,6 +38,9 @@ class Category(MPTTModel):
             return self.name
         else:
             return "%s / %s" % (self.parent.name, self.name)
+
+    def get_class(self):
+        return re.sub('[ \-_/\'\\(\\)]+', '-', self.get_path())
 
 
 class HistoryEvent(models.Model):
