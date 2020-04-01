@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.forms import modelform_factory
 from django.http import JsonResponse, Http404
 from django.db.models import Q
+from django.utils.translation import get_language
 
 from business.models import Request, Category
 from .forms.business_add import BusinessAddForm
@@ -36,7 +37,7 @@ class RequestsListView(ListView):
 
         objects = Request.objects.filter(status=Request.events.NEW)
 
-        lang = self.request.GET.get('lang')
+        lang = self.request.GET.get('lang', default=get_language())
         if lang is not None and lang != '':
             objects = objects.filter(lang=lang)
 
@@ -56,7 +57,7 @@ class RequestsListView(ListView):
 
         context['prefix'] = self.prefix
 
-        context['lang'] = self.request.GET.get('lang')
+        context['lang'] = self.request.GET.get('lang', default=get_language())
 
         return context
 
