@@ -130,7 +130,8 @@ class RequestsProcessView(DetailView):
         else:
             self.object = self.get_object()
             context = self.get_context_data()
-            context['errors'] = form.errors
+            context['errors'] = form.non_field_errors
+            context['form'] = form
             return self.render_to_response(context=context)
 
 
