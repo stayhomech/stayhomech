@@ -5,19 +5,21 @@
 
 {% block content %}
 
-<div style="height: 50vh; background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url('{% static 'pubsite/background.jpeg' %}'); background-size: 100% auto; background-position: center;">
-    <div class="d-flex flex-column h-100 justify-content-center align-items-center col-12 col-md-6 mx-auto" style="padding: 4vh 4vw">
+<div class="sh-container-main">
+    <div class="d-flex flex-column h-100 justify-content-center align-items-center col-12 col-md-6 mx-auto">
         <div class="w-100">
-            <h1 style="color: white; font-weight: bold">{% trans 'Find your local delivery.' %}</h1>
+            <h1>{% trans 'Find your local delivery.' %}</h1>
         </div>
-        <div class="w-100" style="color: white; font-size: 1em; font-weight: bold;">{% trans 'Enter postcode or place name - Switzerland only' %}</div>
+        <div class="w-100">
+            <h2>{% trans 'Enter postcode or place name - Switzerland only' %}</h2>
+        </div>
         <div class="input-group my-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">
                     <div class="spinner-grow locationLookup" role="status" style="display: none;">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    <i class="locationMarker fas fa-location-arrow" style="font-size: 28px; text-align: center;"></i>
+                    <i class="locationMarker fas fa-location-arrow"></i>
                 </span>
             </div>
             <input id="mainlocInput" class="locInput form-control form-control-lg" type="text" placeholder="{% trans 'Where are you ?' %}" data-url="/location" autocomplete="off">
@@ -25,10 +27,10 @@
     </div>
 </div>
 
-<div style="background: #f1e7de; height: 35vh;">
-    <div class="d-flex flex-column h-100 justify-content-center align-items-center col-12 col-md-6 mx-auto">
-        <div class="" style="color: rgb(51,51,51); font-size: 1.6em; text-align: center; line-height: 1.1;">“{% blocktrans %}An excellent idea! I no longer have to laboriously click through the websites of the shops in my village to find those that deliver to my home. They are clearly listed on this page.{% endblocktrans %}”</div>
-        <div class="mt-4" style="font-size: 1.1em">— D. Arlettaz</div>
+<div class="sh-container-cream">
+    <div class="d-flex flex-column justify-content-center align-items-center col-12 col-md-6 mx-auto p-5 sh-testimony">
+        <div class="sh-testimony-text">“{% blocktrans %}An excellent idea! I no longer have to laboriously click through the websites of the shops in my village to find those that deliver to my home. They are clearly listed on this page.{% endblocktrans %}”</div>
+        <div class="mt-4 sh-testimony-author">— D. Arlettaz</div>
     </div>
 </div>
 
@@ -57,7 +59,7 @@
     </div>
 </div>
 
-<div style="background: #f1e7de;">
+<div class="sh-container-cream">
     <div class="d-flex flex-column justify-content-center align-items-center col-12 col-md-6 mx-auto p-5" style="min-height: 35vh;" >
         <h1 class="font-weight-bold">{% blocktrans %}Find stores in your area that deliver to you quickly and easily!{% endblocktrans %}</h1>
         <div class="input-group my-3">
@@ -66,7 +68,7 @@
                     <div class="spinner-grow locationLookup" role="status" style="display: none;">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    <i class="locationMarker fas fa-location-arrow" style="font-size: 28px; text-align: center;"></i>
+                    <i class="locationMarker fas fa-location-arrow"></i>
                 </span>
             </div>
             <input class="locInput form-control form-control-lg" type="text" placeholder="{% trans 'Where are you ?' %}" data-url="/location" autocomplete="off">
@@ -74,18 +76,18 @@
     </div>
 </div>
 
-<div style="background: #333; color: white;">
+<div class="sh-container-dark">
     <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 60vh;">
         <div class="row">
             <div class="col-12 col-md-5 p-5">
                 <h1 class="font-weight-bold">Add your business</h1>
                 <p>{% blocktrans %}Do you have a business and want to register it with us to show that it is still operating for customers.{% endblocktrans %}</p>
-                <a class="btn btn-outline-success" href="{% url 'add' %}">Add a business</a>       
+                <a class="btn btn-outline-sh" href="{% url 'add' %}">Add a business</a>       
             </div>
             <div class="col-12 offset-md-2 col-md-5 px-5 pb-5 py-md-5">
                 <h1 class="font-weight-bold">Do you want to help?</h1>
                 <p>{% blocktrans %}If you want to help us translate or develop new features, you can find our source code on GitHub.{% endblocktrans %}</p>
-                <a class="btn btn-outline-success" href="https://github.com/stayhomech/stayhomech" target="_blank">Help us on GitHub</a>     
+                <a class="btn btn-outline-sh" href="https://github.com/stayhomech/stayhomech" target="_blank">Help us on GitHub</a>     
             </div>
         </div>
     </div>
