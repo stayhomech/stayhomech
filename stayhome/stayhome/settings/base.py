@@ -145,7 +145,11 @@ COMPRESS_PRECOMPILERS = (
 )
 LIBSASS_SOURCE_COMMENTS = False
 COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
+
+if RUNNING_ENV != 'prod' and RUNNING_ENV != 'pre-prod':
+    COMPRESS_OFFLINE = False
+else:
+    COMPRESS_OFFLINE = True
 
 
 # REST framework
