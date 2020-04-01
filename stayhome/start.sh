@@ -38,6 +38,8 @@ python manage.py compilemessages
 
 # Statics
 python manage.py collectstatic --noinput
+python manage.py compress --force
+python manage.py collectstatic --noinput
 
 # Translations
 python manage.py update_translation_fields

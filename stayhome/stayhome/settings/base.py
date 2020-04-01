@@ -139,6 +139,15 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'rootfiles')
 
 
+# Pre-processing of Sass files
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+LIBSASS_SOURCE_COMMENTS = False
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+
+
 # REST framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -184,10 +193,3 @@ CORS_ORIGIN_WHITELIST = [
 EMAIL_HOST = 'aspmx.l.google.com'
 EMAIL_PORT = 25
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-
-# Pre-processing of Sass files
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-LIBSASS_SOURCE_COMMENTS = True
