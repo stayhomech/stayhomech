@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django_filters',
     'ddtrace.contrib.django',
     'corsheaders',
+    'compressor',
 
     'geodata',
     'business',
@@ -129,7 +130,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder'
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -182,3 +184,10 @@ CORS_ORIGIN_WHITELIST = [
 EMAIL_HOST = 'aspmx.l.google.com'
 EMAIL_PORT = 25
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+# Pre-processing of Sass files
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+LIBSASS_SOURCE_COMMENTS = True

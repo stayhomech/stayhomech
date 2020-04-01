@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-31 22:44+0200\n"
-"PO-Revision-Date: 2020-03-31 23:06+0200\n"
+"POT-Creation-Date: 2020-04-01 13:53+0200\n"
+"PO-Revision-Date: 2020-04-01 13:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: business/admin.py:14
 msgid "status"
-msgstr ""
+msgstr "statut"
 
 #: business/forms/add_form.py:17
 msgid "Company name"
@@ -132,19 +132,19 @@ msgstr "Voir les requêtes en:"
 msgid "All languages"
 msgstr "Toutes les langues"
 
-#: privsite/templates/requests_list.html:9 stayhome/settings/base.py:112
+#: privsite/templates/requests_list.html:9 stayhome/settings/base.py:113
 msgid "English"
 msgstr "Anglais"
 
-#: privsite/templates/requests_list.html:10 stayhome/settings/base.py:114
+#: privsite/templates/requests_list.html:10 stayhome/settings/base.py:115
 msgid "French"
 msgstr "Français"
 
-#: privsite/templates/requests_list.html:11 stayhome/settings/base.py:113
+#: privsite/templates/requests_list.html:11 stayhome/settings/base.py:114
 msgid "German"
 msgstr "Allemand"
 
-#: privsite/templates/requests_list.html:12 stayhome/settings/base.py:115
+#: privsite/templates/requests_list.html:12 stayhome/settings/base.py:116
 msgid "Italian"
 msgstr "Italien"
 
@@ -272,11 +272,11 @@ msgstr "nous contacter"
 msgid "Send your request"
 msgstr "Envoyer votre demande"
 
-#: pubsite/templates/base.html:27 pubsite/templates/base.html:31
+#: pubsite/templates/base.html:29 pubsite/templates/base.html:33
 msgid "Stay home ! We deliver..."
 msgstr "Restez à la maison ! Nous livrons..."
 
-#: pubsite/templates/base.html:29 pubsite/templates/base.html:32
+#: pubsite/templates/base.html:31 pubsite/templates/base.html:34
 msgid ""
 "StayHome.ch is a directory of delivery services available in Switzerland "
 "based on visitor's location. It has been created to help Swiss people and "
@@ -338,8 +338,8 @@ msgstr ""
 msgid "adding the service"
 msgstr "l'ajout du service"
 
-#: pubsite/templates/embed.html:22 pubsite/templates/home.html:23
-#: pubsite/templates/home.html:72
+#: pubsite/templates/embed.html:22 pubsite/templates/home.html:25
+#: pubsite/templates/home.html:74
 msgid "Where are you ?"
 msgstr "Où êtes-vous ?"
 
@@ -347,11 +347,11 @@ msgstr "Où êtes-vous ?"
 msgid "Find your local delivery."
 msgstr "Trouvez votre livraison locale."
 
-#: pubsite/templates/home.html:13
+#: pubsite/templates/home.html:14
 msgid "Enter postcode or place name - Switzerland only"
 msgstr "Entrez un code postal ou une localité - En Suisse uniquement"
 
-#: pubsite/templates/home.html:30
+#: pubsite/templates/home.html:32
 msgid ""
 "An excellent idea! I no longer have to laboriously click through the "
 "websites of the shops in my village to find those that deliver to my home. "
@@ -361,11 +361,11 @@ msgstr ""
 "sites Internet des magasins de ma région afin de trouver qui peut livrer "
 "chez moi. Ils sont tout simplement répertoriés sur cette page."
 
-#: pubsite/templates/home.html:38
+#: pubsite/templates/home.html:40
 msgid "Find your local delivery service"
 msgstr "Trouvez votre service de livraison local"
 
-#: pubsite/templates/home.html:39
+#: pubsite/templates/home.html:41
 msgid ""
 "By simply entering your zip code, you will find many local dealers and shops "
 "that offer home delivery. This saves you a time-consuming search."
@@ -374,11 +374,11 @@ msgstr ""
 "entreprises locales qui livrent à domicile. Ceci vous fait économiser un "
 "temps précieux."
 
-#: pubsite/templates/home.html:46
+#: pubsite/templates/home.html:48
 msgid "Local and regional products"
 msgstr "Produits locaux et régionaux"
 
-#: pubsite/templates/home.html:47
+#: pubsite/templates/home.html:49
 msgid ""
 "You support local dealers and shops directly from your area who need our "
 "support during this time. You help small and medium businesses around you. "
@@ -390,11 +390,11 @@ msgstr ""
 "Vous n'avez plus besoin de vous priver de vos produits locaux favoris. Vous "
 "pouvez simplement vous les faire livrer chez vous."
 
-#: pubsite/templates/home.html:52
+#: pubsite/templates/home.html:54
 msgid "Fast delivery"
 msgstr "Livraison rapide"
 
-#: pubsite/templates/home.html:53
+#: pubsite/templates/home.html:55
 msgid ""
 "The big online retailers currently have long delivery times. Due to the "
 "proximity, the local dealers and shops can deliver quickly and you will "
@@ -405,7 +405,7 @@ msgstr ""
 "livrer rapidement et vous recevrez votre marchandise dans les meilleurs "
 "délais."
 
-#: pubsite/templates/home.html:54
+#: pubsite/templates/home.html:56
 msgid ""
 "Thanks to stayhome.ch you can order directly from your local gastronomy or "
 "business."
@@ -413,11 +413,11 @@ msgstr ""
 "Grâce à stayhome.ch vous pouvez commander directement à votre producteur ou "
 "commerçant local."
 
-#: pubsite/templates/home.html:62
+#: pubsite/templates/home.html:64
 msgid "Find stores in your area that deliver to you quickly and easily!"
 msgstr "Trouvez des commerces qui livrent chez vous facilement et rapidement!"
 
-#: pubsite/templates/home.html:82
+#: pubsite/templates/home.html:84
 msgid ""
 "Do you have a business and want to register it with us to show that it is "
 "still operating for customers."
@@ -425,7 +425,7 @@ msgstr ""
 "Avez-vous une entreprise que vous souhaitez ajouter à notre répertoire afin "
 "de montrer à vos clients que vous travaillez toujours."
 
-#: pubsite/templates/home.html:87
+#: pubsite/templates/home.html:89
 msgid ""
 "If you want to help us translate or develop new features, you can find our "
 "source code on GitHub."
@@ -433,7 +433,7 @@ msgstr ""
 "Si vous voulez aider à traduire ce site ou à ajouter de nouvelles "
 "fonctionnalités, vous pouvez trouver le code du projet sur GitHub."
 
-#: pubsite/templates/home.html:97
+#: pubsite/templates/home.html:99
 msgid "Many thanks to our partners and sponsors"
 msgstr "Merci à nos partenaires et sponsors"
 

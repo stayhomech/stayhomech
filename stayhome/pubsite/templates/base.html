@@ -1,4 +1,4 @@
-{% load i18n static sh_tags %}
+{% load i18n static sh_tags compress %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,9 +20,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-    <link href="{% static 'pubsite/css/stayhome.css' %}" rel="stylesheet">
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'pubsite/css/stayhome.scss' %}" />
+    {% endcompress %}
 
-    <link rel="shortcut icon" type="image/jpg" href="{% static 'pubsite/stay_home_logo.png' %}"/>
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
 
     <title>{% blocktrans %}Stay home ! We deliver...{% endblocktrans %}</title>
 
