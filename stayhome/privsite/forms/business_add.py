@@ -25,14 +25,15 @@ class BusinessAddForm(forms.ModelForm):
         added_categories = []
         if 'new_categories' in d:
             blocks = str(d['new_categories']).split(',')
-            for cats in blocks:
-                cats = cats.strip().split('/')
-                p = None
-                for cat in cats:
-                    name=cat.strip()
+            for categories in blocks:
+                categories = categories.strip().split('/')
+                parent = None
+                for category in categories:
+                    name = category.strip()
                     if name != '':
-                        p, created = Category.objects.get_or_create(name=name, parent=p)
-                added_categories.append(p)
+                        parent, created = Category.objects.get_or_create(name=name, parent=parent)
+                if parent is not None:
+                    added_categories.append(parent)
 
         # Main category
         if 'main_category' not in d:
