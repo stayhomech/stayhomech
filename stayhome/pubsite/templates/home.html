@@ -80,14 +80,14 @@
     <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 60vh;">
         <div class="row">
             <div class="col-12 col-md-5 p-5">
-                <h1 class="font-weight-bold">Add your business</h1>
+                <h1 class="font-weight-bold">{% trans 'Add a business' %}</h1>
                 <p>{% blocktrans %}Do you have a business and want to register it with us to show that it is still operating for customers.{% endblocktrans %}</p>
-                <a class="btn btn-outline-sh" href="{% url 'add' %}">Add a business</a>       
+                <a class="btn btn-outline-sh" href="{% url 'add' %}">{% trans 'Add a business' %}</a>       
             </div>
             <div class="col-12 offset-md-2 col-md-5 px-5 pb-5 py-md-5">
-                <h1 class="font-weight-bold">Do you want to help?</h1>
+                <h1 class="font-weight-bold">{% trans 'Do you want to help?' %}</h1>
                 <p>{% blocktrans %}If you want to help us translate or develop new features, you can find our source code on GitHub.{% endblocktrans %}</p>
-                <a class="btn btn-outline-sh" href="https://github.com/stayhomech/stayhomech" target="_blank">Help us on GitHub</a>     
+                <a class="btn btn-outline-sh" href="https://github.com/stayhomech/stayhomech" target="_blank">{% trans 'Help us on GitHub' %}</a>     
             </div>
         </div>
     </div>

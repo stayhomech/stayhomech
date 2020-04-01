@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-01 13:53+0200\n"
-"PO-Revision-Date: 2020-04-01 13:48+0200\n"
+"POT-Creation-Date: 2020-04-01 15:34+0200\n"
+"PO-Revision-Date: 2020-04-01 15:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -417,6 +417,10 @@ msgstr ""
 msgid "Find stores in your area that deliver to you quickly and easily!"
 msgstr "Trouvez des commerces qui livrent chez vous facilement et rapidement!"
 
+#: pubsite/templates/home.html:83 pubsite/templates/home.html:85
+msgid "Add a business"
+msgstr "Ajouter un service"
+
 #: pubsite/templates/home.html:84
 msgid ""
 "Do you have a business and want to register it with us to show that it is "
@@ -425,6 +429,10 @@ msgstr ""
 "Avez-vous une entreprise que vous souhaitez ajouter à notre répertoire afin "
 "de montrer à vos clients que vous travaillez toujours."
 
+#: pubsite/templates/home.html:88
+msgid "Do you want to help?"
+msgstr "Voulez-vous aider?"
+
 #: pubsite/templates/home.html:89
 msgid ""
 "If you want to help us translate or develop new features, you can find our "
@@ -432,6 +440,10 @@ msgid ""
 msgstr ""
 "Si vous voulez aider à traduire ce site ou à ajouter de nouvelles "
 "fonctionnalités, vous pouvez trouver le code du projet sur GitHub."
+
+#: pubsite/templates/home.html:90
+msgid "Help us on GitHub"
+msgstr "Aidez-nous sur GitHub"
 
 #: pubsite/templates/home.html:99
 msgid "Many thanks to our partners and sponsors"
@@ -544,9 +556,6 @@ msgstr "Votre message a été envoyé."
 #~ msgstr ""
 #~ "Entrez votre code postal ou le nom de votre ville. Pour la Suisse <i "
 #~ "class=\"icon-plus-sign-alt\" style=\"color: red;\"></i> uniquement ;-)"
-
-#~ msgid "Help us on GitHub"
-#~ msgstr "Aidez-nous sur GitHub"
 
 #~ msgid "Main location"
 #~ msgstr "Emplacement principal"

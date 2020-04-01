@@ -47,5 +47,12 @@ python manage.py update_translation_fields
 # Generate API key for sync-service
 python create_api_key.py
 
+# Workers
+if [ "$RUNNING_ENV" == "prod" ]; then
+    workers="17"
+else
+    workers="2"
+fi
+
 # Run application
-ddtrace-run gunicorn -b 0.0.0.0:8000 --workers=17 --name="stayhome-$RUNNING_ENV" --statsd-host="datadog:8125" stayhome.wsgi
+ddtrace-run gunicorn -b 0.0.0.0:8000 --workers=$workers --name="stayhome-$RUNNING_ENV" --statsd-host="datadog:8125" stayhome.wsgi
