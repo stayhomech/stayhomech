@@ -74,7 +74,12 @@
                     <p class="font-weight-bold m-0 mt-3 mb-2">Other categories</p>
                     <select name="other_categories" id="id_other_categories" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}" multiple></select>
                     <p class="font-weight-bold m-0 mt-3 mb-0">New categories</p>
-                    <p class="font-weight-light m-0 mt-0 mb-2">"XXX" or "XXX/XXX", separated by commas<br/>First one will be main category if none selected above</p>
+                    <ul class="font-weight-light">
+                        <li>Existing parent categories: {{ parent_categories|join:", " }}.</li>
+                        <li>Always enter the categories on the form &lt;parent_category&gt;<strong>/</strong>&lt;child_category&gt;.
+                        <li>Several categories can be specified, separated by commas.</li>
+                        <li>First one will be main category if none selected above.</li>
+                    </ul>
                     <input type="text" name="new_categories" id="id_new_categories" class="form-control" />
                 </td>
             </tr>

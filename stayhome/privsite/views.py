@@ -100,6 +100,8 @@ class RequestsProcessView(DetailView):
 
         context['title'] = _('Convert request to business')
 
+        context['parent_categories'] = Category.objects.filter(parent__isnull=True)
+
         context['next'] = reverse('mgmt:' + self.prefix + 'next')
         context['return'] = reverse('mgmt:' + self.prefix + 'index')
         context['prefix'] = self.prefix
