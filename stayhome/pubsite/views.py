@@ -26,6 +26,11 @@ class HomeView(TemplateView):
 
     template_name = "home.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['count'] = Business.objects.filter(status=Business.events.VALID).count()
+        return context
+
     def get(self, request, *args, **kwargs):
 
         # Stats

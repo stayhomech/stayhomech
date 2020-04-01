@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.forms import modelform_factory
 from django.http import JsonResponse, Http404
 from django.db.models import Q
+from django.utils.translation import get_language
 
 from business.models import Request, Category
 from .forms.business_add import BusinessAddForm
@@ -36,7 +37,7 @@ class RequestsListView(ListView):
 
         objects = Request.objects.filter(status=Request.events.NEW)
 
-        lang = self.request.GET.get('lang')
+        lang = self.request.GET.get('lang', default=get_language())
         if lang is not None and lang != '':
             objects = objects.filter(lang=lang)
 
@@ -56,7 +57,7 @@ class RequestsListView(ListView):
 
         context['prefix'] = self.prefix
 
-        context['lang'] = self.request.GET.get('lang')
+        context['lang'] = self.request.GET.get('lang', default=get_language())
 
         return context
 
@@ -100,7 +101,10 @@ class RequestsProcessView(DetailView):
 
         context['title'] = _('Convert request to business')
 
+        context['parent_categories'] = Category.objects.filter(parent__isnull=True)
+
         context['next'] = reverse('mgmt:' + self.prefix + 'next')
+        context['cancel'] = reverse('mgmt:' + self.prefix + 'cancel', kwargs=self.kwargs)
         context['return'] = reverse('mgmt:' + self.prefix + 'index')
         context['prefix'] = self.prefix
 
@@ -128,8 +132,22 @@ class RequestsProcessView(DetailView):
         else:
             self.object = self.get_object()
             context = self.get_context_data()
-            context['errors'] = form.errors
+            context['errors'] = form.non_field_errors
+            context['form'] = form
             return self.render_to_response(context=context)
+
+
+@method_decorator(login_required, name='dispatch')
+class RequestsProcessCancelView(RedirectView):
+    
+    prefix=''
+
+    def get_redirect_url(self, *args, **kwargs):
+
+        req = get_object_or_404(Request, pk=kwargs['pk'])
+        req.set_status(Request.events.NEW, user=self.request.user)
+
+        return reverse('mgmt:' + self.prefix + 'index')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -234,7 +252,7 @@ class AjaxLookupView(View):
 
         elif model == 'canton':
 
-            data = Canton.objects.rewrite(False).filter(
+            data = Canton.objects.filter(
                 Q(name__icontains=query)
                 |
                 Q(code__icontains=query)
@@ -242,7 +260,7 @@ class AjaxLookupView(View):
 
         elif model == 'category':
 
-            data = Category.objects.rewrite(False).filter(parent__isnull=False, name__icontains=query).order_by('parent__name', 'name')
+            data = Category.objects.filter(parent__isnull=False, name__icontains=query).order_by('parent__name', 'name')
 
         else:
             raise Http404("Request model does not exist.")

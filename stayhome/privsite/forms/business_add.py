@@ -25,14 +25,15 @@ class BusinessAddForm(forms.ModelForm):
         added_categories = []
         if 'new_categories' in d:
             blocks = str(d['new_categories']).split(',')
-            for cats in blocks:
-                cats = cats.strip().split('/')
-                p = None
-                for cat in cats:
-                    name=cat.strip()
+            for categories in blocks:
+                categories = categories.strip().split('/')
+                parent = None
+                for category in categories:
+                    name = category.strip()
                     if name != '':
-                        p, created = Category.objects.get_or_create(name=name, parent=p)
-                added_categories.append(p)
+                        parent, created = Category.objects.get_or_create(name=name, parent=parent)
+                if parent is not None:
+                    added_categories.append(parent)
 
         # Main category
         if 'main_category' not in d:
@@ -47,7 +48,18 @@ class BusinessAddForm(forms.ModelForm):
         else:
             d['other_categories'] = added_categories
 
-        # ToDo: Check for delivery
+        # Check for delivery information
+        has_info = False
+        try:
+            has_info = d['delivers_to_ch']
+            fields = ['delivers_to_canton', 'delivers_to_district', 'delivers_to_municipality', 'delivers_to']
+            for field in fields:
+                if d[field].count() > 0:
+                    has_info = True
+        except Exception:
+            raise forms.ValidationError("No delivery information provided.")
+        if not has_info:
+            raise forms.ValidationError("No delivery information provided.")
 
         # Return data
         return d

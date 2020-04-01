@@ -74,7 +74,12 @@
                     <p class="font-weight-bold m-0 mt-3 mb-2">Other categories</p>
                     <select name="other_categories" id="id_other_categories" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}" multiple></select>
                     <p class="font-weight-bold m-0 mt-3 mb-0">New categories</p>
-                    <p class="font-weight-light m-0 mt-0 mb-2">"XXX" or "XXX/XXX", separated by commas<br/>First one will be main category if none selected above</p>
+                    <ul class="font-weight-light">
+                        <li>Existing parent categories: {{ parent_categories|join:", " }}.</li>
+                        <li>Always enter the categories on the form &lt;parent_category&gt;<strong>/</strong>&lt;child_category&gt;.
+                        <li>Several categories can be specified, separated by commas.</li>
+                        <li>First one will be main category if none selected above.</li>
+                    </ul>
                     <input type="text" name="new_categories" id="id_new_categories" class="form-control" />
                 </td>
             </tr>
@@ -178,7 +183,7 @@
             <tr class="row p-3">
                 <td class="col-6 p-2 text-left">
                     <button class="btn btn-sm btn-outline-danger" id="drop_request_btn" type="button">Drop request</button>
-                    <a href="{{ return }}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+                    <a href="{{ cancel }}" class="btn btn-sm btn-outline-secondary">Cancel</a>
                 </td>
                 <td class="col-6 p-2 text-right">
                     <button class="btn btn-sm btn-outline-secondary" type="submit" name="next" value="{{ next }}">Create business and go to next request</button>
