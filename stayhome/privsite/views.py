@@ -234,7 +234,7 @@ class AjaxLookupView(View):
 
         elif model == 'canton':
 
-            data = Canton.objects.rewrite(False).filter(
+            data = Canton.objects.filter(
                 Q(name__icontains=query)
                 |
                 Q(code__icontains=query)
@@ -242,7 +242,7 @@ class AjaxLookupView(View):
 
         elif model == 'category':
 
-            data = Category.objects.rewrite(False).filter(parent__isnull=False, name__icontains=query).order_by('parent__name', 'name')
+            data = Category.objects.filter(parent__isnull=False, name__icontains=query).order_by('parent__name', 'name')
 
         else:
             raise Http404("Request model does not exist.")
