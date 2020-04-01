@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-01 15:34+0200\n"
-"PO-Revision-Date: 2020-04-01 15:37+0200\n"
+"POT-Creation-Date: 2020-04-01 20:48+0200\n"
+"PO-Revision-Date: 2020-04-01 20:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -146,37 +146,37 @@ msgstr "Tedesco"
 msgid "Italian"
 msgstr "Italiano"
 
-#: privsite/views.py:50
+#: privsite/views.py:51
 msgid "Pending requests"
 msgstr "Richieste in sospeso"
 
-#: privsite/views.py:53 privsite/views.py:78
+#: privsite/views.py:54 privsite/views.py:79
 #, python-format
 msgid "%d requets are available to process."
 msgstr "%d i requets sono disponibili per l’elaborazione."
 
-#: privsite/views.py:55 privsite/views.py:80
+#: privsite/views.py:56 privsite/views.py:81
 msgid "No pending request."
 msgstr "Nessuna richiesta in sospeso."
 
-#: privsite/views.py:75
+#: privsite/views.py:76
 msgid "Your requests"
 msgstr "Le vostre richieste"
 
-#: privsite/views.py:101
+#: privsite/views.py:102
 msgid "Convert request to business"
 msgstr "Converti la richiesta in azienda"
 
-#: privsite/views.py:171
+#: privsite/views.py:189
 msgid "Categories translations"
 msgstr "Traduzioni di categorie"
 
-#: privsite/views.py:174
+#: privsite/views.py:192
 #, python-format
 msgid "%d categories exist."
 msgstr "%d esistono categorie."
 
-#: privsite/views.py:176
+#: privsite/views.py:194
 msgid "No category defined."
 msgstr "Nessuna categoria definita."
 
@@ -337,8 +337,8 @@ msgstr ""
 msgid "adding the service"
 msgstr "aggiungendo il servizio"
 
-#: pubsite/templates/embed.html:22 pubsite/templates/home.html:25
-#: pubsite/templates/home.html:74
+#: pubsite/templates/embed.html:22 pubsite/templates/home.html:26
+#: pubsite/templates/home.html:75
 msgid "Where are you ?"
 msgstr "Dove ti trovi ?"
 
@@ -347,10 +347,14 @@ msgid "Find your local delivery."
 msgstr "Trova la consegna locale."
 
 #: pubsite/templates/home.html:14
+msgid "services ready to help"
+msgstr "servizi pronti ad aiutare"
+
+#: pubsite/templates/home.html:15
 msgid "Enter postcode or place name - Switzerland only"
 msgstr "Inserisci il codice postale o il nome del luogo - solo Svizzera"
 
-#: pubsite/templates/home.html:32
+#: pubsite/templates/home.html:33
 msgid ""
 "An excellent idea! I no longer have to laboriously click through the "
 "websites of the shops in my village to find those that deliver to my home. "
@@ -360,11 +364,11 @@ msgstr ""
 "negozi nel mio villaggio per trovare quelli che consegnano a casa mia. Sono "
 "chiaramente elencati in questa pagina."
 
-#: pubsite/templates/home.html:40
+#: pubsite/templates/home.html:41
 msgid "Find your local delivery service"
 msgstr "Trova il tuo servizio di consegna locale"
 
-#: pubsite/templates/home.html:41
+#: pubsite/templates/home.html:42
 msgid ""
 "By simply entering your zip code, you will find many local dealers and shops "
 "that offer home delivery. This saves you a time-consuming search."
@@ -373,11 +377,11 @@ msgstr ""
 "negozi locali che offrono la consegna a domicilio. Questo ti fa risparmiare "
 "una ricerca che richiede tempo."
 
-#: pubsite/templates/home.html:48
+#: pubsite/templates/home.html:49
 msgid "Local and regional products"
 msgstr "Prodotti locali e regionali"
 
-#: pubsite/templates/home.html:49
+#: pubsite/templates/home.html:50
 msgid ""
 "You support local dealers and shops directly from your area who need our "
 "support during this time. You help small and medium businesses around you. "
@@ -389,11 +393,11 @@ msgstr ""
 "imprese intorno a te. Non devi più fare a meno dei tuoi prodotti preferiti "
 "della tua zona, puoi ordinarli semplicemente e comodamente da casa."
 
-#: pubsite/templates/home.html:54
+#: pubsite/templates/home.html:55
 msgid "Fast delivery"
 msgstr "Consegna veloce"
 
-#: pubsite/templates/home.html:55
+#: pubsite/templates/home.html:56
 msgid ""
 "The big online retailers currently have long delivery times. Due to the "
 "proximity, the local dealers and shops can deliver quickly and you will "
@@ -403,7 +407,7 @@ msgstr ""
 "causa della vicinanza, i rivenditori e i negozi locali possono consegnare "
 "rapidamente e riceverai le tue merci in breve tempo."
 
-#: pubsite/templates/home.html:56
+#: pubsite/templates/home.html:57
 msgid ""
 "Thanks to stayhome.ch you can order directly from your local gastronomy or "
 "business."
@@ -411,16 +415,16 @@ msgstr ""
 "Grazie a stayhome.ch puoi ordinare direttamente dalla tua gastronomia o "
 "azienda locale."
 
-#: pubsite/templates/home.html:64
+#: pubsite/templates/home.html:65
 msgid "Find stores in your area that deliver to you quickly and easily!"
 msgstr ""
 "Trova negozi nella tua zona che ti consegnano rapidamente e facilmente!"
 
-#: pubsite/templates/home.html:83 pubsite/templates/home.html:85
+#: pubsite/templates/home.html:84 pubsite/templates/home.html:86
 msgid "Add a business"
 msgstr "Aggiungi una attività"
 
-#: pubsite/templates/home.html:84
+#: pubsite/templates/home.html:85
 msgid ""
 "Do you have a business and want to register it with us to show that it is "
 "still operating for customers."
@@ -428,11 +432,11 @@ msgstr ""
 "Hai un’attività commerciale e desideri registrarla con noi per dimostrare "
 "che è ancora operativa per i clienti."
 
-#: pubsite/templates/home.html:88
+#: pubsite/templates/home.html:89
 msgid "Do you want to help?"
 msgstr "Vuoi aiutare?"
 
-#: pubsite/templates/home.html:89
+#: pubsite/templates/home.html:90
 msgid ""
 "If you want to help us translate or develop new features, you can find our "
 "source code on GitHub."
@@ -440,11 +444,11 @@ msgstr ""
 "Se vuoi aiutarci a tradurre o sviluppare nuove funzionalità, puoi trovare il "
 "nostro codice sorgente su GitHub."
 
-#: pubsite/templates/home.html:90
+#: pubsite/templates/home.html:91
 msgid "Help us on GitHub"
 msgstr "Aiutaci su GitHub"
 
-#: pubsite/templates/home.html:99
+#: pubsite/templates/home.html:100
 msgid "Many thanks to our partners and sponsors"
 msgstr "Mille grazie ai nostri partner e sponsor"
 
@@ -476,7 +480,7 @@ msgstr "Contribuire"
 msgid "Log out"
 msgstr "Disconnettersi"
 
-#: pubsite/templates/mgmt.html:38 pubsite/templates/navigation.html:37
+#: pubsite/templates/mgmt.html:38 pubsite/templates/navigation.html:66
 msgid "Sign in"
 msgstr "Registrati"
 
@@ -488,11 +492,11 @@ msgstr "Home"
 msgid "Contact us"
 msgstr "Contattaci"
 
-#: pubsite/templates/navigation.html:52
+#: pubsite/templates/navigation.html:48
 msgid "Add a delivery service"
 msgstr "Aggiungi un servizio di consegna"
 
-#: pubsite/templates/navigation.html:69
+#: pubsite/templates/navigation.html:65
 msgid "All rights reserved"
 msgstr "Tutti i diritti riservati"
 
@@ -507,11 +511,11 @@ msgstr ""
 "L’elaborazione della richiesta può richiedere fino a 24 ore. Per favore sii "
 "paziente."
 
-#: pubsite/views.py:86
+#: pubsite/views.py:91
 msgid "NPA does not exist"
 msgstr "Il CAP non esiste"
 
-#: pubsite/views.py:191
+#: pubsite/views.py:196
 msgid "Your message has been sent."
 msgstr "Il tuo messaggio è stato inviato."
 
