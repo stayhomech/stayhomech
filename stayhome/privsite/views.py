@@ -104,6 +104,7 @@ class RequestsProcessView(DetailView):
         context['parent_categories'] = Category.objects.filter(parent__isnull=True)
 
         context['next'] = reverse('mgmt:' + self.prefix + 'next')
+        context['cancel'] = reverse('mgmt:' + self.prefix + 'cancel', kwargs=self.kwargs)
         context['return'] = reverse('mgmt:' + self.prefix + 'index')
         context['prefix'] = self.prefix
 
@@ -134,6 +135,19 @@ class RequestsProcessView(DetailView):
             context['errors'] = form.non_field_errors
             context['form'] = form
             return self.render_to_response(context=context)
+
+
+@method_decorator(login_required, name='dispatch')
+class RequestsProcessCancelView(RedirectView):
+    
+    prefix=''
+
+    def get_redirect_url(self, *args, **kwargs):
+
+        req = get_object_or_404(Request, pk=kwargs['pk'])
+        req.set_status(Request.events.NEW, user=self.request.user)
+
+        return reverse('mgmt:' + self.prefix + 'index')
 
 
 @method_decorator(login_required, name='dispatch')
