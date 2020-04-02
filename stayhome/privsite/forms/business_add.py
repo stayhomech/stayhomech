@@ -23,6 +23,7 @@ class BusinessAddForm(forms.ModelForm):
         self.fields['website'].widget.attrs.update({'class': 'form-control'})
         self.fields['phone'].widget.attrs.update({'class': 'form-control'})
         self.fields['email'].widget.attrs.update({'class': 'form-control'})
+        self.fields['main_category'].required = False
 
     def clean(self):
 
@@ -45,18 +46,18 @@ class BusinessAddForm(forms.ModelForm):
                     added_categories.append(parent)
 
         # Main category
-        if 'main_category' not in d:
+        if 'main_category' not in d or d['main_category'] == '' or d['main_category'] is None:
             if len(added_categories) == 0:
                 raise forms.ValidationError("No main category selected and no new category provided.")
             else:
                 d['main_category'] = added_categories.pop(0)
 
         # Other categories
-        if 'other_categories' in d:
-            if len(added_categories) > 0:
+        if len(added_categories) > 0:
+            if 'other_categories' in d:
                 d['other_categories'] |= added_categories
-        else:
-            d['other_categories'] = added_categories
+            else:
+                d['other_categories'] = added_categories
 
         # Check for delivery information
         has_info = False
@@ -79,4 +80,5 @@ class BusinessAddForm(forms.ModelForm):
         d['description'] = bytes(d['description'], 'utf-8').decode('utf-8', 'ignore')
 
         # Return data
+        self.cleaned_data = d
         return d
