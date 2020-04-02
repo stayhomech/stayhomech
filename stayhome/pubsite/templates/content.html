@@ -16,22 +16,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="row border-bottom p-0 nav-filter">
-                    <div class="col-12 pt-3">{% blocktrans %}Categories:{% endblocktrans %}</div>
-                    <div id="cloud">
-                    </div>
-                </div>
             </div>
             <div class="col-xs-12 col-md-9 p-0 pt-3 px-3 pr-md-0">
                 <div class="alert alert-warning" role="alert" id="allFiltered" style="display: none;">
                     {% blocktrans %}Nothing left to show, try changing your filters.{% endblocktrans %}
                 </div>
                 {% for business in businesses %}
-                    <div class="card mb-3 cat-{{ business.main_category.get_class }}{% for category in business.other_categories.all %} cat-{{ category.get_class }}{% endfor %}" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }}{% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
+                    <div class="card mb-3" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }}{% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
                         <div class="card-header">
-                            <span class="badge badge-secondary badge-{{ business.main_category.get_class }}">{{ business.main_category.get_path }}</span>
+                            <span class="badge badge-secondary">{{ business.main_category.get_path }}</span>
                             {% for category in business.other_categories.all %}
-                                <span class="badge badge-secondary badge-{{ category.get_class }}">{{ category.get_path }}</span>
+                                <span class="badge badge-secondary">{{ category.get_path }}</span>
                             {% endfor %}
                         </div>
                         <div class="card-body">
@@ -153,66 +148,6 @@
                 $('#plus-' + pk).toggle();
                 $('#minus-' + pk).toggle();
             }
-
-            window.filter_cat = (cat) => {
-                var categoryClass = 'cat-' + cat;
-                var tag = $('#filter-' + cat);
-                var wasFiltered = tag.hasClass('text-info');
-                if (!wasFiltered) {
-                    // clear all other filters
-                    $('.jqcloud-word a').removeClass('text-info');
-                    $('.badge-secondary').removeClass('badge-info');
-                }
-                tag.toggleClass('text-info');
-                $('.badge-' + cat).toggleClass('badge-info');
-                $('.card').each((id, elem) => {
-                    var card = $(elem);
-                    if (wasFiltered) {
-                        // clear filter; show all
-                        card.show();
-                    } else if (card.hasClass(categoryClass)) {
-                        card.show();
-                    } else {
-                        card.hide();
-                    }
-                });
-            }
-
-            var loadTagCloud = () => {
-                var categories = {};
-                $('.badge-secondary').each((id, elem) => {
-                    var name = $(elem).text();
-                    categories[name] = categories[name] || { count: 0 };
-                    categories[name].count++;
-                });
-
-                var words = [];
-                for (var name in categories) {
-                    var className = name.replace(/[ \-_/'\(\)]+/g, '-');
-                    words.push({
-                        text: name.replace(/^.+\/ */, ''),
-                        weight: categories[name].count,
-                        link: {
-                            id: 'filter-' + className,
-                            href: "javascript:filter_cat('" + className + "')"
-                        }
-                    });
-                }
-
-                var divider = Math.min(10, words.length);
-                $('#cloud').jQCloud(words, {
-                    autoResize: true,
-                    encodeURI: false,
-                    shape: 'rectangular',
-                    colors: ["#212529", "#495057", "#6c757d", "#ced4da"],
-                    fontSize: {
-                        from: 0.6 / divider,
-                        to: 0.2 / divider
-                    }
-                });
-            };
-
-            loadTagCloud();
 
         });
 

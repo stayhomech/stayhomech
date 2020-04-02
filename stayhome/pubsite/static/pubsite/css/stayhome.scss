@@ -126,19 +126,6 @@ P > A:hover {
     border-right: 1px solid #dee2e6!important;
 }
 
-#cloud {
-    width: 100%;
-    height: 150px;
-}
-
-#cloud .jqcloud-word {
-    cursor: pointer;
-
-    A:hover {
-        color: inherit;
-    }
-}
-
 #radius-slider .ui-slider-range {
     background-color: $sh-green;
     opacity: 60%;
@@ -205,10 +192,6 @@ P > A:hover {
 
     #left-nav {
         border: none!important;
-    }
-
-    .nav-filter {
-        display: none;
     }
 
 }
