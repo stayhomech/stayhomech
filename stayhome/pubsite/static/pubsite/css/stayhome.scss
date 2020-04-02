@@ -34,6 +34,15 @@ P > A:hover {
     text-decoration: none;
 }
 
+.nav-link {
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+}
+
+.nav-link:hover {
+    font-weight: 550;
+}
+
 .sh-home-logo {
     height: 9vh;
 }
@@ -126,6 +135,24 @@ P > A:hover {
     border-right: 1px solid #dee2e6!important;
 }
 
+#slider-parent {
+    width: 100%;
+
+    .slider {
+        width: calc(100% - 5em);
+        margin: 0.5em 0.8em;
+    }
+}
+
+.slider-handle {
+    background-color: $sh-green;
+    background-image: linear-gradient(to bottom,$sh-green 0,$sh-green 100%);;
+}
+
+#area-slider {
+    width: 100%;
+}
+
 #radius-slider .ui-slider-range {
     background-color: $sh-green;
     opacity: 60%;
@@ -135,8 +162,57 @@ P > A:hover {
     background-color: $sh-green;
 }
 
+.sh-categories-tree {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.sh-categories-tree LI {
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.sh-categories-tree LI:hover {
+    cursor: pointer;
+    font-weight: 550;
+}
+
+.sh-categories-tree LI.selected {
+    background-color: lighten($sh-green,50%);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.sh-all-categories {
+    display: none;
+    background-color: $sh-green;
+    font-weight: bold;
+    color: white;
+}
+
+.sh-child-tree {
+    display: none;
+    list-style-type: none;
+    padding: 0;
+}
+
+.card {
+    border: 0;
+    border-bottom: 1px solid rgb(222, 226, 230);
+}
+
 .card-header {
     padding: 8px 16px;
+    border: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.03), white);
+}
+
+.card-title {
+    color: $sh-green;
+    font-weight: 800;
 }
 
 .card-body {
@@ -192,6 +268,18 @@ P > A:hover {
 
     #left-nav {
         border: none!important;
+    }
+
+    .nav-filter {
+        display: none;
+    }
+
+    .sh-filter-toggle {
+        background-color:rgb(233, 236, 239);
+        border:1px solid rgb(206, 212, 218);
+        border-radius: 3.2px;
+        width: 32px;
+        height: 32px;
     }
 
 }

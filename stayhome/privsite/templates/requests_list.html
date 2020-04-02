@@ -17,6 +17,9 @@
 {% block contrib-content %}
 <div class="row mb-5">
     <div class="col-12 px-3 pb-3 px-3">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
         {% if object_list.count > 0 %}
         <table class="container">
             <tr class="row mx-0 px-0  border-top border-bottom font-weight-bold sh-table-head">

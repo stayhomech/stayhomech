@@ -57,7 +57,11 @@ class RequestsListView(ListView):
 
         context['prefix'] = self.prefix
 
-        context['lang'] = self.request.GET.get('lang', default='all')
+        if 'requests_list_error' in self.request.session and self.request.session['requests_list_error'] is not None:
+            context['error'] = self.request.session['requests_list_error']
+            self.request.session['requests_list_error'] = None
+
+        context['lang'] = self.request.GET.get('lang', default=get_language())
 
         return context
 
@@ -115,6 +119,11 @@ class RequestsProcessView(DetailView):
     def get(self, request, *args, **kwargs):
 
         r = self.get_object()
+
+        if r.get_status() == Request.events.RESERVED and r.get_owner() != self.request.user:
+            request.session['requests_list_error'] = 'Request is already owned by someone else.'
+            return redirect('mgmt:' + self.prefix + 'index')
+
         r.set_status(Request.events.RESERVED, user=self.request.user)
 
         return super(RequestsProcessView, self).get(request, *args, **kwargs)
