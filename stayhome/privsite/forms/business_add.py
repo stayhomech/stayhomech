@@ -50,14 +50,18 @@ class BusinessAddForm(forms.ModelForm):
 
         # Check for delivery information
         has_info = False
-        try:
+
+        if 'delivers_to_ch' in d:
             has_info = d['delivers_to_ch']
+
+        try:
             fields = ['delivers_to_canton', 'delivers_to_district', 'delivers_to_municipality', 'delivers_to']
             for field in fields:
                 if d[field].count() > 0:
                     has_info = True
         except Exception:
             raise forms.ValidationError("No delivery information provided.")
+
         if not has_info:
             raise forms.ValidationError("No delivery information provided.")
 
