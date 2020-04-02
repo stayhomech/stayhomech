@@ -157,11 +157,24 @@ class ContentView(TemplateView):
             'n_name:' + str(npa.name_en).replace(' ', '_')
         ])
 
+        # Categories
         context['categories'] = Category.objects.filter(
             Q(as_main_category__in=context['businesses'])
             |
             Q(as_other_category__in=context['businesses'])
         ).distinct().order_by('parent__tree_id', 'tree_id')
+
+        # Structured categories
+        sc = {}
+        for category in context['categories']:
+            parent = category.parent
+            if parent.pk not in sc:
+                sc[parent.pk] = {
+                    'obj': parent,
+                    'children': {}
+                }
+            sc[parent.pk]['children'][category.pk] = category
+        context['sc'] = sc
 
         return context
 

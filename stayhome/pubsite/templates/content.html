@@ -1,5 +1,5 @@
 {% extends "navigation.html" %}
-{% load mptt_tags i18n %}
+{% load static mptt_tags i18n compress %}
 
 {% block content %}
 <div class="container border-top">
@@ -7,7 +7,7 @@
             {% if businesses|length > 0 %}
             <div class="col-xs-12 col-md-3 p3" id="left-nav">
                 <div class="row border-bottom p-0">
-                    <div class="col-12 pt-3">
+                    <div class="col-10 col-lg-12 pt-3">
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -15,14 +15,46 @@
                             <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
                         </div>
                     </div>
+                    <div class="col-2 col-lg-0 p-3 d-block d-lg-none">
+                        <button class="sh-filter-toggle" type="button" data-toggle="collapse" data-target=".nav-filter" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row border-bottom p-0 nav-filter">
+                    <div class="col-12 px-3 pt-3">{% blocktrans %}Area:{% endblocktrans %}</div>
+                    <div id="slider-parent" class="px-3 pb-3">
+                        <i class="fas fa-search-minus"></i>
+                        <input id="area-slider" type="text"
+                               data-provide="slider"
+                               data-slider-min="0"
+                               data-slider-max="3"
+                               data-slider-step="1"
+                               data-slider-value="0"
+                               data-slider-tooltip="hide" />
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="row p-0 nav-filter">
+                    <ul class="sh-categories-tree">
+                        <li class="sh-all-categories px-3 py-2 border-bottom">All offers</li>
+                        {% for parent_pk, parent in sc.items %}
+                        <li data-selected="0" data-c-pk="{{ parent_pk }}" class="sh-parent-c px-3 py-2 border-bottom">{{ parent.obj }}</li>
+                        <ul class="sh-child-tree sh-parent-{{ parent_pk }}">
+                            {% for child_pk, child in parent.children.items %}
+                            <li data-selected="0" data-c-pk="{{ child_pk }}" class="sh-child-c px-4 py-2 border-bottom">{{ child }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-9 p-0 pt-3 px-3 pr-md-0">
-                <div class="alert alert-warning" role="alert" id="allFiltered" style="display: none;">
+            <div class="col-xs-12 col-md-9 p-0">
+                <div class="alert alert-warning m-4" role="alert" id="allFiltered" style="display: none;">
                     {% blocktrans %}Nothing left to show, try changing your filters.{% endblocktrans %}
                 </div>
                 {% for business in businesses %}
-                    <div class="card mb-3" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }}{% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
+                    <div class="card sh-cat-{{ business.main_category.pk }} sh-cat-{{ business.main_category.parent.pk }} {% for category in business.other_categories.all %}sh-cat-{{ category.pk }} sh-cat-{{ category.parent.pk }} {% endfor %}" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }} {% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
                         <div class="card-header">
                             <span class="badge badge-secondary">{{ business.main_category.get_path }}</span>
                             {% for category in business.other_categories.all %}
@@ -32,7 +64,7 @@
                         <div class="card-body">
                             <div class="row mb-2">
                                 <div class="col-6">
-                                    <h6 class="card-title mb-0" style="color: #B01E8D; font-weight: 800;">{{ business.name }}</h6>
+                                    <h6 class="card-title mb-0">{{ business.name }}</h6>
                                 </div>
                                 <div class="col-6 text-right card-info">
                                     <div class="card-text">{% blocktrans %}Located at{% endblocktrans %} {{ business.location }}</div>
@@ -104,6 +136,11 @@
 {% endblock %}
 
 {% block script %}
+
+    {% compress js %}
+    <script src="{% static 'pubsite/js/sh-filtering.js' %}"></script>
+    {% endcompress %}
+
     <script>
 
         $(document).ready(() => {
@@ -148,6 +185,31 @@
                 $('#plus-' + pk).toggle();
                 $('#minus-' + pk).toggle();
             }
+
+            var areaMap = [7, 5, 4, 3];
+            $('#area-slider').slider().on('slide', e => {
+                var maxRadius = areaMap[e.value];
+                $('.card').each((id, elem) => {
+                    var card = $(elem);
+                    var radius = parseInt(card.data('radius'));
+                    if (radius > maxRadius) {
+                        card.hide();
+                    } else {
+                        card.show();
+                    }
+                });
+                
+                ensureAllFiltered();
+
+            }).data('slider');
+
+            window.ensureAllFiltered = () => {
+                if ($('.card:visible').length === 0) {
+                    $('#allFiltered').show();
+                } else {
+                    $('#allFiltered').hide();
+                }
+            };
 
         });
 
