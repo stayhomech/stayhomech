@@ -17,6 +17,20 @@
                     </div>
                 </div>
                 <div class="row border-bottom p-0 nav-filter">
+                    <div class="col-12 pt-3">{% blocktrans %}Area:{% endblocktrans %}</div>
+                    <div id="slider-parent">
+                        <i class="fas fa-search-minus"></i>
+                        <input id="area-slider" type="text"
+                               data-provide="slider"
+                               data-slider-min="0"
+                               data-slider-max="3"
+                               data-slider-step="1"
+                               data-slider-value="0"
+                               data-slider-tooltip="hide" />
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="row border-bottom p-0 nav-filter">
                     <div class="col-12 pt-3">{% blocktrans %}Categories:{% endblocktrans %}</div>
                     <div id="cloud">
                     </div>
@@ -118,29 +132,21 @@
                 // Current value
                 var search = event.target.value.toLowerCase();
 
-                // Shown items
-                var shown = 0;
-
                 // Loop on cards
                 $('.card').each((id, target) => {
 
                     var subject = $(target).data('categories').toLowerCase() + " " + $(target).data('name').toLowerCase();
 
                     if (subject.includes(search)) {
-                        target.style.display = "";
-                        shown++;
+                        $(target).removeClass('hide-by-search');
                     } else {
-                        target.style.display = "none";
+                        $(target).addClass('hide-by-search');
                     }
                     
                 });
 
-                // No card left
-                if (shown == 0) {
-                    $('#allFiltered').show();
-                } else {
-                    $('#allFiltered').hide();
-                }
+                // No card left?
+                ensureAllFiltered();
 
                 // Stop execution
                 event.preventDefault();
@@ -169,14 +175,32 @@
                     var card = $(elem);
                     if (wasFiltered) {
                         // clear filter; show all
-                        card.show();
+                        card.removeClass('hide-by-category');
                     } else if (card.hasClass(categoryClass)) {
-                        card.show();
+                        card.removeClass('hide-by-category');
                     } else {
-                        card.hide();
+                        card.addClass('hide-by-category');
                     }
                 });
+                
+                ensureAllFiltered();
             }
+
+            var areaMap = [7, 5, 4, 3];
+            $('#area-slider').slider().on('slide', e => {
+                var maxRadius = areaMap[e.value];
+                $('.card').each((id, elem) => {
+                    var card = $(elem);
+                    var radius = parseInt(card.attr('data-radius'));
+                    if (radius > maxRadius) {
+                        card.addClass('hide-by-area');
+                    } else {
+                        card.removeClass('hide-by-area');
+                    }
+                });
+                
+                ensureAllFiltered();
+            }).data('slider');
 
             var loadTagCloud = () => {
                 var categories = {};
@@ -210,6 +234,14 @@
                         to: 0.2 / divider
                     }
                 });
+            };
+
+            var ensureAllFiltered = () => {
+                if ($('.card:visible').length === 0) {
+                    $('#allFiltered').show();
+                } else {
+                    $('#allFiltered').hide();
+                }
             };
 
             loadTagCloud();

@@ -139,6 +139,19 @@ P > A:hover {
     }
 }
 
+#slider-parent {
+    width: 100%;
+
+    .slider {
+        width: calc(100% - 5em);
+        margin: 0.5em 0.8em;
+    }
+}
+
+#area-slider {
+    width: 100%;
+}
+
 #radius-slider .ui-slider-range {
     background-color: $sh-green;
     opacity: 60%;
@@ -168,6 +181,18 @@ P > A:hover {
     color: $sh-green;
     font-weight: bold;
     text-decoration: none;
+}
+
+.card.hide-by-search {
+    display: none;
+}
+
+.card.hide-by-category {
+    display: none;
+}
+
+.card.hide-by-area {
+    display: none;
 }
 
 .sh-crop {
