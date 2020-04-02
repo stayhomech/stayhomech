@@ -41,11 +41,11 @@
                     {% blocktrans %}Nothing left to show, try changing your filters.{% endblocktrans %}
                 </div>
                 {% for business in businesses %}
-                    <div class="card mb-3 cat-{{ business.main_category.get_class }}{% for category in business.other_categories.all %} cat-{{ category.get_class }}{% endfor %}" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }}{% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
+                    <div class="card mb-3" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }}{% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
                         <div class="card-header">
-                            <span class="badge badge-secondary badge-{{ business.main_category.get_class }}">{{ business.main_category.get_path }}</span>
+                            <span class="badge badge-secondary">{{ business.main_category.get_path }}</span>
                             {% for category in business.other_categories.all %}
-                                <span class="badge badge-secondary badge-{{ category.get_class }}">{{ category.get_path }}</span>
+                                <span class="badge badge-secondary">{{ category.get_path }}</span>
                             {% endfor %}
                         </div>
                         <div class="card-body">
