@@ -45,7 +45,8 @@
                 </td>
                 {% include "includes/requests_convert_actions.html" with field='name' %}
                 <td class="col-5 p-2">
-                    <input type="text" name="name" id="id_name" class="form-control" required />
+                    {% include 'includes/requests_convert_errors.html' with field=form.name %}
+                    {{ form.name }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
@@ -57,7 +58,8 @@
                 </td>
                 {% include "includes/requests_convert_actions.html" with field='description' %}
                 <td class="col-5 p-2">
-                    <textarea name="description" cols="40" rows="10" id="id_description" class="form-control" required></textarea>
+                    {% include 'includes/requests_convert_errors.html' with field=form.description %}
+                    {{ form.description }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
@@ -74,7 +76,7 @@
                     <p class="font-weight-bold m-0 mt-3 mb-2">Other categories</p>
                     <select name="other_categories" id="id_other_categories" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}" multiple></select>
                     <p class="font-weight-bold m-0 mt-3 mb-0">New categories</p>
-                    <ul class="font-weight-light">
+                    <ul class="small">
                         <li>Existing parent categories: {{ parent_categories|join:", " }}.</li>
                         <li>Always enter the categories on the form &lt;parent_category&gt;<strong>/</strong>&lt;child_category&gt;.
                         <li>Several categories can be specified, separated by commas.</li>
@@ -129,7 +131,8 @@
                 </td>
                 {% include "includes/requests_convert_actions.html" with field='address' %}
                 <td class="col-5 p-2">
-                    <input type="text" name="address" id="id_address" class="form-control" required />
+                    {% include 'includes/requests_convert_errors.html' with field=form.address %}
+                    {{ form.address }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
@@ -146,38 +149,43 @@
             </tr>
             <tr class="row p-3 border-bottom">
                 <td class="col-2 p-2">
-                    <strong>Website</strong>
+                    Website
                 </td>
                 <td class="col-4 p-2 border" id="request-website">
                     {{ object.website }}
                 </td>
                 {% include "includes/requests_convert_actions.html" with field='website' %}
                 <td class="col-5 p-2">
-                    <input type="url" name="website" id="id_website" class="form-control" />
+                    {% include 'includes/requests_convert_errors.html' with field=form.website %}
+                    <p class="mb-0 small">Must start with http:// or https://. Facebook pages are allowed.</p>
+                    {{ form.website }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
                 <td class="col-2 p-2">
-                    <strong>Phone</strong>
+                    Phone
                 </td>
                 <td class="col-4 p-2 border" id="request-phone">
                     {{ object.phone }}
                 </td>
                 {% include "includes/requests_convert_actions.html" with field='phone' %}
                 <td class="col-5 p-2">
-                    <input type="text" name="phone" id="id_phone" class="form-control" />
+                    {% include 'includes/requests_convert_errors.html' with field=form.phone %}
+                    <p class="mb-0 small">Must be in international format (+41 xx xxx xx xx).</p>
+                    {{ form.phone }}
                 </td>
             </tr>
             <tr class="row p-3 border-bottom">
                 <td class="col-2 p-2">
-                    <strong>E-mail</strong>
+                    E-mail
                 </td>
                 <td class="col-4 p-2 border" id="request-email">
                     {{ object.email }}
                 </td>
                 {% include "includes/requests_convert_actions.html" with field='email' %}
                 <td class="col-5 p-2">
-                    <input type="email" name="email" id="id_email" class="form-control" />
+                    {% include 'includes/requests_convert_errors.html' with field=form.email %}
+                    {{ form.email }}
                 </td>
             </tr>
             <tr class="row p-3">
@@ -262,7 +270,7 @@
         $('.sh-select2').each((index, item) => {
 
             $(item).select2({
-                minimumInputLength: 3,
+                minimumInputLength: 1,
                 selectOnClose: true,
                 ajax: {
                     url: $(item).data('lookup-url'),

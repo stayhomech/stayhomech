@@ -103,6 +103,8 @@ class RequestsProcessView(DetailView):
 
         context['parent_categories'] = Category.objects.filter(parent__isnull=True)
 
+        context['form'] = BusinessAddForm()
+
         context['next'] = reverse('mgmt:' + self.prefix + 'next')
         context['cancel'] = reverse('mgmt:' + self.prefix + 'cancel', kwargs=self.kwargs)
         context['return'] = reverse('mgmt:' + self.prefix + 'index')
