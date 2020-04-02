@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-01 20:48+0200\n"
-"PO-Revision-Date: 2020-04-01 20:49+0200\n"
+"POT-Creation-Date: 2020-04-02 11:13+0200\n"
+"PO-Revision-Date: 2020-04-02 11:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -169,16 +169,16 @@ msgstr "Vos requêtes"
 msgid "Convert request to business"
 msgstr "Convertir en service"
 
-#: privsite/views.py:189
+#: privsite/views.py:191
 msgid "Categories translations"
 msgstr "Traduction des catégories"
 
-#: privsite/views.py:192
+#: privsite/views.py:194
 #, python-format
 msgid "%d categories exist."
 msgstr "%d catégories sont définies."
 
-#: privsite/views.py:194
+#: privsite/views.py:196
 msgid "No category defined."
 msgstr "Pas de catégorie définie."
 
@@ -338,8 +338,7 @@ msgstr ""
 msgid "adding the service"
 msgstr "l'ajout du service"
 
-#: pubsite/templates/embed.html:22 pubsite/templates/home.html:26
-#: pubsite/templates/home.html:75
+#: pubsite/templates/embed.html:22 pubsite/templates/home.html:74
 msgid "Where are you ?"
 msgstr "Où êtes-vous ?"
 
@@ -351,11 +350,11 @@ msgstr "Trouvez votre livraison locale."
 msgid "services ready to help"
 msgstr "services à votre disposition"
 
-#: pubsite/templates/home.html:15
-msgid "Enter postcode or place name - Switzerland only"
-msgstr "Entrez un code postal ou une localité - En Suisse uniquement"
+#: pubsite/templates/home.html:25
+msgid "Enter postcode or place name"
+msgstr "Entrez un code postal ou une localité"
 
-#: pubsite/templates/home.html:33
+#: pubsite/templates/home.html:32
 msgid ""
 "An excellent idea! I no longer have to laboriously click through the "
 "websites of the shops in my village to find those that deliver to my home. "
@@ -365,11 +364,11 @@ msgstr ""
 "sites Internet des magasins de ma région afin de trouver qui peut livrer "
 "chez moi. Ils sont tout simplement répertoriés sur cette page."
 
-#: pubsite/templates/home.html:41
+#: pubsite/templates/home.html:40
 msgid "Find your local delivery service"
 msgstr "Trouvez votre service de livraison local"
 
-#: pubsite/templates/home.html:42
+#: pubsite/templates/home.html:41
 msgid ""
 "By simply entering your zip code, you will find many local dealers and shops "
 "that offer home delivery. This saves you a time-consuming search."
@@ -378,11 +377,11 @@ msgstr ""
 "entreprises locales qui livrent à domicile. Ceci vous fait économiser un "
 "temps précieux."
 
-#: pubsite/templates/home.html:49
+#: pubsite/templates/home.html:48
 msgid "Local and regional products"
 msgstr "Produits locaux et régionaux"
 
-#: pubsite/templates/home.html:50
+#: pubsite/templates/home.html:49
 msgid ""
 "You support local dealers and shops directly from your area who need our "
 "support during this time. You help small and medium businesses around you. "
@@ -394,11 +393,11 @@ msgstr ""
 "Vous n'avez plus besoin de vous priver de vos produits locaux favoris. Vous "
 "pouvez simplement vous les faire livrer chez vous."
 
-#: pubsite/templates/home.html:55
+#: pubsite/templates/home.html:54
 msgid "Fast delivery"
 msgstr "Livraison rapide"
 
-#: pubsite/templates/home.html:56
+#: pubsite/templates/home.html:55
 msgid ""
 "The big online retailers currently have long delivery times. Due to the "
 "proximity, the local dealers and shops can deliver quickly and you will "
@@ -409,7 +408,7 @@ msgstr ""
 "livrer rapidement et vous recevrez votre marchandise dans les meilleurs "
 "délais."
 
-#: pubsite/templates/home.html:57
+#: pubsite/templates/home.html:56
 msgid ""
 "Thanks to stayhome.ch you can order directly from your local gastronomy or "
 "business."
@@ -417,15 +416,15 @@ msgstr ""
 "Grâce à stayhome.ch vous pouvez commander directement à votre producteur ou "
 "commerçant local."
 
-#: pubsite/templates/home.html:65
+#: pubsite/templates/home.html:64
 msgid "Find stores in your area that deliver to you quickly and easily!"
 msgstr "Trouvez des commerces qui livrent chez vous facilement et rapidement!"
 
-#: pubsite/templates/home.html:84 pubsite/templates/home.html:86
+#: pubsite/templates/home.html:83 pubsite/templates/home.html:85
 msgid "Add a business"
 msgstr "Ajouter un service"
 
-#: pubsite/templates/home.html:85
+#: pubsite/templates/home.html:84
 msgid ""
 "Do you have a business and want to register it with us to show that it is "
 "still operating for customers."
@@ -433,11 +432,11 @@ msgstr ""
 "Avez-vous une entreprise que vous souhaitez ajouter à notre répertoire afin "
 "de montrer à vos clients que vous travaillez toujours."
 
-#: pubsite/templates/home.html:89
+#: pubsite/templates/home.html:88
 msgid "Do you want to help?"
 msgstr "Voulez-vous aider?"
 
-#: pubsite/templates/home.html:90
+#: pubsite/templates/home.html:89
 msgid ""
 "If you want to help us translate or develop new features, you can find our "
 "source code on GitHub."
@@ -445,11 +444,11 @@ msgstr ""
 "Si vous voulez aider à traduire ce site ou à ajouter de nouvelles "
 "fonctionnalités, vous pouvez trouver le code du projet sur GitHub."
 
-#: pubsite/templates/home.html:91
+#: pubsite/templates/home.html:90
 msgid "Help us on GitHub"
 msgstr "Aidez-nous sur GitHub"
 
-#: pubsite/templates/home.html:100
+#: pubsite/templates/home.html:99
 msgid "Many thanks to our partners and sponsors"
 msgstr "Merci à nos partenaires et sponsors"
 

@@ -37,8 +37,8 @@ class RequestsListView(ListView):
 
         objects = Request.objects.filter(status=Request.events.NEW)
 
-        lang = self.request.GET.get('lang', default=get_language())
-        if lang is not None and lang != '':
+        lang = self.request.GET.get('lang')
+        if lang is not None and lang != '' and lang != 'all':
             objects = objects.filter(lang=lang)
 
         return objects.order_by('creation')
@@ -57,7 +57,7 @@ class RequestsListView(ListView):
 
         context['prefix'] = self.prefix
 
-        context['lang'] = self.request.GET.get('lang', default=get_language())
+        context['lang'] = self.request.GET.get('lang', default='all')
 
         return context
 

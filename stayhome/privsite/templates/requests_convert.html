@@ -72,10 +72,13 @@
                 <td class="col-1"></td>
                 <td class="col-5 p-2">
                     <p class="font-weight-bold m-0 mb-2">Main category</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.main_category %}
                     <select name="main_category" id="id_main_category" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}"></select>
                     <p class="font-weight-bold m-0 mt-3 mb-2">Other categories</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.other_categories %}
                     <select name="other_categories" id="id_other_categories" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}" multiple></select>
                     <p class="font-weight-bold m-0 mt-3 mb-0">New categories</p>
+                    {% include 'includes/requests_convert_errors.html' with field=form.new_categories %}
                     <ul class="small">
                         <li>Existing parent categories: {{ parent_categories|join:", " }}.</li>
                         <li>Always enter the categories on the form &lt;parent_category&gt;<strong>/</strong>&lt;child_category&gt;.
@@ -94,12 +97,8 @@
                 </td>
                 <td class="col-1"></td>
                 <td class="col-5 p-2">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="id_delivers_to_ch" name="delivers_to_ch">
-                        <label class="form-check-label" for="id_delivers_to_ch">
-                            <span class="font-weight-bold">Delivers to whole Switzerland</span>
-                        </label>
-                    </div>
+                    {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_ch %}
+                    {{ form.delivers_to_ch }} <span class="font-weight-bold">Delivers to whole Switzerland</span>
                     <p class="font-weight-bold m-0 mt-3 mb-2">Cantons</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.delivers_to_canton %}
                     <select name="delivers_to_canton" id="id_delivers_to_canton" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'canton' %}" multiple></select>
