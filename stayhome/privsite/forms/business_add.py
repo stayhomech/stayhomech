@@ -44,7 +44,8 @@ class BusinessAddForm(forms.ModelForm):
 
         # Other categories
         if 'other_categories' in d:
-            d['other_categories'] = d['other_categories'] | added_categories
+            if len(added_categories) > 0:
+                d['other_categories'] |= added_categories
         else:
             d['other_categories'] = added_categories
 
