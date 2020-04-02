@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-02 14:30+0200\n"
-"PO-Revision-Date: 2020-04-02 11:15+0200\n"
+"POT-Creation-Date: 2020-04-02 14:58+0200\n"
+"PO-Revision-Date: 2020-04-02 15:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -342,8 +342,8 @@ msgid "Where are you ?"
 msgstr "Dove ti trovi ?"
 
 #: pubsite/templates/home.html:11
-msgid "Find your local delivery."
-msgstr "Trova la consegna locale."
+msgid "Find out who delivers to you."
+msgstr "Scopri chi consegna al tu."
 
 #: pubsite/templates/home.html:14
 msgid "services ready to help"

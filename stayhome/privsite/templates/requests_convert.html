@@ -62,7 +62,7 @@
                     {{ form.description }}
                 </td>
             </tr>
-            <tr class="row p-3 border-bottom">
+            <tr class="row p-3">
                 <td class="col-2 p-2">
                     <strong>Categories</strong>
                 </td>
@@ -74,6 +74,17 @@
                     <p class="font-weight-bold m-0 mb-2">Main category</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.main_category %}
                     <select name="main_category" id="id_main_category" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}"></select>
+                </td>
+            </tr>
+            <tr class="row p-3 border-bottom">
+                <td class="col-6 p-2 small">
+                    <p class="font-weight-bold">Existing categories:</p>
+                    {% for parent in parent_categories %}
+                    <p><span class="font-weight-bold">{{ parent }}</span>: {{ parent.children.all|join:', ' }}</p>
+                    {% endfor %}
+                </td>
+                <td class="col-1"></td>
+                <td class="col-5 p-2">
                     <p class="font-weight-bold m-0 mt-3 mb-2">Other categories</p>
                     {% include 'includes/requests_convert_errors.html' with field=form.other_categories %}
                     <select name="other_categories" id="id_other_categories" class="form-control sh-select2" data-lookup-url="{% url 'mgmt:lookup' 'category' %}" multiple></select>
