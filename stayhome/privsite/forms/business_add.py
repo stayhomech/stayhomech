@@ -75,5 +75,8 @@ class BusinessAddForm(forms.ModelForm):
         if not has_info:
             raise forms.ValidationError("No delivery information provided.")
 
+        # Remove non-utf8 chars from description
+        d['description'] = bytes(d['description'], 'utf-8').decode('utf-8', 'ignore')
+
         # Return data
         return d
