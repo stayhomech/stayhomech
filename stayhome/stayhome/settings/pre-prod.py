@@ -5,7 +5,7 @@ from .base import *
 
 
 # Application
-DEBUG = 0
+DEBUG = 1
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 ALLOWED_HOSTS = ['preview.stayhome.ch', 'web']
 
