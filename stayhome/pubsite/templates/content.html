@@ -2,6 +2,30 @@
 {% load static mptt_tags i18n compress %}
 
 {% block content %}
+<div class="modal" tabindex="-1" role="dialog" id="reportModal">
+  <div class="modal-dialog mw-100 w-75" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-bug mr-2"></i>{% trans 'Report an issue' %}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="font-weight-bold">Damn... despite our efforts you found an issue...</p>
+        <p>Can you help us by describing what the problem is ?</p>
+        <p class="px-4 py-0 mb-1"><input type="radio" name="type" class="mr-2" />Wrong or missing information. Please enter details in the field below.</p>
+        <p class="px-4 py-0 mb-1"><input type="radio" name="type" class="mr-2" />This service does not deliver to my place !</p>
+        <p class="px-4 py-0"><input type="radio" name="type" class="mr-2" />Other. Please enter details in the field below.</p>
+        <textarea class="form-control" name="details" id="" rows="5"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-sm btn-sh">Report</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container border-top">
         <div class="row">
             {% if businesses|length > 0 %}
@@ -21,9 +45,8 @@
                         </button>
                     </div>
                 </div>
-                <div class="row border-bottom p-0 nav-filter">
-                    <div class="col-12 px-3 pt-3">{% blocktrans %}Area:{% endblocktrans %}</div>
-                    <div id="slider-parent" class="px-3 pb-3">
+                <div class="row border-bottom px-3 py-2 nav-filter">
+                    <div id="slider-parent">
                         <i class="fas fa-search-minus"></i>
                         <input id="area-slider" type="text"
                                data-provide="slider"
@@ -37,7 +60,6 @@
                 </div>
                 <div class="row p-0 nav-filter">
                     <ul class="sh-categories-tree">
-                        <li class="sh-all-categories px-3 py-2 border-bottom">All offers</li>
                         {% for parent_pk, parent in sc.items %}
                         <li data-selected="0" data-c-pk="{{ parent_pk }}" class="sh-parent-c px-3 py-2 border-bottom">{{ parent.obj }}</li>
                         <ul class="sh-child-tree sh-parent-{{ parent_pk }}">
@@ -54,20 +76,18 @@
                     {% blocktrans %}Nothing left to show, try changing your filters.{% endblocktrans %}
                 </div>
                 {% for business in businesses %}
-                    <div class="card sh-cat-{{ business.main_category.pk }} sh-cat-{{ business.main_category.parent.pk }} {% for category in business.other_categories.all %}sh-cat-{{ category.pk }} sh-cat-{{ category.parent.pk }} {% endfor %}" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }} {% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
+                    <div class="sh-card sh-cat-{{ business.main_category.pk }} sh-cat-{{ business.main_category.parent.pk }} {% for category in business.other_categories.all %}sh-cat-{{ category.pk }} sh-cat-{{ category.parent.pk }} {% endfor %}" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }} {% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
                         <div class="card-header">
                             <span class="badge badge-secondary">{{ business.main_category.get_path }}</span>
                             {% for category in business.other_categories.all %}
                                 <span class="badge badge-secondary">{{ category.get_path }}</span>
                             {% endfor %}
+                            <span class="float-right small">{% blocktrans %}Located at{% endblocktrans %} {{ business.location }}</span>
                         </div>
                         <div class="card-body">
                             <div class="row mb-2">
-                                <div class="col-6">
-                                    <h6 class="card-title mb-0">{{ business.name }}</h6>
-                                </div>
-                                <div class="col-6 text-right card-info">
-                                    <div class="card-text">{% blocktrans %}Located at{% endblocktrans %} {{ business.location }}</div>
+                                <div class="col-12">
+                                    <h1 class="h5 card-title mb-0">{{ business.name }}</h1>
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
@@ -78,50 +98,47 @@
                             <div class="row my-2" id="more-{{ business.pk }}" style="display: none;">
                                 <div class="col-12">
                                     <div class="row">
-                                        <div class="col-3 font-weight-bold">
-                                            {% blocktrans %}This service delivers to :{% endblocktrans %}
-                                        </div>
-                                        <div class="col-9">
-                                            {% include 'includes/deliver_to_list.html' with business=business %}
+                                        <div class="col-12 small">
+                                            <a class="float-right sh-report" href="#" data-pk="{{ business.pk }}"><i class="fas fa-bug mr-1"></i>{% blocktrans %}Report an issue{% endblocktrans %}</a>
+                                            {% if business.website %}
+                                            <p>
+                                                <span class="font-weight-bold">Website</span><br/>
+                                                <a href="{{ business.website }}" target="_blank">{{ business.website }}</a>
+                                            </p>
+                                            {% endif %}
+                                            {% if business.phone %}
+                                            <p>
+                                                <span class="font-weight-bold">Phone</span><br/>
+                                                <a href="tel:{{ business.phone }}">{{ business.phone }}</a>
+                                            </p>
+                                            {% endif %}
+                                            {% if business.email %}
+                                            <p>
+                                                <span class="font-weight-bold">Email</span><br/>
+                                                <a href="mailto:{{ business.email }}">{{ business.email }}</a>
+                                            </p>
+                                            {% endif %}
+                                            <p>
+                                                <span class="font-weight-bold">{% blocktrans %}Where is this sservice available ?{% endblocktrans %}</span><br />
+                                                {% include 'includes/deliver_to_list.html' with business=business %}
+                                            </p>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12 my-4">
-                                            <a href="mailto:info@stayhome.ch?subject=There is an issue with {{ business.name }} (ID:{{ business.id }})" target="_blank">{% blocktrans %}Use this link to report any problem with this service.{% endblocktrans %}</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="row mb-2" id="minus-{{ business.pk }}" style="display: none;">
-                                <div class="col-12">
-                                    <a href="javascript:see_more('{{ business.pk }}')"><i class="far fa-minus-square"></i>&nbsp;&nbsp;{% blocktrans %}See less{% endblocktrans %}</a>
-                                </div>
-                            </div>
-                            <div class="row mb-2" id="plus-{{ business.pk }}">
-                                <div class="col-12">
-                                    <a href="javascript:see_more('{{ business.pk }}')"><i class="far fa-plus-square"></i>&nbsp;&nbsp;{% blocktrans %}See more{% endblocktrans %}</a>
-                                </div>
-                            </div>
-                        </div>
-                        <nav class="card-footer navbar navbar-expand navbar-light navbar-custom p-0 pl-2 m-0">
-                            <ul class="navbar-nav">
+                            <div class="btn-group btn-group-sm flex-wrap" role="group" aria-label="Card actions">
+                                <a class="btn btn-outline-sh" href="javascript:see_more('{{ business.pk }}')">
+                                    <span id="plus-{{ business.pk }}"><i class="far fa-plus-square mr-1"></i>{% blocktrans %}More{% endblocktrans %}</span>
+                                    <span id="minus-{{ business.pk }}" style="display: none;"><i class="far fa-minus-square mr-1"></i>{% blocktrans %}Less{% endblocktrans %}</span>
+                                </a>
                                 {% if business.website %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ business.website }}" target="_blank"><i class="icon-globe"></i>&nbsp;&nbsp;{% blocktrans %}Visit website{% endblocktrans %}</a>
-                                </li>
+                                <a class="btn btn-outline-sh" href="{{ business.website }}" target="_blank"><i class="fas fa-link mr-1"></i>{% blocktrans %}Website{% endblocktrans %}</a>
                                 {% endif %}
                                 {% if business.phone %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="tel:{{ business.phone }}"><i class="icon-phone"></i>&nbsp;&nbsp;{% blocktrans %}Call{% endblocktrans %}</a>
-                                </li>
+                                <a class="btn btn-outline-sh" href="tel:{{ business.phone }}"><i class="fas fa-phone mr-1"></i>{{ business.phone }}</a>
                                 {% endif %}
-                                {% if business.email %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="mailto:{{ business.email }}"><i class="icon-envelope"></i>&nbsp;&nbsp;{% blocktrans %}Send email{% endblocktrans %}</a>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -154,7 +171,7 @@
                 var shown = 0;
 
                 // Loop on cards
-                $('.card').each((id, target) => {
+                $('.sh-card').each((id, target) => {
 
                     var subject = $(target).data('categories').toLowerCase() + " " + $(target).data('name').toLowerCase();
 
@@ -189,7 +206,7 @@
             var areaMap = [7, 5, 4, 3];
             $('#area-slider').slider().on('slide', e => {
                 var maxRadius = areaMap[e.value];
-                $('.card').each((id, elem) => {
+                $('.sh-card').each((id, elem) => {
                     var card = $(elem);
                     var radius = parseInt(card.data('radius'));
                     if (radius > maxRadius) {
@@ -204,7 +221,7 @@
             }).data('slider');
 
             window.ensureAllFiltered = () => {
-                if ($('.card:visible').length === 0) {
+                if ($('.sh-card:visible').length === 0) {
                     $('#allFiltered').show();
                 } else {
                     $('#allFiltered').hide();

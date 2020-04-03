@@ -199,9 +199,10 @@ P > A:hover {
     padding: 0;
 }
 
-.card {
+.sh-card {
     border: 0;
     border-bottom: 1px solid rgb(222, 226, 230);
+    width: 100%;
 }
 
 .card-header {
@@ -223,11 +224,11 @@ P > A:hover {
     font-size: .9em;
 }
 
-.card A {
+A.sh-report {
     color: $sh-green;
 }
   
-.card A:hover {
+A.sh-report:hover {
     color: $sh-green;
     font-weight: bold;
     text-decoration: none;
