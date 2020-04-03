@@ -168,12 +168,13 @@ class ContentView(TemplateView):
         sc = {}
         for category in context['categories']:
             parent = category.parent
-            if parent.pk not in sc:
-                sc[parent.pk] = {
-                    'obj': parent,
-                    'children': {}
-                }
-            sc[parent.pk]['children'][category.pk] = category
+            if parent is not None:
+                if parent.pk not in sc:
+                    sc[parent.pk] = {
+                        'obj': parent,
+                        'children': {}
+                    }
+                sc[parent.pk]['children'][category.pk] = category
         context['sc'] = sc
 
         return context
