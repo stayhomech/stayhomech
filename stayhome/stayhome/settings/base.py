@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django_filters',
     'ddtrace.contrib.django',
     'corsheaders',
+    'compressor',
 
     'geodata',
     'business',
@@ -129,12 +130,26 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder'
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'rootfiles')
+
+
+# Pre-processing of Sass files
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+LIBSASS_SOURCE_COMMENTS = False
+COMPRESS_ENABLED = True
+
+if RUNNING_ENV != 'prod' and RUNNING_ENV != 'pre-prod':
+    COMPRESS_OFFLINE = False
+else:
+    COMPRESS_OFFLINE = True
 
 
 # REST framework
@@ -176,3 +191,9 @@ CORS_ORIGIN_WHITELIST = [
     'https://www.stayhome.ch',
     'https://stay-home.squarespace.com'
 ]
+
+
+# SMTP
+EMAIL_HOST = 'aspmx.l.google.com'
+EMAIL_PORT = 25
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

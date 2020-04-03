@@ -1,64 +1,123 @@
-{% extends "base.html" %}
+{% extends "navigation.html" %}
 {% load i18n static %}
 
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block content %}
-<div class="container" style="padding-top: min(25vw, 200px);">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1 style="font-family: 'Maven Pro', sans-serif; color: #333333; font-size: min(10vw, 80px)"><span style="color: seagreen;">Stay</span>Home<span style="color: silver; font-size: 40%">.ch</span></h1>
-        </div>   
+
+<div class="sh-container-main">
+    <div class="d-flex flex-column h-100 justify-content-center align-items-center col-12 col-md-6 mx-auto">
+        <div class="w-100">
+            <h1>{% trans 'Find out who delivers to you.' %}</h1>
+        </div>
+        <div class="w-100">
+            <h2>{{ count }} {% trans 'services ready to help' %}</h2>
+        </div>
+        <div class="input-group my-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <div class="spinner-grow locationLookup" role="status" style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <i class="locationMarker fas fa-location-arrow"></i>
+                </span>
+            </div>
+            <input id="mainlocInput" class="locInput form-control form-control-lg" type="text" placeholder="{% trans 'Enter postcode or place name' %}" data-url="/location" autocomplete="off">
+        </div>
     </div>
-    <div class="row mt-3">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 text-center mx-auto">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <div class="spinner-grow" id="locationLookup" role="status" style="display: none;">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <i id="locationMarker" class="icon-map-marker icon-large" style="width: 32px; height: 34px; font-size: 24px; text-align: center;"></i>
-                    </span>
-                </div>
-                <input id="locInput" class="form-control form-control-lg" type="text" placeholder="{% trans 'Where are you ?' %}" data-url="/location" autocomplete="off">
+</div>
+
+<div class="sh-container-cream">
+    <div class="d-flex flex-column justify-content-center align-items-center col-12 col-md-6 mx-auto p-5 sh-testimony">
+        <div class="sh-testimony-text">“{% blocktrans %}An excellent idea! I no longer have to laboriously click through the websites of the shops in my village to find those that deliver to my home. They are clearly listed on this page.{% endblocktrans %}”</div>
+        <div class="mt-4 sh-testimony-author">— D. Arlettaz</div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 order-2 order-md-1 px-5 py-0 py-md-5">
+            <h1 class="font-weight-bold">{% trans 'Find your local delivery service' %}</h1>
+            <p>{% blocktrans %}By simply entering your zip code, you will find many local dealers and shops that offer home delivery. This saves you a time-consuming search.{% endblocktrans %}</p>
+        </div>
+        <div class="col-12 col-md-6 order-1 order-md-2 p-5"><img class="img-fluid" src="{% static 'pubsite/img-1.jpg' %}" /></div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 order-1 p-5"><img class="img-fluid" src="{% static 'pubsite/img-2.jpg' %}" /></div>
+        <div class="col-12 col-md-6 order-2  px-5 py-0 py-md-5">
+            <h1 class="font-weight-bold">{% trans 'Local and regional products' %}</h1>
+            <p>{% blocktrans %}You support local dealers and shops directly from your area who need our support during this time. You help small and medium businesses around you. You no longer have to do without your favorite products from your area, you can simply and conveniently order them from home.{% endblocktrans %}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 order-2 order-md-1 px-5 pt-0 pb-5 py-md-5">
+            <h1 class="font-weight-bold">{% trans 'Fast delivery' %}</h1>
+            <p>{% blocktrans %}The big online retailers currently have long delivery times. Due to the proximity, the local dealers and shops can deliver quickly and you will receive your goods in a short time.{% endblocktrans %}</p>
+            <p>{% blocktrans %}Thanks to stayhome.ch you can order directly from your local gastronomy or business.{% endblocktrans %}</p>
+        </div>
+        <div class="col-12 col-md-6 order-1 order-md-2 p-5"><img class="img-fluid" src="{% static 'pubsite/img-3.jpg' %}" /></div>
+    </div>
+</div>
+
+<div class="sh-container-cream">
+    <div class="d-flex flex-column justify-content-center align-items-center col-12 col-md-6 mx-auto p-5" style="min-height: 35vh;" >
+        <h1 class="font-weight-bold">{% blocktrans %}Find stores in your area that deliver to you quickly and easily!{% endblocktrans %}</h1>
+        <div class="input-group my-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <div class="spinner-grow locationLookup" role="status" style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <i class="locationMarker fas fa-location-arrow"></i>
+                </span>
+            </div>
+            <input class="locInput form-control form-control-lg" type="text" placeholder="{% trans 'Where are you ?' %}" data-url="/location" autocomplete="off">
+        </div>
+    </div>
+</div>
+
+<div class="sh-container-dark">
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="row">
+            <div class="col-12 col-md-5 p-5">
+                <h1 class="font-weight-bold">{% trans 'Add a business' %}</h1>
+                <p>{% blocktrans %}Do you have a business and want to register it with us to show that it is still operating for customers.{% endblocktrans %}</p>
+                <a class="btn btn-outline-sh" href="{% url 'add' %}">{% trans 'Add a business' %}</a>       
+            </div>
+            <div class="col-12 offset-md-2 col-md-5 px-5 pb-5 py-md-5">
+                <h1 class="font-weight-bold">{% trans 'Do you want to help?' %}</h1>
+                <p>{% blocktrans %}If you want to help us translate or develop new features, you can find our source code on GitHub.{% endblocktrans %}</p>
+                <a class="btn btn-outline-sh" href="https://github.com/stayhomech/stayhomech" target="_blank">{% trans 'Help us on GitHub' %}</a>     
             </div>
         </div>
     </div>
+</div>
+
+<div class="container">
     <div class="row">
-        <div class="col text-center">
-            <small class="form-text text-muted">{% blocktrans %}Enter your post code or city name. For Switzerland <i class="icon-plus-sign-alt" style="color: red;"></i> only ;-){% endblocktrans %}</small>
+        <div class="col-12 col-md-8 mx-auto p-5">
+            <h1 class="font-weight-bold">{% blocktrans %}Many thanks to our partners and sponsors{% endblocktrans %}</h1>
         </div>
     </div>
-    <div class="row text-center mt-3">
-        <div class="col text-center small">
-            <a class="lang-select" data-lang="de" href="#">DE</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a class="lang-select" data-lang="en" href="#">EN</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a class="lang-select" data-lang="fr" href="#">FR</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a class="lang-select" data-lang="it" href="#">IT</a>
-            <br />&nbsp;<br />
-            <a href="{% url 'add' %}">{% blocktrans %}Add your business{% endblocktrans %}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://github.com/mageo/stayhomech" target="_blank">{% blocktrans %}Help us on GitHub{% endblocktrans %}</a>
+    <div class="row pb-5">
+        <div class="offset-1 col-10 offset-md-1 col-md-2 text-center pb-5">
+            <a href="https://schaltstelle.ch/" target="_blank">
+                <img class="img-fluid my-auto" src="{% static 'pubsite/img/sponsors/schaltstelle.png' %}" />
+            </a>
         </div>
-    </div>
-    <div class="row text-center mt-5 pt-5">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 text-center mx-auto">
-            {% if request.LANGUAGE_CODE == 'fr' %}
-            <a href="https://ofsp-coronavirus.ch/" target="_blank">
-            {% elif request.LANGUAGE_CODE == 'de' %}
-            <a href="https://bag-coronavirus.ch/" target="_blank">
-            {% elif request.LANGUAGE_CODE == 'it' %}
-            <a href="https://ufsp-coronavirus.ch/" target="_blank">
-            {% else %}
-            <a href="https://foph-coronavirus.ch/" target="_blank">
-            {% endif %}
-                <img src="{% static 'pubsite/BAG_'|add:request.LANGUAGE_CODE|add:'.jpg' %}" style="width: 100%;" />
+        <div class="offset-1 col-10 offset-md-2 col-md-2 text-center pb-5">
+            <a href="https://www.suisseresponsable.ch/" target="_blank">
+                <img class="img-fluid my-auto" src="{% static 'pubsite/img/sponsors/suisse_solidaire_responsable.png' %}" />
+            </a>
+        </div>
+        <div class="offset-1 col-10 offset-md-2 col-md-2 text-cente pb-5">
+            <a href="https://www.createyouronlinepresence.com/" target="_blank">
+                <img class="img-fluid my-auto" src="{% static 'pubsite/img/sponsors/create.png' %}" />
             </a>
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block script %}
@@ -68,16 +127,16 @@
 
             // Search display loopback
             function startSearch () {
-                $('#locationMarker').hide();
-                $('#locationLookup').show();
+                $('.locationMarker').hide();
+                $('.locationLookup').show();
             }
             function endSearch () {
-                $('#locationMarker').show();
-                $('#locationLookup').hide();
+                $('.locationMarker').show();
+                $('.locationLookup').hide();
             }
 
             // Location validation
-            $('#locInput').autoComplete({
+            $('.locInput').autoComplete({
                 events: {
                     searchPre: (values) => {
                         startSearch();
@@ -93,24 +152,6 @@
                 npa = value.shift();
                 name = value.join(' ');
                 window.location = "/" + npa + "/" + encodeURIComponent(name) + "/";
-            });
-
-            // Language change
-            $('.lang-select').on('click', (event) => {
-                lang = $(event.target).data('lang');
-                $.ajax({
-                    url: "{% url 'set_language' %}",
-                    headers: {
-                        'X-CSRFToken': Cookies.get('csrftoken')
-                    },
-                    data: {
-                        'language': lang
-                    },
-                    method: 'POST',
-                    success: () => {
-                        location.reload();
-                    }
-                });
             });
 
             // Geo-location
@@ -133,7 +174,7 @@
                                 return
                             } else {
                                 console.log(addr.Postal);
-                                $('#locInput').val(addr.Postal).trigger('keyup');
+                                $('#mainlocInput').val(addr.Postal).trigger('keyup');
                             }
                         } else {
                             endSearch();

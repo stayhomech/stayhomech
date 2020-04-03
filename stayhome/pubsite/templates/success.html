@@ -1,17 +1,15 @@
-{% extends "mgmt.html" %}
+{% extends "navigation.html" %}
 {% load i18n %}
 
-{% block mgmt-content-header %}
-    <p class="p-0 m-0 mb-2 small"><a href="/">{% blocktrans %}Go back to home{% endblocktrans %}</a></p>
-{% endblock %}
-
-{% block mgmt-content %}
-        <div class="row">
-            <div class="col-8 p-3 mx-auto">
-                <div class="alert alert-success my-5" role="alert">
-                    <h4>{% blocktrans %}Your request has been submited! Thank you!{% endblocktrans %}</h4>
-                    {% blocktrans %}The processing of your request may take up to 24 hours. Please be patient.{% endblocktrans %}
-                </div>
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-8 p-3 mx-auto">
+            <div class="alert alert-success my-5" role="alert">
+                <h4>{% blocktrans %}Your request has been submited! Thank you!{% endblocktrans %}</h4>
+                {% blocktrans %}The processing of your request may take up to 24 hours. Please be patient.{% endblocktrans %}
             </div>
-         </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
