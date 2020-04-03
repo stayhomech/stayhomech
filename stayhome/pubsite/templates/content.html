@@ -26,6 +26,7 @@
     </div>
   </div>
 </div>
+
 <div class="container border-top">
         <div class="row">
             {% if businesses|length > 0 %}
@@ -36,7 +37,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                             </div>
-                            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
+                            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="{% trans 'Search' %}">
                         </div>
                     </div>
                     <div class="col-2 col-lg-0 p-3 d-block d-lg-none">
@@ -181,7 +182,7 @@
                     } else {
                         target.style.display = "none";
                     }
-                    
+
                 });
 
                 // No card left
@@ -215,7 +216,7 @@
                         card.show();
                     }
                 });
-                
+
                 ensureAllFiltered();
 
             }).data('slider');
