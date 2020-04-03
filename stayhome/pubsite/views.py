@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import translation
 from django.conf import settings
 from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 from django.utils.translation import get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.mail import send_mail
@@ -22,6 +23,7 @@ from .forms import ContactForm
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(cache_page(60 * 5), name='dispatch')
 class HomeView(TemplateView):
 
     template_name = "home.html"
@@ -47,6 +49,7 @@ class EmbededView(TemplateView):
     template_name = "embed.html"
 
 
+@method_decorator(cache_page(60 * 5), name='dispatch')
 class HomeLocationView(View):
 
     def get(self, request, *args, **kwargs):
@@ -77,6 +80,7 @@ class HomeLocationView(View):
         return JsonResponse([], safe=False)
 
 
+@method_decorator(cache_page(60 * 5), name='dispatch')
 class ContentView(TemplateView):
 
     template_name = "content.html"
