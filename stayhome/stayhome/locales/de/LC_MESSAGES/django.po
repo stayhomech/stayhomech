@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-02 14:58+0200\n"
-"PO-Revision-Date: 2020-04-02 15:01+0200\n"
+"POT-Creation-Date: 2020-04-03 13:42+0200\n"
+"PO-Revision-Date: 2020-04-03 13:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -78,7 +78,8 @@ msgstr ""
 "Bis wohin wird geliefert? Ganze Schweiz, Kantone, Gemeinde, Orte - Sei so "
 "genau wie möglich."
 
-#: business/forms/add_form.py:71
+#: business/forms/add_form.py:71 pubsite/templates/content.html:111
+#: pubsite/templates/content.html:141
 msgid "Website"
 msgstr "Webseite"
 
@@ -153,33 +154,33 @@ msgstr "Italienisch"
 msgid "Pending requests"
 msgstr "Offene Anfragen"
 
-#: privsite/views.py:54 privsite/views.py:79
+#: privsite/views.py:54 privsite/views.py:83
 #, python-format
 msgid "%d requets are available to process."
 msgstr "%d Anfragen können bearbeitet werden."
 
-#: privsite/views.py:56 privsite/views.py:81
+#: privsite/views.py:56 privsite/views.py:85
 msgid "No pending request."
 msgstr "Keine ausstehende Anfrage."
 
-#: privsite/views.py:76
+#: privsite/views.py:80
 msgid "Your requests"
 msgstr "Deine Anfrage"
 
-#: privsite/views.py:102
+#: privsite/views.py:106
 msgid "Convert request to business"
 msgstr "Anfrage in ein Geschäft umwandeln"
 
-#: privsite/views.py:191
+#: privsite/views.py:200
 msgid "Categories translations"
 msgstr "Kategorienübersetzungen"
 
-#: privsite/views.py:194
+#: privsite/views.py:203
 #, python-format
 msgid "%d categories exist."
 msgstr "%d Kategorien existieren."
 
-#: privsite/views.py:196
+#: privsite/views.py:205
 msgid "No category defined."
 msgstr "Keine Kategorie definiert."
 
@@ -272,11 +273,11 @@ msgstr "kontaktiere uns"
 msgid "Send your request"
 msgstr "Sende deine Anfrage"
 
-#: pubsite/templates/base.html:29 pubsite/templates/base.html:33
+#: pubsite/templates/base.html:30 pubsite/templates/base.html:34
 msgid "Stay home ! We deliver..."
 msgstr "Bleib zu Hause, wir liefern..."
 
-#: pubsite/templates/base.html:31 pubsite/templates/base.html:34
+#: pubsite/templates/base.html:32 pubsite/templates/base.html:35
 msgid ""
 "StayHome.ch is a directory of delivery services available in Switzerland "
 "based on visitor's location. It has been created to help Swiss people and "
@@ -286,47 +287,78 @@ msgstr ""
 "Seite wurde im Rahmen der COVID-19 Krise erstellt, um Schweizern und KMU's "
 "eine Platform zu geben."
 
+#: pubsite/templates/content.html:9 pubsite/templates/content.html:108
+msgid "Report an issue"
+msgstr "Erstelle eine Meldung"
+
+#: pubsite/templates/content.html:19
+msgid "Damn... despite our efforts you found an issue..."
+msgstr "Verdammt... trotz unserer Bemühungen haben Sie ein Problem gefunden..."
+
+#: pubsite/templates/content.html:20
+msgid "Can you help us by describing what the problem is ?"
+msgstr ""
+"Können Sie uns helfen, indem Sie beschreiben, worin das Problem besteht?"
+
+#: pubsite/templates/content.html:21
+msgid "Wrong or missing information. Please enter details in the field below."
+msgstr ""
+"Falsche oder fehlende Informationen. Bitte geben Sie Details in das Feld "
+"unten ein."
+
 #: pubsite/templates/content.html:22
+msgid "This service does not deliver to my place !"
+msgstr "Dieser Service liefert nicht an meinen Platz !"
+
+#: pubsite/templates/content.html:23
+msgid "Other. Please enter details in the field below."
+msgstr "Andere. Bitte geben Sie Details in das Feld unten ein."
+
+#: pubsite/templates/content.html:27
+msgid "Thank you for your report !"
+msgstr "Vielen Dank für Ihre Meldung!"
+
+#: pubsite/templates/content.html:29
+msgid "Close"
+msgstr "Schließen"
+
+#: pubsite/templates/content.html:30
+msgid "Report"
+msgstr "Melden"
+
+#: pubsite/templates/content.html:82
 msgid "Nothing left to show, try changing your filters."
 msgstr "Keine weiteren Angebote, versuche den Filter anzupassen."
 
-#: pubsite/templates/content.html:38
+#: pubsite/templates/content.html:91
 msgid "Located at"
 msgstr "Standort"
 
-#: pubsite/templates/content.html:50
-msgid "This service delivers to :"
-msgstr "Liefert nach:"
+#: pubsite/templates/content.html:117
+msgid "Phone"
+msgstr "Telefon"
 
-#: pubsite/templates/content.html:58
-msgid "Use this link to report any problem with this service."
-msgstr "Verwende diesen Link, um Probleme mit diesem Dienst zu melden."
+#: pubsite/templates/content.html:123
+msgid "Email"
+msgstr "E-Mail"
 
-#: pubsite/templates/content.html:65
-msgid "See less"
-msgstr "Weniger anzeigen"
+#: pubsite/templates/content.html:128
+msgid "Where is this service available ?"
+msgstr "Wo ist dieser Service verfügbar ?"
 
-#: pubsite/templates/content.html:70
-msgid "See more"
-msgstr "Mehr anzeigen"
+#: pubsite/templates/content.html:137
+msgid "More"
+msgstr "Mehr"
 
-#: pubsite/templates/content.html:78
-msgid "Visit website"
-msgstr "Besuche die Webseite"
+#: pubsite/templates/content.html:138
+msgid "Less"
+msgstr "Weniger"
 
-#: pubsite/templates/content.html:83
-msgid "Call"
-msgstr "Anrufen"
-
-#: pubsite/templates/content.html:88
-msgid "Send email"
-msgstr "E-Mail senden"
-
-#: pubsite/templates/content.html:98
+#: pubsite/templates/content.html:153
 msgid "No delivery service available at that location :-("
 msgstr "Leider haben wir noch keine Angebote gefunden für diesen Ort :("
 
-#: pubsite/templates/content.html:99
+#: pubsite/templates/content.html:154
 msgid ""
 "If you own or know a company that offers a delivery service at this "
 "location, please consider"
@@ -334,7 +366,7 @@ msgstr ""
 "Falls du eine Firma hast oder kennst, welche Lieferservices anbietet für "
 "diesen Ort, nutze das folgende Formular"
 
-#: pubsite/templates/content.html:99
+#: pubsite/templates/content.html:154
 msgid "adding the service"
 msgstr "Geschäft hinzufügen"
 
@@ -456,17 +488,9 @@ msgstr "Vielen Dank an unsere Partner und Sponsoren"
 msgid "Everywhere in Switzerland"
 msgstr "Überall in der Schweiz"
 
-#: pubsite/templates/includes/deliver_to_list.html:12
+#: pubsite/templates/includes/deliver_to_list.html:14
 msgid "District"
 msgstr "Bezirk"
-
-#: pubsite/templates/includes/deliver_to_list.html:16
-msgid "Municipality"
-msgstr "Gemeinde"
-
-#: pubsite/templates/includes/deliver_to_list.html:20
-msgid "Postal code"
-msgstr "Postleitzahl"
 
 #: pubsite/templates/mgmt.html:27
 msgid "About"
@@ -480,7 +504,7 @@ msgstr "Beitragen"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: pubsite/templates/mgmt.html:38 pubsite/templates/navigation.html:66
+#: pubsite/templates/mgmt.html:38 pubsite/templates/navigation.html:72
 msgid "Sign in"
 msgstr "Anmelden"
 
@@ -492,11 +516,11 @@ msgstr "Home"
 msgid "Contact us"
 msgstr "Kontakt"
 
-#: pubsite/templates/navigation.html:48
+#: pubsite/templates/navigation.html:54
 msgid "Add a delivery service"
 msgstr "Geschäft hinzufügen"
 
-#: pubsite/templates/navigation.html:65
+#: pubsite/templates/navigation.html:71
 msgid "All rights reserved"
 msgstr "Alle Rechte vorbehalten"
 
@@ -511,13 +535,37 @@ msgstr ""
 "Die Verarbeitung deiner Anfrage kann bis zu 24h dauern. Danke für deine "
 "Geduld."
 
-#: pubsite/views.py:91
+#: pubsite/views.py:96
 msgid "NPA does not exist"
 msgstr "NPA existiert nicht"
 
-#: pubsite/views.py:196
+#: pubsite/views.py:207
 msgid "Your message has been sent."
 msgstr "Deine Nachricht wurde gesendet."
+
+#~ msgid "Use this link to report any problem with this service."
+#~ msgstr "Verwende diesen Link, um Probleme mit diesem Dienst zu melden."
+
+#~ msgid "See less"
+#~ msgstr "Weniger anzeigen"
+
+#~ msgid "See more"
+#~ msgstr "Mehr anzeigen"
+
+#~ msgid "Visit website"
+#~ msgstr "Besuche die Webseite"
+
+#~ msgid "Call"
+#~ msgstr "Anrufen"
+
+#~ msgid "Send email"
+#~ msgstr "E-Mail senden"
+
+#~ msgid "Municipality"
+#~ msgstr "Gemeinde"
+
+#~ msgid "Postal code"
+#~ msgstr "Postleitzahl"
 
 #~ msgid "Convert to new business"
 #~ msgstr "In ein neues Geschäfts umwandeln"
@@ -565,9 +613,6 @@ msgstr "Deine Nachricht wurde gesendet."
 
 #~ msgid "Delivery perimeter"
 #~ msgstr "Umkreis"
-
-#~ msgid "Where is the service available ?"
-#~ msgstr "Wohin wird geliefert ?"
 
 #~ msgid "adding your business"
 #~ msgstr "Geschäft hinzufügen"
