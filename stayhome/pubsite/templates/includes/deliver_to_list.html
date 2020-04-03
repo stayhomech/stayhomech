@@ -1,21 +1,23 @@
 {% load static i18n %}
 
 {% if business.delivers_to_ch %}
-<p>{% blocktrans %}Everywhere in Switzerland{% endblocktrans %}</p>
+<span class="badge badge-light"><img src="{% static 'pubsite/flags/CH.png' %}" class="mr-1" style="height: 1em">{% blocktrans %}Everywhere in Switzerland{% endblocktrans %}</span>
 {% endif %}
 
 {% for canton in business.delivers_to_canton.all %}
-<p>{{ canton }}</p>
+{% with canton.code|upper as code %}
+<span class="badge badge-light"><img src="{% static 'pubsite/flags/'|add:code|add:'.png' %}" class="mr-1" style="height: 1em">{{ canton }}</span>
+{% endwith %}
 {% endfor %}
 
 {% for district in business.delivers_to_district.all %}
-<p>{% blocktrans %}District{% endblocktrans %}: {{ district }}</p>
+<span class="badge badge-light">{% blocktrans %}District{% endblocktrans %}: {{ district }}</span>
 {% endfor %}
 
 {% for municipality in business.delivers_to_municipality.all %}
-<p>{% blocktrans %}Municipality{% endblocktrans %}: {{ municipality }}</p>
+<span class="badge badge-light">{{ municipality }}</span>
 {% endfor %}
 
 {% for npa in business.delivers_to.all %}
-<p>{% blocktrans %}Postal code{% endblocktrans %}: {{ npa }}</p>
+<span class="badge badge-light">{{ npa }}</span>
 {% endfor %}

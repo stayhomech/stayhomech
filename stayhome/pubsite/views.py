@@ -120,82 +120,59 @@ class ContentView(TemplateView):
             'c_code:' + str(canton.code).replace(' ', '_')
         ])
 
-        cache_key = str(npa.pk) + '_businesses'
-        businesses = cache.get(cache_key)
-        if businesses is None:
-
-            businesses = Business.objects.filter(status=Business.events.VALID).filter(
-                Q(location=npa)
-                |
-                Q(delivers_to__in=[npa])
-                |
-                Q(delivers_to_municipality__in=[municipality])
-                |
-                Q(delivers_to_district__in=[district])
-                |
-                Q(delivers_to_canton__in=[canton])
-                |
-                Q(delivers_to_ch=True)
-            ).distinct().annotate(
-                radius=Case(
-                    When(location=npa, then=Value(0)),
-                    When(location__in=npas, then=Value(1)),
-                    When(delivers_to__in=[npa], then=Value(2)),
-                    When(delivers_to_municipality__in=[municipality], then=Value(3)),
-                    When(delivers_to_district__in=[district], then=Value(4)),
-                    When(delivers_to_canton__in=[canton], then=Value(5)),
-                    When(delivers_to_ch=True, then=Value(6)),
-                    default=Value(7),
-                    output_field=PositiveSmallIntegerField()
-                ),
-            ).order_by('radius', 'name')
-
-            cache.set(cache_key, businesses, 3600)
-
-        context['businesses'] = businesses
+        context['businesses'] = Business.objects.filter(status=Business.events.VALID).filter(
+            Q(location=npa)
+            |
+            Q(delivers_to__in=[npa])
+            |
+            Q(delivers_to_municipality__in=[municipality])
+            |
+            Q(delivers_to_district__in=[district])
+            |
+            Q(delivers_to_canton__in=[canton])
+            |
+            Q(delivers_to_ch=True)
+        ).distinct().annotate(
+            radius=Case(
+                When(location=npa, then=Value(0)),
+                When(location__in=npas, then=Value(1)),
+                When(delivers_to__in=[npa], then=Value(2)),
+                When(delivers_to_municipality__in=[municipality], then=Value(3)),
+                When(delivers_to_district__in=[district], then=Value(4)),
+                When(delivers_to_canton__in=[canton], then=Value(5)),
+                When(delivers_to_ch=True, then=Value(6)),
+                default=Value(7),
+                output_field=PositiveSmallIntegerField()
+            ),
+        ).order_by('radius', 'name')
 
         # Stats
-        statsd.gauge('results', businesses.count(), tags=[
+        statsd.gauge('results', context['businesses'].count(), tags=[
             'n_pk:' + str(npa.pk),
             'n_code:' + str(npa.npa),
             'n_name:' + str(npa.name_en).replace(' ', '_')
         ])
 
         # Categories
-        cache_key = str(npa.pk) + '_categories'
-        categories = cache.get(cache_key)
-        if categories is None:
-
-            categories = Category.objects.filter(
-                Q(as_main_category__in=context['businesses'])
-                |
-                Q(as_other_category__in=context['businesses'])
-            ).distinct().order_by('parent__tree_id', 'tree_id')
-
-            cache.set(cache_key, categories, 3600)
-
-        context['categories'] = categories
+        context['categories'] = Category.objects.filter(
+            Q(as_main_category__in=context['businesses'])
+            |
+            Q(as_other_category__in=context['businesses'])
+        ).distinct().order_by('parent__tree_id', 'tree_id')
 
         # Structured categories
-        cache_key = str(npa.pk) + '_sc'
-        sc = cache.get(cache_key)
-        if sc is None:
+        context['sc'] = {}
+        for category in context['categories']:
+            parent = category.parent
+            if parent is not None:
+                if parent.pk not in context['sc']:
+                    context['sc'][parent.pk] = {
+                        'obj': parent,
+                        'children': {}
+                    }
+                context['sc'][parent.pk]['children'][category.pk] = category
 
-            sc = {}
-            for category in context['categories']:
-                parent = category.parent
-                if parent is not None:
-                    if parent.pk not in sc:
-                        sc[parent.pk] = {
-                            'obj': parent,
-                            'children': {}
-                        }
-                    sc[parent.pk]['children'][category.pk] = category
-
-            cache.set(cache_key, sc, 3600)
-        
-        context['sc'] = sc
-
+        # Return
         return context
 
 

@@ -20,7 +20,7 @@ $(document).ready(() => {
             $('.sh-child-tree').hide();
 
             // Show all cards
-            $('.card').show();
+            $('.sh-card').show();
 
             // Save state
             t.removeClass('selected');
@@ -42,7 +42,7 @@ $(document).ready(() => {
             $('.sh-cat-' + c).show();
 
             // Hide other cards
-            $('.card').not('.sh-cat-' + c).hide();
+            $('.sh-card').not('.sh-cat-' + c).hide();
 
             // Save state
             t.addClass('selected');
@@ -69,7 +69,7 @@ $(document).ready(() => {
             t.removeClass('selected');
 
             // Show all cards
-            $('.card').show();
+            $('.sh-card').show();
 
             // Save state
             t.removeClass('selected');
@@ -87,7 +87,7 @@ $(document).ready(() => {
             $('.sh-cat-' + c).show();
 
             // Hide other cards
-            $('.card').not('.sh-cat-' + c).hide();
+            $('.sh-card').not('.sh-cat-' + c).hide();
 
             // Save state
             t.addClass('selected');
@@ -95,6 +95,5 @@ $(document).ready(() => {
         }
 
     });
-
 
 });
