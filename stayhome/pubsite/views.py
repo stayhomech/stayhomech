@@ -158,23 +158,38 @@ class ContentView(TemplateView):
         ])
 
         # Categories
-        context['categories'] = Category.objects.filter(
-            Q(as_main_category__in=context['businesses'])
-            |
-            Q(as_other_category__in=context['businesses'])
-        ).distinct().order_by('parent__tree_id', 'tree_id')
+        cache_key = str(npa.pk) + '_categories'
+        categories = cache.get(cache_key)
+        if categories is None:
+
+            categories = Category.objects.filter(
+                Q(as_main_category__in=context['businesses'])
+                |
+                Q(as_other_category__in=context['businesses'])
+            ).distinct().order_by('parent__tree_id', 'tree_id')
+
+            cache.set(cache_key, categories, 3600)
+
+        context['categories'] = categories
 
         # Structured categories
-        sc = {}
-        for category in context['categories']:
-            parent = category.parent
-            if parent is not None:
-                if parent.pk not in sc:
-                    sc[parent.pk] = {
-                        'obj': parent,
-                        'children': {}
-                    }
-                sc[parent.pk]['children'][category.pk] = category
+        cache_key = str(npa.pk) + '_sc'
+        sc = cache.get(cache_key)
+        if sc is None:
+
+            sc = {}
+            for category in context['categories']:
+                parent = category.parent
+                if parent is not None:
+                    if parent.pk not in sc:
+                        sc[parent.pk] = {
+                            'obj': parent,
+                            'children': {}
+                        }
+                    sc[parent.pk]['children'][category.pk] = category
+
+            cache.set(cache_key, sc, 3600)
+        
         context['sc'] = sc
 
         return context
