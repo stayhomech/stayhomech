@@ -31,13 +31,27 @@ services:
       - RECAPTCHA_PRIVATE_KEY=""
       - DJANGO_SECRET_KEY=verynotsecretkey
       - GOOGLE_UA=""
-    ports:
-      - 127.0.0.1:8000:8000
+    expose:
+      - 8000
     depends_on:
       - db
     restart: always
     volumes:
       - api_key:/api
+
+  angular:
+    image: nginx:1.17-alpine
+    restart: always
+
+  haproxy:
+    build: haproxy/
+    container_name: haproxy
+    ports:
+      - 127.0.0.1:8000:8000
+    depends_on:
+      - web
+      - angular
+    restart: always
 
   sync-service:
     build: sync-service/
