@@ -80,6 +80,7 @@ class HomeLocationView(View):
         return JsonResponse([], safe=False)
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(cache_page(60 * 5), name='dispatch')
 class ContentView(TemplateView):
 

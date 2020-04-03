@@ -177,4 +177,52 @@ $(document).ready(() => {
         }
     }
 
+    // Report
+    $('.sh-report').on('click', (e) => {
+
+        // Target
+        var t = $(e.target);
+
+        // Business PK
+        var pk = t.data('pk');
+        $('#modalPk').val(pk);
+
+        // Display modal
+        $('#reportModal').modal();
+
+    });
+
+    $('.sh-report-btn').on('click', (e) => {
+
+        // Validate form
+        if (!$('#reportForm')[0].checkValidity()) {
+            window.alert('Please select a reason.');
+            return;
+        }
+
+        // Build data
+        var data = {
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').first().val(),
+            'name': 'Report form',
+            'email': 'info@stayhome.ch',
+            'message': JSON.stringify({
+                'business': $('#modalPk').val(),
+                'npa': $('input[name="reportNpa"]').first().val(),
+                'type': $('input[name="reportType"]:checked').first().val(),
+                'message': $('textarea[name="reportDetails"]').first().val()
+            })
+        }
+
+        // Post
+        $.post(
+            '/about/',
+            data
+        )
+
+        // Message
+        $('#reportModalBody').hide();
+        $('#reportModalBodyConfirmation').show();
+
+    });
+
 });
