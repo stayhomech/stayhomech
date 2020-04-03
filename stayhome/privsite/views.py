@@ -41,7 +41,7 @@ class RequestsListView(ListView):
         if lang is not None and lang != '' and lang != 'all':
             objects = objects.filter(lang=lang)
 
-        return objects.order_by('creation').only('name', 'description', 'location')
+        return objects.order_by('source', 'creation').only('name', 'description', 'location')
 
     def get_context_data(self, **kwargs):
 
