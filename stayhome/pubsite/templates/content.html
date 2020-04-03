@@ -16,17 +16,18 @@
         {% csrf_token %}
         <input type="hidden" value="None" name="pk" id="modalPk" />
         <input type="hidden" value="{{ npa.pk }}" name="reportNpa" />
-        <p class="font-weight-bold">Damn... despite our efforts you found an issue...</p>
-        <p>Can you help us by describing what the problem is ?</p>
-        <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad information" required />Wrong or missing information. Please enter details in the field below.</p>
-        <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad delivery perimeter" required />This service does not deliver to my place !</p>
-        <p class="px-4 py-0"><input type="radio" name="reportType" class="mr-2" value="Other" required />Other. Please enter details in the field below.</p>
+        <p class="font-weight-bold">{% blocktrans %}Damn... despite our efforts you found an issue...{% endblocktrans %}</p>
+        <p>{% blocktrans %}Can you help us by describing what the problem is ?{% endblocktrans %}</p>
+        <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad information" required />{% blocktrans %}Wrong or missing information. Please enter details in the field below.{% endblocktrans %}</p>
+        <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad delivery perimeter" required />{% blocktrans %}This service does not deliver to my place !{% endblocktrans %}</p>
+        <p class="px-4 py-0"><input type="radio" name="reportType" class="mr-2" value="Other" required />{% blocktrans %}Other. Please enter details in the field below.{% endblocktrans %}</p>
         <textarea class="form-control" name="reportDetails" rows="5"></textarea>
         </form>
       </div>
+      <div class="modal-body" id="reportModalBodyConfirmation" style="display: none;">{% blocktrans %}Thank you for your report !{% endblocktrans %}</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-sm btn-sh sh-report-btn">Report</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
+        <button type="button" class="btn btn-sm btn-sh sh-report-btn">{% trans 'Report' %}</button>
       </div>
     </div>
   </div>

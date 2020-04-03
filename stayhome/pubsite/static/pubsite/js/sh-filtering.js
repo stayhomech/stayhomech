@@ -220,7 +220,8 @@ $(document).ready(() => {
         )
 
         // Message
-        $('#reportModalBody').html('Thank you for your report !');
+        $('#reportModalBody').hide();
+        $('#reportModalBodyConfirmation').show();
 
     });
 
