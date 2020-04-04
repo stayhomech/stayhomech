@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="modal" tabindex="-1" role="dialog" id="reportModal">
-  <div class="modal-dialog mw-100 w-75" role="document">
+  <div class="modal-dialog mw-100 w-50" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"><i class="fas fa-bug mr-2"></i>{% trans 'Report an issue' %}</h5>
@@ -11,21 +11,28 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <p class="font-weight-bold">Damn... despite our efforts you found an issue...</p>
-        <p>Can you help us by describing what the problem is ?</p>
-        <p class="px-4 py-0 mb-1"><input type="radio" name="type" class="mr-2" />Wrong or missing information. Please enter details in the field below.</p>
-        <p class="px-4 py-0 mb-1"><input type="radio" name="type" class="mr-2" />This service does not deliver to my place !</p>
-        <p class="px-4 py-0"><input type="radio" name="type" class="mr-2" />Other. Please enter details in the field below.</p>
-        <textarea class="form-control" name="details" id="" rows="5"></textarea>
+      <div class="modal-body" id="reportModalBody">
+        <form id="reportForm">
+        {% csrf_token %}
+        <input type="hidden" value="None" name="pk" id="modalPk" />
+        <input type="hidden" value="{{ npa.pk }}" name="reportNpa" />
+        <p class="font-weight-bold">{% blocktrans %}Damn... despite our efforts you found an issue...{% endblocktrans %}</p>
+        <p>{% blocktrans %}Can you help us by describing what the problem is ?{% endblocktrans %}</p>
+        <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad information" required />{% blocktrans %}Wrong or missing information. Please enter details in the field below.{% endblocktrans %}</p>
+        <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad delivery perimeter" required />{% blocktrans %}This service does not deliver to my place !{% endblocktrans %}</p>
+        <p class="px-4 py-0"><input type="radio" name="reportType" class="mr-2" value="Other" required />{% blocktrans %}Other. Please enter details in the field below.{% endblocktrans %}</p>
+        <textarea class="form-control" name="reportDetails" rows="5"></textarea>
+        </form>
       </div>
+      <div class="modal-body" id="reportModalBodyConfirmation" style="display: none;">{% blocktrans %}Thank you for your report !{% endblocktrans %}</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-sm btn-sh">Report</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
+        <button type="button" class="btn btn-sm btn-sh sh-report-btn">{% trans 'Report' %}</button>
       </div>
     </div>
   </div>
 </div>
+
 <div class="container border-top">
         <div class="row">
             {% if businesses|length > 0 %}
@@ -36,7 +43,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                             </div>
-                            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
+                            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="{% trans 'Search' %}">
                         </div>
                     </div>
                     <div class="col-2 col-lg-0 p-3 d-block d-lg-none">
@@ -47,7 +54,7 @@
                 </div>
                 <div class="row border-bottom px-3 py-2 nav-filter">
                     <div id="slider-parent">
-                        <i class="fas fa-search-minus"></i>
+                        <i class="far fa-dot-circle fa-lg"></i>
                         <input id="area-slider" type="text"
                                data-provide="slider"
                                data-slider-min="0"
@@ -55,7 +62,7 @@
                                data-slider-step="1"
                                data-slider-value="0"
                                data-slider-tooltip="hide" />
-                        <i class="fas fa-search-plus"></i>
+                        <i class="far fa-dot-circle fa-xs"></i>
                     </div>
                 </div>
                 <div class="row p-0 nav-filter">
@@ -102,24 +109,24 @@
                                             <a class="float-right sh-report" href="#" data-pk="{{ business.pk }}"><i class="fas fa-bug mr-1"></i>{% blocktrans %}Report an issue{% endblocktrans %}</a>
                                             {% if business.website %}
                                             <p>
-                                                <span class="font-weight-bold">Website</span><br/>
+                                                <span class="font-weight-bold">{% blocktrans %}Website{% endblocktrans %}</span><br/>
                                                 <a href="{{ business.website }}" target="_blank">{{ business.website }}</a>
                                             </p>
                                             {% endif %}
                                             {% if business.phone %}
                                             <p>
-                                                <span class="font-weight-bold">Phone</span><br/>
+                                                <span class="font-weight-bold">{% blocktrans %}Phone{% endblocktrans %}</span><br/>
                                                 <a href="tel:{{ business.phone }}">{{ business.phone }}</a>
                                             </p>
                                             {% endif %}
                                             {% if business.email %}
                                             <p>
-                                                <span class="font-weight-bold">Email</span><br/>
+                                                <span class="font-weight-bold">{% blocktrans %}Email{% endblocktrans %}</span><br/>
                                                 <a href="mailto:{{ business.email }}">{{ business.email }}</a>
                                             </p>
                                             {% endif %}
                                             <p>
-                                                <span class="font-weight-bold">{% blocktrans %}Where is this sservice available ?{% endblocktrans %}</span><br />
+                                                <span class="font-weight-bold">{% blocktrans %}Where is this service available ?{% endblocktrans %}</span><br />
                                                 {% include 'includes/deliver_to_list.html' with business=business %}
                                             </p>
                                         </div>
@@ -158,77 +165,4 @@
     <script src="{% static 'pubsite/js/sh-filtering.js' %}"></script>
     {% endcompress %}
 
-    <script>
-
-        $(document).ready(() => {
-
-            $('#searchInput').on('keyup', (event) => {
-
-                // Current value
-                var search = event.target.value.toLowerCase();
-
-                // Shown items
-                var shown = 0;
-
-                // Loop on cards
-                $('.sh-card').each((id, target) => {
-
-                    var subject = $(target).data('categories').toLowerCase() + " " + $(target).data('name').toLowerCase();
-
-                    if (subject.includes(search)) {
-                        target.style.display = "";
-                        shown++;
-                    } else {
-                        target.style.display = "none";
-                    }
-                    
-                });
-
-                // No card left
-                if (shown == 0) {
-                    $('#allFiltered').show();
-                } else {
-                    $('#allFiltered').hide();
-                }
-
-                // Stop execution
-                event.preventDefault();
-
-            });
-
-            window.see_more = (pk) => {
-                $('#descr-' + pk).toggleClass('sh-crop');
-                $('#more-' + pk).toggle();
-                $('#plus-' + pk).toggle();
-                $('#minus-' + pk).toggle();
-            }
-
-            var areaMap = [7, 5, 4, 3];
-            $('#area-slider').slider().on('slide', e => {
-                var maxRadius = areaMap[e.value];
-                $('.sh-card').each((id, elem) => {
-                    var card = $(elem);
-                    var radius = parseInt(card.data('radius'));
-                    if (radius > maxRadius) {
-                        card.hide();
-                    } else {
-                        card.show();
-                    }
-                });
-                
-                ensureAllFiltered();
-
-            }).data('slider');
-
-            window.ensureAllFiltered = () => {
-                if ($('.sh-card:visible').length === 0) {
-                    $('#allFiltered').show();
-                } else {
-                    $('#allFiltered').hide();
-                }
-            };
-
-        });
-
-    </script>
 {% endblock %}

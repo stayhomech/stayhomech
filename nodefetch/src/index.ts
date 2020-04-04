@@ -1,10 +1,11 @@
 import { DerBund } from "./der-bund";
 import { Tagesanzeiger } from "./tagesanzeiger";
+import { Laedelishop } from "./laedelishop";
 
 console.log('Starting node crawler (nodefetch)...');
 
 async function main() {
-    var crawlers = [ new DerBund(), new Tagesanzeiger() ];
+    var crawlers = [ new DerBund(), new Tagesanzeiger(), new Laedelishop() ];
 
     while (true) {
         crawlers.forEach(async crawler => {

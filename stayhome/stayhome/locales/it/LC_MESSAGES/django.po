@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-02 14:58+0200\n"
-"PO-Revision-Date: 2020-04-02 15:02+0200\n"
+"POT-Creation-Date: 2020-04-03 13:42+0200\n"
+"PO-Revision-Date: 2020-04-03 13:44+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -78,7 +78,8 @@ msgstr ""
 "Dove stai consegnando? Tutta la Svizzera, i cantoni, i distretti, i comuni, "
 "sii il più preciso possibile."
 
-#: business/forms/add_form.py:71
+#: business/forms/add_form.py:71 pubsite/templates/content.html:111
+#: pubsite/templates/content.html:141
 msgid "Website"
 msgstr "Sito web"
 
@@ -150,33 +151,33 @@ msgstr "Italiano"
 msgid "Pending requests"
 msgstr "Richieste in sospeso"
 
-#: privsite/views.py:54 privsite/views.py:79
+#: privsite/views.py:54 privsite/views.py:83
 #, python-format
 msgid "%d requets are available to process."
 msgstr "%d i requets sono disponibili per l’elaborazione."
 
-#: privsite/views.py:56 privsite/views.py:81
+#: privsite/views.py:56 privsite/views.py:85
 msgid "No pending request."
 msgstr "Nessuna richiesta in sospeso."
 
-#: privsite/views.py:76
+#: privsite/views.py:80
 msgid "Your requests"
 msgstr "Le vostre richieste"
 
-#: privsite/views.py:102
+#: privsite/views.py:106
 msgid "Convert request to business"
 msgstr "Converti la richiesta in azienda"
 
-#: privsite/views.py:191
+#: privsite/views.py:200
 msgid "Categories translations"
 msgstr "Traduzioni di categorie"
 
-#: privsite/views.py:194
+#: privsite/views.py:203
 #, python-format
 msgid "%d categories exist."
 msgstr "%d esistono categorie."
 
-#: privsite/views.py:196
+#: privsite/views.py:205
 msgid "No category defined."
 msgstr "Nessuna categoria definita."
 
@@ -269,11 +270,11 @@ msgstr "contattaci"
 msgid "Send your request"
 msgstr "Invia la tua richiesta"
 
-#: pubsite/templates/base.html:29 pubsite/templates/base.html:33
+#: pubsite/templates/base.html:30 pubsite/templates/base.html:34
 msgid "Stay home ! We deliver..."
 msgstr "Restate a casa ! Noi consegnamo..."
 
-#: pubsite/templates/base.html:31 pubsite/templates/base.html:34
+#: pubsite/templates/base.html:32 pubsite/templates/base.html:35
 msgid ""
 "StayHome.ch is a directory of delivery services available in Switzerland "
 "based on visitor's location. It has been created to help Swiss people and "
@@ -283,49 +284,76 @@ msgstr ""
 "base alla posizione del visitatore. È stato creato per aiutare gli svizzeri "
 "e le imprese a far fronte alla crisi COVID-19."
 
+#: pubsite/templates/content.html:9 pubsite/templates/content.html:108
+msgid "Report an issue"
+msgstr "Segnalare un problema"
+
+#: pubsite/templates/content.html:19
+msgid "Damn... despite our efforts you found an issue..."
+msgstr "Dannazione... nonostante i nostri sforzi hai trovato un problema..."
+
+#: pubsite/templates/content.html:20
+msgid "Can you help us by describing what the problem is ?"
+msgstr "Può aiutarci descrivendo qual è il problema ?"
+
+#: pubsite/templates/content.html:21
+msgid "Wrong or missing information. Please enter details in the field below."
+msgstr ""
+"Informazioni errate o mancanti. Inserisci i dettagli nel campo sottostante."
+
 #: pubsite/templates/content.html:22
+msgid "This service does not deliver to my place !"
+msgstr "Questo servizio non offre a casa mia !"
+
+#: pubsite/templates/content.html:23
+msgid "Other. Please enter details in the field below."
+msgstr "Altro. Inserisci i dettagli nel campo sottostante."
+
+#: pubsite/templates/content.html:27
+msgid "Thank you for your report !"
+msgstr "Grazie per la segnalazione!"
+
+#: pubsite/templates/content.html:29
+msgid "Close"
+msgstr "Chiuso"
+
+#: pubsite/templates/content.html:30
+msgid "Report"
+msgstr "Segnala"
+
+#: pubsite/templates/content.html:82
 msgid "Nothing left to show, try changing your filters."
 msgstr "Nessun risultato, provate a cambiare i vostri filtri."
 
-#: pubsite/templates/content.html:38
+#: pubsite/templates/content.html:91
 msgid "Located at"
 msgstr "Situato in"
 
-#: pubsite/templates/content.html:50
-msgid "This service delivers to :"
-msgstr "Questo servizio offre a:"
+#: pubsite/templates/content.html:117
+msgid "Phone"
+msgstr "Telefono"
 
-#: pubsite/templates/content.html:58
-msgid "Use this link to report any problem with this service."
-msgstr ""
-"Utilizzare questo collegamento per segnalare eventuali problemi con questo "
-"servizio."
+#: pubsite/templates/content.html:123
+msgid "Email"
+msgstr "Email"
 
-#: pubsite/templates/content.html:65
-msgid "See less"
-msgstr "Vedi di meno"
+#: pubsite/templates/content.html:128
+msgid "Where is this service available ?"
+msgstr "Dove è disponibile questo servizio?"
 
-#: pubsite/templates/content.html:70
-msgid "See more"
-msgstr "Vedi altro"
+#: pubsite/templates/content.html:137
+msgid "More"
+msgstr "Altro"
 
-#: pubsite/templates/content.html:78
-msgid "Visit website"
-msgstr "Visita il sito web"
+#: pubsite/templates/content.html:138
+msgid "Less"
+msgstr "Meno"
 
-#: pubsite/templates/content.html:83
-msgid "Call"
-msgstr "Chiamata"
-
-#: pubsite/templates/content.html:88
-msgid "Send email"
-msgstr "Inviare email"
-
-#: pubsite/templates/content.html:98
+#: pubsite/templates/content.html:153
 msgid "No delivery service available at that location :-("
 msgstr "Nessun servizio di consegna disponibile in quest'area :-("
 
-#: pubsite/templates/content.html:99
+#: pubsite/templates/content.html:154
 msgid ""
 "If you own or know a company that offers a delivery service at this "
 "location, please consider"
@@ -333,7 +361,7 @@ msgstr ""
 "Se possiedi o conosci un’azienda che offre un servizio di consegna in questa "
 "località, ti preghiamo di considerare"
 
-#: pubsite/templates/content.html:99
+#: pubsite/templates/content.html:154
 msgid "adding the service"
 msgstr "aggiungendo il servizio"
 
@@ -455,17 +483,9 @@ msgstr "Mille grazie ai nostri partner e sponsor"
 msgid "Everywhere in Switzerland"
 msgstr "Ovunque in Svizzera"
 
-#: pubsite/templates/includes/deliver_to_list.html:12
+#: pubsite/templates/includes/deliver_to_list.html:14
 msgid "District"
 msgstr "Quartiere"
-
-#: pubsite/templates/includes/deliver_to_list.html:16
-msgid "Municipality"
-msgstr "Comune"
-
-#: pubsite/templates/includes/deliver_to_list.html:20
-msgid "Postal code"
-msgstr "Codice postale"
 
 #: pubsite/templates/mgmt.html:27
 msgid "About"
@@ -479,7 +499,7 @@ msgstr "Contribuire"
 msgid "Log out"
 msgstr "Disconnettersi"
 
-#: pubsite/templates/mgmt.html:38 pubsite/templates/navigation.html:66
+#: pubsite/templates/mgmt.html:38 pubsite/templates/navigation.html:72
 msgid "Sign in"
 msgstr "Registrati"
 
@@ -491,11 +511,11 @@ msgstr "Home"
 msgid "Contact us"
 msgstr "Contattaci"
 
-#: pubsite/templates/navigation.html:48
+#: pubsite/templates/navigation.html:54
 msgid "Add a delivery service"
 msgstr "Aggiungi un servizio di consegna"
 
-#: pubsite/templates/navigation.html:65
+#: pubsite/templates/navigation.html:71
 msgid "All rights reserved"
 msgstr "Tutti i diritti riservati"
 
@@ -510,13 +530,39 @@ msgstr ""
 "L’elaborazione della richiesta può richiedere fino a 24 ore. Per favore sii "
 "paziente."
 
-#: pubsite/views.py:91
+#: pubsite/views.py:96
 msgid "NPA does not exist"
 msgstr "Il CAP non esiste"
 
-#: pubsite/views.py:196
+#: pubsite/views.py:207
 msgid "Your message has been sent."
 msgstr "Il tuo messaggio è stato inviato."
+
+#~ msgid "Use this link to report any problem with this service."
+#~ msgstr ""
+#~ "Utilizzare questo collegamento per segnalare eventuali problemi con "
+#~ "questo servizio."
+
+#~ msgid "See less"
+#~ msgstr "Vedi di meno"
+
+#~ msgid "See more"
+#~ msgstr "Vedi altro"
+
+#~ msgid "Visit website"
+#~ msgstr "Visita il sito web"
+
+#~ msgid "Call"
+#~ msgstr "Chiamata"
+
+#~ msgid "Send email"
+#~ msgstr "Inviare email"
+
+#~ msgid "Municipality"
+#~ msgstr "Comune"
+
+#~ msgid "Postal code"
+#~ msgstr "Codice postale"
 
 #~ msgid "Go back to home"
 #~ msgstr "Ritorna alla pagina principale"
