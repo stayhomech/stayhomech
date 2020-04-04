@@ -32,6 +32,7 @@
     </div>
   </div>
 </div>
+
 <div class="container border-top">
         <div class="row">
             {% if businesses|length > 0 %}
@@ -42,7 +43,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                             </div>
-                            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
+                            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="{% trans 'Search' %}">
                         </div>
                     </div>
                     <div class="col-2 col-lg-0 p-3 d-block d-lg-none">
@@ -53,7 +54,7 @@
                 </div>
                 <div class="row border-bottom px-3 py-2 nav-filter">
                     <div id="slider-parent">
-                        <i class="fas fa-search-minus"></i>
+                        <i class="far fa-dot-circle fa-lg"></i>
                         <input id="area-slider" type="text"
                                data-provide="slider"
                                data-slider-min="0"
@@ -61,7 +62,7 @@
                                data-slider-step="1"
                                data-slider-value="0"
                                data-slider-tooltip="hide" />
-                        <i class="fas fa-search-plus"></i>
+                        <i class="far fa-dot-circle fa-xs"></i>
                     </div>
                 </div>
                 <div class="row p-0 nav-filter">
