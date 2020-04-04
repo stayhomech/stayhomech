@@ -16,9 +16,9 @@ public class LoggingStepListener implements StepExecutionListener {
 
 	@Override
 	public ExitStatus afterStep(StepExecution stepExecution) {
-		log.error("------------------------------------------------------------------------------------");
-		log.error("Summary: " + stepExecution.getSummary());
-		log.error("------------------------------------------------------------------------------------");
+		log.info("------------------------------------------------------------------------------------");
+		log.info("Summary: " + stepExecution.getSummary());
+		log.info("------------------------------------------------------------------------------------");
 
 		return null;
 	}
