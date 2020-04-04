@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers
 
-from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet
+from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet, ReactBusinessContentView
 from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView, EmbededView, ReactContentView
 
 
@@ -36,6 +36,7 @@ urlpatterns = [
 
     # React content
     path('content/<uuid:content_uuid>/', ReactContentView.as_view(), name='react_content'),
+    path('business/<int:pk>/', ReactBusinessContentView.as_view(), name='react_business'),
 
     # Embeded search
     path('embed/', EmbededView.as_view(), name='embed'),

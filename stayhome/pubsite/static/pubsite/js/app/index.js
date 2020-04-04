@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import i18n_init from './i18n';
 
 import Page from './components/Page';
+import { Loading } from './components/Loading';
 
 
 class App extends React.Component {
@@ -15,8 +16,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <Suspense fallback="Loading...">
-        <Page content_uuid={this.props.content_uuid} running_env={this.props.running_env} />
+      <Suspense fallback={ <Loading /> }>
+        <Page content_uuid={this.props.content_uuid} running_env={this.props.running_env} csrf_token={this.props.csrf_token} />
       </Suspense>
     );
   }

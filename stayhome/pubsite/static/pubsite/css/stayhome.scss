@@ -7,7 +7,7 @@ $sh-green: #308a57;
 }
 
 .btn-outline-sh {
-    @include button-outline-variant($sh-green, #222222, lighten($sh-green,5%), $sh-green);
+    @include button-outline-variant($sh-green, #ffffff, lighten($sh-green,5%), $sh-green);
 }
 
 BODY {
@@ -215,8 +215,12 @@ P > A:hover {
     font-weight: 800;
 }
 
+.card-description {
+    font-size: .9em;
+}
+
 .card-body {
-    padding: 16px;
+    padding: 8px 16px 16px 16px;
 }
 
 .card-info {

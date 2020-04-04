@@ -8,12 +8,30 @@ import {
     Alert
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilter, faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilter, faSearchPlus, faSearchMinus, faDotCircle } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+import ReactBootstrapSlider from 'react-bootstrap-slider';
 
 import { ErrorBoundary } from './ErrorBoundary';
 import { CategoryTree } from './CategoryTree';
 import { Card } from './Card';
+import { ReportModal } from './ReportModal';
+
+
+const NoCardToShow = props => {
+
+    const { t, i18n } = useTranslation();
+
+    const [visible, setVisible] = useState(false)
+
+    return (visible) ? (
+        <Alert color="warning" id="allFiltered" className="m-4">
+            {t('Nothing left to show, try changing your filters.')}
+        </Alert>
+    ) : null;
+
+}
+
 
 const Page = props => {
 
@@ -24,6 +42,9 @@ const Page = props => {
     const [businesses, setBusinesses] = useState([]);
     const [categoriesTree, setCategoriesTree] = useState({});
     const [categories, setCategories] = useState({});
+    const [modals, setModals] = useState([]);
+    const [npa, setNpa] = useState(null);
+    const [radius, setRadius] = useState([999.0, 0.0])
 
     useEffect(() => {
         fetch("/content/" + props.content_uuid + "/")
@@ -50,9 +71,22 @@ const Page = props => {
                         }
                     });
 
+                    var radius = {
+                        min: 999.0,
+                        max: 0.0
+                    }
+
                     // Refill categories
                     var bs = []
                     result.businesses.forEach((business) => {
+
+                        // Radius
+                        if (radius.min > business.distance.km) {
+                            radius.min = business.distance.km;
+                        }
+                        if (radius.max < business.distance.km) {
+                            radius.max =  business.distance.km;
+                        }
 
                         // Main
                         business.main_category = categories[business.main_category]
@@ -69,8 +103,14 @@ const Page = props => {
 
                     });
 
+                    console.log([radius.min, radius.max]);
+                    setRadius([radius.min * 0.99, radius.max * 1.01]);
+
                     // Save businesses
                     setBusinesses(bs);
+
+                    // Save NPA
+                    setNpa(result.npa)
 
                     // Loaded
                     setLoaded(true)
@@ -81,6 +121,12 @@ const Page = props => {
                 }
             )
     }, []);
+
+    const reportIssue = (business) => {
+        setModals(modals.concat(
+            <ReportModal csrf_token={props.csrf_token} business={business} npa={npa} key={business.pk} />
+        ));
+    }
 
     if (isLoaded) {
         if (businesses.length == 0) {
@@ -93,14 +139,12 @@ const Page = props => {
         } else {
 
             const cards = businesses.map((business) =>
-                <ErrorBoundary>
-                    <Card {...business} key={business.id} ></Card>
-                </ErrorBoundary>
+                <Card {...business} key={business.id} reportIssue={ reportIssue } ></Card>
             )
 
             return (
-            <>
             <Row>
+                {modals}
                 <div className="col-xs-12 col-md-3 p-3" id="left-nav">
                     <div className="row border-bottom p-0">
                         <div className="col-10 col-lg-12 pt-3">
@@ -119,15 +163,13 @@ const Page = props => {
                     </div>
                     <div className="row border-bottom px-3 py-2 nav-filter">
                         <div id="slider-parent">
-                            <FontAwesomeIcon icon={faSearchMinus}></FontAwesomeIcon>
-                            <input id="area-slider" type="text"
-                                data-provide="slider"
-                                data-slider-min="0"
-                                data-slider-max="3"
-                                data-slider-step="1"
-                                data-slider-value="0"
-                                data-slider-tooltip="hide" />
-                            <FontAwesomeIcon icon={faSearchPlus}></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={faDotCircle} size="xs"></FontAwesomeIcon>
+                            <ReactBootstrapSlider
+                                min={radius[0]}
+                                max={radius[1]}
+                                step={(radius[1] - radius[0]) / 10}
+                                value={radius[1]} />
+                            <FontAwesomeIcon icon={faDotCircle} size="lg"></FontAwesomeIcon>
                         </div>
                     </div>
                     <div className="row p-0 nav-filter">
@@ -135,13 +177,10 @@ const Page = props => {
                     </div>
                 </div>
                 <div className="col-xs-12 col-md-9 p-0">
-                    <Alert color="warning" id="allFiltered" className="m-4">
-                        {t('Nothing left to show, try changing your filters.')}
-                    </Alert>
+                    <NoCardToShow />
                     {cards}
                 </div>
             </Row>
-            </>
             )
         }
     } else {

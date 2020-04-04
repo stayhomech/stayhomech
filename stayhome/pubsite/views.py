@@ -1,5 +1,6 @@
 import uuid
 import json
+import random
 
 from django.views.generic import TemplateView, View, FormView
 from django.http import JsonResponse, Http404, HttpResponseRedirect
@@ -21,7 +22,7 @@ from geodata.models import NPA
 from geodata.serializers import NPASerializer, MunicipalitySerializer, DistrictSerializer, CantonSerializer
 from business.models import Business, Category
 from business.forms import BusinessAddForm
-from business.serializers import BusinessReactSerializer, CategoryReactSerializer
+from business.serializers import BusinessReactSerializer, BusinessReactLazySerializer, CategoryReactSerializer
 from .forms import ContactForm
 
 
@@ -121,7 +122,7 @@ class ReactContentView(View):
         npas = municipality.npa_set.all()
 
         # Fetch businesses from DB
-        businesses = Business.objects.filter(status=Business.events.VALID).filter(
+        bpks = Business.objects.filter(status=Business.events.VALID).filter(
             Q(location=npa)
             |
             Q(delivers_to__in=[npa])
@@ -135,10 +136,21 @@ class ReactContentView(View):
             Q(delivers_to_ch=True)
         ).distinct().annotate(
             distance=Distance('location__geo_center', npa.geo_center)
-        ).order_by('distance', 'name')
+        ).order_by('distance', 'name').values_list('pk', 'distance')
+
+        # Business array
+        businesses = []
+        for bpk in bpks:
+            cache_key = 'business_details_' + str(bpk[0])
+            business = cache.get(cache_key)
+            if business is None:
+                business = Business.objects.get(pk=bpk[0])
+                cache.set(cache_key, business, 3600 * (1 + random.uniform(0, 1)))
+            business.distance = bpk[1]
+            businesses.append(business)
 
         # Serialize businesses
-        cd['businesses'] = BusinessReactSerializer(businesses, many=True).data
+        cd['businesses'] = BusinessReactLazySerializer(businesses, many=True).data
 
         # Categories
         categories = Category.objects.filter(

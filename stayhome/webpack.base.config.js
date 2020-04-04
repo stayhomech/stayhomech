@@ -3,8 +3,13 @@ var webpack = require('webpack');
 var BundleTracker = require('webpack-bundle-tracker');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 
 module.exports = {
+
+  mode: 'production',
+
   context: __dirname,
 
   entry: {
@@ -23,7 +28,12 @@ module.exports = {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].bundle.css',
-    })
+    }),
+    new OptimizeCssAssetsPlugin({
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
+    }),
   ],
 
   module: {
@@ -62,6 +72,6 @@ module.exports = {
 
   resolve: {
     extensions: ['*', '.js', '.jsx', '.scss']
-  }
+  },
 
 };

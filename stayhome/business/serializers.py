@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from .models import Request, Business, Category, HistoryEvent
+from geodata.serializers import NPASerializer, MunicipalitySerializer, DistrictSerializer, CantonSerializer
+from geodata.models import NPA, Municipality, District, Canton
 
 
 class RequestSerializer(serializers.ModelSerializer):
@@ -54,8 +56,8 @@ class DistanceField(serializers.Field):
 
     def to_representation(self, value):
         ret = {
-            'distance': value.distance,
-            'distance_km': value.distance * 111.139
+            'angle': value.distance,
+            'km': value.distance * 111.139
         }
         return ret
 
@@ -66,9 +68,44 @@ class BusinessReactSerializer(serializers.ModelSerializer):
     location_name = serializers.CharField(source="location.name", read_only=True)
     distance = DistanceField(source='*')
 
+    delivers_to = serializers.SerializerMethodField()
+    delivers_to_municipality = serializers.SerializerMethodField()
+    delivers_to_district = serializers.SerializerMethodField()
+    delivers_to_canton = serializers.SerializerMethodField()
+
+    def get_delivers_to(self, obj):
+        return NPASerializer(obj.delivers_to, many=True).data
+
+    def get_delivers_to_municipality(self, obj):
+        return MunicipalitySerializer(obj.delivers_to_municipality, many=True).data
+
+    def get_delivers_to_district(self, obj):
+        return DistrictSerializer(obj.delivers_to_district, many=True).data
+
+    def get_delivers_to_canton(self, obj):
+        return CantonSerializer(obj.delivers_to_canton, many=True).data
+    
     class Meta:
         model = Business
         fields = '__all__'
+
+
+class BusinessReactLazySerializer(serializers.ModelSerializer):
+
+    location_npa = serializers.IntegerField(source="location.npa", read_only=True)
+    location_name = serializers.CharField(source="location.name", read_only=True)
+    distance = DistanceField(source='*')
+    description = serializers.SerializerMethodField()
+
+    def get_description(self, obj):
+        if len(obj.description) > 300:
+            return obj.description[:300] + "..."
+        else:
+            return obj.description
+
+    class Meta:
+        model = Business
+        fields = ['id', 'name', 'description', 'main_category', 'other_categories', 'location_npa', 'location_name', 'distance', 'website', 'phone']
 
 
 class CategorySerializer(serializers.ModelSerializer):
