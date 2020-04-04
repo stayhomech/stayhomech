@@ -15,6 +15,8 @@ public class BusinessRequest {
 
 	private String description;
 
+	private String address;
+
 	private String location;
 
 	private String contact;
@@ -167,6 +169,15 @@ public class BusinessRequest {
 
 	public BusinessRequest setStatus(String status) {
 		this.status = status;
+		return this;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public BusinessRequest setAddress(String address) {
+		this.address = address;
 		return this;
 	}
 }

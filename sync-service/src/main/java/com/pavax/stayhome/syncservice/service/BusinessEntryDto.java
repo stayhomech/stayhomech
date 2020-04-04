@@ -37,6 +37,9 @@ public class BusinessEntryDto {
 	private String website;
 
 	@Size(max = 255)
+	private String address;
+
+	@Size(max = 255)
 	private String location;
 
 	private Language language;
@@ -130,6 +133,15 @@ public class BusinessEntryDto {
 
 	public BusinessEntryDto setWebsite(String website) {
 		this.website = website;
+		return this;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public BusinessEntryDto setAddress(String address) {
+		this.address = address;
 		return this;
 	}
 

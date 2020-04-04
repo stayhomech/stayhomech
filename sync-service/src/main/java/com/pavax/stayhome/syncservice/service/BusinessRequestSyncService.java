@@ -45,6 +45,7 @@ public class BusinessRequestSyncService {
 				.setContact(businessEntryDto.getContact())
 				.setCategory(businessEntryDto.getCategories())
 				.setTtl(businessEntryDto.getTtl())
+				.setAddress(businessEntryDto.getAddress())
 				.setDelivery(businessEntryDto.getDelivery());
 
 		businessRequest.setLang(businessEntryDto.getLanguage() != null ? businessEntryDto.getLanguage().getKey() : this.determineLanguage(businessRequest));
@@ -70,6 +71,8 @@ public class BusinessRequestSyncService {
 	private String calculateChecksum(BusinessRequest businessRequest) {
 		final String checkSumString = businessRequest.getName() +
 				businessRequest.getDescription() +
+				// TODO check that we are still backwards compatible with the existing requests
+				// businessRequest.getAddress() +
 				businessRequest.getLocation() +
 				businessRequest.getWebsite() +
 				businessRequest.getPhone() +
