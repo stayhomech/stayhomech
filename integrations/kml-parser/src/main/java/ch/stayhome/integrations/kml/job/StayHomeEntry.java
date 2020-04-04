@@ -26,14 +26,19 @@ public class StayHomeEntry {
 	private String contact;
 
 	@NotBlank
+	private String address;
+
+	@NotBlank
 	private String location;
 
 	private String email;
 
 	private String phone;
 
+	@NotBlank
 	private String delivery;
 
+	@NotBlank
 	private String categories;
 
 	@NotNull
