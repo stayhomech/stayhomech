@@ -50,8 +50,36 @@ class BusinessSerializer(serializers.ModelSerializer):
         'other_categories', 'website', 'phone', 'email']
 
 
+class DistanceField(serializers.Field):
+
+    def to_representation(self, value):
+        ret = {
+            'distance': value.distance,
+            'distance_km': value.distance * 111.139
+        }
+        return ret
+
+
+class BusinessReactSerializer(serializers.ModelSerializer):
+
+    location_npa = serializers.IntegerField(source="location.npa", read_only=True)
+    location_name = serializers.CharField(source="location.name", read_only=True)
+    distance = DistanceField(source='*')
+
+    class Meta:
+        model = Business
+        fields = '__all__'
+
+
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
         fields = ['id', 'name', 'name_en', 'name_fr', 'name_de', 'name_it', 'parent']
+
+
+class CategoryReactSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'parent']

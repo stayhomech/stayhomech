@@ -1,5 +1,4 @@
-/* import the necessary Bootstrap files */
-@import "./bootstrap/bootstrap.scss";
+@import "~bootstrap";
 
 $sh-green: #308a57;
 
@@ -53,7 +52,7 @@ P > A:hover {
 
 .sh-container-main {
     height: 50vh; 
-    background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(static('pubsite/background.jpeg')); 
+    background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url('../img/background.jpeg'); 
     background-size: 100% auto; 
     background-position: center;
     color: white;
