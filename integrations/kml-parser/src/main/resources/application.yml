@@ -1,0 +1,7 @@
+stayhome:
+  sync-service-url: 'http://localhost:8080'
+  integrations:
+    kml:
+      download-url: 'https://www.google.com/maps/d/u/0/kml?mid=1CROR4TBPB3Zl-jjQse3F1f13fkvM2sWR&forcekml=1'
+      scrape-cron: '-'
+      sync-service-url: ${stayhome.sync-service-url}
