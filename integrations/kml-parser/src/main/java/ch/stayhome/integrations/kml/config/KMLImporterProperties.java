@@ -16,4 +16,7 @@ public class KMLImporterProperties {
 	@NotBlank
 	private String downloadUrl;
 
+	@NotBlank
+	private String scrapeCron;
+
 }

@@ -136,6 +136,7 @@ public class KMLImporterJobConfig {
 				.processor(this.processor())
 				.writer(this.writer())
 				.listener(new LoggingStepListener())
+				// TODO  Cleanup the files ('file.xml.transformed' file + 'file.xml.transformed' file)
 				.build();
 	}
 
