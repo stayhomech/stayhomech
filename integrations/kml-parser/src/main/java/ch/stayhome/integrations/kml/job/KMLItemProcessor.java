@@ -33,13 +33,14 @@ public class KMLItemProcessor implements ItemProcessor<PlacemarkType, StayHomeEn
 	public StayHomeEntry process(PlacemarkType item) {
 		final Map<String, String> dataMap = this.extendedDataMap(item.getExtendedData());
 		final StayHomeEntryBuilder builder = StayHomeEntry.builder()
-				.id(item.getPoint().getCoordinates())
+				.id(extractId(item))
 				.name(item.getName())
 				.providerName("aargauerzeitung")
 				.description(dataMap.get("Beschreibung"))
+				.address(contactInformationGuesser.extractStreet(dataMap.get("Adresse")))
 				.location(dataMap.get("Adresse"))
-				.categories("")
-				.delivery("")
+				.categories("n/a")
+				.delivery("n/a")
 				.ttl(TTL);
 		this.parseKontakt(dataMap.get("Kontakt"), builder);
 
@@ -50,6 +51,13 @@ public class KMLItemProcessor implements ItemProcessor<PlacemarkType, StayHomeEn
 			return null;
 		}
 		return stayHomeEntry;
+	}
+
+	private String extractId(PlacemarkType item) {
+		return item.getPoint().getCoordinates()
+				.replace("\n", "")
+				.replace(",", "_")
+				.trim();
 	}
 
 	public StayHomeEntryBuilder parseKontakt(String contact, StayHomeEntryBuilder builder) {

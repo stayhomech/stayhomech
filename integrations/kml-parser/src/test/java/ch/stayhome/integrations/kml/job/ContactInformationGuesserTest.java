@@ -57,4 +57,27 @@ class ContactInformationGuesserTest {
 		assertThat(result).isEqualTo("https://hautecuisine.ch/");
 	}
 
+	@Test
+	void testExtractStreet() {
+		// given
+		final String text = "Aweird-STrééétNäämüä 47 , another-string";
+		// when
+		final String result = this.guesser.extractStreet(text);
+
+		// then
+		assertThat(result).isEqualTo("Aweird-STrééétNäämüä 47");
+	}
+
+
+	@Test
+	void testExtractInvalidStreet() {
+		// given
+		final String text = "nonsone";
+		// when
+		final String result = this.guesser.extractStreet(text);
+
+		// then
+		assertThat(result).isEqualTo("");
+	}
+
 }
