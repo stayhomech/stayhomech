@@ -29,3 +29,46 @@ stunnel.log
 *.iws
 *.iml
 *.ipr
+
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# angular dist and libs
+/angular/node_modules
+/angular/dist
+/angular/tmp
+/angular/out-tsc
+/angular/package-lock.json
+
+# misc
+/angular/.sass-cache
+/angular/connect.lock
+/angular/coverage
+/angular/libpeerconnection.log
+/angular/npm-debug.log
+/angular/yarn-error.log
+/angular/testem.log
+/angular/typings
+
+# profiling files
+/angular/chrome-profiler-events*.json
+/angular/speed-measure-plugin*.json
+
+# System Files
+.DS_Store
+Thumbs.db
