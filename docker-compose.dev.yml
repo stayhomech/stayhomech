@@ -40,7 +40,10 @@ services:
       - api_key:/api
 
   angular:
-    image: nginx:1.17-alpine
+    build: angular/
+    container_name: angular
+    expose:
+      - 80
     restart: always
 
   haproxy:

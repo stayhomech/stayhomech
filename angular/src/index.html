@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="/">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={% google_ua %}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{% google_ua %}');
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" type="text/x-scss" href="{% static 'pubsite/css/stayhome.scss' %}" />
+
+
+  <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
+
+  <title>Stay home ! We deliver...</title>
+
+  <meta name="description" content="{% blocktrans %}StayHome.ch is a directory of delivery services available in Switzerland based on visitor's location. It has been created to help Swiss people and businesses coping with the COVID-19 crisis.{% endblocktrans %}" />
+
+  <meta property="og:title" content="{% blocktrans %}Stay home ! We deliver...{% endblocktrans %}">
+  <meta property="og:description" content="{% blocktrans %}StayHome.ch is a directory of delivery services available in Switzerland based on visitor's location. It has been created to help Swiss people and businesses coping with the COVID-19 crisis.{% endblocktrans %}">
+  <meta property="og:image" content="https://www.stayhome.ch{% static 'pubsite/stay_home_banner.jpg' %}">
+  <meta property="og:url" content="https://www.stayhome.ch/">
+  <meta property="og:type" content="website">
+  <meta property="fb:app_id" content="2714022128726331">
+
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
