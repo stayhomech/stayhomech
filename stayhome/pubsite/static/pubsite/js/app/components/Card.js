@@ -131,6 +131,16 @@ const Card = props => {
         <CategoryBadge category={category} key={category.id} className="mr-1" />
     );
 
+    // Phone
+    var new_phone = false;
+    if (props.phone != '') {
+        var regex = /\+41([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{2})/;
+        var m = regex.exec(props.phone);
+        if (m !== null) {
+            new_phone = '0' + m[1] + ' ' + m[2] + ' ' + m[3] + ' ' + m[4];
+        }
+    }
+
     return (
         <div className="sh-card">
             <div className="card-header">
@@ -202,9 +212,9 @@ const Card = props => {
                         <FontAwesomeIcon icon={ faLink } className="mr-1" />{t('Website')}
                     </a>
                     }
-                    { (props.phone != '') &&
+                    { (new_phone) &&
                     <a className="btn btn-outline-sh" href={ "tel:" + props.phone }>
-                        <FontAwesomeIcon icon={ faPhone } className="mr-1" />{props.phone}
+                        <FontAwesomeIcon icon={ faPhone } className="mr-1" />{new_phone}
                     </a>
                     }
                 </ButtonGroup>
