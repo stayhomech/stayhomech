@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.cache import cache
-from django_db_views.db_view import DBView
 
 
 class Category(MPTTModel):
