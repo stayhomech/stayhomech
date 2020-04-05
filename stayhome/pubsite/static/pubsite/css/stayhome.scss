@@ -1,5 +1,4 @@
-/* import the necessary Bootstrap files */
-@import "./bootstrap/bootstrap.scss";
+@import "~bootstrap";
 
 $sh-green: #308a57;
 
@@ -8,7 +7,7 @@ $sh-green: #308a57;
 }
 
 .btn-outline-sh {
-    @include button-outline-variant($sh-green, #222222, lighten($sh-green,5%), $sh-green);
+    @include button-outline-variant($sh-green, #ffffff, lighten($sh-green,5%), $sh-green);
 }
 
 BODY {
@@ -53,7 +52,7 @@ P > A:hover {
 
 .sh-container-main {
     height: 50vh; 
-    background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(static('pubsite/background.jpeg')); 
+    background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url('../img/background.jpeg'); 
     background-size: 100% auto; 
     background-position: center;
     color: white;
@@ -194,7 +193,6 @@ P > A:hover {
 }
 
 .sh-child-tree {
-    display: none;
     list-style-type: none;
     padding: 0;
 }
@@ -216,8 +214,12 @@ P > A:hover {
     font-weight: 800;
 }
 
+.card-description {
+    font-size: .9em;
+}
+
 .card-body {
-    padding: 16px;
+    padding: 8px 16px 16px 16px;
 }
 
 .card-info {

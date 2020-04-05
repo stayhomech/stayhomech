@@ -7,22 +7,22 @@ class NPASerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NPA
-        fields = '__all__'
+        fields = ['id', 'npa', 'name', 'lang', 'geo_e', 'geo_n']
 
 class MunicipalitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Municipality
-        fields = '__all__'
+        fields = ['id', 'name']
 
 class DistrictSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = District
-        fields = '__all__'
+        fields = ['id', 'name']
 
 class CantonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Canton
-        fields = '__all__'
+        fields = ['id', 'code', 'name']

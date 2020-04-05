@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.gis.db import models as gis_models
+from django.contrib.gis.geos import Point
 
 
 class DatasetModelManager(models.Manager):
@@ -6,9 +8,11 @@ class DatasetModelManager(models.Manager):
         ds = self.create(version=version)
         return ds
 
+
 class DatasetModel(models.Model):
     version = models.PositiveIntegerField()
     objects = DatasetModelManager()
+
 
 class Canton(models.Model):
 
@@ -27,6 +31,7 @@ class Canton(models.Model):
     def __str__(self):
         return '%s (%s)' % (self.name, self.code)
 
+
 class District(models.Model):
 
     ofs_id = models.PositiveIntegerField(
@@ -44,6 +49,7 @@ class District(models.Model):
 
     def __str__(self):
         return '%s, %s' % (self.name, self.canton)
+
 
 class Municipality(models.Model):
     ofs_id = models.PositiveIntegerField(
@@ -71,18 +77,53 @@ class Municipality(models.Model):
     def __str__(self):
         return self.name
 
-class NPA(models.Model):
+
+class NPA(gis_models.Model):
+
+    class LANGUAGE:
+        UNKNOWN = 0
+        GERMAN = 1
+        FRENCH = 2
+        ITALIAN = 3
+        ROMANSH = 4
+
+    LANGUAGE_CHOICES = [
+        (LANGUAGE.UNKNOWN, 'Unknown'),
+        (LANGUAGE.GERMAN, 'German'),
+        (LANGUAGE.FRENCH, 'French'),
+        (LANGUAGE.ITALIAN, 'Italian'),
+        (LANGUAGE.ROMANSH, 'Romansh')
+    ]
+
     onrp_id = models.PositiveIntegerField(
         unique=True
     )
+
     municipality = models.ForeignKey(
         'Municipality',
         on_delete=models.CASCADE
     )
+
     npa = models.PositiveIntegerField()
+
     name = models.CharField(
         max_length=27
     )
+
+    lang = models.PositiveSmallIntegerField(
+        choices=LANGUAGE_CHOICES,
+        default=0
+    )
+
+    geo_e = gis_models.FloatField(
+        null=True
+    )
+
+    geo_n = gis_models.FloatField(
+        null=True
+    )
+
+    geo_center = gis_models.PointField()
 
     class Meta:
         verbose_name = 'NPA'
