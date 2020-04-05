@@ -11,7 +11,7 @@ RUN pip install --upgrade pip
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-RUN apt remove build-essential
+RUN apt remove -y build-essential
 
 COPY . .
 
