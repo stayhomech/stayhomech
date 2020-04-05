@@ -10,7 +10,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'web']
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'NAME': os.environ.get('MYSQL_APP_DB'),
         'USER': os.environ.get('MYSQL_APP_USER'),
         'PASSWORD': os.environ.get('MYSQL_APP_PASSWORD'),
