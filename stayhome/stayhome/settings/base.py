@@ -32,8 +32,6 @@ INSTALLED_APPS = [
     'django_filters',
     'ddtrace.contrib.django',
     'corsheaders',
-    'django_extensions',
-    'django_db_views',
     'webpack_loader',
 
     'geodata',
