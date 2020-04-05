@@ -53,7 +53,7 @@ const Filters = props => {
 
     const value_to_km = (value) => {
         var f = Math.pow(value / 100.0, 3);
-        return parseFloat(f * props.radius.max).toFixed(2);
+        return parseFloat(props.radius.min + (f * (props.radius.max - props.radius.min))).toFixed(2);
     }
 
     const handleDistanceFilterChange = (e, value) => {
@@ -72,7 +72,7 @@ const Filters = props => {
     return (
         <div className="col-xs-12 col-md-3 px-3" id="left-nav">
             <div className="row border-bottom p-3">
-                <div className="col-10 col-lg-12 p-0">
+                <div className="col-10 col-md-12 p-0">
                     <div className="input-group input-group-sm">
                         <div className="input-group-prepend">
                             <span className="input-group-text"><FontAwesomeIcon icon={faSearch}></FontAwesomeIcon></span>
@@ -80,7 +80,7 @@ const Filters = props => {
                         <input className="form-control form-control-sm" type="text" placeholder={t('Search in results')} onChange={ handleTextFilterChange } />
                     </div>
                 </div>
-                <div className="col-2 col-lg-0 px-3 d-block d-lg-none">
+                <div className="col-2 col-md-0 px-3 d-md-none">
                     <button className="sh-filter-toggle" type="button" onClick={ toggleFilters }>
                         <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>
                     </button>
@@ -100,7 +100,7 @@ const Filters = props => {
                             valueLabelDisplay="auto" 
                             ValueLabelComponent={ ValueLabelComponent }
                             valueLabelFormat={ handleDistanceLabelFormat }
-                            defaultValue={Math.round(searchContext.filters.distance / props.radius.max * 100)}
+                            defaultValue={Math.round((searchContext.filters.distance - props.radius.min) / (props.radius.max - props.radius.min) * 100)}
                         />
                     </Grid>
                     <Grid item>

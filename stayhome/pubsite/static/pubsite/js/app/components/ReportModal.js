@@ -34,11 +34,11 @@ const ReportModal = props => {
         }
 
         if (reportType == '0') {
-            return window.alert('Please select an issue...');
+            return window.alert(t('Please select an issue...'));
         }
 
         if ((reportType == '1' || reportType == '3') && reportDetails == '') {
-            return window.alert('Please add some details in the dedicated field.');
+            return window.alert(t('Please add some details in the dedicated field.'));
         }
 
         const form = new FormData();
@@ -77,36 +77,36 @@ const ReportModal = props => {
                         <FormGroup check>
                             <Label check>
                                 <Input type="radio" name="reportType" value="1" required={true} onChange={changeReportType} />{' '}
-                                Wrong or missing information. Please enter details in the field below.
+                                {t('Wrong or missing information. Please enter details in the field below.')}
                             </Label>
                         </FormGroup>
                         <FormGroup check>
                             <Label check>
                                 <Input type="radio" name="reportType" value="2" required={true} onChange={changeReportType} />{' '}
-                                This service does not deliver to my place !
+                                {t('This service does not deliver to my place !')}
                             </Label>
                         </FormGroup>
                         <FormGroup check>
                             <Label check>
                                 <Input type="radio" name="reportType" value="3" required={true} onChange={changeReportType} />{' '}
-                                Other. Please enter details in the field below.
+                                {t('Other. Please enter details in the field below.')}
                             </Label>
                         </FormGroup>
-                        <Input type="textarea" name="reportDetails" rows="5" onChange={changeReportDetails} placeholder="Enter any detail you want to add..."></Input>
+                        <Input type="textarea" name="reportDetails" rows="5" onChange={changeReportDetails} placeholder="{t('Enter any detail you want to add...')}"></Input>
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="secondary" outline={true} size="sm" onClick={toggle}>Cancel</Button>
-                    <Button color="sh" size="sm" onClick={report}>Report</Button>
+                    <Button color="secondary" outline={true} size="sm" onClick={toggle}>{t('Cancel')}</Button>
+                    <Button color="sh" size="sm" onClick={report}>{t('Report')}</Button>
                 </ModalFooter>
                 </>
             ) : (
                 <>
                 <ModalBody>
-                    <p>Your report has been sent. Thank you!</p>
+                    <p>{t('Your report has been sent. Thank you!')}</p>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="sh" size="sm" onClick={toggle}>Close</Button>
+                    <Button color="sh" size="sm" onClick={toggle}>{t('Close')}</Button>
                 </ModalFooter>
                 </>
             )}

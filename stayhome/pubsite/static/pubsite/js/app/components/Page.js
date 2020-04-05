@@ -37,12 +37,10 @@ const NoCardToShow = props => {
         filters.push(<li>{t('Display only services are members of the category') + ": " + c_name}</li>);
     }
 
-    console.log(filters, searchContext.filters);
-
     return (
         <Alert color="warning" id="allFiltered" className="m-4">
             <p className="font-weight-bold">{t('Nothing left to show, try changing your filters.')}</p>
-            <p>You currently have the following filters enabled:</p>
+            <p>{t('You currently have the following filters enabled:')}</p>
             <ul>
                 {filters}
             </ul>
@@ -214,7 +212,7 @@ const Page = props => {
                 }
 
                 // Distance filter
-                if (business.distance.km > searchContext.filters.distance) {
+                if (business.distance.km > (searchContext.filters.distance + 0.1)) {
                     visible = false;
                 }
 
@@ -247,8 +245,8 @@ const Page = props => {
     } else {
         return (       
             <div className="col-12 text-center" style={{ padding: '10vh' }}>
-                <p><img src="/static/pubsite/img/search.gif" style={{ maxWidth: '10vw' }} /></p>
-                <p>{t('Vincent is looking for your results...')}</p>
+                <p className="h1"><i className="fas fa-circle-notch fa-spin"></i></p>
+                <p className="h3">{t('A moment! We are looking for your results ...')}</p>
             </div>
         )
     }
