@@ -11,7 +11,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.i18n = i18n_init(self.props.lang, self.props.locize_api_key);
+    this.i18n = i18n_init(self.props.lang, self.props.locize_api_key, self.props.running_env);
   }
 
   render() {

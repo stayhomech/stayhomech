@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
     Row, 
@@ -8,6 +8,8 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBug, faPlusSquare, faMinusSquare, faLink, faPhone } from '@fortawesome/free-solid-svg-icons';
+
+import { SearchContext } from './Filters';
 
 
 const CategoryBadge = props => {
@@ -82,11 +84,11 @@ const Card = props => {
 
     const { t, i18n } = useTranslation();
 
-    const [visible, setVisible] = useState(true);
     const [expanded, setExpanded] = useState(false);
     const [details, setDetails] = useState(false);
     const [error, setEror] = useState(null);
 
+    // Expand content
     const setExpandedHandler = (e) => {
 
         e.preventDefault();
@@ -118,19 +120,18 @@ const Card = props => {
             
     }
 
+    // Use Page function to report an issue in a modal
     const reportIssue = (e) => {
-
         e.preventDefault();
-
         props.reportIssue(props);
-
     }
 
+    // List of other categories
     const other_categories_badges = props.other_categories.map((category) =>
         <CategoryBadge category={category} key={category.id} className="mr-1" />
     );
 
-    return visible ? (
+    return (
         <div className="sh-card">
             <div className="card-header">
                 <CategoryBadge category={props.main_category} />
@@ -209,7 +210,7 @@ const Card = props => {
                 </ButtonGroup>
             </div>
         </div>
-    ) : null;
+    )
 
 }
 

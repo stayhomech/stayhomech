@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, useContext } from 'react';
 import { 
     Row,
     Col,
@@ -7,31 +7,49 @@ import {
     Input,
     Alert
 } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilter, faSearchPlus, faSearchMinus, faDotCircle } from '@fortawesome/free-solid-svg-icons';
-import { useTranslation } from 'react-i18next';
-import ReactBootstrapSlider from 'react-bootstrap-slider';
 
-import { ErrorBoundary } from './ErrorBoundary';
-import { CategoryTree } from './CategoryTree';
+import { useTranslation } from 'react-i18next';
 import { Card } from './Card';
 import { ReportModal } from './ReportModal';
+import { Filters, SearchContext } from './Filters';
 
 
 const NoCardToShow = props => {
 
     const { t, i18n } = useTranslation();
 
-    const [visible, setVisible] = useState(false)
+    const searchContext = useContext(SearchContext);
 
-    return (visible) ? (
+    var filters = [];
+
+    if (searchContext.filters.text != '') {
+        filters.push(<li>{t('Textual search for') + ' "' + searchContext.filters.text + '".'}</li>);
+    }
+    if (searchContext.filters.distance < Infinity) {
+        filters.push(<li>{t('Display only services that are located less than') + " " + searchContext.filters.distance + ' km.'}</li>);
+    }
+    if (searchContext.filters.category > 0) {
+        const c = props.categories[searchContext.filters.category];
+        var c_name = c.name;
+        if (c.parent != null) {
+            c_name = c.parent.name + " / " + c_name;
+        }
+        filters.push(<li>{t('Display only services are members of the category') + ": " + c_name}</li>);
+    }
+
+    console.log(filters, searchContext.filters);
+
+    return (
         <Alert color="warning" id="allFiltered" className="m-4">
-            {t('Nothing left to show, try changing your filters.')}
+            <p className="font-weight-bold">{t('Nothing left to show, try changing your filters.')}</p>
+            <p>You currently have the following filters enabled:</p>
+            <ul>
+                {filters}
+            </ul>
         </Alert>
-    ) : null;
+    )
 
 }
-
 
 const Page = props => {
 
@@ -45,6 +63,10 @@ const Page = props => {
     const [modals, setModals] = useState([]);
     const [npa, setNpa] = useState(null);
     const [radius, setRadius] = useState([999.0, 0.0])
+
+    const [filterText, setFilterText] = useState('')
+    const [filterDistance, setFilterDistance] = useState(Infinity)
+    const [filterCategory, setFilterCategory] = useState(0)
 
     useEffect(() => {
         fetch("/content/" + props.content_uuid + "/")
@@ -77,7 +99,7 @@ const Page = props => {
                     }
 
                     // Refill categories
-                    var bs = []
+                    var bs = [];
                     result.businesses.forEach((business) => {
 
                         // Radius
@@ -88,22 +110,35 @@ const Page = props => {
                             radius.max =  business.distance.km;
                         }
 
+                        // All categories IDs and texts for filtering
+                        var all_c_pks = [parseInt(business.main_category)];
+
                         // Main
                         business.main_category = categories[business.main_category]
+                        var all_c_text = business.name + " " + business.description + " " + business.main_category.name + " " + business.main_category.parent.name;
+                        all_c_pks.push(parseInt(business.main_category.parent.id))
 
                         // Others
                         var others = []
                         business.other_categories.forEach((category) => {
+                            all_c_pks.push(parseInt(category));
+                            all_c_pks.push(parseInt(categories[category].parent.id));
+                            all_c_text += " " + categories[category].name;
+                            all_c_text += " " + categories[category].parent.name;
                             others.push(categories[category]);
                         })
                         business.other_categories = others;
+
+                        // Save filters
+                        business.all_c_pks = all_c_pks;
+                        business.all_c_text = all_c_text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
                         // Save
                         bs.push(business);
 
                     });
 
-                    console.log([radius.min, radius.max]);
+                    // Radius
                     setRadius([radius.min * 0.99, radius.max * 1.01]);
 
                     // Save businesses
@@ -137,49 +172,75 @@ const Page = props => {
             </div>
             )
         } else {
+   
+            const searchContext = {
+                filters: {
+                    text: filterText,
+                    distance: filterDistance,
+                    category: filterCategory,
+                },
+                setFilters: {
+                    setText: (text) => {
+                        setFilterText(text);
+                    },
+                    setDistance: (distance) => {
+                        setFilterDistance(parseFloat(distance));
+                    },
+                    setCategory: (category) => {
+                        setFilterCategory(parseInt(category));
+                    }
+                }
+            }
 
-            const cards = businesses.map((business) =>
-                <Card {...business} key={business.id} reportIssue={ reportIssue } ></Card>
-            )
+            // Build list of cards
+            const cards = [];
+            var stop_cards = false;
+            businesses.forEach((business) => {
+
+                if (stop_cards) { return }
+
+                if (filterDistance > 9999 && cards.length == 25) {
+                    searchContext.filters.distance = business.distance.km;
+                    stop_cards = true;
+                    return
+                }
+
+                // Should the card be visible ?
+                var visible = true;
+
+                // Categories filter
+                if (searchContext.filters.category > 0 && !business.all_c_pks.includes(searchContext.filters.category)) { 
+                    visible = false; 
+                }
+
+                // Distance filter
+                if (business.distance.km > searchContext.filters.distance) {
+                    visible = false;
+                }
+
+                // Text filter
+                var search = searchContext.filters.text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                if (!business.all_c_text.toLowerCase().includes(search)) {
+                    visible = false;
+                }
+
+                // Return
+                if (visible) cards.push(<Card {...business} key={business.id} reportIssue={ reportIssue } />);
+            });
 
             return (
             <Row>
                 {modals}
-                <div className="col-xs-12 col-md-3 p-3" id="left-nav">
-                    <div className="row border-bottom p-0">
-                        <div className="col-10 col-lg-12 pt-3">
-                            <div className="input-group input-group-sm mb-3">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text"><FontAwesomeIcon icon={faSearch}></FontAwesomeIcon></span>
-                                </div>
-                                <input className="form-control form-control-sm" id="searchInput" type="text" placeholder={t('Search in results')} />
-                            </div>
-                        </div>
-                        <div className="col-2 col-lg-0 p-3 d-block d-lg-none">
-                            <button className="sh-filter-toggle" type="button" data-toggle="collapse" data-target=".nav-filter" aria-expanded="false" aria-controls="collapseExample">
-                                <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>
-                            </button>
-                        </div>
+                <SearchContext.Provider value={ searchContext }>
+                    <Filters categoriesTree={ categoriesTree } radius={{ min: radius[0], max: radius[1] }} />
+                    <div className="col-xs-12 col-md-9 p-0">
+                        {(cards.length == 0) ?
+                            <NoCardToShow categories={categories} />
+                            :
+                            cards
+                        }
                     </div>
-                    <div className="row border-bottom px-3 py-2 nav-filter">
-                        <div id="slider-parent">
-                            <FontAwesomeIcon icon={faDotCircle} size="xs"></FontAwesomeIcon>
-                            <ReactBootstrapSlider
-                                min={radius[0]}
-                                max={radius[1]}
-                                step={(radius[1] - radius[0]) / 10}
-                                value={radius[1]} />
-                            <FontAwesomeIcon icon={faDotCircle} size="lg"></FontAwesomeIcon>
-                        </div>
-                    </div>
-                    <div className="row p-0 nav-filter">
-                        <CategoryTree categories={categoriesTree}></CategoryTree>
-                    </div>
-                </div>
-                <div className="col-xs-12 col-md-9 p-0">
-                    <NoCardToShow />
-                    {cards}
-                </div>
+                </SearchContext.Provider>
             </Row>
             )
         }

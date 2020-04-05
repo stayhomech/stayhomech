@@ -49,7 +49,7 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -71,7 +71,13 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.scss']
+    extensions: ['*', '.js', '.jsx', '.scss', '.css']
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 
 };
