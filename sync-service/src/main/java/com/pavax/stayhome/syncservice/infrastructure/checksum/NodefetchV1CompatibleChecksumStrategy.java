@@ -6,6 +6,7 @@ import com.google.common.collect.Sets;
 import com.pavax.stayhome.syncservice.service.BusinessRequestDto;
 import com.pavax.stayhome.syncservice.service.ChecksumStrategy;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
@@ -13,6 +14,7 @@ import org.springframework.util.DigestUtils;
 
 @Component
 @Order(100)
+@ConditionalOnProperty(value = "sync-service.checksum.strategy", havingValue = "nodefetch-v1", matchIfMissing = false)
 class NodefetchV1CompatibleChecksumStrategy implements ChecksumStrategy {
 
 	private Set<String> providerNames = Sets.newHashSet("DerBund", "laedelishop");
@@ -32,7 +34,7 @@ class NodefetchV1CompatibleChecksumStrategy implements ChecksumStrategy {
 				businessRequestDto.getEmail() +
 				businessRequestDto.getCategories() +
 				businessRequestDto.getContact() +
-				businessRequestDto.getLanguage() +
+				"de" +
 				businessRequestDto.getDelivery();
 		return DigestUtils.md5DigestAsHex(checkSumString.getBytes());
 	}
