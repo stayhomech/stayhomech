@@ -14,7 +14,7 @@ import org.springframework.util.DigestUtils;
 
 @Component
 @Order(100)
-@ConditionalOnProperty(value = "sync-service.checksum.strategy", havingValue = "nodefetch-v1", matchIfMissing = false)
+@ConditionalOnProperty(value = "sync-service.checksum.strategy.nodefetch", havingValue = "v1", matchIfMissing = false)
 class NodefetchV1CompatibleChecksumStrategy implements ChecksumStrategy {
 
 	private Set<String> providerNames = Sets.newHashSet("DerBund", "laedelishop");
