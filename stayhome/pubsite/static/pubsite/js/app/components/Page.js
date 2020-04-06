@@ -67,7 +67,7 @@ const Page = props => {
     const [filterCategory, setFilterCategory] = useState(0)
 
     useEffect(() => {
-        fetch("/content/" + props.content_uuid + "/")
+        fetch("/content/" + props.lang + "/" + props.content_uuid + "/")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -223,7 +223,7 @@ const Page = props => {
                 }
 
                 // Return
-                if (visible) cards.push(<Card {...business} key={business.id} reportIssue={ reportIssue } />);
+                if (visible) cards.push(<Card {...business} key={business.id} reportIssue={ reportIssue } lang={props.lang} />);
             });
 
             return (

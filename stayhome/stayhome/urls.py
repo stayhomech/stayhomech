@@ -35,8 +35,8 @@ urlpatterns = [
     path('<int:npa>/<path:name>/', ContentView.as_view(), name='content'),
 
     # React content
-    path('content/<int:npa>/<path:name>/', ReactContentView.as_view(), name='react_content'),
-    path('business/<int:pk>/', ReactBusinessContentView.as_view(), name='react_business'),
+    path('content/<str:lang>/<int:npa>/<path:name>/', ReactContentView.as_view(), name='react_content'),
+    path('business/<str:lang>/<int:pk>/', ReactBusinessContentView.as_view(), name='react_business'),
 
     # Embeded search
     path('embed/', EmbededView.as_view(), name='embed'),
