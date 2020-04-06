@@ -10,15 +10,19 @@ import java.util.regex.Pattern;
 import com.google.i18n.phonenumbers.PhoneNumberMatch;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
-import org.apache.commons.lang3.StringUtils;
 
 
 public class ContactInformationGuesser {
 
 	private final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
 
+	// copied from: https://stackoverflow.com/a/17773849
+	private static final Pattern WEBSITE_PATTER = Pattern.compile("(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})");
+
+	private static final Pattern EMAIL_PATTERN = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+");
+
 	public String extractPhoneNumber(String text) {
-		text = StringUtils.chomp(text);
+		text = cleanupString(text);
 		final Iterable<PhoneNumberMatch> numbers = util.findNumbers(text, "CH");
 		final List<String> results = new ArrayList<>();
 		numbers.forEach(phoneNumberMatch -> {
@@ -29,39 +33,35 @@ public class ContactInformationGuesser {
 	}
 
 	public String extractEmail(String text) {
-		text = StringUtils.chomp(text);
-		Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(text);
+		text = cleanupString(text);
+		Matcher matcher = EMAIL_PATTERN.matcher(text);
 		final List<String> results = new ArrayList<>();
-		while (m.find()) {
-			results.add(m.group());
+		while (matcher.find()) {
+			results.add(matcher.group());
 		}
 		return results.isEmpty() ? "" : trim(results.get(0));
 	}
 
 	public String extractWebsite(String text) {
-		text = StringUtils.chomp(text);
-		Matcher m = Pattern.compile("(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})").matcher(text);
+		text = cleanupString(text);
+		Matcher matcher = WEBSITE_PATTER.matcher(text);
 		final List<String> results = new ArrayList<>();
-		while (m.find()) {
-			results.add(m.group());
+		while (matcher.find()) {
+			results.add(matcher.group());
 		}
 		return results.isEmpty() ? "" : trim(results.get(0));
 	}
 
 	public String extractStreet(String text) {
-		text = StringUtils.chomp(text);
+		text = cleanupString(text);
 		final String[] split = text.split(",");
 		return split.length > 1 ? trim(split[0]) : "";
 	}
 
-	/*
-	public String extractLocation(String text) {
-		Matcher m = Pattern.compile("[0-9]{4}(\\s?.*)?").matcher(text);
-		final List<String> results = new ArrayList<>();
-		while (m.find()) {
-			results.add(m.group());
-		}
-		return results.isEmpty() ? text : StringUtils.trim(results.get(0));
-	}*/
+	private String cleanupString(String text) {
+		return text
+				.replace("/n", "")
+				.trim();
+	}
 
 }
