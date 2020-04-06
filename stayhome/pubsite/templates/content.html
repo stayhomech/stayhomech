@@ -2,6 +2,7 @@
 {% load static mptt_tags i18n compress %}
 
 {% block content %}
+{{ timing }}
 <div class="modal" tabindex="-1" role="dialog" id="reportModal">
   <div class="modal-dialog mw-100 w-50" role="document">
     <div class="modal-content">
@@ -83,7 +84,7 @@
                     {% blocktrans %}Nothing left to show, try changing your filters.{% endblocktrans %}
                 </div>
                 {% for business in businesses %}
-                    <div class="sh-card sh-cat-{{ business.main_category.pk }} sh-cat-{{ business.main_category.parent.pk }} {% for category in business.other_categories.all %}sh-cat-{{ category.pk }} sh-cat-{{ category.parent.pk }} {% endfor %}" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }} {% endfor %}" data-name="{{ business.name }}" data-radius="{{ business.radius }}">
+                    <div class="sh-card sh-cat-{{ business.main_category.pk }} sh-cat-{{ business.main_category.parent.pk }} {% for category in business.other_categories.all %}sh-cat-{{ category.pk }} sh-cat-{{ category.parent.pk }} {% endfor %}" data-categories="{{ business.main_category.get_path }} {% for category in business.other_categories.all %}{{ category.get_path }} {% endfor %}" data-name="{{ business.name }}" data-distance="{{ business.distance }}">
                         <div class="card-header">
                             <span class="badge badge-secondary">{{ business.main_category.get_path }}</span>
                             {% for category in business.other_categories.all %}

@@ -423,3 +423,16 @@ class Business(EventModel):
     def clear_npa_cache(self):
         cache_key = str(self.location.pk) + '_businesses'
         cache.delete(cache_key)
+
+"""
+class BusinessView(DBView):
+    
+    view_definition = 
+        SELECT
+            business_business
+    
+
+    class Meta:
+        managed = False
+        db_table = 'business_businessview'
+"""

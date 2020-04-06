@@ -28,6 +28,9 @@ if [ ! -f "datasets/.imported" ]; then
     # Attach municipalities to districts
     python manage.py geo_import_municipalities datasets/municipalities.csv
 
+    # Import geographical information
+    python manage.py geo_import_gis datasets/geodata.csv
+
     # Not importing anymore
     echo "" > datasets/.imported
 
@@ -37,8 +40,6 @@ fi
 python manage.py compilemessages
 
 # Statics
-python manage.py collectstatic --noinput
-python manage.py compress --force
 python manage.py collectstatic --noinput
 
 # Translations
