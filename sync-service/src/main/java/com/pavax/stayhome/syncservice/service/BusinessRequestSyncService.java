@@ -51,10 +51,10 @@ public class BusinessRequestSyncService {
 	}
 
 	private BusinessRequest prepareBusinessRequest(BusinessRequestDto businessRequestDto) {
-		final String correlationId = extractCorrelationId(businessRequestDto);
-		return this.businessRequestRepository.findBySourceId(correlationId)
+		final String sourceId = extractSourceId(businessRequestDto);
+		return this.businessRequestRepository.findBySourceId(sourceId)
 				.orElse(new BusinessRequest())
-				.setSourceUUid(correlationId)
+				.setSourceUUid(sourceId)
 				.setName(businessRequestDto.getName())
 				.setDescription(businessRequestDto.getDescription())
 				.setLocation(businessRequestDto.getLocation())
@@ -79,7 +79,7 @@ public class BusinessRequestSyncService {
 		return businessRequest.getUuid() == null;
 	}
 
-	private String extractCorrelationId(BusinessRequestDto businessRequestDto) {
+	private String extractSourceId(BusinessRequestDto businessRequestDto) {
 		return String.format("%s-%s", businessRequestDto.getProviderName(), businessRequestDto.getId());
 	}
 
