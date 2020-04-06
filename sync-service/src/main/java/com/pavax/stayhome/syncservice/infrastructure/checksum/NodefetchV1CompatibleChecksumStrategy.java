@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
 
+/**
+ * Nodefetch compatible ChecksumStrategy for the version we have on our Production (git commit: 88bb663237793648119f37feb553d41729c97175)
+ */
 @Component
 @Order(100)
 @ConditionalOnProperty(value = "sync-service.checksum.strategy.nodefetch", havingValue = "v1", matchIfMissing = false)
