@@ -5,17 +5,4 @@ stayhome:
     localhero:
       scrape-cron: '-'
       page-size: 2
-      query-map-class: ch.stayhome.integrations.localhero.infrastructure.feign.querymap.JsonServer
-      sources:
-        - key: 'bern'
-          providerName: 'bern-local-hero'
-          url: 'http://localhost:3001/bern' # doesn't work yet as we need to mock the pagination headers
-          #url: 'https://bern.local-hero.ch'
-          path: ''
-          place: 'Bern'
-        - key: 'winterthur'
-          providerName: 'winterthur-local-hero'
-          url: 'http://localhost:3001/winterthur' # doesn't work yet as we need to mock the pagination headers
-          #url: 'https://winterthur.local-hero.ch'
-          path: ''
-          place: 'Winterthur'
+
