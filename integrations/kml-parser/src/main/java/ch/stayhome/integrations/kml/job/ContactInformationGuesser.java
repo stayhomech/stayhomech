@@ -60,7 +60,7 @@ public class ContactInformationGuesser {
 
 	private String cleanupString(String text) {
 		return text
-				.replace("/n", "")
+				.replace("\n", "")
 				.trim();
 	}
 
