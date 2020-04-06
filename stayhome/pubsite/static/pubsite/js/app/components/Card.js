@@ -100,7 +100,7 @@ const Card = props => {
 
         // Fetch details if needed
         if (!details) {
-            fetch("/business/" + props.id + "/")
+            fetch("/business/" + props.lang + "/" + props.id + "/")
                 .then(res => res.json())
                 .then(
                     (result) => {

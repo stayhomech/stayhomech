@@ -17,7 +17,7 @@ class App extends React.Component {
   render() {
     return (
       <Suspense fallback={ <Loading /> }>
-        <Page content_uuid={this.props.content_uuid} running_env={this.props.running_env} csrf_token={this.props.csrf_token} />
+        <Page content_uuid={this.props.content_uuid} running_env={this.props.running_env} csrf_token={this.props.csrf_token} lang={this.props.lang} />
       </Suspense>
     );
   }
