@@ -1,3 +1,8 @@
 spring:
   profiles:
     include: disable-sentry
+
+stayhome:
+  api:
+    url: http://localhost:8000/api
+    token: cb4618447c8cf0cd233e6a91280ce9710e86a55e

@@ -12,6 +12,8 @@ services:
       - MYSQL_PASSWORD=stayhome
     volumes:
       - db_data:/var/lib/mysql
+    ports:
+      - 127.0.0.1:3306:3306
     restart: always
 
   web:

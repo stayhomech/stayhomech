@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
-import com.pavax.stayhome.syncservice.service.BusinessEntryDto;
+import com.pavax.stayhome.syncservice.service.BusinessRequestDto;
 import com.pavax.stayhome.syncservice.service.BusinessRequestSyncService;
 
 import org.springframework.validation.annotation.Validated;
@@ -25,13 +25,13 @@ public class BusinessRequestSyncController {
 	}
 
 	@PostMapping("/")
-	public void upsert(@RequestBody @Validated BusinessEntryDto businessEntryDto) {
-		this.businessRequestSyncService.sync(businessEntryDto);
+	public void upsert(@RequestBody @Validated BusinessRequestDto businessRequestDto) {
+		this.businessRequestSyncService.sync(businessRequestDto);
 	}
 
 	@PostMapping("/_bulk")
 	public void bulkUpsert(@RequestBody @Validated BulkOperation bulkOperation) {
-		for (BusinessEntryDto entry : bulkOperation.entries) {
+		for (BusinessRequestDto entry : bulkOperation.entries) {
 			this.businessRequestSyncService.sync(entry);
 		}
 	}
@@ -40,7 +40,7 @@ public class BusinessRequestSyncController {
 
 		@Valid
 		@NotEmpty
-		public List<BusinessEntryDto> entries;
+		public List<BusinessRequestDto> entries;
 
 	}
 
