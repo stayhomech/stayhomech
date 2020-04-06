@@ -1,7 +1,9 @@
 package com.pavax.stayhome.syncservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
+@ToString
 public class BusinessRequest {
 
 	private String uuid;
@@ -78,7 +80,7 @@ public class BusinessRequest {
 	}
 
 	public BusinessRequest setDescription(String description) {
-		this.description = description;
+		this.description = sanitizeText(description);
 		return this;
 	}
 
@@ -177,13 +179,8 @@ public class BusinessRequest {
 	}
 
 	public BusinessRequest setAddress(String address) {
-		this.address = address;
+		this.address = orEmpty(address);
 		return this;
-	}
-
-	public void prepareForSaving() {
-		this.address = orEmpty(this.address);
-		this.description = sanitizeText(this.description);
 	}
 
 	private String orEmpty(String value) {
@@ -206,28 +203,6 @@ public class BusinessRequest {
 				.replaceAll("[^\\u0000-\\uFFFF]", "")
 				.replace("\n", "")
 				.trim();
-	}
-
-	@Override
-	public String toString() {
-		return "BusinessRequest{" +
-				"uuid='" + uuid + '\'' +
-				", ttl=" + ttl +
-				", sourceUUid='" + sourceUUid + '\'' +
-				", name='" + name + '\'' +
-				", description='" + description + '\'' +
-				", address='" + address + '\'' +
-				", location='" + location + '\'' +
-				", contact='" + contact + '\'' +
-				", website='" + website + '\'' +
-				", phone='" + phone + '\'' +
-				", email='" + email + '\'' +
-				", category='" + category + '\'' +
-				", delivery='" + delivery + '\'' +
-				", checksum='" + checksum + '\'' +
-				", lang='" + lang + '\'' +
-				", status='" + status + '\'' +
-				'}';
 	}
 
 }
