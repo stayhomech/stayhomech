@@ -1,6 +1,7 @@
 import uuid
 import json
 import random
+from urllib.parse import quote
 
 from django.views.generic import TemplateView, View, FormView
 from django.http import JsonResponse, Http404, HttpResponseRedirect
@@ -181,7 +182,7 @@ class ContentView(TemplateView):
         context['running_env'] = settings.RUNNING_ENV
         context['lang'] = translation.get_language()
         context['locize'] = settings.LOCIZE_API_KEY
-        context['content_uuid'] = str(kwargs['npa']) + '/' + kwargs['name']
+        context['content_uuid'] = str(kwargs['npa']) + '/' + quote(kwargs['name'])
         return context
 
 
