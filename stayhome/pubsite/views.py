@@ -27,7 +27,7 @@ from .forms import ContactForm
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-@method_decorator(cache_page(60 * 5), name='dispatch')
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class HomeView(TemplateView):
 
     template_name = "home.html"
@@ -53,7 +53,7 @@ class EmbededView(TemplateView):
     template_name = "embed.html"
 
 
-@method_decorator(cache_page(60 * 5), name='dispatch')
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class HomeLocationView(View):
 
     def get(self, request, *args, **kwargs):
@@ -84,18 +84,14 @@ class HomeLocationView(View):
         return JsonResponse([], safe=False)
 
 
+@method_decorator(cache_page(60 * 30), name='dispatch')
 class ReactContentView(View):
 
-    def get(self, request, content_uuid, *args, **kwargs):
-        
-        # Read content from cache
-        npa_pk = cache.get('content_' + str(content_uuid))
-        if npa_pk is None:
-            raise Http404(_('No content at this key'))
+    def get(self, request, *args, **kwargs):
 
         # NPA
         try:
-            npa = NPA.objects.get(pk=npa_pk)
+            npa = NPA.objects.rewrite(False).get(npa__exact=kwargs['npa'], name__exact=kwargs['name'])
         except NPA.DoesNotExist as e:
             raise e
             raise Http404(_("NPA does not exist"))
@@ -173,33 +169,23 @@ class ReactContentView(View):
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-@method_decorator(cache_page(60 * 5), name='dispatch')
+@method_decorator(cache_page(60 * 30), name='dispatch')
 class ContentView(TemplateView):
 
     template_name = "content_react.html"
 
     def get_context_data(self, **kwargs):
 
-        # NPA
-        try:
-            npa = NPA.objects.rewrite(False).get(npa__exact=kwargs['npa'], name__exact=kwargs['name'])
-        except NPA.DoesNotExist as e:
-            raise e
-            raise Http404(_("NPA does not exist"))
-
-        # Save prepared data in cache
-        key_uuid = str(uuid.uuid4())
-        cache.set('content_' + key_uuid, npa.pk, 600)
-
         # Return
         context = super().get_context_data(**kwargs)
-        context['content_uuid'] = key_uuid
         context['running_env'] = settings.RUNNING_ENV
         context['lang'] = translation.get_language()
         context['locize'] = settings.LOCIZE_API_KEY
+        context['content_uuid'] = str(kwargs['npa']) + '/' + kwargs['name']
         return context
 
 
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class AboutView(TemplateView):
 
     template_name = "about.html"
@@ -246,6 +232,7 @@ class AddView(FormView):
     def form_valid(self, form):
         form.save_request()
         return super().form_valid(form)
+
 
 class SetLanguageView(View):
 

@@ -11,7 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Card } from './Card';
 import { ReportModal } from './ReportModal';
-import { Filters, SearchContext } from './Filters';
+import { Filters, SearchContext, distance_to_string } from './Filters';
 
 
 const NoCardToShow = props => {
@@ -26,7 +26,7 @@ const NoCardToShow = props => {
         filters.push(<li>{t('Textual search for') + ' "' + searchContext.filters.text + '".'}</li>);
     }
     if (searchContext.filters.distance < Infinity) {
-        filters.push(<li>{t('Display only services that are located less than') + " " + searchContext.filters.distance + ' km.'}</li>);
+        filters.push(<li>{t('Display only services that are located less than') + " " + distance_to_string(searchContext.filters.distance)}</li>);
     }
     if (searchContext.filters.category > 0) {
         const c = props.categories[searchContext.filters.category];
