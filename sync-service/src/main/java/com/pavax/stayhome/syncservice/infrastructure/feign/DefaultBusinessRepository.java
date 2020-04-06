@@ -36,12 +36,14 @@ class DefaultBusinessRepository implements BusinessRequestRepository {
 	@Override
 	public BusinessRequest save(BusinessRequest businessRequest) {
 		LOGGER.debug("Create a new Business-Request: {}", businessRequest.getSourceUUid());
+		businessRequest.prepareForSaving();
 		return this.feignBasedBusinessRepository.save(businessRequest);
 	}
 
 	@Override
 	public void update(BusinessRequest businessRequest) {
 		LOGGER.debug("Update a existing Business-Request: {}", businessRequest.getUuid());
+		businessRequest.prepareForSaving();
 		this.feignBasedBusinessRepository.update(businessRequest.getUuid(), businessRequest);
 	}
 

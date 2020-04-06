@@ -180,4 +180,54 @@ public class BusinessRequest {
 		this.address = address;
 		return this;
 	}
+
+	public void prepareForSaving() {
+		this.address = orEmpty(this.address);
+		this.description = sanitizeText(this.description);
+	}
+
+	private String orEmpty(String value) {
+		return value == null ? "" : value;
+	}
+
+	/**
+	 * remove all special-characters
+	 *
+	 * @param text to sanitize
+	 *
+	 * @return sanitized text
+	 */
+	private String sanitizeText(String text) {
+		if (text == null) {
+			return "";
+		}
+		return text
+				// remove all non-four-byte-UTF-8: https://stackoverflow.com/a/10574318
+				.replaceAll("[^\\u0000-\\uFFFF]", "")
+				.replace("\n", "")
+				.trim();
+	}
+
+	@Override
+	public String toString() {
+		return "BusinessRequest{" +
+				"uuid='" + uuid + '\'' +
+				", ttl=" + ttl +
+				", sourceUUid='" + sourceUUid + '\'' +
+				", name='" + name + '\'' +
+				", description='" + description + '\'' +
+				", address='" + address + '\'' +
+				", location='" + location + '\'' +
+				", contact='" + contact + '\'' +
+				", website='" + website + '\'' +
+				", phone='" + phone + '\'' +
+				", email='" + email + '\'' +
+				", category='" + category + '\'' +
+				", delivery='" + delivery + '\'' +
+				", checksum='" + checksum + '\'' +
+				", lang='" + lang + '\'' +
+				", status='" + status + '\'' +
+				'}';
+	}
+
 }
