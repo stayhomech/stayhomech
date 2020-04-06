@@ -1,5 +1,7 @@
 package ch.stayhome.integrations.kml.job;
 
+import static org.springframework.util.DigestUtils.md5DigestAsHex;
+
 import java.time.Duration;
 import java.util.Map;
 import java.util.Set;
@@ -54,10 +56,15 @@ public class KMLItemProcessor implements ItemProcessor<PlacemarkType, StayHomeEn
 	}
 
 	private String extractId(PlacemarkType item) {
-		return item.getPoint().getCoordinates()
+		final String coordinates = item.getPoint().getCoordinates()
 				.replace("\n", "")
 				.replace(",", "_")
 				.trim();
+		final String name = item.getName()
+				.replace("\n", "")
+				.trim()
+				.substring(0, 6);
+		return String.format("%s_%s", coordinates, md5DigestAsHex(name.getBytes()));
 	}
 
 	public StayHomeEntryBuilder parseKontakt(String contact, StayHomeEntryBuilder builder) {
