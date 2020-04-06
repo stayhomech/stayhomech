@@ -40,6 +40,17 @@ const SHSlider = withStyles({
     },
 })(Slider);
 
+const distance_to_string = (v) => {
+    if (v < 2) {
+        v = Math.round(v * 10) * 100;
+        return v.toString() + " m";
+    } else if (v < 10) {
+        return parseFloat(v).toFixed(1).toString() + " km";
+    } else {
+        return Math.round(v).toString() + " km";
+    }
+}
+
 const Filters = props => {
 
     const { t, i18n } = useTranslation();
@@ -51,22 +62,22 @@ const Filters = props => {
         searchContext.setFilters.setText(e.target.value);
     }
 
-    const value_to_km = (value) => {
-        var f = Math.pow(value / 100.0, 3);
-        return parseFloat(props.radius.min + (f * (props.radius.max - props.radius.min))).toFixed(2);
-    }
-
     const handleDistanceFilterChange = (e, value) => {
-        searchContext.setFilters.setDistance(value_to_km(value));
-    }
-
-    const handleDistanceLabelFormat = (value) => {
-        return value_to_km(value).toString() + " km";
+        searchContext.setFilters.setDistance(distance_to_km(value, props.radius.min, props.radius.max));
     }
 
     const toggleFilters = (e) => {
         e.preventDefault();
         $('.nav-filter').toggle();
+    }
+
+    const distance_to_km = (value, min, max) => {
+        var f = Math.pow(value / 100.0, 3);
+        return min + (f * (max - min));
+    }
+
+    const valueLabelFormatHandler = (v) => {
+        return distance_to_string(distance_to_km(v, props.radius.min, props.radius.max));
     }
 
     return (
@@ -99,7 +110,7 @@ const Filters = props => {
                             onChangeCommitted={ handleDistanceFilterChange } 
                             valueLabelDisplay="auto" 
                             ValueLabelComponent={ ValueLabelComponent }
-                            valueLabelFormat={ handleDistanceLabelFormat }
+                            valueLabelFormat={ valueLabelFormatHandler }
                             defaultValue={Math.round((searchContext.filters.distance - props.radius.min) / (props.radius.max - props.radius.min) * 100)}
                         />
                     </Grid>
@@ -118,5 +129,6 @@ const Filters = props => {
 
 export {
     Filters,
-    SearchContext
+    SearchContext,
+    distance_to_string
 }
