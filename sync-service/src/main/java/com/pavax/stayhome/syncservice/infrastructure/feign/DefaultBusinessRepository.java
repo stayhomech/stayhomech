@@ -8,12 +8,9 @@ import com.pavax.stayhome.syncservice.domain.BusinessRequestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Retryable(backoff = @Backoff(delay = 2_000, multiplier = 1.5, maxDelay = 30_000))
 class DefaultBusinessRepository implements BusinessRequestRepository {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBusinessRepository.class);
@@ -36,14 +33,12 @@ class DefaultBusinessRepository implements BusinessRequestRepository {
 	@Override
 	public BusinessRequest save(BusinessRequest businessRequest) {
 		LOGGER.debug("Create a new Business-Request: {}", businessRequest.getSourceUUid());
-		businessRequest.prepareForSaving();
 		return this.feignBasedBusinessRepository.save(businessRequest);
 	}
 
 	@Override
 	public void update(BusinessRequest businessRequest) {
 		LOGGER.debug("Update a existing Business-Request: {}", businessRequest.getUuid());
-		businessRequest.prepareForSaving();
 		this.feignBasedBusinessRepository.update(businessRequest.getUuid(), businessRequest);
 	}
 
