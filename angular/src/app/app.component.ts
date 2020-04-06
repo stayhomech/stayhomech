@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {BusinessesApiService} from './services/businesses.api.service';
+import {take} from 'rxjs/operators';
+import {AppStore} from './app.store';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +11,10 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppComponent {
   title = 'stayhome';
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private businessesService: BusinessesApiService, private store: AppStore) {
     translate.setDefaultLang('en');
+    businessesService.retrieveBusinesses(1)
+      .pipe(take(1))
+      .subscribe(businesses => store.businesses = businesses);
   }
 }

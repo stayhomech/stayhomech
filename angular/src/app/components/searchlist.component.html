@@ -1,0 +1,111 @@
+<div class="container border-top">
+  <div class="row">
+    <div *ngIf="!businesses" class="p-5 col-12 text-center">
+      <p class="h3">{{'No delivery service available at that location' | translate }}</p>
+      <p>{{'If you own or know a company that offers a delivery service at this location, please consider' | translate }} <a href="/'add'/">{{ 'adding the service' | translate}}</a>.</p>
+    </div>
+    <div *ngIf="!!businesses" class="col-xs-12 col-md-3 p3" id="left-nav">
+      <div class="row border-bottom p-0">
+        <div class="col-10 col-lg-12 pt-3">
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
+          </div>
+        </div>
+        <div class="col-2 col-lg-0 p-3 d-block d-lg-none">
+          <button class="sh-filter-toggle" type="button" data-toggle="collapse" data-target=".nav-filter" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fas fa-filter"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row border-bottom px-3 py-2 nav-filter">
+        <div id="slider-parent">
+          <i class="fas fa-search-minus"></i>
+          <input id="area-slider" type="text"
+                 data-provide="slider"
+                 data-slider-min="0"
+                 data-slider-max="3"
+                 data-slider-step="1"
+                 data-slider-value="0"
+                 data-slider-tooltip="hide" />
+          <i class="fas fa-search-plus"></i>
+        </div>
+      </div>
+      <div class="row p-0 nav-filter">
+        <ul class="sh-categories-tree">
+          # for parent_pk, parent in sc.items %}
+          <li data-selected="0" data-c-pk="# parent_pk }}" class="sh-parent-c px-3 py-2 border-bottom"># parent.obj }}</li>
+          <ul class="sh-child-tree sh-parent-# parent_pk }}">
+            # for child_pk, child in parent.children.items %}
+            <li data-selected="0" data-c-pk="# child_pk }}" class="sh-child-c px-4 py-2 border-bottom"># child }}</li>
+            # endfor %}
+          </ul>
+          # endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-9 p-0">
+      <div class="alert alert-warning m-4" role="alert" id="allFiltered" style="display: none;">
+        {{'Nothing left to show, try changing your filters.' | translate }}
+      </div>
+      <div *ngFor="let business of businesses | async" class="sh-card sh-cat-# business.main_category.pk }} sh-cat-# business.main_category.parent.pk }} # for category in business.other_categories.all %}sh-cat-# category.pk }} sh-cat-# category.parent.pk }} # endfor %}" data-categories="# business.main_category.get_path }} # for category in business.other_categories.all %}# category.get_path }} # endfor %}" data-name="# business.name }}" data-radius="# business.radius }}">
+        <div class="card-header">
+          <span class="badge badge-secondary">{{ business.category }}</span>
+          <span class="badge badge-secondary">{{ reduce(business.categories, '/') }}</span>
+          <span class="float-right small">{{ 'Located at' | translate}} {{ business.location }}</span>
+        </div>
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-12">
+              <h1 class="h5 card-title mb-0">{{ business.name }}</h1>
+            </div>
+          </div>
+          <div class="row m-0 p-0">
+            <div class="col-12 card-description m-0 p-0 sh-crop" id="descr-# business.pk }}">
+              {{ business.description? business.description: 'No description' }}
+            </div>
+          </div>
+          <div class="row my-2" id="more-# business.pk }}" style="display: none;">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 small">
+                  <a class="float-right sh-report" href="#" data-pk="# business.pk }}"><i class="fas fa-bug mr-1"></i>{{ 'Report an issue' | translate}}</a>
+                  <p>
+                    <span class="font-weight-bold">{{ 'Website' | translate}}</span><br/>
+                    <a [href]="business.website" target="_blank">{{ business.website }}</a>
+                  </p>
+                  <p *ngIf="business.phone">
+                    <span class="font-weight-bold">{{ 'Phone' | translate}}</span><br/>
+                    <a [href]="business.phone">{{ business.phone }}</a>
+                  </p>
+                  <p>
+                    <span class="font-weight-bold">{{ 'Email' | translate}}</span><br/>
+                    <a href="mailto: {{business.email}}">{{ business.email }}</a>
+                  </p>
+                  <p>
+                    <span class="font-weight-bold">{{ 'Where is this service available ?' | translate}}</span><br />
+                    <span *ngIf="business.deliversCH" class="badge badge-light"><img alt src="assets/pubsite/flags/CH.png" class="mr-1" style="height: 1em">{{'Everywhere in Switzerland' | translate }}</span>
+                    <span *ngFor="let canton of business.cantons" class="badge badge-light"><img alt src='{{"assets/pubsite/flags/"+canton+".png"}}' class="mr-1" style="height: 1em">{{ canton }}</span>
+                    <span *ngFor="let district of business.districts" class="badge badge-light">{{'District' | translate }}: {{ district }}</span>
+                    <span *ngFor="let municipality of business.municipalities" class="badge badge-light">{{ municipality }}</span>
+                    <span *ngFor="let npa of business.npas" class="badge badge-light">{{ npa }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-group btn-group-sm flex-wrap" role="group" aria-label="Card actions">
+            <a class="btn btn-outline-sh" href="javascript:see_more('# business.pk }}')">
+              <span id="plus-# business.pk }}"><i class="far fa-plus-square mr-1"></i>{{ 'More' | translate}}</span>
+              <span id="minus-# business.pk }}" style="display: none;"><i class="far fa-minus-square mr-1"></i>{{ 'Less' | translate}}</span>
+            </a>
+            <a *ngIf="business.website" class="btn btn-outline-sh" [href]="business.website" target="_blank"><i class="fas fa-link mr-1"></i>{{ 'Website' | translate}}</a>
+            <a *ngIf="business.phone" class="btn btn-outline-sh" [href]="business.phone"><i class="fas fa-phone mr-1"></i>{{business.phone}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

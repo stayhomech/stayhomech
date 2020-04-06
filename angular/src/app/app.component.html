@@ -14,19 +14,11 @@
       <div class="align-self-end collapse navbar-collapse mb-1" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/"># trans 'Home' %}</a>
+            <a class="nav-link" href="/">{{ 'Home' | translate}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="# url 'about' %}"># trans 'Contact us' %}</a>
+            <a class="nav-link" href="/about/">{{ 'Contact us' | translate}}</a>
           </li>
-          # if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="# url 'mgmt:index' %}"># blocktrans %}Contribute# endblocktrans %}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="# url 'mgmt:logout' %}"># blocktrans %}Log out# endblocktrans %}</a>
-          </li>
-          # endif %}
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -45,24 +37,25 @@
             <a class="nav-link mr-3 sh-nav-link" href="https://www.facebook.com/stayhome.ch" target="_blank"><i class="fab fa-facebook"></i></a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-sm btn-sh" href="# url 'add' %}"># trans 'Add a delivery service' %}</a>
+            <a class="btn btn-sm btn-sh" href="/'add'/">{{ 'Add a delivery service' | translate}}</a>
           </li>
         </ul>
       </div>
     </nav>
   </div>
 
+  <router-outlet></router-outlet>
 
   <div class="sh-container-dark">
     <div class="container">
       <div class="col-12 text-center px-0 py-2 py-md-5">
-        <a href="# url 'about' %}">
-          <img src="# static 'pubsite/img/logo_round_pin.png' %}" class="sh-bottom-logo" />
+        <a href="/about/">
+          <img alt src="assets/pubsite/img/logo_round_pin.png" class="sh-bottom-logo" />
         </a>
       </div>
       <div class="col-11 col-md-4 text-center mx-auto px-0 py-2 py-md-5 sh-copyright">
-        <p class="mb-0">&copy; 2020 <a href="# url 'about' %}">stayhome.ch</a> - # blocktrans %}All rights reserved# endblocktrans %}</p>
-        <p class="mt-0">Contributor <a href="# url 'mgmt:index' %}"># blocktrans %}Sign in# endblocktrans %}</a></p>
+        <p class="mb-0">&copy; 2020 <a href="/about/">stayhome.ch</a> - {{ 'All rights reserved' | translate}}</p>
+        <p class="mt-0">Contributor <a href="/contribute/">{{ 'Sign in' | translate}}</a></p>
       </div>
     </div>
   </div>
@@ -72,7 +65,7 @@
   <div class="modal-dialog mw-100 w-50" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"><i class="fas fa-bug mr-2"></i># trans 'Report an issue' %}</h5>
+        <h5 class="modal-title"><i class="fas fa-bug mr-2"></i>{{ 'Report an issue' | translate}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -82,152 +75,19 @@
           # csrf_token %}
           <input type="hidden" value="None" name="pk" id="modalPk" />
           <input type="hidden" value="# npa.pk }}" name="reportNpa" />
-          <p class="font-weight-bold"># blocktrans %}Damn... despite our efforts you found an issue...# endblocktrans %}</p>
-          <p># blocktrans %}Can you help us by describing what the problem is ?# endblocktrans %}</p>
-          <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad information" required /># blocktrans %}Wrong or missing information. Please enter details in the field below.# endblocktrans %}</p>
-          <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad delivery perimeter" required /># blocktrans %}This service does not deliver to my place !# endblocktrans %}</p>
-          <p class="px-4 py-0"><input type="radio" name="reportType" class="mr-2" value="Other" required /># blocktrans %}Other. Please enter details in the field below.# endblocktrans %}</p>
+          <p class="font-weight-bold">{{ 'Damn... despite our efforts you found an issue...' | translate }}</p>
+          <p>{{ 'Can you help us by describing what the problem is ?' | translate }}</p>
+          <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad information" required />{{ 'Wrong or missing information. Please enter details in the field below.' | translate }}</p>
+          <p class="px-4 py-0 mb-1"><input type="radio" name="reportType" class="mr-2" value="Bad delivery perimeter" required />{{ 'This service does not deliver to my place !' | translate }}</p>
+          <p class="px-4 py-0"><input type="radio" name="reportType" class="mr-2" value="Other" required />{{ 'Other. Please enter details in the field below.' | translate }}</p>
           <textarea class="form-control" name="reportDetails" rows="5"></textarea>
         </form>
       </div>
-      <div class="modal-body" id="reportModalBodyConfirmation" style="display: none;"># blocktrans %}Thank you for your report !# endblocktrans %}</div>
+      <div class="modal-body" id="reportModalBodyConfirmation" style="display: none;">{{ 'Thank you for your report !' | translate }}</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal"># trans 'Close' %}</button>
-        <button type="button" class="btn btn-sm btn-sh sh-report-btn"># trans 'Report' %}</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">{{ 'Close' | translate}}</button>
+        <button type="button" class="btn btn-sm btn-sh sh-report-btn">{{ 'Report' | translate}}</button>
       </div>
     </div>
   </div>
 </div>
-<div class="container border-top">
-  <div class="row">
-    # if businesses|length > 0 %}
-    <div class="col-xs-12 col-md-3 p3" id="left-nav">
-      <div class="row border-bottom p-0">
-        <div class="col-10 col-lg-12 pt-3">
-          <div class="input-group input-group-sm mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-search"></i></span>
-            </div>
-            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
-          </div>
-        </div>
-        <div class="col-2 col-lg-0 p-3 d-block d-lg-none">
-          <button class="sh-filter-toggle" type="button" data-toggle="collapse" data-target=".nav-filter" aria-expanded="false" aria-controls="collapseExample">
-            <i class="fas fa-filter"></i>
-          </button>
-        </div>
-      </div>
-      <div class="row border-bottom px-3 py-2 nav-filter">
-        <div id="slider-parent">
-          <i class="fas fa-search-minus"></i>
-          <input id="area-slider" type="text"
-                 data-provide="slider"
-                 data-slider-min="0"
-                 data-slider-max="3"
-                 data-slider-step="1"
-                 data-slider-value="0"
-                 data-slider-tooltip="hide" />
-          <i class="fas fa-search-plus"></i>
-        </div>
-      </div>
-      <div class="row p-0 nav-filter">
-        <ul class="sh-categories-tree">
-          # for parent_pk, parent in sc.items %}
-          <li data-selected="0" data-c-pk="# parent_pk }}" class="sh-parent-c px-3 py-2 border-bottom"># parent.obj }}</li>
-          <ul class="sh-child-tree sh-parent-# parent_pk }}">
-            # for child_pk, child in parent.children.items %}
-            <li data-selected="0" data-c-pk="# child_pk }}" class="sh-child-c px-4 py-2 border-bottom"># child }}</li>
-            # endfor %}
-          </ul>
-          # endfor %}
-        </ul>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-9 p-0">
-      <div class="alert alert-warning m-4" role="alert" id="allFiltered" style="display: none;">
-        # blocktrans %}Nothing left to show, try changing your filters.# endblocktrans %}
-      </div>
-      # for business in businesses %}
-      <div class="sh-card sh-cat-# business.main_category.pk }} sh-cat-# business.main_category.parent.pk }} # for category in business.other_categories.all %}sh-cat-# category.pk }} sh-cat-# category.parent.pk }} # endfor %}" data-categories="# business.main_category.get_path }} # for category in business.other_categories.all %}# category.get_path }} # endfor %}" data-name="# business.name }}" data-radius="# business.radius }}">
-        <div class="card-header">
-          <span class="badge badge-secondary"># business.main_category.get_path }}</span>
-          # for category in business.other_categories.all %}
-          <span class="badge badge-secondary"># category.get_path }}</span>
-          # endfor %}
-          <span class="float-right small"># blocktrans %}Located at# endblocktrans %} # business.location }}</span>
-        </div>
-        <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-12">
-              <h1 class="h5 card-title mb-0"># business.name }}</h1>
-            </div>
-          </div>
-          <div class="row m-0 p-0">
-            <div class="col-12 card-description m-0 p-0 sh-crop" id="descr-# business.pk }}">
-              # business.description.strip|linebreaks|default:'No description' }}
-            </div>
-          </div>
-          <div class="row my-2" id="more-# business.pk }}" style="display: none;">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12 small">
-                  <a class="float-right sh-report" href="#" data-pk="# business.pk }}"><i class="fas fa-bug mr-1"></i># blocktrans %}Report an issue# endblocktrans %}</a>
-                  # if business.website %}
-                  <p>
-                    <span class="font-weight-bold"># blocktrans %}Website# endblocktrans %}</span><br/>
-                    <a href="# business.website }}" target="_blank"># business.website }}</a>
-                  </p>
-                  # endif %}
-                  # if business.phone %}
-                  <p>
-                    <span class="font-weight-bold"># blocktrans %}Phone# endblocktrans %}</span><br/>
-                    <a href="tel:# business.phone }}"># business.phone }}</a>
-                  </p>
-                  # endif %}
-                  # if business.email %}
-                  <p>
-                    <span class="font-weight-bold"># blocktrans %}Email# endblocktrans %}</span><br/>
-                    <a href="mailto:# business.email }}"># business.email }}</a>
-                  </p>
-                  # endif %}
-                  <p>
-                    <span class="font-weight-bold"># blocktrans %}Where is this service available ?# endblocktrans %}</span><br />
-                    # include 'includes/deliver_to_list.html' with business=business %}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="btn-group btn-group-sm flex-wrap" role="group" aria-label="Card actions">
-            <a class="btn btn-outline-sh" href="javascript:see_more('# business.pk }}')">
-              <span id="plus-# business.pk }}"><i class="far fa-plus-square mr-1"></i># blocktrans %}More# endblocktrans %}</span>
-              <span id="minus-# business.pk }}" style="display: none;"><i class="far fa-minus-square mr-1"></i># blocktrans %}Less# endblocktrans %}</span>
-            </a>
-            # if business.website %}
-            <a class="btn btn-outline-sh" href="# business.website }}" target="_blank"><i class="fas fa-link mr-1"></i># blocktrans %}Website# endblocktrans %}</a>
-            # endif %}
-            # if business.phone %}
-            <a class="btn btn-outline-sh" href="tel:# business.phone }}"><i class="fas fa-phone mr-1"></i># business.phone }}</a>
-            # endif %}
-          </div>
-        </div>
-      </div>
-      # endfor %}
-    </div>
-    # else %}
-    <div class="p-5 col-12 text-center">
-      <p class="h3"># blocktrans %}No delivery service available at that location :-(# endblocktrans %}</p>
-      <p># blocktrans %}If you own or know a company that offers a delivery service at this location, please consider# endblocktrans %} <a href="# url 'add' %}"># blocktrans %}adding the service# endblocktrans %}</a>.</p>
-    </div>
-    # endif %}
-  </div>
-</div>
-# endblock %}
-
-# block script %}
-
-# compress js %}
-<script src="# static 'pubsite/js/sh-filtering.js' %}"></script>
-# endcompress %}
-
-# endblock %}
