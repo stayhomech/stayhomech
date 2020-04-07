@@ -106,6 +106,7 @@ class EventModel(models.Model):
 
     def set_status(self, new_status, user=None):
 
+        # Don't update status if no change
         if new_status == self.get_status():
             return
 
@@ -126,11 +127,11 @@ class EventModel(models.Model):
             return events[0]['time']
 
     def get_owner(self):
-        events = self.events.objects.filter(parent=self).order_by('-time').values('user')[:1]
+        events = self.events.objects.filter(parent=self).order_by('-time')[:1]
         if events.count() == 0:
             return None
         else:
-            return events[0]['user']
+            return events[0].user
 
     def add_event(self, event_type, event_data=None, user=None):
 
@@ -294,6 +295,15 @@ class Request(EventModel):
         blank=False,
         max_length=255
     )
+
+    def set_status(self, new_status, user=None):
+        
+        # Dont put requests in UPDATED state if it was in NEW state
+        if new_status == self.events.UPDATED and self.get_status() == self.events.NEW:
+            return
+
+        # Call parent
+        return super().set_status(new_status, user)
 
 
 class BusinessHistoryEvent(HistoryEvent):
