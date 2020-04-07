@@ -127,11 +127,11 @@ class EventModel(models.Model):
             return events[0]['time']
 
     def get_owner(self):
-        events = self.events.objects.filter(parent=self).order_by('-time').values('user')[:1]
+        events = self.events.objects.filter(parent=self).order_by('-time')[:1]
         if events.count() == 0:
             return None
         else:
-            return events[0]['user']
+            return events[0].user
 
     def add_event(self, event_type, event_data=None, user=None):
 
