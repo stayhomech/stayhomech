@@ -40,4 +40,8 @@ class DefaultChecksumStrategy implements ChecksumStrategy {
 				.toCheckSum();
 	}
 
+	@Override
+	public String toString() {
+		return "DefaultChecksumStrategy{}";
+	}
 }

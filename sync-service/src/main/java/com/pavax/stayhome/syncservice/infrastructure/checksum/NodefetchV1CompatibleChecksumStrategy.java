@@ -42,4 +42,11 @@ class NodefetchV1CompatibleChecksumStrategy implements ChecksumStrategy {
 		return DigestUtils.md5DigestAsHex(checkSumString.getBytes());
 	}
 
+
+	@Override
+	public String toString() {
+		return "NodefetchV1CompatibleChecksumStrategy{" +
+				"providerNames=" + providerNames +
+				'}';
+	}
 }
