@@ -35,8 +35,6 @@ class DefaultChecksumStrategy implements ChecksumStrategy {
 				.append(businessRequestDto.getWebsite())
 				.append(businessRequestDto.getPhone())
 				.append(businessRequestDto.getEmail())
-				.append(businessRequestDto.getCategories())
-				.append(businessRequestDto.getDelivery())
 				.toCheckSum();
 	}
 
