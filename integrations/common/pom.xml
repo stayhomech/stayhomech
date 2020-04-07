@@ -3,6 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -13,17 +25,33 @@
     <groupId>ch.stayhome.integrations</groupId>
     <artifactId>common</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <commons.version>3.9</commons.version>
+        <libphonenumber.version>8.12.1</libphonenumber.version>
+        <url-detector.version>0.1.22</url-detector.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
+            <version>${commons.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.googlecode.libphonenumber</groupId>
             <artifactId>libphonenumber</artifactId>
-            <version>8.12.1</version>
+            <version>${libphonenumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.url-detector</groupId>
+            <artifactId>url-detector</artifactId>
+            <version>${url-detector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- Testing -->
