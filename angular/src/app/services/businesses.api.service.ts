@@ -1,48 +1,21 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {Business} from '../app.models';
+import {Business, BusinessSearch} from '../app.models';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BusinessesApiService {
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
-  retrieveBusinesses(zip: number): Observable<Business[]> {
-    // TODO: call here the businesses API
-    return new BehaviorSubject<Business[]>(this.BUSINESSES_EXAMPLE).asObservable();
+  retrieveBusinesses(lang: string, zip: number, city: string): Observable<BusinessSearch> {
+    const headers = new HttpHeaders({
+      'Accept': 'application/json'
+    });
+    return this.httpClient.get(`https://stayhome.ch/content/${lang}/${zip}/${city}/`,
+      {headers: headers}).pipe(map((e: BusinessSearch) => e));
   }
-
-  BUSINESSES_EXAMPLE: Business[] = [
-    {
-      pk: 2,
-      name: "Citrus by Kunz",
-      description: "Wir vertreiben handbemalte Pflanzentöpfe aus Terracotta in diversen Grössen, Muster und Farben. Mit unserer DIY Box können sie ihrer Kreativität freien Lauf lassen und ihren Pflanzentopf selber bemalen.",
-      location: "8003 Zürich",
-      website: "https://www.citrusbykunz.ch/",
-      phone: "",
-      email: "",
-      categories: ['Store', 'Food'],
-      cantons: ["BE", "SO"],
-      districts: [],
-      municipalities: [],
-      npas: [],
-      category: "Store / Food",
-    },
-    {
-      pk: 3,
-      name: "Numisantique GmbH",
-      description: "Numisantique ist auf den Handel mit Münzen, Medaillen, Banknoten und Edelmetallen – auch Altgold und \u002Dsilber – spezialisiert.",
-      location: "3011 Bern",
-      website: "http://www.numisantique.com",
-      phone: "",
-      email: "",
-      categories: ['Resturant', 'Store'],
-      cantons: ["BE", "SO"],
-      districts: [],
-      municipalities: [],
-      npas: [],
-      category: "Store / Coffee",
-    }];
 }

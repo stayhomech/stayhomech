@@ -1,108 +1,122 @@
-<div class="container border-top">
-  <div class="row">
-    <div *ngIf="!businesses" class="p-5 col-12 text-center">
-      <p class="h3">{{'No delivery service available at that location' | translate }}</p>
-      <p>{{'If you own or know a company that offers a delivery service at this location, please consider' | translate }} <a href="/'add'/">{{ 'adding the service' | translate}}</a>.</p>
-    </div>
-    <div *ngIf="!!businesses" class="col-xs-12 col-md-3 p3" id="left-nav">
-      <div class="row border-bottom p-0">
-        <div class="col-10 col-lg-12 pt-3">
-          <div class="input-group input-group-sm mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-search"></i></span>
-            </div>
-            <input class="form-control form-control-sm" id="searchInput" type="text" placeholder="Search">
+<div *ngIf="!businessSearch" class="col-12 text-center">
+  <p class="h1"><i class="fas fa-circle-notch fa-spin"></i></p>
+  <p class="h3">A moment! We are looking for your results ...</p>
+</div>
+
+<div *ngIf="!!businessSearch" class="container">
+  <div class="container border-top" id="sh-page-content">
+    <div class="row">
+      <div class="col-xs-12 col-md-3 px-3" id="left-nav">
+        <div class="row border-bottom p-3">
+          <div class="col-10 col-md-12 p-0">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend"><span class="input-group-text"><svg aria-hidden="true" focusable="false"
+                                                                                   data-prefix="fas" data-icon="search"
+                                                                                   class="svg-inline--fa fa-search fa-w-16 "
+                                                                                   role="img"
+                                                                                   xmlns="http://www.w3.org/2000/svg"
+                                                                                   viewBox="0 0 512 512"><path
+                fill="currentColor"
+                d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg></span>
+              </div>
+              <input class="form-control form-control-sm" type="text" placeholder="Search in results"></div>
+          </div>
+          <div class="col-2 col-md-0 px-3 d-md-none">
+            <button class="sh-filter-toggle" type="button">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="filter"
+                   class="svg-inline--fa fa-filter fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg"
+                   viewBox="0 0 512 512">
+                <path fill="currentColor"
+                      d="M487.976 0H24.028C2.71 0-8.047 25.866 7.058 40.971L192 225.941V432c0 7.831 3.821 15.17 10.237 19.662l80 55.98C298.02 518.69 320 507.493 320 487.98V225.941l184.947-184.97C520.021 25.896 509.338 0 487.976 0z"></path>
+              </svg>
+            </button>
           </div>
         </div>
-        <div class="col-2 col-lg-0 p-3 d-block d-lg-none">
-          <button class="sh-filter-toggle" type="button" data-toggle="collapse" data-target=".nav-filter" aria-expanded="false" aria-controls="collapseExample">
-            <i class="fas fa-filter"></i>
-          </button>
+        <div class="row border-bottom nav-filter px-3 pt-3">
+          <div class="MuiGrid-root MuiGrid-container">
+            <div class="MuiGrid-root MuiGrid-item">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="dot-circle"
+                   class="svg-inline--fa fa-dot-circle fa-w-16 fa-xs m-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                   viewBox="0 0 512 512">
+                <path fill="currentColor"
+                      d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm80 248c0 44.112-35.888 80-80 80s-80-35.888-80-80 35.888-80 80-80 80 35.888 80 80z"></path>
+              </svg>
+            </div>
+            <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true"><span
+              class="MuiSlider-root jss104 MuiSlider-colorPrimary"><span class="MuiSlider-rail"></span><span
+              class="MuiSlider-track" style="left: 0%; width: 0%;"></span><input type="hidden" value="0"><span
+              class="MuiSlider-thumb MuiSlider-thumbColorPrimary" tabindex="0" role="slider" data-index="0"
+              aria-orientation="horizontal" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" style="left: 0%;"
+              title="0 m"></span></span></div>
+            <div class="MuiGrid-root MuiGrid-item">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="dot-circle"
+                   class="svg-inline--fa fa-dot-circle fa-w-16 fa-lg m-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                   viewBox="0 0 512 512">
+                <path fill="currentColor"
+                      d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm80 248c0 44.112-35.888 80-80 80s-80-35.888-80-80 35.888-80 80-80 80 35.888 80 80z"></path>
+              </svg>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="row border-bottom px-3 py-2 nav-filter">
-        <div id="slider-parent">
-          <i class="fas fa-search-minus"></i>
-          <input id="area-slider" type="text"
-                 data-provide="slider"
-                 data-slider-min="0"
-                 data-slider-max="3"
-                 data-slider-step="1"
-                 data-slider-value="0"
-                 data-slider-tooltip="hide" />
-          <i class="fas fa-search-plus"></i>
-        </div>
-      </div>
-      <div class="row p-0 nav-filter">
-        <ul class="sh-categories-tree">
-          # for parent_pk, parent in sc.items %}
-          <li data-selected="0" data-c-pk="# parent_pk }}" class="sh-parent-c px-3 py-2 border-bottom"># parent.obj }}</li>
-          <ul class="sh-child-tree sh-parent-# parent_pk }}">
-            # for child_pk, child in parent.children.items %}
-            <li data-selected="0" data-c-pk="# child_pk }}" class="sh-child-c px-4 py-2 border-bottom"># child }}</li>
-            # endfor %}
+        <div class="row p-0 nav-filter">
+          <ul class="sh-categories-tree">
+            <li class="sh-parent-c px-3 py-2 border-bottom">Restaurant</li>
+            <li class="sh-parent-c px-3 py-2 border-bottom">Leisure</li>
+            <li class="sh-parent-c px-3 py-2 border-bottom">Store</li>
+            <li class="sh-parent-c px-3 py-2 border-bottom">Services</li>
           </ul>
-          # endfor %}
-        </ul>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-9 p-0">
-      <div class="alert alert-warning m-4" role="alert" id="allFiltered" style="display: none;">
-        {{'Nothing left to show, try changing your filters.' | translate }}
-      </div>
-      <div *ngFor="let business of businesses | async" class="sh-card sh-cat-# business.main_category.pk }} sh-cat-# business.main_category.parent.pk }} # for category in business.other_categories.all %}sh-cat-# category.pk }} sh-cat-# category.parent.pk }} # endfor %}" data-categories="# business.main_category.get_path }} # for category in business.other_categories.all %}# category.get_path }} # endfor %}" data-name="# business.name }}" data-radius="# business.radius }}">
-        <div class="card-header">
-          <span class="badge badge-secondary">{{ business.category }}</span>
-          <span class="badge badge-secondary">{{ reduce(business.categories, '/') }}</span>
-          <span class="float-right small">{{ 'Located at' | translate}} {{ business.location }}</span>
         </div>
-        <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-12">
-              <h1 class="h5 card-title mb-0">{{ business.name }}</h1>
+      </div>
+      <div *ngFor="let business of (businessSearch | async).businesses" class="col-xs-12 col-md-9 p-0">
+        <div class="sh-card">
+          <div class="card-header"><span class="badge badge-secondary">Services / Transport</span><span
+            class="small float-right">3012 Bern</span></div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12"><h1 class="h5 card-title mb-1">{{business.name}}</h1></div>
             </div>
-          </div>
-          <div class="row m-0 p-0">
-            <div class="col-12 card-description m-0 p-0 sh-crop" id="descr-# business.pk }}">
-              {{ business.description? business.description: 'No description' }}
+            <div class="row">
+              <div class="card-description mb-2 col-12">Kostenloser WhatsApp Gruppenchat mit Theoriefragen,
+                Verkehrssituationen, Videos und Informationen zur Fahrausbildung. Fragen werden beantwortet. Bleib
+                während deiner Fahrpause à jour damit du danach wieder voll durchstarten kannst.
+              </div>
             </div>
-          </div>
-          <div class="row my-2" id="more-# business.pk }}" style="display: none;">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12 small">
-                  <a class="float-right sh-report" href="#" data-pk="# business.pk }}"><i class="fas fa-bug mr-1"></i>{{ 'Report an issue' | translate}}</a>
-                  <p>
-                    <span class="font-weight-bold">{{ 'Website' | translate}}</span><br/>
-                    <a [href]="business.website" target="_blank">{{ business.website }}</a>
-                  </p>
-                  <p *ngIf="business.phone">
-                    <span class="font-weight-bold">{{ 'Phone' | translate}}</span><br/>
-                    <a [href]="business.phone">{{ business.phone }}</a>
-                  </p>
-                  <p>
-                    <span class="font-weight-bold">{{ 'Email' | translate}}</span><br/>
-                    <a href="mailto: {{business.email}}">{{ business.email }}</a>
-                  </p>
-                  <p>
-                    <span class="font-weight-bold">{{ 'Where is this service available ?' | translate}}</span><br />
-                    <span *ngIf="business.deliversCH" class="badge badge-light"><img alt src="assets/pubsite/flags/CH.png" class="mr-1" style="height: 1em">{{'Everywhere in Switzerland' | translate }}</span>
-                    <span *ngFor="let canton of business.cantons" class="badge badge-light"><img alt src='{{"assets/pubsite/flags/"+canton+".png"}}' class="mr-1" style="height: 1em">{{ canton }}</span>
-                    <span *ngFor="let district of business.districts" class="badge badge-light">{{'District' | translate }}: {{ district }}</span>
-                    <span *ngFor="let municipality of business.municipalities" class="badge badge-light">{{ municipality }}</span>
-                    <span *ngFor="let npa of business.npas" class="badge badge-light">{{ npa }}</span>
-                  </p>
+            <div my="2" class="row">
+              <div class="col-12">
+                <div class="row">
+                  <div class="small col-12"><a class="float-right sh-report" href="#">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bug"
+                         class="svg-inline--fa fa-bug fa-w-16 mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 512 512">
+                      <path fill="currentColor"
+                            d="M511.988 288.9c-.478 17.43-15.217 31.1-32.653 31.1H424v16c0 21.864-4.882 42.584-13.6 61.145l60.228 60.228c12.496 12.497 12.496 32.758 0 45.255-12.498 12.497-32.759 12.496-45.256 0l-54.736-54.736C345.886 467.965 314.351 480 280 480V236c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v244c-34.351 0-65.886-12.035-90.636-32.108l-54.736 54.736c-12.498 12.497-32.759 12.496-45.256 0-12.496-12.497-12.496-32.758 0-45.255l60.228-60.228C92.882 378.584 88 357.864 88 336v-16H32.666C15.23 320 .491 306.33.013 288.9-.484 270.816 14.028 256 32 256h56v-58.745l-46.628-46.628c-12.496-12.497-12.496-32.758 0-45.255 12.498-12.497 32.758-12.497 45.256 0L141.255 160h229.489l54.627-54.627c12.498-12.497 32.758-12.497 45.256 0 12.496 12.497 12.496 32.758 0 45.255L424 197.255V256h56c17.972 0 32.484 14.816 31.988 32.9zM257 0c-61.856 0-112 50.144-112 112h224C369 50.144 318.856 0 257 0z"></path>
+                    </svg>
+                    Report an issue</a>
+                    <p><span class="font-weight-bold">Other categories</span><br><span
+                      class="mr-1 badge badge-secondary">Services / Transport</span></p>
+                    <p><span class="font-weight-bold">Website</span><br><a
+                      href="https://chat.whatsapp.com/J4RAAs3L9xMHpHVx8LkT9z" target="_blank">https://chat.whatsapp.com/J4RAAs3L9xMHpHVx8LkT9z</a>
+                    </p>
+                    <p><span class="font-weight-bold">Where is this service available ?</span><br><span
+                      class="mr-1 badge badge-light"><img src="/assets/img/favicon.png" class="mr-1"
+                                                          style="height: 1em;">Everywhere in Switzerland</span></p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="btn-group btn-group-sm flex-wrap" role="group" aria-label="Card actions">
-            <a class="btn btn-outline-sh" href="javascript:see_more('# business.pk }}')">
-              <span id="plus-# business.pk }}"><i class="far fa-plus-square mr-1"></i>{{ 'More' | translate}}</span>
-              <span id="minus-# business.pk }}" style="display: none;"><i class="far fa-minus-square mr-1"></i>{{ 'Less' | translate}}</span>
-            </a>
-            <a *ngIf="business.website" class="btn btn-outline-sh" [href]="business.website" target="_blank"><i class="fas fa-link mr-1"></i>{{ 'Website' | translate}}</a>
-            <a *ngIf="business.phone" class="btn btn-outline-sh" [href]="business.phone"><i class="fas fa-phone mr-1"></i>{{business.phone}}</a>
+            <div role="group" class="flex-wrap btn-group-sm btn-group"><a class="btn btn-outline-sh" href="#"><span><svg
+              aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus-square"
+              class="svg-inline--fa fa-plus-square fa-w-14 mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"><path fill="currentColor"
+                                          d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path></svg>More</span></a><a
+              class="btn btn-outline-sh" href="https://chat.whatsapp.com/J4RAAs3L9xMHpHVx8LkT9z" target="_blank">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="link"
+                   class="svg-inline--fa fa-link fa-w-16 mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
+                   viewBox="0 0 512 512">
+                <path fill="currentColor"
+                      d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path>
+              </svg>
+              Website</a></div>
           </div>
         </div>
       </div>

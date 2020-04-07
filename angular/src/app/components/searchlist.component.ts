@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {AppStore} from '../app.store';
 import {Observable} from 'rxjs';
-import {Business} from '../app.models';
+import {Business, BusinessSearch} from '../app.models';
 
 @Component({
   selector: 'searchlist',
@@ -10,13 +10,13 @@ import {Business} from '../app.models';
   styleUrls: ['./searchlist.component.scss']
 })
 export class SearchlistComponent {
-  businesses: Observable<Business[]>;
+  businessSearch: Observable<BusinessSearch>;
   constructor(private translate: TranslateService, private store: AppStore) {
     translate.setDefaultLang('en');
-    this.businesses = store.businesses$;
+    this.businessSearch = store.businessSearch$;
   }
 
-  reduce(strings: string[], separator) {
+  reduce(strings: any[], separator) {
     return strings.reduce((a,b) => !!a?`${a} ${separator} ${b}`:b, '');
   }
 }

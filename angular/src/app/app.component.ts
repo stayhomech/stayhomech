@@ -13,8 +13,8 @@ export class AppComponent {
   title = 'stayhome';
   constructor(private translate: TranslateService, private businessesService: BusinessesApiService, private store: AppStore) {
     translate.setDefaultLang('en');
-    businessesService.retrieveBusinesses(1)
+    businessesService.retrieveBusinesses("en", 3253, "Schnottwil")
       .pipe(take(1))
-      .subscribe(businesses => store.businesses = businesses);
+      .subscribe(businessSearch => store.businessSearch = businessSearch);
   }
 }

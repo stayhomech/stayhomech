@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Business} from './app.models';
+import {Business, BusinessSearch, Canton, Category, District, Municipality, Npa} from './app.models';
 
 @Injectable({
   providedIn: 'root',
@@ -8,25 +8,24 @@ import {Business} from './app.models';
 export class AppStore {
 
   private readonly _title = new BehaviorSubject<string>('stayhome');
-  private readonly _businesses = new BehaviorSubject<Business[]>([]);
+  private readonly _businessSearch = new BehaviorSubject<BusinessSearch>({
+    npa: null,
+    municipality: null,
+    district: null,
+    canton: null,
+    businesses: [],
+    categories: [],
+    parent_categories: []
+  });
 
-  readonly title$ = this._title.asObservable();
-  readonly businesses$ = this._businesses.asObservable();
+  readonly businessSearch$ = this._businessSearch.asObservable();
 
-  get title(): string {
-    return this._title.getValue();
+  get businessSearch(): BusinessSearch {
+    return this._businessSearch.getValue();
   }
 
-  set title(val: string) {
-    this._title.next(val);
-  }
-
-  get businesses(): Business[] {
-    return this._businesses.getValue();
-  }
-
-  set businesses(val: Business[]) {
-    this._businesses.next(val);
+  set businessSearch(val: BusinessSearch) {
+    this._businessSearch.next(val);
   }
 
 }
