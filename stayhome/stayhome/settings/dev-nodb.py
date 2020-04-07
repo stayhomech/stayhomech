@@ -2,7 +2,7 @@ from .base import *
 
 
 # Application
-DEBUG = 1
+DEBUG = True
 SECRET_KEY = 'welfnqlkjfrvnalrkvfejqaelfkjqaeweff234243'
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
@@ -10,8 +10,13 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 # Use sqlite database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite')
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
+        'NAME': 'stayhome',
+        'USER': 'stayhome',
+        'PASSWORD': 'stayhome',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'CHARSET': 'utf8mb4'
     }
 }
 

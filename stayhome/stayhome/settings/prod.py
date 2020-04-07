@@ -13,7 +13,7 @@ ALLOWED_HOSTS = ['stayhome.ch', 'www.stayhome.ch', 'web']
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'NAME': os.environ.get('MYSQL_APP_DB'),
         'USER': os.environ.get('MYSQL_APP_USER'),
         'PASSWORD': os.environ.get('MYSQL_APP_PASSWORD'),

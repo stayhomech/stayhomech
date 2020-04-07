@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
 
     'modeltranslation',
     'mptt',
@@ -31,7 +32,7 @@ INSTALLED_APPS = [
     'django_filters',
     'ddtrace.contrib.django',
     'corsheaders',
-    'compressor',
+    'webpack_loader',
 
     'geodata',
     'business',
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
 ]
 
 ROOT_URLCONF = 'stayhome.urls'
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'stayhome.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,19 +141,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'rootfiles')
 
 
-# Pre-processing of Sass files
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-LIBSASS_SOURCE_COMMENTS = False
-COMPRESS_ENABLED = True
-
-if RUNNING_ENV != 'prod' and RUNNING_ENV != 'pre-prod':
-    COMPRESS_OFFLINE = False
-else:
-    COMPRESS_OFFLINE = True
-
-
 # REST framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -197,3 +186,15 @@ CORS_ORIGIN_WHITELIST = [
 EMAIL_HOST = 'aspmx.l.google.com'
 EMAIL_PORT = 25
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+# Webpack
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'pubsite/js/bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, '../webpack-stats.json'),
+    }
+}
+
+# Locize
+LOCIZE_API_KEY = os.environ.get('LOCIZE_API_KEY')

@@ -1,9 +1,11 @@
+import uuid
 import json
+import random
+from urllib.parse import quote
 
-from django.shortcuts import render
 from django.views.generic import TemplateView, View, FormView
 from django.http import JsonResponse, Http404, HttpResponseRedirect
-from django.db.models import Q, Case, When, Value, PositiveSmallIntegerField
+from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.translation import gettext_lazy as _
@@ -14,16 +16,19 @@ from django.views.decorators.cache import cache_page
 from django.utils.translation import get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.mail import send_mail
+from django.contrib.gis.db.models.functions import Distance
 from datadog import statsd
 
 from geodata.models import NPA
-from business.models import Business, Request, Category
+from geodata.serializers import NPASerializer, MunicipalitySerializer, DistrictSerializer, CantonSerializer
+from business.models import Business, Category
 from business.forms import BusinessAddForm
+from business.serializers import BusinessReactSerializer, BusinessReactLazySerializer, CategoryReactSerializer
 from .forms import ContactForm
 
 
 @method_decorator(ensure_csrf_cookie, name='dispatch')
-@method_decorator(cache_page(60 * 5), name='dispatch')
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class HomeView(TemplateView):
 
     template_name = "home.html"
@@ -49,7 +54,7 @@ class EmbededView(TemplateView):
     template_name = "embed.html"
 
 
-@method_decorator(cache_page(60 * 5), name='dispatch')
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class HomeLocationView(View):
 
     def get(self, request, *args, **kwargs):
@@ -80,48 +85,41 @@ class HomeLocationView(View):
         return JsonResponse([], safe=False)
 
 
-@method_decorator(ensure_csrf_cookie, name='dispatch')
-@method_decorator(cache_page(60 * 5), name='dispatch')
-class ContentView(TemplateView):
+@method_decorator(cache_page(60 * 30), name='dispatch')
+class ReactContentView(View):
 
-    template_name = "content.html"
+    def get(self, request, *args, **kwargs):
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
+        # NPA
         try:
             npa = NPA.objects.rewrite(False).get(npa__exact=kwargs['npa'], name__exact=kwargs['name'])
         except NPA.DoesNotExist as e:
             raise e
             raise Http404(_("NPA does not exist"))
         
+        # Prepare cached data
+        cd = {}
+
+        # NPA
+        cd['npa'] = NPASerializer(npa).data
+
+        # Municipality
         municipality = npa.municipality
-        context['municipality'] = municipality
+        cd['municipality'] = MunicipalitySerializer(municipality).data
 
+        # District
         district = municipality.district_id
-        context['district'] = district
+        cd['district'] = DistrictSerializer(district).data
 
+        # Canton
         canton = district.canton
-        context['canton'] = canton
+        cd['canton'] = CantonSerializer(canton).data
 
+        # All NPAs in municipality
         npas = municipality.npa_set.all()
 
-        context['npa'] = npa
-
-        # Stats
-        statsd.increment('search', tags=[
-            'n_pk:' + str(npa.pk),
-            'n_code:' + str(npa.npa),
-            'n_name:' + str(npa.name_en).replace(' ', '_'),
-            'm_pk:' + str(municipality.pk),
-            'm_name:' + str(municipality.name_en).replace(' ', '_'),
-            'd_pk:' + str(district.pk),
-            'd_name:' + str(district.name_en).replace(' ', '_'),
-            'c_pk:' + str(canton.pk),
-            'c_code:' + str(canton.code).replace(' ', '_')
-        ])
-
-        context['businesses'] = Business.objects.filter(status=Business.events.VALID).filter(
+        # Fetch businesses from DB
+        bpks = Business.objects.filter(status=Business.events.VALID).filter(
             Q(location=npa)
             |
             Q(delivers_to__in=[npa])
@@ -134,49 +132,61 @@ class ContentView(TemplateView):
             |
             Q(delivers_to_ch=True)
         ).distinct().annotate(
-            radius=Case(
-                When(location=npa, then=Value(0)),
-                When(location__in=npas, then=Value(1)),
-                When(delivers_to__in=[npa], then=Value(2)),
-                When(delivers_to_municipality__in=[municipality], then=Value(3)),
-                When(delivers_to_district__in=[district], then=Value(4)),
-                When(delivers_to_canton__in=[canton], then=Value(5)),
-                When(delivers_to_ch=True, then=Value(6)),
-                default=Value(7),
-                output_field=PositiveSmallIntegerField()
-            ),
-        ).order_by('radius', 'name')
+            distance=Distance('location__geo_center', npa.geo_center)
+        ).order_by('distance', 'name').values_list('pk', 'distance')
 
-        # Stats
-        statsd.gauge('results', context['businesses'].count(), tags=[
-            'n_pk:' + str(npa.pk),
-            'n_code:' + str(npa.npa),
-            'n_name:' + str(npa.name_en).replace(' ', '_')
-        ])
+        # Business array
+        businesses = []
+        for bpk in bpks:
+            cache_key = 'business_details_' + str(bpk[0])
+            business = cache.get(cache_key)
+            if business is None:
+                business = Business.objects.get(pk=bpk[0])
+                cache.set(cache_key, business, 3600 * (1 + random.uniform(0, 1)))
+            business.distance = bpk[1]
+            businesses.append(business)
+
+        # Serialize businesses
+        cd['businesses'] = BusinessReactLazySerializer(businesses, many=True).data
 
         # Categories
-        context['categories'] = Category.objects.filter(
-            Q(as_main_category__in=context['businesses'])
+        categories = Category.objects.filter(
+            Q(as_main_category__in=businesses)
             |
-            Q(as_other_category__in=context['businesses'])
+            Q(as_other_category__in=businesses)
         ).distinct().order_by('parent__tree_id', 'tree_id')
+        cd['categories'] = CategoryReactSerializer(categories, many=True).data
 
-        # Structured categories
-        context['sc'] = {}
-        for category in context['categories']:
-            parent = category.parent
-            if parent is not None:
-                if parent.pk not in context['sc']:
-                    context['sc'][parent.pk] = {
-                        'obj': parent,
-                        'children': {}
-                    }
-                context['sc'][parent.pk]['children'][category.pk] = category
+        # Parent categories
+        parents = []
+        for category in categories:
+            if category.parent is not None and category.parent.pk not in parents:
+                parents.append(category.parent.pk)
+        parents = Category.objects.filter(pk__in=parents).distinct().order_by('tree_id')
+        cd['parent_categories'] = CategoryReactSerializer(parents, many=True).data
+
+        # Return content
+        return JsonResponse(cd)
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+@method_decorator(cache_page(60 * 30), name='dispatch')
+class ContentView(TemplateView):
+
+    template_name = "content_react.html"
+
+    def get_context_data(self, **kwargs):
 
         # Return
+        context = super().get_context_data(**kwargs)
+        context['running_env'] = settings.RUNNING_ENV
+        context['lang'] = translation.get_language()
+        context['locize'] = settings.LOCIZE_API_KEY
+        context['content_uuid'] = str(kwargs['npa']) + '/' + quote(kwargs['name'])
         return context
 
 
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class AboutView(TemplateView):
 
     template_name = "about.html"
@@ -223,6 +233,7 @@ class AddView(FormView):
     def form_valid(self, form):
         form.save_request()
         return super().form_valid(form)
+
 
 class SetLanguageView(View):
 

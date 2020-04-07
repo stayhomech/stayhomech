@@ -1,0 +1,25 @@
+{% extends "navigation.html" %}
+{% load render_bundle from webpack_loader %}
+{% load static i18n %}
+
+{% block content %}
+<div class="container border-top" id="sh-page-content"></div>
+{% endblock %}
+
+{% block script %}
+
+    <script>
+        window.props = {
+            'content_uuid': "{{ content_uuid }}",
+            'react_mount': document.getElementById('sh-page-content'),
+            'lang': '{{ lang }}',
+            'running-env': '{{ running_env }}',
+            'locize_api_key': '{{ locize }}',
+            'csrf_token': '{{ csrf_token }}'
+        }
+    </script>
+
+    {% render_bundle 'vendors~js/stayhome' %}
+    {% render_bundle 'js/stayhome' %}
+
+{% endblock %}

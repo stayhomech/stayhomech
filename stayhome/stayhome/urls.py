@@ -4,9 +4,8 @@ from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers
 
-from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet
-from geodata.views import NPAViewSet, MunicipalityViewSet, DistrictViewSet, CantonViewSet
-from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView, EmbededView
+from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet, ReactBusinessContentView
+from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView, EmbededView, ReactContentView
 
 
 # API router
@@ -35,6 +34,10 @@ urlpatterns = [
     path('add/success/', TemplateView.as_view(template_name="success.html"), name='add_success'),
     path('<int:npa>/<path:name>/', ContentView.as_view(), name='content'),
 
+    # React content
+    path('content/<str:lang>/<int:npa>/<path:name>/', ReactContentView.as_view(), name='react_content'),
+    path('business/<str:lang>/<int:pk>/', ReactBusinessContentView.as_view(), name='react_business'),
+
     # Embeded search
     path('embed/', EmbededView.as_view(), name='embed'),
 
@@ -48,7 +51,7 @@ urlpatterns = [
     path('it/', SetLanguageView.as_view(lang_code="it")),
 
     # Management site
-    path('contribute/', include(('privsite.urls', 'privsite'), namespace='mgmt'))
+    path('contribute/', include(('privsite.urls', 'privsite'), namespace='mgmt')),
 
 ]
 

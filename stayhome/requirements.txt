@@ -35,3 +35,5 @@ datadog==0.35.0
 ddtrace[profile]==0.35.0
 django-cors-headers==3.2.1
 django-libsass==0.8
+django-extensions==2.2.9
+django-webpack-loader==0.7.0

@@ -106,6 +106,7 @@ class EventModel(models.Model):
 
     def set_status(self, new_status, user=None):
 
+        # Don't update status if no change
         if new_status == self.get_status():
             return
 
@@ -295,6 +296,15 @@ class Request(EventModel):
         max_length=255
     )
 
+    def set_status(self, new_status, user=None):
+        
+        # Dont put requests in UPDATED state if it was in NEW state
+        if new_status == self.events.UPDATED and self.get_status() == self.events.NEW:
+            return
+
+        # Call parent
+        return super().set_status(new_status, user)
+
 
 class BusinessHistoryEvent(HistoryEvent):
 
@@ -423,3 +433,16 @@ class Business(EventModel):
     def clear_npa_cache(self):
         cache_key = str(self.location.pk) + '_businesses'
         cache.delete(cache_key)
+
+"""
+class BusinessView(DBView):
+    
+    view_definition = 
+        SELECT
+            business_business
+    
+
+    class Meta:
+        managed = False
+        db_table = 'business_businessview'
+"""

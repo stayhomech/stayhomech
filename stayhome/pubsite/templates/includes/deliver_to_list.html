@@ -1,12 +1,12 @@
 {% load static i18n %}
 
 {% if business.delivers_to_ch %}
-<span class="badge badge-light"><img src="{% static 'pubsite/flags/CH.png' %}" class="mr-1" style="height: 1em">{% blocktrans %}Everywhere in Switzerland{% endblocktrans %}</span>
+<span class="badge badge-light"><img src="{% static 'pubsite/img/flags/CH.png' %}" class="mr-1" style="height: 1em">{% blocktrans %}Everywhere in Switzerland{% endblocktrans %}</span>
 {% endif %}
 
 {% for canton in business.delivers_to_canton.all %}
 {% with canton.code|upper as code %}
-<span class="badge badge-light"><img src="{% static 'pubsite/flags/'|add:code|add:'.png' %}" class="mr-1" style="height: 1em">{{ canton }}</span>
+<span class="badge badge-light"><img src="{% static 'pubsite/img/flags/'|add:code|add:'.png' %}" class="mr-1" style="height: 1em">{{ canton }}</span>
 {% endwith %}
 {% endfor %}
 

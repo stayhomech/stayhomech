@@ -23,13 +23,11 @@ stayhome/stayhome/staticfiles/
 # stunnel log
 stunnel.log
 
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-
 
 # IDE - VSCode
 .vscode/*
@@ -72,3 +70,6 @@ stunnel.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# NPN
+stayhome/node_modules/
