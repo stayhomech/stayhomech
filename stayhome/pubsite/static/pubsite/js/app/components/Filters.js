@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilter, faSearchPlus, faSearchMinus, faDotCircle } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { Slider, Tooltip, withStyles, Grid } from '@material-ui/core';
+import AdjustIcon from '@material-ui/icons/Adjust';
 import $ from 'jquery';
 
 import { CategoryTree } from './CategoryTree';
@@ -57,13 +58,21 @@ const Filters = props => {
 
     const searchContext = useContext(SearchContext);
 
+    const [value, setValue] = React.useState(Math.round((searchContext.filters.distance - props.radius.min) / (props.radius.max - props.radius.min) * 100));
+
     const handleTextFilterChange = (e) => {
         e.preventDefault();
         searchContext.setFilters.setText(e.target.value);
     }
 
     const handleDistanceFilterChange = (e, value) => {
+        e.preventDefault();
         searchContext.setFilters.setDistance(distance_to_km(value, props.radius.min, props.radius.max));
+    }
+
+    const handleDistanceValueChange = (e, value) => {
+        e.preventDefault();
+        setValue(value);
     }
 
     const toggleFilters = (e) => {
@@ -82,7 +91,7 @@ const Filters = props => {
 
     return (
         <div className="col-xs-12 col-md-3 px-3" id="left-nav">
-            <div className="row border-bottom p-3">
+            <div className="row border-bottom p-2">
                 <div className="col-10 col-md-12 p-0">
                     <div className="input-group input-group-sm">
                         <div className="input-group-prepend">
@@ -97,25 +106,26 @@ const Filters = props => {
                     </button>
                 </div>
             </div>
-            <div className="row border-bottom nav-filter px-3 pt-3">
-                <Grid container>
-                    <Grid item>
-                        <FontAwesomeIcon icon={faDotCircle} size="xs" className="m-2"></FontAwesomeIcon>
+            <div className="row border-bottom nav-filter px-2 py-0">
+                <Grid container direction="row" justify="center" alignItems="center">
+                    <Grid item className="px-2">
+                        <AdjustIcon fontSize="small" color="action" />
                     </Grid>
-                    <Grid item xs>
+                    <Grid item xs className="pt-1">
                         <SHSlider
                             min={0} 
                             max={100}
                             step={1}
                             onChangeCommitted={ handleDistanceFilterChange } 
+                            onChange={ handleDistanceValueChange }
                             valueLabelDisplay="auto" 
                             ValueLabelComponent={ ValueLabelComponent }
                             valueLabelFormat={ valueLabelFormatHandler }
-                            defaultValue={Math.round((searchContext.filters.distance - props.radius.min) / (props.radius.max - props.radius.min) * 100)}
+                            value={value}
                         />
                     </Grid>
-                    <Grid item>
-                        <FontAwesomeIcon icon={faDotCircle} size="lg" className="m-2"></FontAwesomeIcon>
+                    <Grid item className="px-2">
+                        <AdjustIcon style={{ fontSize: 30 }} color="action" />
                     </Grid>
                 </Grid>
             </div>
