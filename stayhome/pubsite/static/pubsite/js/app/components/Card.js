@@ -233,6 +233,8 @@ const Card = props => {
                             }
                         </ButtonGroup>
                     </Col>
+
+                    { expanded &&
                     <Col xs="1" lg="4" className="small pt-1 pr-2">
                         <p className="m-0 p-0">
                             <a className="small d-flex flex-nowrap justify-content-end" href="#" onClick={ reportIssue }>
@@ -241,6 +243,8 @@ const Card = props => {
                             </a>
                         </p>
                     </Col>
+                    }
+                    
                 </Row>
             </div>
         </div>
