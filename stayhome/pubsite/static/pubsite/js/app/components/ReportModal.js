@@ -92,7 +92,7 @@ const ReportModal = props => {
                                 {t('Other. Please enter details in the field below.')}
                             </Label>
                         </FormGroup>
-                        <Input type="textarea" name="reportDetails" rows="5" onChange={changeReportDetails} placeholder="{t('Enter any detail you want to add...')}"></Input>
+                        <Input type="textarea" name="reportDetails" rows="5" onChange={changeReportDetails} placeholder={t('Enter any detail you want to add...')}></Input>
                     </Form>
                 </ModalBody>
                 <ModalFooter>

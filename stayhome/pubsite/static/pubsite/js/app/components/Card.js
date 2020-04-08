@@ -8,6 +8,7 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBug, faPlusSquare, faMinusSquare, faLink, faPhone } from '@fortawesome/free-solid-svg-icons';
+import BugReportIcon from '@material-ui/icons/BugReport';
 
 import { SearchContext } from './Filters';
 
@@ -150,7 +151,7 @@ const Card = props => {
             <div className="card-body">
                 <Row>
                     <Col xs="12">
-                    <h1 className="h5 card-title mb-1">{ props.name }</h1>
+                        <h1 className="h5 card-title mb-1">{ props.name }</h1>
                     </Col>
                 </Row>
                 <Row>
@@ -164,31 +165,42 @@ const Card = props => {
                     <Col xs="12">
                         <Row>
                             <Col xs="12" className="small">
-                                <a className="float-right sh-report" href="#" onClick={ reportIssue }><FontAwesomeIcon icon={faBug} className="mr-1"></FontAwesomeIcon>{t('Report an issue')}</a>
                                 {(props.other_categories.length > 0) &&
                                     <p>
                                         <span className="font-weight-bold">{t('Other categories')}</span><br/>
                                         { other_categories_badges }
                                     </p>
                                 }
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs="12" md="4" className="small">
                                 {(details.website != '') &&
                                     <p>
                                         <span className="font-weight-bold">{t('Website')}</span><br/>
                                         <a href={details.website} target="_blank">{details.website}</a>
                                     </p>
                                 }
+                            </Col>
+                            <Col xs="12" md="4" className="small">
                                 {(details.phone != '') &&
                                 <p>
                                     <span className="font-weight-bold">{t('Phone')}</span><br/>
                                     <a href={"tel:" + details.phone}>{ details.phone }</a>
                                 </p>
                                 }
+                            </Col>
+                            <Col xs="12" md="4" className="small">
                                 {(details.email != '') &&
                                 <p>
                                     <span className="font-weight-bold">{t('Email')}</span><br/>
                                     <a href={"mailto:" + details.email }>{ details.email }</a>
                                 </p>
                                 }
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs="12" className="small">
                                 <p>
                                     <span className="font-weight-bold">{t('Where is this service available ?')}</span><br />
                                     <DeliversToList {...details} />
@@ -199,25 +211,37 @@ const Card = props => {
                 </Row>
                 }
 
-                <ButtonGroup size="sm" className="flex-wrap">
-                    <a className="btn btn-outline-sh" href="#" onClick={ setExpandedHandler }>
-                        { expanded ? (
-                        <span><FontAwesomeIcon icon={ faMinusSquare } className="mr-1" />{t('Less')}</span>
-                        ) : (
-                        <span><FontAwesomeIcon icon={ faPlusSquare } className="mr-1" />{t('More')}</span>
-                        )}
-                    </a>
-                    { (props.website != '') &&
-                    <a className="btn btn-outline-sh" href={ props.website } target="_blank">
-                        <FontAwesomeIcon icon={ faLink } className="mr-1" />{t('Website')}
-                    </a>
-                    }
-                    { (new_phone) &&
-                    <a className="btn btn-outline-sh" href={ "tel:" + props.phone }>
-                        <FontAwesomeIcon icon={ faPhone } className="mr-1" />{new_phone}
-                    </a>
-                    }
-                </ButtonGroup>
+                <Row>
+                    <Col>
+                        <ButtonGroup size="sm" className="flex-wrap">
+                            <a className="btn btn-outline-sh" href="#" onClick={ setExpandedHandler }>
+                                { expanded ? (
+                                <span><FontAwesomeIcon icon={ faMinusSquare } className="mr-1" />{t('Less')}</span>
+                                ) : (
+                                <span><FontAwesomeIcon icon={ faPlusSquare } className="mr-1" />{t('More')}</span>
+                                )}
+                            </a>
+                            { (props.website != '') &&
+                            <a className="btn btn-outline-sh" href={ props.website } target="_blank">
+                                <FontAwesomeIcon icon={ faLink } className="mr-1" />{t('Website')}
+                            </a>
+                            }
+                            { (new_phone) &&
+                            <a className="btn btn-outline-sh" href={ "tel:" + props.phone }>
+                                <FontAwesomeIcon icon={ faPhone } className="mr-1" />{new_phone}
+                            </a>
+                            }
+                        </ButtonGroup>
+                    </Col>
+                    <Col xs="1" lg="4" className="small pt-1 pr-2">
+                        <p className="m-0 p-0">
+                            <a className="small d-flex flex-nowrap justify-content-end" href="#" onClick={ reportIssue }>
+                                <BugReportIcon fontSize="small" className="mr-lg-1" />
+                                <span className="d-none d-lg-block">{t('Report an issue')}</span>
+                            </a>
+                        </p>
+                    </Col>
+                </Row>
             </div>
         </div>
     )
