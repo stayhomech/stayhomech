@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 interface FeignBasedBusinessRepository {
 
 	@GetMapping
-	List<BusinessRequest> findByCorrelationId(@RequestParam("source_uuid") String correlationId);
+	List<BusinessRequest> findBySourceId(@RequestParam("source_uuid") String sourceId);
 
 	@PostMapping("/")
 	BusinessRequest save(@RequestBody BusinessRequest businessRequest);

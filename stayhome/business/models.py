@@ -55,6 +55,20 @@ class HistoryEvent(models.Model):
 
     class Meta:
         abstract = True
+        indexes = [
+            models.Index(
+                fields=['parent', '-time']
+            ),
+            models.Index(
+                fields=['parent', '-time', 'new_status']
+            ),
+            models.Index(
+                fields=['parent', 'event_type', '-time']
+            ),
+            models.Index(
+                fields=['parent', 'event_type', '-time', 'new_status']
+            ),
+        ]
 
     old_status = models.PositiveSmallIntegerField(
     )
@@ -103,6 +117,14 @@ class EventModel(models.Model):
             return 0
         else:
             return dict(self.events.STATUS_CHOICES)[events[0]['new_status']]
+
+    def get_history_status(self, index):
+        db_index = abs(index)
+        events = self.events.objects.filter(parent=self, event_type__lt=HistoryEvent.KEEPALIVE).order_by('-time').values('new_status')
+        if events.count() < db_index + 1:
+            return None
+        else:
+            return events[db_index]['new_status']
 
     def set_status(self, new_status, user=None):
 
@@ -298,8 +320,8 @@ class Request(EventModel):
 
     def set_status(self, new_status, user=None):
         
-        # Dont put requests in UPDATED state if it was in NEW state
-        if new_status == self.events.UPDATED and self.get_status() == self.events.NEW:
+        # Only allow updated status on handled requests
+        if new_status == self.events.UPDATED and self.get_status() != self.events.HANDLED:
             return
 
         # Call parent
