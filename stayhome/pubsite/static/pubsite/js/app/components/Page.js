@@ -7,6 +7,7 @@ import {
     Input,
     Alert
 } from 'reactstrap';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { useTranslation } from 'react-i18next';
 import { Card } from './Card';
@@ -161,6 +162,11 @@ const Page = props => {
         ));
     }
 
+    const showTheRemainingHandler = (e) => {
+        e.preventDefault();
+        setFilterDistance(radius[1]);
+    }
+
     if (isLoaded) {
         if (businesses.length == 0) {
             return (
@@ -193,13 +199,18 @@ const Page = props => {
             // Build list of cards
             const cards = [];
             var stop_cards = false;
+            var stop_remains = 0;
             businesses.forEach((business) => {
 
-                if (stop_cards) { return }
+                if (stop_cards) { 
+                    stop_remains++;
+                    return
+                }
 
                 if (filterDistance > 9999 && cards.length == 25) {
                     searchContext.filters.distance = business.distance.km;
                     stop_cards = true;
+                    stop_remains++;
                     return
                 }
 
@@ -236,6 +247,10 @@ const Page = props => {
                             <NoCardToShow categories={categories} />
                             :
                             cards
+                        }
+                        {(stop_remains > 0) && <p className="p-3 text-right small">
+                                <a href="#" onClick={ showTheRemainingHandler }><ExpandMoreIcon className="mr-2" fontSize="small" />{t('Show all {{value}} available services...', { value: stop_remains })}</a>
+                            </p>
                         }
                     </div>
                 </SearchContext.Provider>

@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 import { SearchContext } from './Filters';
 
@@ -22,7 +24,10 @@ const ChildItem = props => {
     const selectClass = (selected) ? " selected" : ""
 
     return(
-        <li className={"sh-child-c px-4 py-2 border-bottom" + selectClass } onClick={ selectCategory }>{props.name}</li>
+        <li className={"sh-child-c px-4 py-2 border-bottom" + selectClass } onClick={ selectCategory }>
+            <KeyboardArrowRightIcon className="mr-2" />
+            {props.name}
+        </li>
     )
 
 }
@@ -45,13 +50,21 @@ const ParentItem = props => {
 
     // Children
     var children = [];
-    const children_keys = Object.keys(props.children);
+
+    // Sort keys
+    var children_keys = Object.keys(props.children);
+    const sortCategories = (a, b) => {
+        var name_a = props.children[a];
+        var name_b = props.children[b];
+        return name_a.localeCompare(name_b);
+    }
+    children_keys = children_keys.sort(sortCategories);
 
     // If we are selected, show the children
     if (selected) {
-        children = children_keys.map((child_id) => 
-            <ChildItem key={child_id} name={props.children[child_id]} pk={child_id} />
-        )
+        children_keys.map((child_id) => {
+            children.push(<ChildItem key={child_id} name={props.children[child_id]} pk={child_id} />);
+        })
     }
 
     // If one of the child is selected, hide the others
@@ -67,7 +80,14 @@ const ParentItem = props => {
 
     return(
         <>
-        <li className={"sh-parent-c px-3 py-2 border-bottom" + selectClass} onClick={ selectCategory }>{props.name}</li>
+        <li className={"sh-parent-c p-2 border-bottom" + selectClass} onClick={ selectCategory }>
+            {(selected) ?
+                <KeyboardArrowDownIcon className="mr-2" />
+                :
+                <KeyboardArrowRightIcon className="mr-2" />
+            }
+            {props.name}
+        </li>
         {(children.length > 0) && 
         <ul className="sh-child-tree">
             {children}
@@ -82,10 +102,20 @@ const CategoryTree = props => {
 
     const categories = props.categories;
 
-    const keys = Object.keys(categories);
-    const parents = keys.map((parent_id) => 
-        <ParentItem key={parent_id.toString()} name={categories[parent_id].name} children={categories[parent_id].children} pk={parent_id} />
-    )
+    var keys = Object.keys(categories);
+
+    // Sort keys
+    const sortCategories = (a, b) => {
+        var name_a = categories[a].name;
+        var name_b = categories[b].name;
+        return name_a.localeCompare(name_b);
+    }
+    keys = keys.sort(sortCategories);
+
+    const parents = [];
+    keys.map((parent_id) => {
+        parents.push(<ParentItem key={parent_id.toString()} name={categories[parent_id].name} children={categories[parent_id].children} pk={parent_id} />);
+    })
 
     return (
         <ul className="sh-categories-tree">
