@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class BusinessRequestTest {
 
 	@Test
-	void prepareForSaving_removes_special_characters() {
+	void setDescription_removes_special_characters() {
 		// given
 		BusinessRequest businessRequest = BusinessRequestFixture.test("1234");
 
@@ -16,6 +16,18 @@ class BusinessRequestTest {
 
 		// then
 		assertThat(businessRequest.getDescription()).isEqualTo("This is a Text containing emoji:  but also umlaute: üöäèêé and symbols: -,.*/-");
+	}
+
+	@Test
+	void setDescription_keep_new_lines() {
+		// given
+		BusinessRequest businessRequest = BusinessRequestFixture.test("1234");
+
+		//when
+		businessRequest.setDescription("This Text contains \n new lines");
+
+		// then
+		assertThat(businessRequest.getDescription()).isEqualTo("This Text contains \n new lines");
 	}
 
 }

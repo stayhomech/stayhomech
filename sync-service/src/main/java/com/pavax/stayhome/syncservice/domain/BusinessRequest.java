@@ -201,7 +201,6 @@ public class BusinessRequest {
 		return text
 				// remove all non-four-byte-UTF-8: https://stackoverflow.com/a/10574318
 				.replaceAll("[^\\u0000-\\uFFFF]", "")
-				.replace("\n", "")
 				.trim();
 	}
 
