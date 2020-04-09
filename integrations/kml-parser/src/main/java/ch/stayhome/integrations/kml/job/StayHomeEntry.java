@@ -1,7 +1,6 @@
 package ch.stayhome.integrations.kml.job;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +40,6 @@ public class StayHomeEntry {
 	@NotBlank
 	private String categories;
 
-	@NotNull
 	private Long ttl;
 
 	private String website;
