@@ -150,6 +150,19 @@ class Command(BaseCommand):
         print('Found %d unique match and %d multiple matches.' % (unique_c, non_unique_c))
         print('Changed reference in %d businesses.' % business_c)
 
+        # Remove remaing entries with old keys
+        for r in Request.objects.filter(status=Request.events.NEW, source_uuid__startswith='DerBund-'):
+            if len(r.source_uuid.split('_')) == 2:
+                print('Found old key %s' % r.source_uuid)
+                r.delete()
+
+        # Remove duplicate NEW requests
+        for r in Request.objects.filter(status=Request.events.NEW, source_uuid__startswith='DerBund-').order_by('-creation'):
+            if r.name != '':
+                rs = Request.objects.filter(name=r.name)
+                if rs.count() > 1:
+                    r.delete()
+
         print(non_uniques)
 
         exit()
