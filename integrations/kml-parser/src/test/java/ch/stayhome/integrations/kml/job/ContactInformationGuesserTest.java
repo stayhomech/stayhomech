@@ -19,9 +19,9 @@ class ContactInformationGuesserTest {
 	void testExtractPhoneNumber() {
 		// given
 		final String text = "Telefon: 032 622 63 64\n" +
-				"                    E-Mail: info@chuchilade.ch\n" +
-				"                    https://hautecuisine.ch/ \n" +
-				"                ";
+				"E-Mail: info@chuchilade.ch\n" +
+				"https://hautecuisine.ch/ \n" +
+				"";
 		// when
 		final String result = this.guesser.extractPhoneNumber(text);
 
@@ -33,9 +33,9 @@ class ContactInformationGuesserTest {
 	void testExtractEmail() {
 		// given
 		final String text = "Telefon: 032 622 63 64\n" +
-				"                    E-Mail: info@chuchilade.ch\n" +
-				"                    https://hautecuisine.ch/ \n" +
-				"                ";
+				"E-Mail: info@chuchilade.ch\n" +
+				"https://hautecuisine.ch/ \n" +
+				"";
 		// when
 		final String result = this.guesser.extractEmail(text);
 
@@ -47,9 +47,9 @@ class ContactInformationGuesserTest {
 	void testExtractWebsite() {
 		// given
 		final String text = "Telefon: 032 622 63 64\n" +
-				"                    E-Mail: info@chuchilade.ch\n" +
-				"                    https://hautecuisine.ch/ \n" +
-				"                ";
+				"E-Mail: info@chuchilade.ch\n" +
+				"https://hautecuisine.ch/ \n" +
+				"";
 		// when
 		final String result = this.guesser.extractWebsite(text);
 
