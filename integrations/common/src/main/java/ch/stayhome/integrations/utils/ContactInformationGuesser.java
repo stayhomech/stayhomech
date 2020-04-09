@@ -17,13 +17,9 @@ import static org.apache.commons.lang3.StringUtils.trim;
 
 
 public class ContactInformationGuesser {
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+");
 
     private final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
-
-    // copied from: https://stackoverflow.com/a/17773849
-    private static final Pattern WEBSITE_PATTERN = Pattern.compile("(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})");
-
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+");
 
     public String extractPhoneNumber(String text) {
         text = cleanupString(text);
@@ -72,6 +68,13 @@ public class ContactInformationGuesser {
         }
     }
 
+    /**
+     * This address parser is only suited for simple, structured text. Parsing an address from a more complex string
+     * proves very difficult. Too difficult to implement in the little time we have.
+     *
+     * @param text text to parse, like "my-street 52, more text"
+     * @return String whatever comes before the first comma
+     */
     public String extractStreet(String text) {
         text = cleanupString(text);
         final String[] split = text.split(",");

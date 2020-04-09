@@ -3,26 +3,27 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>ch.stayhome.integrations</groupId>
-    <artifactId>localhero</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>localhero</name>
-    <description>localhero.ch integration for stayhome.ch</description>
 
-    <properties>
-        <java.version>11</java.version>
-        <javax-validation.version>2.0.1.Final</javax-validation.version>
-        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
-        <feign.version>10.7.4</feign.version>
-    </properties>
+    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>localhero</artifactId>
+    <description>localhero.ch integration for stayhome.ch</description>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>ch.stayhome.integrations</groupId>
+        <artifactId>integrations</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
 
     <dependencies>
+        <dependency>
+            <groupId>ch.stayhome.integrations</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -33,50 +34,12 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-
         <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-okhttp</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-gson</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-slf4j</artifactId>
-            <version>${feign.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>${javax-validation.version}</version>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
 
-        <!-- Testing -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.batch</groupId>
-            <artifactId>spring-batch-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>

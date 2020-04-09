@@ -16,10 +16,9 @@ class ContactInformationGuesserTest {
     }
 
     @Test
-    public void testExtractComplexInfo() {
+    public void testExtractWebsiteFromComplexInfo() {
         // given
-        final String text = "\n" +
-                "<p>Aufgrund der aktuellen Lage wegen der Covid19-Pandemie bleibt der Schalter der Neutralen Beratung " +
+        final String text = "<p>Aufgrund der aktuellen Lage wegen der Covid19-Pandemie bleibt der Schalter der Neutralen Beratung " +
                 "Treuhand GmbH bis auf Weiteres geschlossen. <strong>Die Neutrale Beratung Treuhand ist per E-Mail und " +
                 "per Telefon <a href=\"http://+41326237191\" data-wplink-url-error=\"true\">032 623 71 91</a> " +
                 "erreichbar</strong>.</p><p>Sie können Ihre Unterlagen neben unserem Büro in den grossen Briefkasten " +
@@ -29,7 +28,8 @@ class ContactInformationGuesserTest {
                 "sein.</p><p>Wir bedanken uns für Ihr Verständnis und wünschen Ihnen und Ihrer Familie alles Gute.</p>" +
                 "<p>Neutrale Beratung Treuhand GmbH<br />Rötistrasse 3, 4500 Solothurn</p><p>Thomas Hodel &amp; Heidi " +
                 "Pfister<br /><a href=\"tel:+41326237191\">032 623 71 91</a></p>" +
-                "<p><a href=\"https://www.steuerprofis.ch/\">www.steuerprofis.ch</a></p>";
+                "<p><a href=\"https://www.steuerprofis.ch/\">www.steuerprofis.ch</a></p>" +
+                "<p>Email: <a href=\"mailto:foo@example.com\">foo@example.com</a></p>";
 
 
         // when
@@ -37,6 +37,54 @@ class ContactInformationGuesserTest {
 
         // then
         assertThat(result).isEqualTo("https://www.steuerprofis.ch/");
+    }
+
+    @Test
+    public void testExtractEmailFromComplexInfo() {
+        // given
+        final String text = "<p>Aufgrund der aktuellen Lage wegen der Covid19-Pandemie bleibt der Schalter der Neutralen Beratung " +
+                "Treuhand GmbH bis auf Weiteres geschlossen. <strong>Die Neutrale Beratung Treuhand ist per E-Mail und " +
+                "per Telefon <a href=\"http://+41326237191\" data-wplink-url-error=\"true\">032 623 71 91</a> " +
+                "erreichbar</strong>.</p><p>Sie können Ihre Unterlagen neben unserem Büro in den grossen Briefkasten " +
+                "legen oder uns diese per Post zusenden. Für Rückfragen bitte einfach eine Telefonnummer dazu schreiben. " +
+                "Ihre Steuererklärung wird dann wie gewohnt von uns für Sie erstellt.</p><p>Um eine Abgabefrist per " +
+                "31. Juli garantieren zu können, müssten die Unterlagen bis spätestens am 30.06.2020 bei uns eingegangen " +
+                "sein.</p><p>Wir bedanken uns für Ihr Verständnis und wünschen Ihnen und Ihrer Familie alles Gute.</p>" +
+                "<p>Neutrale Beratung Treuhand GmbH<br />Rötistrasse 3, 4500 Solothurn</p><p>Thomas Hodel &amp; Heidi " +
+                "Pfister<br /><a href=\"tel:+41326237191\">032 623 71 91</a></p>" +
+                "<p><a href=\"https://www.steuerprofis.ch/\">www.steuerprofis.ch</a></p>" +
+                "<p>Email: <a href=\"mailto:foo@example.com\">foo@example.com</a></p>";
+
+
+        // when
+        final String result = this.guesser.extractEmail(text);
+
+        // then
+        assertThat(result).isEqualTo("foo@example.com");
+    }
+
+    @Test
+    public void testExtractPhoneFromComplexInfo() {
+        // given
+        final String text = "<p>Aufgrund der aktuellen Lage wegen der Covid19-Pandemie bleibt der Schalter der Neutralen Beratung " +
+                "Treuhand GmbH bis auf Weiteres geschlossen. <strong>Die Neutrale Beratung Treuhand ist per E-Mail und " +
+                "per Telefon <a href=\"http://+41326237191\" data-wplink-url-error=\"true\">032 623 71 91</a> " +
+                "erreichbar</strong>.</p><p>Sie können Ihre Unterlagen neben unserem Büro in den grossen Briefkasten " +
+                "legen oder uns diese per Post zusenden. Für Rückfragen bitte einfach eine Telefonnummer dazu schreiben. " +
+                "Ihre Steuererklärung wird dann wie gewohnt von uns für Sie erstellt.</p><p>Um eine Abgabefrist per " +
+                "31. Juli garantieren zu können, müssten die Unterlagen bis spätestens am 30.06.2020 bei uns eingegangen " +
+                "sein.</p><p>Wir bedanken uns für Ihr Verständnis und wünschen Ihnen und Ihrer Familie alles Gute.</p>" +
+                "<p>Neutrale Beratung Treuhand GmbH<br />Rötistrasse 3, 4500 Solothurn</p><p>Thomas Hodel &amp; Heidi " +
+                "Pfister<br /><a href=\"tel:+41326237191\">032 623 71 91</a></p>" +
+                "<p><a href=\"https://www.steuerprofis.ch/\">www.steuerprofis.ch</a></p>" +
+                "<p>Email: <a href=\"mailto:foo@example.com\">foo@example.com</a></p>";
+
+
+        // when
+        final String result = this.guesser.extractPhoneNumber(text);
+
+        // then
+        assertThat(result).isEqualTo("+41 32 623 71 91");
     }
 
     @Test

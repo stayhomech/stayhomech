@@ -31,15 +31,13 @@ public class LocalHeroPost {
 
 	@NotNull
 	@NonNull
+	private RenderedContent content;
+
+	@NotNull
+	@NonNull
 	private RenderedContent guid;           // --> website
 
 	@NotNull
 	@NonNull
 	private List<String> categories;
-
-	public class RenderedContent {
-		@Getter
-		@Setter
-		private String rendered;
-	}
 }

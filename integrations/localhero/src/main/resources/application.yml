@@ -25,17 +25,17 @@ stayhome:
           providerName: 'solothurn-local-hero'
           url: 'https://solothurn.local-hero.ch'
           path: '/wp-json/wp/v2'
-          place: 'solothurn'
+          place: 'Solothurn'
         - key: 'zug'
           providerName: 'zug-local-hero'
           url: 'https://zug.local-hero.ch'
           path: '/wp-json/wp/v2'
-          place: 'zug'
+          place: 'Zug'
         - key: 'zuerich'
           providerName: 'zuerich-local-hero'
           url: 'https://zuerich.local-hero.ch'
           path: '/wp-json/wp/v2'
-          place: 'zuerich'
+          place: 'Zürich'
 
 spring:
   batch:
