@@ -254,7 +254,8 @@ class Request(EventModel):
 
     source_uuid = models.CharField(
         max_length=255,
-        blank=True
+        blank=False,
+        unique=True
     )
 
     lang = models.CharField(
