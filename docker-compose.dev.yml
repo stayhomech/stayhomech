@@ -14,6 +14,8 @@ services:
     ports:
       - 3306:3306
     restart: always
+    ports:
+      - 127.0.0.1:3306:3306
 
   web:
     build: stayhome/
@@ -59,6 +61,20 @@ services:
     depends_on:
       - sync-service
     restart: always
+
+
+  integration-kml:
+    build: integrations/kml-parser
+    container_name: integration-kml
+    environment:
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
+      - STAYHOME_RUN_ON_START=true
+      # every 6h
+      - STAYHOME_INTEGRATIONS_KML_SCRAPE_CRON=* * */6 * * *
+    depends_on:
+      - sync-service
+    restart: always
+
 
 volumes:
   db_data:
