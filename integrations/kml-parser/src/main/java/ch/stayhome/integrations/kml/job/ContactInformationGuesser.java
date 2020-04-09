@@ -58,6 +58,12 @@ public class ContactInformationGuesser {
 		return split.length > 1 ? trim(split[0]) : "";
 	}
 
+	public String extractLocation(String text) {
+		text = cleanupString(text);
+		final String[] split = text.split(",");
+		return split.length > 1 ? trim(split[1]) : "";
+	}
+
 	private String cleanupString(String text) {
 		return text
 				.replace("\n", "")

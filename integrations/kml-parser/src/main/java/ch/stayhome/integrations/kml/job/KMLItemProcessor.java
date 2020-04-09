@@ -74,7 +74,7 @@ public class KMLItemProcessor implements ItemProcessor<PlacemarkType, StayHomeEn
 	private void parseAddressData(StayHomeEntryBuilder builder, String adresse) {
 		if (StringUtils.isNotBlank(adresse)) {
 			builder.address(contactInformationGuesser.extractStreet(adresse))
-					.location(adresse);
+					.location(contactInformationGuesser.extractLocation(adresse));
 		}
 	}
 

@@ -68,7 +68,6 @@ class ContactInformationGuesserTest {
 		assertThat(result).isEqualTo("Aweird-STrééétNäämüä 47");
 	}
 
-
 	@Test
 	void testExtractInvalidStreet() {
 		// given
@@ -78,6 +77,17 @@ class ContactInformationGuesserTest {
 
 		// then
 		assertThat(result).isEqualTo("");
+	}
+
+	@Test
+	void testExtractLocation() {
+		// given
+		final String text = "Aweird-STrééétNäämüä 47 , 4321 another-string";
+		// when
+		final String result = this.guesser.extractLocation(text);
+
+		// then
+		assertThat(result).isEqualTo("4321 another-string");
 	}
 
 }
