@@ -124,7 +124,7 @@ const ListRequests = (props) => {
     const handleFilterSource = (e) => {
         e.preventDefault();
         const v = (e.target.value !== '') ? e.target.value : null;
-        if (v === 2) {
+        if (parseInt(v) === 2) {
             setSourceApiSelected(true);
         } else {
             setSourceApiSelected(false);
