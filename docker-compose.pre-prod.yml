@@ -108,6 +108,8 @@ services:
     depends_on:
       - web
     restart: always
+    networks:
+      - pre-prod
 
   haproxy:
     build: haproxy/
@@ -121,6 +123,8 @@ services:
       - web
       - contribute
     restart: always
+    networks:
+      - pre-prod
 
 volumes:
   api_key:
