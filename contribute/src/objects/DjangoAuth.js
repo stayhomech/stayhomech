@@ -9,6 +9,12 @@ class DjangoAuth {
             {
                 username: username,
                 password: password
+            },
+            {
+                auth: {
+                    username: username,
+                    password: password
+                }
             }
         )
         .then(result => {
