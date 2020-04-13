@@ -489,8 +489,8 @@ const RequestToBusiness = (props) => {
                 </Grid>
             </CardContent>
             <CardActions style={{ justifyContent: 'end' }}>
-                <Button size="small" color="secondary" onClick={ handleCancelClick }>Annuler</Button>
-                <Button size="small" color="primary" onClick={ handleConvertClick } >Convert</Button>
+                <Button size="small" color="secondary" onClick={ handleCancelClick }>Cancel</Button>
+                <Button size="small" color="primary" onClick={ handleConvertClick } >Convert to business</Button>
             </CardActions>
         </Card>
     );
