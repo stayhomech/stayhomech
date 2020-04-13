@@ -2,14 +2,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import routers
 from rest_framework.authtoken import views
 
 from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet, ReactBusinessContentView
 from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView, EmbededView, ReactContentView
 from geodata.views import NPAViewSet, MunicipalityViewSet, DistrictViewSet, CantonViewSet
-from .views import UserViewSet
+from .views import UserViewSet, ApiCustomAuth
 
 
 # API router
@@ -34,7 +33,8 @@ urlpatterns = [
     # API
     path('api/', include(router.urls)),
     #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api-token-auth/', csrf_exempt(views.obtain_auth_token)),
+    #path('api-token-auth/', csrf_exempt(views.obtain_auth_token)),
+    path('api-token-auth/', ApiCustomAuth.as_view()),
 
     # Main site
     path('', HomeView.as_view(), name='home'),
