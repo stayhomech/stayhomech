@@ -196,6 +196,7 @@ const ListRequests = (props) => {
                                 <option value="*">Any</option>
                                 <option value="DerBund-">Der Bund / Tagesanzeiger</option>
                                 <option value="aargauerzeitung-">Aargauer Zeitung</option>
+                                <option value="laedelishop-">Lädelishop</option>
                             </NativeSelect>
                         </div>
                         }
