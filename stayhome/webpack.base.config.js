@@ -14,7 +14,7 @@ module.exports = {
 
   entry: {
     'js/stayhome': './pubsite/static/pubsite/js/app/index',
-    'css/stayhome': './pubsite/static/pubsite/css/stayhome.scss'
+    'css/stayhome': './pubsite/static/pubsite/css/stayhome.scss',
   },
 
   output: {

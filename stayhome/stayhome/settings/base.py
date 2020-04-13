@@ -145,14 +145,16 @@ WHITENOISE_ROOT = os.path.join(BASE_DIR, 'rootfiles')
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'stayhome.utils.rest.StayHomeAccessPermission',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
 }
 
 
@@ -178,8 +180,11 @@ initialize(**options)
 CORS_ORIGIN_WHITELIST = [
     'https://stayhome.ch',
     'https://www.stayhome.ch',
-    'https://stay-home.squarespace.com'
+    'https://preview.stayhome.ch'
 ]
+if RUNNING_ENV != 'prod' and RUNNING_ENV != 'pre-prod':
+    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_ORIGIN_ALLOW_ALL = True
 
 
 # SMTP

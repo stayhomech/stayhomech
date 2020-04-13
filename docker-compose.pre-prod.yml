@@ -29,9 +29,6 @@ services:
     build: stayhome/
     environment:
       - RUNNING_ENV=pre-prod
-      - LETSENCRYPT_HOST=preview.stayhome.ch
-      - VIRTUAL_HOST=preview.stayhome.ch
-      - VIRTUAL_PORT=8000
       - MYSQL_APP_DB=${MYSQL_APP_DB}
       - MYSQL_APP_USER=${MYSQL_APP_USER}
       - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
@@ -103,6 +100,27 @@ services:
     restart: always
     networks:
       - pre-prod
+
+  contribute:
+    build: contribute/
+    expose:
+      - 80
+    depends_on:
+      - web
+    restart: always
+
+  haproxy:
+    build: haproxy/
+    environment:
+    - LETSENCRYPT_HOST=preview.stayhome.ch
+    - VIRTUAL_HOST=preview.stayhome.ch
+    - VIRTUAL_PORT=8000
+    expose:
+      - 8000
+    depends_on:
+      - web
+      - contribute
+    restart: always
 
 volumes:
   api_key:

@@ -12,10 +12,8 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     ports:
-      - 3306:3306
-    restart: always
-    ports:
       - 127.0.0.1:3306:3306
+    restart: always
 
   web:
     build: stayhome/
@@ -33,8 +31,8 @@ services:
       - RECAPTCHA_PRIVATE_KEY=""
       - DJANGO_SECRET_KEY=verynotsecretkey
       - GOOGLE_UA=""
-    ports:
-      - 127.0.0.1:8000:8000
+    expose:
+      - 8000
     depends_on:
       - db
     restart: always
@@ -62,10 +60,8 @@ services:
       - sync-service
     restart: always
 
-
   integration-kml:
     build: integrations/kml-parser
-    container_name: integration-kml
     environment:
       - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
       - STAYHOME_RUN_ON_START=true
@@ -75,6 +71,22 @@ services:
       - sync-service
     restart: always
 
+  contribute:
+    build: contribute/
+    expose:
+      - 80
+    depends_on:
+      - web
+    restart: always
+
+  haproxy:
+    build: haproxy/
+    ports:
+      - 127.0.0.1:8000:8000
+    depends_on:
+      - web
+      - contribute
+    restart: always
 
 volumes:
   db_data:
