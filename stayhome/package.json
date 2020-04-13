@@ -6,9 +6,9 @@
   "author": "Alexandre Georges",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config webpack.config.js --progress --colors --mode development",
-    "watch": "webpack --config webpack.config.js --watch --mode development",
-    "run-server": "webpack-dev-server --config webpack.dev.config.js --mode development --port 3000"
+    "build": "./node_modules/.bin/webpack --config webpack.base.config.js --progress --colors --mode development",
+    "watch": "./node_modules/.bin/webpack --config webpack.base.config.js --watch --mode development",
+    "run-server": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --mode development --port 3000"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

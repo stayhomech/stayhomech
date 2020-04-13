@@ -141,6 +141,22 @@ class EventModel(models.Model):
         )
         event.save()
 
+    def set_status_with_reason(self, new_status, reason, user=None):
+
+        # Don't update status if no change
+        if new_status == self.get_status():
+            return
+
+        event = self.events(
+            parent=self,
+            old_status=self.get_status(),
+            new_status=new_status,
+            event_type=self.events.STATUS,
+            event_data=reason,
+            user=user
+        )
+        event.save()
+
     def get_creation(self):
         events = self.events.objects.filter(parent=self).order_by('time').values('time')[:1]
         if events.count() == 0:
@@ -367,7 +383,7 @@ class Business(EventModel):
     events = BusinessHistoryEvent
 
     name = models.CharField(
-        max_length=255
+        max_length=255,
     )
 
     location = models.ForeignKey(
@@ -390,7 +406,8 @@ class Business(EventModel):
         'Category',
         on_delete=models.SET_NULL,
         null=True,
-        related_name='as_main_category'
+        related_name='as_main_category',
+        blank=False
     )
 
     other_categories = models.ManyToManyField(
