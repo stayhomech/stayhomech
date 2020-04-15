@@ -29,9 +29,6 @@ services:
     build: stayhome/
     environment:
       - RUNNING_ENV=prod
-      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch
-      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch
-      - VIRTUAL_PORT=8000
       - MYSQL_APP_DB=${MYSQL_APP_DB}
       - MYSQL_APP_USER=${MYSQL_APP_USER}
       - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
@@ -100,6 +97,31 @@ services:
       - STAYHOME_INTEGRATIONS_KML_SCRAPE_CRON=* * */6 * * *
     depends_on:
       - sync-service
+    restart: always
+    networks:
+      - prod
+
+  contribute:
+    build: contribute/
+    expose:
+      - 80
+    depends_on:
+      - web
+    restart: always
+    networks:
+      - prod
+
+  haproxy:
+    build: haproxy/
+    environment:
+    - LETSENCRYPT_HOST=stayhome.ch,www.stayhome.ch
+    - VIRTUAL_HOST=stayhome.ch,www.stayhome.ch
+    - VIRTUAL_PORT=8000
+    expose:
+      - 8000
+    depends_on:
+      - web
+      - contribute
     restart: always
     networks:
       - prod
