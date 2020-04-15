@@ -23,14 +23,6 @@ class DjangoRequest {
         WEBFORM: 1,
         API: 2
     }
-
-    async get_stats (dispatch) {
-        this.stats()
-            .then((stats) => {
-                dispatch({ type: "REQUESTS.STATS", payload: stats });
-            });
-
-    }
     
     // Get requests stats
     async stats () {
@@ -75,7 +67,7 @@ class DjangoRequest {
                     'Authorization': 'Token ' + this.token
                 }
             }
-        ).then(result => result.data.results);
+        ).then(result => result.data);
     }
 
     // Get request details

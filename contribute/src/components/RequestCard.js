@@ -38,6 +38,7 @@ const RequestCard = (props) => {
 
     const selected = useSelector(state => state.requests.selected);
     const status = useSelector(state => state.requests.status);
+    const user = useSelector(state => state.auth.user);
     const is_selected = selected && (request.uuid === selected.uuid);
     const dispatch = useDispatch();
 
@@ -73,7 +74,7 @@ const RequestCard = (props) => {
                     .then((data) => {
 
                         // Check status
-                        if (data.status !== DjangoRequest.status.NEW) {
+                        if (data.status !== DjangoRequest.status.NEW && !(data.status === DjangoRequest.status.RESERVED && data.owner === user.id)) {
                             setDialogContent([
                                 'Oups, someone was faster...',
                                 'It seems that this request is not available anymore. Someone probably already handled it!',

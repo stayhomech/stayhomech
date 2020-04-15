@@ -7,41 +7,51 @@
 <div class="container-fluid p-0 m-0">
 
     <div class="container my-0 mt-md-5">
-        <nav class="navbar navbar-expand-md navbar-light bg-white">
+        <nav class="navbar navbar-expand-md navbar-light bg-white d-flex justify-content-between align-items-end p-0 m-0 py-2">
 
-            <a class="align-self-end navbar-brand mr-5 mb-1" href="{% url 'home' %}">
+            <a class="navbar-brand mr-5 mb-1" href="{% url 'home' %}">
                 <img src="{% static 'pubsite/img/stay_home_logo_2_crop.jpg' %}" class="sh-home-logo" />
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
+            <a class="btn btn-sm btn-sh d-none d-md-block" href="{% url 'add' %}">{% trans 'Add a delivery service' %}</a>
 
-            <div class="align-self-end collapse navbar-collapse mb-1" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">{% trans 'Home' %}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">{% trans 'Contact us' %}</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <span class="nav-link">
-                            <a class="mr-1 sh-nav-link" href="/en/" data-lang="en">EN</a>
-                            <a class="mr-1 sh-nav-link" href="/fr/" data-lang="fr">FR</a>
-                            <a class="mr-1 sh-nav-link" href="/de/" data-lang="de">DE</a>
-                            <a class="mr-2 sh-nav-link" href="/it/" data-lang="it">IT</a>
-                            <a class="mr-3 sh-nav-link" href="https://www.facebook.com/stayhome.ch" target="_blank"><i class="fab fa-facebook"></i></a>
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-sm btn-sh" href="{% url 'add' %}">{% trans 'Add a delivery service' %}</a>
-                    </li>
-                </ul>
-            </div>
         </nav>
+    </div>
+
+    <div class="sh-container-dark">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-dark p-0 m-0">
+                <div class="collapse navbar-collapse mb-1" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">{% trans 'Home' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">{% trans 'About us' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">{% trans 'Contact' %}</a>
+                        </li>
+                        <li class="nav-item d-xs-block d-md-none">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'add' %}active{% endif %}" href="{% url 'add' %}">{% trans 'Add a service' %}</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item d-flex flex-nowrap">
+                            <a class="mr-2 nav-link {% if LANGUAGE_CODE == 'en' %}active{% endif %}" href="/en/" data-lang="en">EN</a>
+                            <a class="mr-2 nav-link {% if LANGUAGE_CODE == 'fr' %}active{% endif %}" href="/fr/" data-lang="fr">FR</a>
+                            <a class="mr-2 nav-link {% if LANGUAGE_CODE == 'de' %}active{% endif %}" href="/de/" data-lang="de">DE</a>
+                            <a class="mr-4 nav-link {% if LANGUAGE_CODE == 'it' %}active{% endif %}" href="/it/" data-lang="it">IT</a>
+                            <a class="nav-link" href="https://www.facebook.com/stayhome.ch" target="_blank"><i class="fab fa-facebook"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </div>
 
     {% block content %}{% endblock %}

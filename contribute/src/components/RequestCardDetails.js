@@ -26,6 +26,13 @@ import DjangoRequest from '../objects/DjangoRequest';
 const useStyles = makeStyles((theme) => ({
     cardFloat: {
         float: 'right',
+    },
+    borderedGrid: {
+        borderWidth: '1px',
+        borderStyle: 'dotted',
+        borderColor: theme.palette.divider,
+        borderRadius: '4px',
+        marginTop: '8px'
     }
 }));
 
@@ -91,7 +98,7 @@ const RequestCardDetails = (props) => {
         <>
             <Card key={request.uuid}>
                 <CardContent>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={1}>
                         <Grid item xs={12}>
                             <span className={css.cardFloat}><RequestLang lang={request.lang} />  <RequestStatus status={status} /></span>
                             <Typography variant="h6" color="primary">{request.name}</Typography>
@@ -115,17 +122,24 @@ const RequestCardDetails = (props) => {
                             <Divider />
                         </Grid>
                         <Grid item xs={12}><Typography variant="subtitle2" color="secondary">Location information</Typography></Grid>
-                        <Grid item xs={12}>{request.location}</Grid>
-                        <Grid item xs={6}>{request.address}</Grid>
-                        <Grid item xs={6}>{request.npa}</Grid>
+                        <Grid item xs={3}>Raw info</Grid>
+                        <Grid item xs={9} className={css.borderedGrid}>{request.location}</Grid>
+                        <Grid item xs={3}>Address</Grid>
+                        <Grid item xs={9} className={css.borderedGrid}>{request.address}</Grid>
+                        <Grid item xs={3}>City</Grid>
+                        <Grid item xs={9} className={css.borderedGrid}>{request.npa}</Grid>
                         <Grid item xs={12}>
                             <Divider />
                         </Grid>
                         <Grid item xs={12}><Typography variant="subtitle2" color="secondary">Contact information</Typography></Grid>
-                        <Grid item xs={12}>{request.contact}</Grid>
-                        <Grid item xs={12}>{request.website}</Grid>
-                        <Grid item xs={12}>{request.email}</Grid>
-                        <Grid item xs={12}>{request.phone}</Grid>
+                        <Grid item xs={3}>Raw info</Grid>
+                        <Grid item xs={9} className={css.borderedGrid}>{request.contact}</Grid>
+                        <Grid item xs={3}>Website</Grid>
+                        <Grid item xs={9} className={css.borderedGrid}>{request.website}</Grid>
+                        <Grid item xs={3}>E-mail</Grid>
+                        <Grid item xs={9} className={css.borderedGrid}>{request.email}</Grid>
+                        <Grid item xs={3}>Phone</Grid>
+                        <Grid item xs={9} className={css.borderedGrid}>{request.phone}</Grid>
                     </Grid>
                 </CardContent>
                 { status !== DjangoRequest.status.RESERVED &&
