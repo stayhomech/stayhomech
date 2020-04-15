@@ -173,17 +173,14 @@
                             if (addr.CountryCode != 'CHE') {
                                 return
                             } else {
-                                console.log(addr.Postal);
                                 $('#mainlocInput').val(addr.Postal).trigger('keyup');
                             }
                         } else {
                             endSearch();
-                            console.debug(result);
                         }
                     }
                 ).fail((error) => {
                     endSearch();
-                    console.debug(error);
                 });
 
             });
