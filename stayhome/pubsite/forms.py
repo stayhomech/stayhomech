@@ -17,7 +17,7 @@ class ContactForm(forms.Form):
         })
     )
 
-    email = forms.CharField(
+    email = forms.EmailField(
         label=_('Email address'),
         max_length=255,
         help_text=_('Your e-mail address.'),
@@ -30,6 +30,7 @@ class ContactForm(forms.Form):
     message = forms.CharField(
         label=_('Your message'),
         help_text=_('The message you want to send us.'),
+        required=True,
         widget=forms.Textarea(attrs={
             'class': 'form-control form-control-sm',
             'rows': 5

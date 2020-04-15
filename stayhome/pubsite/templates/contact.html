@@ -15,6 +15,9 @@
             <p><a href="https://www.facebook.com/stayhome.ch" target="_blank"><i class="fab fa-facebook"></i></a></p>
         </div>
         <div class="col-12 offset-md-1 col-md-5">
+            {% if success %}
+            <div class="alert alert-success">{{ success }}</div>
+            {% endif %}
             <form method="POST" action="{% url 'contact' %}">
                 {% csrf_token %}
 
