@@ -48,6 +48,11 @@ const TopMenu = (props) => {
     const dispatch = useDispatch();
 
     const async_in_progress = useSelector(state => state.async.running);
+    if (async_in_progress) {
+        setTimeout(() => {
+            dispatch({ type:'ASYNC.STOP' });
+        }, 10 * 1000);
+    }
     
     const handleUserMenuOpen = (e) => {
         setAnchorEl(e.currentTarget);

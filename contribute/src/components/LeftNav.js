@@ -61,7 +61,12 @@ const LeftNav = (props) => {
 
     useEffect(() => {
         const Request = new DjangoRequest(token);
-        Request.get_stats(dispatch);
+        dispatch({ type: 'ASYNC.START '});
+        Request.stats()
+            .then((result) => {
+                dispatch({ type:'REQUESTS.STATS', payload: result });
+                dispatch({ type: 'ASYNC.STOP '});
+            });
     }, []);
 
     return (
@@ -97,13 +102,13 @@ const LeftNav = (props) => {
                             primary="Updated"
                             badge={stats.updated && <Chip size="small" color="secondary" label={stats.updated} />}
                         />
+                        */}
                         <ListItemLink
                             button 
                             to={`${url}requests/draft`}
                             primary="Drafts"
-                            badge={stats.reserved && <Chip size="small" color="secondary" label={stats.reserved} />}
+                            badge={stats.drafts && <Chip size="small" color="secondary" label={stats.drafts} />}
                         />
-                        */}
                     </List>
                 </List>
             </div>

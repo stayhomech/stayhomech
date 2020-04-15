@@ -4,7 +4,7 @@ const initState = {
         total: null,
         new: null,
         updated: null,
-        reserved: null
+        drafts: null
     },
     filters: {
         status: '*',
@@ -17,6 +17,7 @@ const initState = {
         limit: 10,
     },
     list: [],
+    count: 0,
     selected: null,
     status: null
 }
@@ -33,7 +34,8 @@ const requests = (state=initState, action) => {
         // Load requests list
         case prefix + 'LIST':
             return Object.assign({}, state, {
-                list: action.payload
+                list: action.payload.results,
+                count: action.payload.count
             });
 
         // Set stats

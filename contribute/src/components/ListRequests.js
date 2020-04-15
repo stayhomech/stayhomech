@@ -66,30 +66,14 @@ const ListRequests = (props) => {
 
     const css = useStyles();
 
-    const { path, url } = useRouteMatch();
     var { status } = useParams();
 
     // Global state
     const token = useSelector(state => state.auth.token);
-    const filters = useSelector((state) => {
-        switch (status) {
-            case 'pending':
-                status = DjangoRequest.status.NEW;
-                break;
-            case 'updated':
-                status = DjangoRequest.status.UPDATED;
-                break;
-            case 'draft':
-                status = DjangoRequest.status.RESERVED;
-                break;
-            default:
-                status = DjangoRequest.status.NEW;
-        }
-        state.requests.filters.status = status;
-        return state.requests.filters
-    })
+    const filters = useSelector((state) => state.requests.filters);
     const pagination = useSelector(state => state.requests.pagination);
     const requests = useSelector(state => state.requests.list);
+    const requests_count = useSelector(state => state.requests.count);
     const selected = useSelector(state => state.requests.selected);
     const selected_status = useSelector(state => state.requests.status);
     const stats = useSelector(state => state.requests.stats);
@@ -98,6 +82,25 @@ const ListRequests = (props) => {
     // Local state
     const [requestsPage, setRequestsPage] = useState(1);
     const [sourceApiSelected, setSourceApiSelected] = useState(filters.source === 2);
+
+    // Detect change of page
+    let newStatusFilter = filters.status;
+    switch (status) {
+        case 'pending':
+            newStatusFilter = DjangoRequest.status.NEW;
+            break;
+        case 'updated':
+            newStatusFilter = DjangoRequest.status.UPDATED;
+            break;
+        case 'draft':
+            newStatusFilter = DjangoRequest.status.RESERVED;
+            break;
+        default:
+            newStatusFilter = DjangoRequest.status.NEW;
+    }
+    if (newStatusFilter !== filters.status) {
+        dispatch({ type: 'REQUESTS.FILTERS', payload: Object.assign(filters, { status: newStatusFilter }) });
+    }
 
     // Load list of requests
     useEffect(() => {
@@ -113,7 +116,7 @@ const ListRequests = (props) => {
             });
         }
         getList();
-    }, [filters, pagination, token, stats]);
+    }, [filters, pagination, token, stats, status]);
 
     const handleFilterLang = (e) => {
         e.preventDefault();
@@ -202,7 +205,7 @@ const ListRequests = (props) => {
                         }
                     </Paper>
                 </Grid>
-                {(!requests || requests.length === 0) ? (
+                {(!requests_count || requests_count === 0) ? (
                     <Grid item xs={12}>
                         <Alert severity="warning">No request to display, update your filters.</Alert>
                     </Grid>
@@ -213,7 +216,7 @@ const ListRequests = (props) => {
                             {(stats.new > pagination.limit) &&
                                 <Grid item xs={12}>
                                     <Paper className={css.paginationPaper}>
-                                        <Pagination count={Math.ceil(stats.new / pagination.limit)} page={requestsPage} shape="rounded" size="small" onChange={ handleChangePage } />
+                                        <Pagination count={Math.ceil(requests_count / pagination.limit)} page={requestsPage} shape="rounded" size="small" onChange={ handleChangePage } />
                                         <div className={css.requestsPerPage}>
                                             <Typography variant="subtitle2" color="textSecondary">Requests per page: </Typography>
                                             <NativeSelect

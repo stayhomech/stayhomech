@@ -270,7 +270,7 @@ const RequestToBusiness = (props) => {
                     <Grid container alignItems="center">
                         <Grid item xs={1} align="center">
                             <Tooltip title="Copy from request">
-                                <a className={css.copyButton} href="#" onClick={(e) => { setName(data.name) }}><DoubleArrowIcon /></a>
+                                <a className={css.copyButton} href="#" onClick={(e) => { e.preventDefault(); setName(data.name); }}><DoubleArrowIcon /></a>
                             </Tooltip>
                         </Grid>
                         <Grid item xs={10}>
@@ -290,7 +290,7 @@ const RequestToBusiness = (props) => {
                     <Grid container alignItems="center">
                         <Grid item xs={1} align="center">
                             <Tooltip title="Copy from request">
-                                <a className={css.copyButton} href="#" onClick={(e) => { setDescription(data.description) }}><DoubleArrowIcon /></a>
+                                <a className={css.copyButton} href="#" onClick={(e) => { e.preventDefault(); setDescription(data.description); }}><DoubleArrowIcon /></a>
                             </Tooltip>
                         </Grid>
                         <Grid item xs={10}>
@@ -364,7 +364,7 @@ const RequestToBusiness = (props) => {
                             {data.address !== '' &&
                             <Tooltip title="Copy from request">
                                 <a className={css.copyButton} href="#" onClick={(e) => {
-                                    setAddress(data.address)
+                                    e.preventDefault(); setAddress(data.address);
                                 }}><DoubleArrowIcon/></a>
                             </Tooltip>
                             }
@@ -418,7 +418,7 @@ const RequestToBusiness = (props) => {
                             {data.website !== 'http://' &&
                             <Tooltip title="Copy from request">
                                 <a className={css.copyButton} href="#" onClick={(e) => {
-                                    setWebsite(data.website)
+                                    e.preventDefault(); setWebsite(data.website);
                                 }}><DoubleArrowIcon/></a>
                             </Tooltip>
                             }
@@ -443,7 +443,7 @@ const RequestToBusiness = (props) => {
                             {data.phone !== '' &&
                             <Tooltip title="Copy from request">
                                 <a className={css.copyButton} href="#" onClick={(e) => {
-                                    setPhone(data.phone)
+                                    e.preventDefault(); setPhone(data.phone);
                                 }}><DoubleArrowIcon/></a>
                             </Tooltip>
                             }
@@ -468,7 +468,7 @@ const RequestToBusiness = (props) => {
                             {data.email !== '' &&
                             <Tooltip title="Copy from request">
                                 <a className={css.copyButton} href="#" onClick={(e) => {
-                                    setEmail(data.email)
+                                    e.preventDefault(); setEmail(data.email);
                                 }}><DoubleArrowIcon/></a>
                             </Tooltip>
                             }

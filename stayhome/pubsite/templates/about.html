@@ -1,37 +1,68 @@
 {% extends "navigation.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block content %}
-<div class="container py-5">
+<div class="container py-2 py-md-5">
     <div class="row">
-        <div class="col-12 col-md-5 p-3">
-            <h1 class="pb-2">{% blocktrans %}About us{% endblocktrans %}</h1>
-            <p>{% blocktrans %}StayHome.ch is an initiative of private individuals who want to help in times of the Corona / Covid-19 epidemic! We have no commercial purpose.{% endblocktrans %}</p>
-            <p>{% blocktrans %}If you want to help us translate or develop new functions, you can find our source code on <a href="https://github.com/stayhomech/stayhomech" target="_blank">GitHub</a>.{% endblocktrans %}</p>
-            <p><a href="https://www.facebook.com/stayhome.ch" target="_blank"><i class="fab fa-facebook"></i></a></p>
+        <div class="col-12 pb-2">
+            <h1>{% blocktrans %}About us{% endblocktrans %}</h1>
         </div>
-        <div class="col-12 offset-md-1 col-md-6">
-            <form method="POST" action="{% url 'about' %}">
-                {% csrf_token %}
-
-                {% for field in form %}
-
-                    <p class="m-0 mt-3 p-0">{{ field.label }} {% if field.field.required %}*{% endif %}</p>
-                    <small id="inputNameHelp" class="form-text text-muted">{{ field.help_text|safe }}</small>
-                    {% if field.errors %}
-                    <div class="alert alert-danger" role="alert">
-                    {% for error in field.errors %}
-                    {{ error }}
-                    {% endfor %}
-                    </div>
-                    {% endif %}
-                    {{ field }}
-
-                {% endfor %}
-
-                <button class="btn btn-sh push-center my-3" type="submit">{% blocktrans %}Send your message{% endblocktrans %}</button>
-
-            </form>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-7">
+            <p>{% blocktrans %}StayHome.ch was founded by a Swiss citizen who in the situation of the COVID-19 epidemic, wanted to help his fellow citizens to easily find available delivery service close to their homes.{% endblocktrans %}</p>
+            <p>{% blocktrans %}Later on, further volunteers joined the project, who share the same ambition to help the Swiss population as well as the larger and smaller business owners in Switzerland.{% endblocktrans %}</p>
+            <p>{% blocktrans %}To this day, StayHome.ch remains a completely volunteer and free initiative, funded entirely by its initiator, with the support of a few partners that offered professional services.{% endblocktrans %}</p>
+            <p>{% blocktrans %}We don’t display ads, we only collect the information from the companies that are willing to appear in the list and we are very careful with the way we handle these data. We don’t use them for marketing purpose, and we don’t sell them to third parties. {% endblocktrans %}</p>
+            <p>{% blocktrans %}To summarize, StayHome.ch is:{% endblocktrans %}</p>
+            <ul>
+                <li>{% blocktrans %}A directory of companies offering a home-delivery service in Switzerland.{% endblocktrans %}
+                <li>{% blocktrans %}A free and volunteer-based initiative serving the Swiss population and economy.{% endblocktrans %}
+                <li>{% blocktrans %}A promotion tool for a more local e-commerce that’s willing to support small businesses.{% endblocktrans %}
+            </ul>
+            <p>{% blocktrans %}In addition to the companies we are listing directly, we also aggregate data from the external sources below.{% endblocktrans %}</p>
+            <p>{% blocktrans %}Let us know if you want to share your data!{% endblocktrans %}</p>
+        </div>
+        <div class="col-10 offset-md-2 col-md-3 align-center">
+            <h4 class="text-center mb-4">Our partners and sponsors</h4>
+            <p class="mt-4">
+                <a href="https://schaltstelle.ch/" target="_blank">
+                    <img src="{% static 'pubsite/img/sponsors/schaltstelle.png' %}" class="img-fluid mb-4" />
+                </a>
+                <a href="https://www.createyouronlinepresence.com/" target="_blank">
+                    <img src="{% static 'pubsite/img/sponsors/create.png' %}" class="img-fluid mb-4" />
+                </a>
+                <a href="https://www.suisseresponsable.ch/" target="_blank">
+                    <img src="{% static 'pubsite/img/sponsors/suisse_solidaire_responsable.png' %}" class="img-fluid mb-4" />
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="row d-flex align-items-center">
+        <div class="col">
+            <a href="https://www.aargauerzeitung.ch/" target="_blank">
+                <img class="img-fluid" src="{% static 'pubsite/img/sources/az.svg' %}" />
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://www.derbund.ch/" target="_blank">
+                <img class="img-fluid" src="{% static 'pubsite/img/sources/der-bund.png' %}" />
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://www.laedelishop.ch/" target="_blank">
+                <img class="img-fluid" src="{% static 'pubsite/img/sources/laedelishop.png' %}" />
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://local-hero.ch/" target="_blank">
+                <img class="img-fluid" src="{% static 'pubsite/img/sources/local-hero.png' %}" />
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://www.tagesanzeiger.ch/" target="_blank">
+                <img class="img-fluid" src="{% static 'pubsite/img/sources/tagesanzeiger.png' %}" />
+            </a>
         </div>
     </div>
 </div>

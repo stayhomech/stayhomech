@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-03 13:42+0200\n"
-"PO-Revision-Date: 2020-04-03 13:44+0200\n"
+"POT-Creation-Date: 2020-04-15 18:42+0200\n"
+"PO-Revision-Date: 2020-04-15 18:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -22,43 +22,43 @@ msgstr ""
 msgid "status"
 msgstr "stato"
 
-#: business/forms/add_form.py:17
+#: business/forms/add_form.py:18
 msgid "Company name"
 msgstr "Nome della ditta"
 
-#: business/forms/add_form.py:19
+#: business/forms/add_form.py:20
 msgid "The name of the company."
 msgstr "Il nome dell’azienda."
 
-#: business/forms/add_form.py:26
+#: business/forms/add_form.py:27
 msgid "Description"
 msgstr "Descrizione"
 
-#: business/forms/add_form.py:27
+#: business/forms/add_form.py:28
 msgid "A short description of the services of the company."
 msgstr "Una breve descrizione dei servizi dell’azienda."
 
-#: business/forms/add_form.py:35
+#: business/forms/add_form.py:36
 msgid "Street and number"
 msgstr "Via e numero"
 
-#: business/forms/add_form.py:37
+#: business/forms/add_form.py:38
 msgid "The street and street number of your address"
 msgstr "La via e il numero civico del tuo indirizzo"
 
-#: business/forms/add_form.py:44
+#: business/forms/add_form.py:45
 msgid "City"
 msgstr "Città"
 
-#: business/forms/add_form.py:45
+#: business/forms/add_form.py:46
 msgid "Where is the company based?"
 msgstr "Dove si trova l’azienda?"
 
-#: business/forms/add_form.py:53
+#: business/forms/add_form.py:54
 msgid "Categories"
 msgstr "Categorie"
 
-#: business/forms/add_form.py:55
+#: business/forms/add_form.py:56
 msgid ""
 "List possible categories of the service that the company provides (eg. Food, "
 "Books, Drinks, Music, Games, Mobility)"
@@ -66,11 +66,11 @@ msgstr ""
 "Elencare le possibili categorie del servizio che l’azienda fornisce (ad es. "
 "Cibo, libri, bevande, musica, giochi, mobilità)"
 
-#: business/forms/add_form.py:62
+#: business/forms/add_form.py:63
 msgid "Delivery locations"
 msgstr "Posizioni di consegna"
 
-#: business/forms/add_form.py:64
+#: business/forms/add_form.py:65
 msgid ""
 "Where are you delivering ? Whole Switzerland, cantons, districts, "
 "municipalities, be as precise as possible."
@@ -78,28 +78,28 @@ msgstr ""
 "Dove stai consegnando? Tutta la Svizzera, i cantoni, i distretti, i comuni, "
 "sii il più preciso possibile."
 
-#: business/forms/add_form.py:71 pubsite/templates/content.html:111
-#: pubsite/templates/content.html:141
+#: business/forms/add_form.py:72 pubsite/templates/content.html:113
+#: pubsite/templates/content.html:143
 msgid "Website"
 msgstr "Sito web"
 
-#: business/forms/add_form.py:73
+#: business/forms/add_form.py:74
 msgid "Company website, if any."
 msgstr "Eventuale sito Web dell’azienda."
 
-#: business/forms/add_form.py:81
+#: business/forms/add_form.py:82
 msgid "Phone number"
 msgstr "Numero di telefono"
 
-#: business/forms/add_form.py:83
+#: business/forms/add_form.py:84
 msgid "Company phone number, if any."
 msgstr "Numero di telefono dell'azienda, se disponibile."
 
-#: business/forms/add_form.py:91 pubsite/forms.py:21
+#: business/forms/add_form.py:92 pubsite/forms.py:21
 msgid "Email address"
 msgstr "Indirizzo email"
 
-#: business/forms/add_form.py:93
+#: business/forms/add_form.py:94
 msgid "Company email address, if any."
 msgstr "Indirizzo email dell'azienda, se disponibile."
 
@@ -131,19 +131,19 @@ msgstr "Vedi le richieste in:"
 msgid "All languages"
 msgstr "Tutte le lingue"
 
-#: privsite/templates/requests_list.html:9 stayhome/settings/base.py:113
+#: privsite/templates/requests_list.html:9 stayhome/settings/base.py:115
 msgid "English"
 msgstr "Inglese"
 
-#: privsite/templates/requests_list.html:10 stayhome/settings/base.py:115
+#: privsite/templates/requests_list.html:10 stayhome/settings/base.py:117
 msgid "French"
 msgstr "Francese"
 
-#: privsite/templates/requests_list.html:11 stayhome/settings/base.py:114
+#: privsite/templates/requests_list.html:11 stayhome/settings/base.py:116
 msgid "German"
 msgstr "Tedesco"
 
-#: privsite/templates/requests_list.html:12 stayhome/settings/base.py:116
+#: privsite/templates/requests_list.html:12 stayhome/settings/base.py:118
 msgid "Italian"
 msgstr "Italiano"
 
@@ -201,80 +201,177 @@ msgstr "Il tuo messaggio"
 msgid "The message you want to send us."
 msgstr "Il messaggio che vuoi inviarci."
 
-#: pubsite/templates/about.html:8
+#: pubsite/templates/about.html:8 pubsite/templates/navigation.html:34
 msgid "About us"
 msgstr "Riguardo a noi"
 
-#: pubsite/templates/about.html:9
+#: pubsite/templates/about.html:13
 msgid ""
-"StayHome.ch is an initiative of private individuals who want to help in "
-"times of the Corona / Covid-19 epidemic! We have no commercial purpose."
+"StayHome.ch was founded by a Swiss citizen who in the situation of the "
+"COVID-19 epidemic, wanted to help his fellow citizens to easily find "
+"available delivery service close to their homes."
 msgstr ""
-"StayHome.ch è un’iniziativa di privati ​​che vogliono aiutare in tempi "
-"dell’epidemia di Corona / Covid-19! Non abbiamo scopi commerciali."
+"StayHome.ch è stata fondata da un cittadino svizzero che, nella situazione "
+"dell'epidemia di COVID-19, ha voluto aiutare i suoi concittadini a trovare "
+"facilmente il servizio di consegna disponibile vicino alle loro case."
 
-#: pubsite/templates/about.html:10
+#: pubsite/templates/about.html:14
 msgid ""
-"If you want to help us translate or develop new functions, you can find our "
-"source code on <a href=\"https://github.com/stayhomech/stayhomech\" target="
-"\"_blank\">GitHub</a>."
+"Later on, further volunteers joined the project, who share the same ambition "
+"to help the Swiss population as well as the larger and smaller business "
+"owners in Switzerland."
 msgstr ""
-"Se vuoi aiutarci a tradurre o sviluppare nuove funzioni, puoi trovare il "
-"nostro codice sorgente su <a href=“https://github.com/stayhomech/stayhomech” "
-"target=“_blank”>GitHub</a>."
+"In seguito, altri volontari hanno aderito al progetto, che condividono la "
+"stessa ambizione di aiutare la popolazione svizzera e gli imprenditori più "
+"grandi e più piccoli in Svizzera."
 
-#: pubsite/templates/about.html:32
-msgid "Send your message"
-msgstr "Invia il tuo messaggio"
+#: pubsite/templates/about.html:15
+msgid ""
+"To this day, StayHome.ch remains a completely volunteer and free initiative, "
+"funded entirely by its initiator, with the support of a few partners that "
+"offered professional services."
+msgstr ""
+"Ancora oggi, StayHome.ch rimane un'iniziativa completamente volontaria e "
+"gratuita, finanziata interamente dal suo proditore, con il supporto di "
+"alcuni partner che hanno offerto servizi professionali."
+
+#: pubsite/templates/about.html:16
+msgid ""
+"We don’t display ads, we only collect the information from the companies "
+"that are willing to appear in the list and we are very careful with the way "
+"we handle these data. We don’t use them for marketing purpose, and we don’t "
+"sell them to third parties. "
+msgstr ""
+"Non visualizziamo annunci, raccogliamo solo le informazioni dalle aziende "
+"che sono disposte a comparire nell'elenco e siamo molto attenti al modo in "
+"cui gestiamo questi dati. Non li usiamo per scopi di marketing e non li "
+"vendiamo a terze parti. "
+
+#: pubsite/templates/about.html:17
+msgid "To summarize, StayHome.ch is:"
+msgstr "Per riassumere, StayHome.ch è:"
+
+#: pubsite/templates/about.html:19
+msgid ""
+"A directory of companies offering a home-delivery service in Switzerland."
+msgstr ""
+"Un elenco di aziende che offrono un servizio di consegna a domicilio in "
+"Svizzera."
+
+#: pubsite/templates/about.html:20
+msgid ""
+"A free and volunteer-based initiative serving the Swiss population and "
+"economy."
+msgstr ""
+"Un'iniziativa gratuita e basata sui volontari al servizio della popolazione "
+"e dell'economia svizzera."
+
+#: pubsite/templates/about.html:21
+msgid ""
+"A promotion tool for a more local e-commerce that’s willing to support small "
+"businesses."
+msgstr ""
+"Uno strumento di promozione per un e-commerce più locale che è disposto a "
+"sostenere le piccole imprese."
+
+#: pubsite/templates/about.html:23
+msgid ""
+"In addition to the companies we are listing directly, we also aggregate data "
+"from the external sources below."
+msgstr ""
+"Oltre alle società che elenchiamo direttamente, aggregiamo anche i dati "
+"provenienti dalle fonti esterne riportate di seguito."
+
+#: pubsite/templates/about.html:24
+msgid "Let us know if you want to share your data!"
+msgstr "Facci sapere se vuoi condividere i tuoi dati!"
 
 #: pubsite/templates/add.html:8 pubsite/templates/mgmt.html:24
 msgid "Add your business"
 msgstr "Aggiungi la tua attività"
 
-#: pubsite/templates/add.html:9
+#: pubsite/templates/add.html:13
 msgid ""
-"List your business here on stayhome.ch to show that it is still there for "
-"customers. Please note that only services can be offered that do NOT require "
-"direct contact with customers!"
+"Add your home-delivery service to let your customers know, that you deliver "
+"to their homes."
 msgstr ""
-"Elenca la tua attività qui su stayhome.ch per mostrare che è ancora lì per i "
-"clienti. Si noti che possono essere offerti solo servizi che NON richiedono "
-"un contatto diretto con i clienti!"
+"Aggiungi il tuo servizio di consegna a domicilio per far sapere ai tuoi "
+"clienti che consegni alle loro case."
 
-#: pubsite/templates/add.html:10
+#: pubsite/templates/add.html:14
 msgid ""
-"Please be as complete as possible when filling the form, especially about "
-"the description of your service and the delivery locations."
+"Please provide us with as many details as possible in the form below. This "
+"will help your customers to know more about your services you are offering "
+"and it will also enable us to list your business under the correct "
+"categories and to be as precise as possible with your delivery perimeter."
 msgstr ""
-"Si prega di essere il più completo possibile durante la compilazione del "
-"modulo, in particolare sulla descrizione del servizio e sui luoghi di "
-"consegna."
+"Si prega di fornirci il maggior numero di dettagli possibile nel modulo qui "
+"sotto. Questo aiuterà i tuoi clienti a conoscere meglio i tuoi servizi che "
+"stai offrendo e ci permetterà anche di elencare la tua attività nelle "
+"categorie corrette e di essere il più precisi possibile con il tuo perimetro "
+"di consegna."
 
-#: pubsite/templates/add.html:11
+#: pubsite/templates/add.html:15
+msgid "Please take into consideration the following information:"
+msgstr "Si prega di prendere in considerazione le seguenti informazioni:"
+
+#: pubsite/templates/add.html:17
+msgid "Adding your service is completely free of charge."
+msgstr "L'aggiunta del servizio è completamente gratuita."
+
+#: pubsite/templates/add.html:18
 msgid ""
-"It may take up to 24 hours to process your request. Thank you for your "
-"patience."
+"We only accept to list services that are offering a home-delivery service "
+"that do not require close contact with the customer."
 msgstr ""
-"L’elaborazione della richiesta potrebbe richiedere fino a 24 ore. Grazie per "
-"la vostra pazienza."
+"Accettiamo solo di elencare i servizi che offrono un servizio di consegna a "
+"domicilio che non richiedono uno stretto contatto con il cliente."
 
-#: pubsite/templates/add.html:12
-msgid "If you have any questions, please"
-msgstr "Se avete domande, per favore"
+#: pubsite/templates/add.html:19
+msgid ""
+"We do not accept services offering illegal merchandise and we also reserve "
+"the right to refuse any service that does not fit into our ethical "
+"guidelines."
+msgstr ""
+"Non accettiamo servizi che offrono merce illegale e ci riserviamo anche il "
+"diritto di rifiutare qualsiasi servizio che non rientra nelle nostre linee "
+"guida etiche."
 
-#: pubsite/templates/add.html:12
+#: pubsite/templates/add.html:20
+msgid ""
+"You have the right to access, modify and delete your data at any time. You "
+"can use the link on each card or write us a message."
+msgstr ""
+"Hai il diritto di accedere, modificare ed eliminare i tuoi dati in qualsiasi "
+"momento. Puoi utilizzare il link su ogni scheda o scriverci un messaggio."
+
+#: pubsite/templates/add.html:21
+msgid ""
+"The processing of your request may take up to 24 hours depending on the "
+"current workload of our volunteers."
+msgstr ""
+"L'elaborazione della tua richiesta può richiedere fino a 24 ore a seconda "
+"del carico di lavoro attuale dei nostri volontari."
+
+#: pubsite/templates/add.html:23
+msgid ""
+"Should you have any question or if you want to know more about us, please "
+"feel free to"
+msgstr "In caso di domande o se volete saperne di più su di noi"
+
+#: pubsite/templates/add.html:23
 msgid "contact us"
 msgstr "contattaci"
 
-#: pubsite/templates/add.html:33
+#: pubsite/templates/add.html:44
 msgid "Send your request"
 msgstr "Invia la tua richiesta"
 
-#: pubsite/templates/base.html:30 pubsite/templates/base.html:34
+#: pubsite/templates/base.html:34 pubsite/templates/base.html:38
 msgid "Stay home ! We deliver..."
 msgstr "Restate a casa ! Noi consegnamo..."
 
-#: pubsite/templates/base.html:32 pubsite/templates/base.html:35
+#: pubsite/templates/base.html:36 pubsite/templates/base.html:39
 msgid ""
 "StayHome.ch is a directory of delivery services available in Switzerland "
 "based on visitor's location. It has been created to help Swiss people and "
@@ -284,76 +381,96 @@ msgstr ""
 "base alla posizione del visitatore. È stato creato per aiutare gli svizzeri "
 "e le imprese a far fronte alla crisi COVID-19."
 
-#: pubsite/templates/content.html:9 pubsite/templates/content.html:108
+#: pubsite/templates/contact.html:8
+msgid "Contact us"
+msgstr "Contattaci"
+
+#: pubsite/templates/contact.html:13
+msgid "Feel free to contact us using this form."
+msgstr "Sentiti libero di contattarci utilizzando questo modulo."
+
+#: pubsite/templates/contact.html:14
+msgid "You can also contact us on our Facebook page."
+msgstr "Puoi anche contattarci sulla nostra pagina Facebook."
+
+#: pubsite/templates/contact.html:36
+msgid "Send your message"
+msgstr "Invia il tuo messaggio"
+
+#: pubsite/templates/content.html:10 pubsite/templates/content.html:110
 msgid "Report an issue"
 msgstr "Segnalare un problema"
 
-#: pubsite/templates/content.html:19
+#: pubsite/templates/content.html:20
 msgid "Damn... despite our efforts you found an issue..."
 msgstr "Dannazione... nonostante i nostri sforzi hai trovato un problema..."
 
-#: pubsite/templates/content.html:20
+#: pubsite/templates/content.html:21
 msgid "Can you help us by describing what the problem is ?"
 msgstr "Può aiutarci descrivendo qual è il problema ?"
 
-#: pubsite/templates/content.html:21
+#: pubsite/templates/content.html:22
 msgid "Wrong or missing information. Please enter details in the field below."
 msgstr ""
 "Informazioni errate o mancanti. Inserisci i dettagli nel campo sottostante."
 
-#: pubsite/templates/content.html:22
+#: pubsite/templates/content.html:23
 msgid "This service does not deliver to my place !"
 msgstr "Questo servizio non offre a casa mia !"
 
-#: pubsite/templates/content.html:23
+#: pubsite/templates/content.html:24
 msgid "Other. Please enter details in the field below."
 msgstr "Altro. Inserisci i dettagli nel campo sottostante."
 
-#: pubsite/templates/content.html:27
+#: pubsite/templates/content.html:28
 msgid "Thank you for your report !"
 msgstr "Grazie per la segnalazione!"
 
-#: pubsite/templates/content.html:29
+#: pubsite/templates/content.html:30
 msgid "Close"
 msgstr "Chiuso"
 
-#: pubsite/templates/content.html:30
+#: pubsite/templates/content.html:31
 msgid "Report"
 msgstr "Segnala"
 
-#: pubsite/templates/content.html:82
+#: pubsite/templates/content.html:47
+msgid "Search"
+msgstr "Cerca"
+
+#: pubsite/templates/content.html:84
 msgid "Nothing left to show, try changing your filters."
 msgstr "Nessun risultato, provate a cambiare i vostri filtri."
 
-#: pubsite/templates/content.html:91
+#: pubsite/templates/content.html:93
 msgid "Located at"
 msgstr "Situato in"
 
-#: pubsite/templates/content.html:117
+#: pubsite/templates/content.html:119
 msgid "Phone"
 msgstr "Telefono"
 
-#: pubsite/templates/content.html:123
+#: pubsite/templates/content.html:125
 msgid "Email"
 msgstr "Email"
 
-#: pubsite/templates/content.html:128
+#: pubsite/templates/content.html:130
 msgid "Where is this service available ?"
 msgstr "Dove è disponibile questo servizio?"
 
-#: pubsite/templates/content.html:137
+#: pubsite/templates/content.html:139
 msgid "More"
 msgstr "Altro"
 
-#: pubsite/templates/content.html:138
+#: pubsite/templates/content.html:140
 msgid "Less"
 msgstr "Meno"
 
-#: pubsite/templates/content.html:153
+#: pubsite/templates/content.html:155
 msgid "No delivery service available at that location :-("
 msgstr "Nessun servizio di consegna disponibile in quest'area :-("
 
-#: pubsite/templates/content.html:154
+#: pubsite/templates/content.html:156
 msgid ""
 "If you own or know a company that offers a delivery service at this "
 "location, please consider"
@@ -361,7 +478,7 @@ msgstr ""
 "Se possiedi o conosci un’azienda che offre un servizio di consegna in questa "
 "località, ti preghiamo di considerare"
 
-#: pubsite/templates/content.html:154
+#: pubsite/templates/content.html:156
 msgid "adding the service"
 msgstr "aggiungendo il servizio"
 
@@ -491,31 +608,35 @@ msgstr "Quartiere"
 msgid "About"
 msgstr "Su di noi"
 
-#: pubsite/templates/mgmt.html:31 pubsite/templates/navigation.html:30
+#: pubsite/templates/mgmt.html:31
 msgid "Contribute"
 msgstr "Contribuire"
 
-#: pubsite/templates/mgmt.html:34 pubsite/templates/navigation.html:33
+#: pubsite/templates/mgmt.html:34
 msgid "Log out"
 msgstr "Disconnettersi"
 
-#: pubsite/templates/mgmt.html:38 pubsite/templates/navigation.html:72
+#: pubsite/templates/mgmt.html:38 pubsite/templates/navigation.html:68
 msgid "Sign in"
 msgstr "Registrati"
 
-#: pubsite/templates/navigation.html:23
-msgid "Home"
-msgstr "Home"
-
-#: pubsite/templates/navigation.html:26
-msgid "Contact us"
-msgstr "Contattaci"
-
-#: pubsite/templates/navigation.html:54
+#: pubsite/templates/navigation.html:20
 msgid "Add a delivery service"
 msgstr "Aggiungi un servizio di consegna"
 
-#: pubsite/templates/navigation.html:71
+#: pubsite/templates/navigation.html:31
+msgid "Home"
+msgstr "Home"
+
+#: pubsite/templates/navigation.html:37
+msgid "Contact"
+msgstr "Contattaci"
+
+#: pubsite/templates/navigation.html:40
+msgid "Add a service"
+msgstr "Aggiungi un servizio di consegna"
+
+#: pubsite/templates/navigation.html:67
 msgid "All rights reserved"
 msgstr "Tutti i diritti riservati"
 
@@ -530,13 +651,56 @@ msgstr ""
 "L’elaborazione della richiesta può richiedere fino a 24 ore. Per favore sii "
 "paziente."
 
-#: pubsite/views.py:96
+#: pubsite/views.py:98
 msgid "NPA does not exist"
 msgstr "Il CAP non esiste"
 
-#: pubsite/views.py:207
+#: pubsite/views.py:217
 msgid "Your message has been sent."
 msgstr "Il tuo messaggio è stato inviato."
+
+#~ msgid ""
+#~ "StayHome.ch is an initiative of private individuals who want to help in "
+#~ "times of the Corona / Covid-19 epidemic! We have no commercial purpose."
+#~ msgstr ""
+#~ "StayHome.ch è un’iniziativa di privati ​​che vogliono aiutare in tempi "
+#~ "dell’epidemia di Corona / Covid-19! Non abbiamo scopi commerciali."
+
+#~ msgid ""
+#~ "If you want to help us translate or develop new functions, you can find "
+#~ "our source code on <a href=\"https://github.com/stayhomech/stayhomech\" "
+#~ "target=\"_blank\">GitHub</a>."
+#~ msgstr ""
+#~ "Se vuoi aiutarci a tradurre o sviluppare nuove funzioni, puoi trovare il "
+#~ "nostro codice sorgente su <a href=“https://github.com/stayhomech/"
+#~ "stayhomech” target=“_blank”>GitHub</a>."
+
+#~ msgid ""
+#~ "List your business here on stayhome.ch to show that it is still there for "
+#~ "customers. Please note that only services can be offered that do NOT "
+#~ "require direct contact with customers!"
+#~ msgstr ""
+#~ "Elenca la tua attività qui su stayhome.ch per mostrare che è ancora lì "
+#~ "per i clienti. Si noti che possono essere offerti solo servizi che NON "
+#~ "richiedono un contatto diretto con i clienti!"
+
+#~ msgid ""
+#~ "Please be as complete as possible when filling the form, especially about "
+#~ "the description of your service and the delivery locations."
+#~ msgstr ""
+#~ "Si prega di essere il più completo possibile durante la compilazione del "
+#~ "modulo, in particolare sulla descrizione del servizio e sui luoghi di "
+#~ "consegna."
+
+#~ msgid ""
+#~ "It may take up to 24 hours to process your request. Thank you for your "
+#~ "patience."
+#~ msgstr ""
+#~ "L’elaborazione della richiesta potrebbe richiedere fino a 24 ore. Grazie "
+#~ "per la vostra pazienza."
+
+#~ msgid "If you have any questions, please"
+#~ msgstr "Se avete domande, per favore"
 
 #~ msgid "Use this link to report any problem with this service."
 #~ msgstr ""

@@ -8,7 +8,7 @@ from rest_framework import routers
 from rest_framework.authtoken import views
 
 from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet, ReactBusinessContentView
-from pubsite.views import HomeView, HomeLocationView, ContentView, AboutView, AddView, SetLanguageView, EmbededView, ReactContentView
+from pubsite.views import HomeView, HomeLocationView, ContentView, ContactView, AddView, SetLanguageView, EmbededView, ReactContentView
 from geodata.views import NPAViewSet, MunicipalityViewSet, DistrictViewSet, CantonViewSet
 from .views import UserViewSet, ApiCustomAuth
 
@@ -56,7 +56,8 @@ urlpatterns = [
 # Localized URLs
 urlpatterns += i18n_patterns(
     path('', HomeView.as_view(), name='home'),
-    path('about/', AboutView.as_view(), name='about'),
+    path('contact/', ContactView.as_view(), name='contact'),
+    path('about/', TemplateView.as_view(template_name="about.html"), name='about'),
     path('add/', AddView.as_view(), name='add'),
     path('add/success/', TemplateView.as_view(template_name="success.html"), name='add_success'),
     path('<int:npa>/<path:name>/', ContentView.as_view(), name='content'),

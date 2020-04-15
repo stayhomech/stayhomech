@@ -187,9 +187,9 @@ class ContentView(TemplateView):
 
 
 @method_decorator(cache_page(60 * 60), name='dispatch')
-class AboutView(TemplateView):
+class ContactView(TemplateView):
 
-    template_name = "about.html"
+    template_name = "contact.html"
 
     def get_context_data(self, **kwargs):
 
