@@ -114,8 +114,8 @@ services:
   haproxy:
     build: haproxy/
     environment:
-    - LETSENCRYPT_HOST=preview.stayhome.ch
-    - VIRTUAL_HOST=preview.stayhome.ch
+    - LETSENCRYPT_HOST=stayhome.ch,www.stayhome.ch
+    - VIRTUAL_HOST=stayhome.ch,www.stayhome.ch
     - VIRTUAL_PORT=8000
     expose:
       - 8000
