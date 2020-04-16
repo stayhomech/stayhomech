@@ -7,9 +7,10 @@ from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.cache import cache
+from django_prometheus.models import ExportModelOperationsMixin
 
 
-class Category(MPTTModel):
+class Category(ExportModelOperationsMixin('category'), MPTTModel):
 
     name = models.CharField(
         max_length=255
@@ -196,7 +197,7 @@ class EventModel(models.Model):
         event.save()
 
 
-class RequestHistoryEvent(HistoryEvent):
+class RequestHistoryEvent(ExportModelOperationsMixin('history-request'), HistoryEvent):
 
     VOID = 0
     NEW = 1
@@ -244,7 +245,7 @@ class RequestEventManager(models.Manager):
         ).order_by('-creation')
 
 
-class Request(EventModel):
+class Request(ExportModelOperationsMixin('request'), EventModel):
 
     events = RequestHistoryEvent
     objects = RequestEventManager()
@@ -345,7 +346,7 @@ class Request(EventModel):
         return super().set_status(new_status, user)
 
 
-class BusinessHistoryEvent(HistoryEvent):
+class BusinessHistoryEvent(ExportModelOperationsMixin('history-business'), HistoryEvent):
 
     VOID = 0
     VALID = 1
@@ -377,7 +378,7 @@ class BusinessEventManager(models.Manager):
         )
 
 
-class Business(EventModel):
+class Business(ExportModelOperationsMixin('business'), EventModel):
 
     objects = BusinessEventManager()
     events = BusinessHistoryEvent

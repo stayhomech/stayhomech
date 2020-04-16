@@ -1,7 +1,6 @@
 import os
 
 from django.utils.translation import gettext_lazy as _
-from datadog import initialize
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -30,9 +29,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    'ddtrace.contrib.django',
     'corsheaders',
     'webpack_loader',
+    'django_prometheus',
 
     'geodata',
     'business',
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'stayhome.urls'
@@ -162,20 +163,6 @@ REST_FRAMEWORK = {
 SYNC_USER = os.environ.get('SYNC_USER')
 
 
-# Datadog
-env = 'running-env:' + str(RUNNING_ENV)
-options = {
-    'api_key': os.environ.get('DD_WEB_API_KEY'),
-    'app_key': os.environ.get('DD_WEB_APP_KEY'),
-    'host_name': 'stayhome_web',
-    'statsd_host': 'datadog',
-    'statsd_port': 8125,
-    'statsd_constant_tags': (env,),
-    'statsd_namespace': 'stayhome'
-}
-initialize(**options)
-
-
 # CORS headers
 CORS_ORIGIN_WHITELIST = [
     'https://stayhome.ch',
@@ -203,3 +190,8 @@ WEBPACK_LOADER = {
 
 # Locize
 LOCIZE_API_KEY = os.environ.get('LOCIZE_API_KEY')
+
+
+# Prometheus export
+PROMETHEUS_METRICS_EXPORT_PORT_RANGE = range(9001, 9050)
+PROMETHEUS_METRICS_EXPORT_ADDRESS = ''
