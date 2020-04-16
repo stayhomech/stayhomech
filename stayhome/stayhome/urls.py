@@ -8,7 +8,7 @@ from rest_framework import routers
 from rest_framework.authtoken import views
 
 from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet, ReactBusinessContentView
-from pubsite.views import HomeView, HomeLocationView, ContentView, ContactView, AddView, SetLanguageView, EmbededView, ReactContentView
+from pubsite.views import HomeView, HomeLocationView, ContentView, ContactView, AddView, SetLanguageView, ReactContentView
 from geodata.views import NPAViewSet, MunicipalityViewSet, DistrictViewSet, CantonViewSet
 from .views import UserViewSet, ApiCustomAuth
 
@@ -34,8 +34,6 @@ urlpatterns = [
 
     # API
     path('api/', include(router.urls)),
-    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    #path('api-token-auth/', csrf_exempt(views.obtain_auth_token)),
     path('api-token-auth/', ApiCustomAuth.as_view()),
 
     # Main site
@@ -44,12 +42,6 @@ urlpatterns = [
     # React content
     path('content/<str:lang>/<int:npa>/<path:name>/', ReactContentView.as_view(), name='react_content'),
     path('business/<str:lang>/<int:pk>/', ReactBusinessContentView.as_view(), name='react_business'),
-
-    # Authentication
-    #path('accounts/', include('django.contrib.auth.urls')),
-
-    # Management site
-    path('contribute/', include(('privsite.urls', 'privsite'), namespace='mgmt')),
 
 ]
 
@@ -65,14 +57,3 @@ urlpatterns += i18n_patterns(
 
 # Static URLs
 urlpatterns += staticfiles_urlpatterns()
-
-
-
-
-
-
-
-
-
-
-

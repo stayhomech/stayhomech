@@ -52,6 +52,7 @@ services:
       - LOCIZE_API_KEY=${LOCIZE_API_KEY}
     expose:
       - 8000
+      - 9001-9050
     depends_on:
       - db
       - memcached
@@ -119,6 +120,7 @@ services:
     - VIRTUAL_PORT=8000
     expose:
       - 8000
+      - 8404
     depends_on:
       - web
       - contribute

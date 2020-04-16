@@ -17,7 +17,6 @@ from django.utils.translation import get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.mail import send_mail
 from django.contrib.gis.db.models.functions import Distance
-from datadog import statsd
 
 from geodata.models import NPA
 from geodata.serializers import NPASerializer, MunicipalitySerializer, DistrictSerializer, CantonSerializer
@@ -40,18 +39,7 @@ class HomeView(TemplateView):
 
     def get(self, request, *args, **kwargs):
 
-        # Stats
-        statsd.increment('landing.count', tags=[
-            'lang:' + get_language()
-        ])
-
         return super(HomeView, self).get(self, request, *args, **kwargs)
-
-
-@method_decorator(xframe_options_exempt, name='dispatch')
-class EmbededView(TemplateView):
-
-    template_name = "embed.html"
 
 
 @method_decorator(cache_page(60 * 60), name='dispatch')

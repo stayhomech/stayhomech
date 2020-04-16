@@ -56,4 +56,4 @@ else
 fi
 
 # Run application
-ddtrace-run gunicorn -b 0.0.0.0:8000 --workers=$workers --name="stayhome-$RUNNING_ENV" --statsd-host="datadog:8125" stayhome.wsgi
+gunicorn -b 0.0.0.0:8000 --workers=$workers --name="stayhome-$RUNNING_ENV" stayhome.wsgi

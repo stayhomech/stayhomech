@@ -36,9 +36,9 @@ sentry_sdk.init(
 
 
 # Cache
-""" CACHES = {
+CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'BACKEND': 'django_prometheus.cache.backends.memcached.MemcachedCache',
         'LOCATION': 'memcached:11211',
     }
-} """
+}
