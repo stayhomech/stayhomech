@@ -116,7 +116,7 @@ const ListRequests = (props) => {
             });
         }
         getList();
-    }, [filters, pagination, token, stats, status]);
+    }, [filters, pagination, token, status]);
 
     const handleFilterLang = (e) => {
         e.preventDefault();
