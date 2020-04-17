@@ -62,6 +62,15 @@ const MainContent = (props) => {
                     <Route path={`${path}requests/:status`}>
                         <ListRequests />
                     </Route>
+                    <Route path={`${path}stats/contributors`}>
+                        
+                    </Route>
+                    <Route path={`${path}stats/requests`}>
+                        
+                    </Route>
+                    <Route path={`${path}stats/businesses`}>
+                        
+                    </Route>
                 </Switch>
                 <Snackbar open={sbOpen} autoHideDuration={6000} onClose={handleSbClose}>
                     <Alert onClose={handleSbClose} severity={sbSeverity}>

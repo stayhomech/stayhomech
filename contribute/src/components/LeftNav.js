@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Drawer, List, ListItem, ListItemText, ListItemIcon, Toolbar, Chip } from '@material-ui/core';
 import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
+import BarChartIcon from '@material-ui/icons/BarChart';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
 import DjangoRequest from '../objects/DjangoRequest';
@@ -98,6 +99,31 @@ const LeftNav = (props) => {
                             badge={stats.drafts > 0 && <Chip size="small" color="secondary" label={stats.drafts} />}
                         />
                     </List>
+
+                    <ListItem className={css.sectionHead}>
+                        <ListItemIcon>
+                            <BarChartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Statistics" />
+                    </ListItem>
+                    <List component="div" disablePadding>
+                        <ListItemLink
+                            button 
+                            to={`${url}requests/draft`}
+                            primary="Contributors"
+                        />
+                        <ListItemLink
+                            button 
+                            to={`${url}requests/draft`}
+                            primary="Requests"
+                        />
+                        <ListItemLink
+                            button 
+                            to={`${url}requests/draft`}
+                            primary="Businesses"
+                        />
+                    </List>
+
                 </List>
             </div>
         </Drawer>
