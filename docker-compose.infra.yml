@@ -64,6 +64,21 @@ services:
       - prod
       - pre-prod
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+    - LETSENCRYPT_HOST=stats.stayhome.ch
+    - VIRTUAL_HOST=stats.stayhome.ch
+    - VIRTUAL_PORT=3000
+    volumes:
+      - /data/infra/grafana:/var/lib/grafana
+    expose:
+      - 3000
+    restart: always
+    networks: 
+      - infra
+
 volumes:
   certs:
   vhosts:
