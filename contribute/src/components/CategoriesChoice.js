@@ -393,6 +393,7 @@ const CategoriesChoice = (props) => {
                                     id="input-search"
                                     value={filter}
                                     onChange={ handleChangeFilter }
+                                    autoFocus={true}
                                     startAdornment={<InputAdornment position="start"><SearchIcon /></InputAdornment>}
                                 />
                             </FormControl>

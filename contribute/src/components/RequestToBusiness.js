@@ -142,6 +142,17 @@ const RequestToBusiness = (props) => {
         setDeliversToCH(!deliversToCH);
     }
 
+    const handleDeliveryChange = (values, event) => {
+
+        switch (event.action) {
+            case 'select-option':
+                return setDeliversTo(values);
+            case 'remove-value':
+                return setDeliversTo(deliversTo.filter(item => !(item.type === event.removedValue.type && item.id === event.removedValue.id)));
+        }
+
+    }
+
     const handleConvertClick = () => {
 
         // Data
@@ -360,8 +371,8 @@ const RequestToBusiness = (props) => {
                             <AsyncSelect
                                 cacheOptions
                                 isMulti
-                                loadOptions={loadDeliveryOptions}
-                                onChange={d => setDeliversTo(d)}
+                                loadOptions={ loadDeliveryOptions }
+                                onChange={ handleDeliveryChange }
                                 value={deliversTo}
                                 getOptionValue={(o) => { return { type: o.type, id: o.id } }}
                                 getOptionLabel={(o) => o.label}
