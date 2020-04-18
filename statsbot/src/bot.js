@@ -204,7 +204,7 @@ class StatsBot {
                     this.checkEventPayload(event, required_keys) || reject('Malformed start payload. Missing required content.');
 
                     // Stats
-                    STATS.starts.labels(event.payload.npa, event.payload.city, event.payload.lang, headers['user-agent']).inc();
+                    STATS.starts.labels(event.payload.npa, decodeURIComponent(event.payload.city), event.payload.lang, headers['user-agent']).inc();
 
                     // Session
                     const sid = uuidv4();
@@ -213,7 +213,7 @@ class StatsBot {
                         last: Date.now(),
                         labels: [
                             event.payload.npa,
-                            event.payload.city,
+                            decodeURIComponent(event.payload.city),
                             event.payload.lang,
                             headers['user-agent']
                         ],
@@ -224,7 +224,7 @@ class StatsBot {
                     }
 
                     // Log
-                    console.log('[' + date.toLocaleString() + '] ' + sid + ' START ' + event.payload.npa + ' "' + event.payload.city + '" ' + event.payload.lang + ' "' + headers['user-agent'] + '"');
+                    console.log('[' + date.toLocaleString() + '] ' + sid + ' START ' + event.payload.npa + ' "' + decodeURIComponent(event.payload.city) + '" ' + event.payload.lang + ' "' + headers['user-agent'] + '"');
 
                     // Finish
                     resolve({
