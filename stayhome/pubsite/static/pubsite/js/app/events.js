@@ -49,7 +49,7 @@ const EventsManager =  {
         document.addEventListener('visibilitychange', e => window.EMsendEvents());
 
         // Sending interval
-        window.EMeventsConfig.interval = setInterval(window.EMsendEvents, 30 * 1000);
+        window.EMeventsConfig.interval = setInterval(window.EMsendEvents, 1000);
 
         // Start session
         return axios.post(

@@ -145,6 +145,7 @@ const Card = props => {
                     link: type
                 }
             });
+            window.EMsendEvents();
         }
     })
 

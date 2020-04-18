@@ -112,6 +112,15 @@ services:
     networks:
       - prod
 
+  statsbot:
+    build: statsbot/
+    expose:
+      - 3333
+      - 3434
+    restart: always
+    networks:
+      - prod
+
   haproxy:
     build: haproxy/
     environment:
@@ -123,6 +132,7 @@ services:
     depends_on:
       - web
       - contribute
+      - statsbot
     restart: always
     networks:
       - prod
