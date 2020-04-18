@@ -81,6 +81,13 @@ services:
       - web
     restart: always
 
+  statsbot:
+    build: statsbot/
+    ports:
+      - 127.0.0.1:3333:3333
+      - 127.0.0.1:3434:3434
+    restart: always
+
   haproxy:
     build: haproxy/
     ports:
@@ -89,6 +96,7 @@ services:
     depends_on:
       - web
       - contribute
+      - statsbot
     restart: always
 
 volumes:

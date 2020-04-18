@@ -68,6 +68,7 @@ const Page = props => {
     const [filterCategory, setFilterCategory] = useState(0)
 
     useEffect(() => {
+        const start = Date.now();
         fetch("/content/" + props.lang + "/" + props.content_uuid + "/")
             .then(res => res.json())
             .then(
@@ -144,10 +145,23 @@ const Page = props => {
                     setBusinesses(bs);
 
                     // Save NPA
-                    setNpa(result.npa)
+                    setNpa(result.npa);
 
                     // Loaded
-                    setLoaded(true)
+                    setLoaded(true);
+
+                    // Stats
+                    window.EMeventsPile.push({
+                        type: 'display',
+                        payload: {
+                            delay: Date.now() - start,
+                            results: result.businesses.length,
+                            categories: result.categories.length,
+                            min_range: radius.min,
+                            max_range: radius.max
+                        }
+                    });
+
                 },
                 (error) => {
                     setLoaded(false);
