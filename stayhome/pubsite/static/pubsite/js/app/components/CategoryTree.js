@@ -17,6 +17,12 @@ const ChildItem = props => {
             searchContext.setFilters.setCategory(null);
         } else {
             searchContext.setFilters.setCategory(props.pk);
+            window.EMeventsPile.push({
+                type: 'category',
+                payload: {
+                    category: props.pk
+                }
+            });
         }
     }
 
@@ -45,6 +51,12 @@ const ParentItem = props => {
             searchContext.setFilters.setCategory(0);
         } else {
             searchContext.setFilters.setCategory(pk);
+            window.EMeventsPile.push({
+                type: 'category',
+                payload: {
+                    category: pk
+                }
+            });
         }
     }
 
