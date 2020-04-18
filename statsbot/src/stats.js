@@ -82,6 +82,10 @@ const STATS = {
             help: 'Time between session start and last event',
             labelNames: ['npa', 'city', 'language', 'agent'],
         }),
+        active: new client.Gauge({
+            name: STATS_PREFIX + 'sessions_active',
+            help: 'Number of active sessions',
+        }),
     }
 }
 

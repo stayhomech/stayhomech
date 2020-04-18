@@ -55,6 +55,9 @@ class StatsBot {
             }
         });
 
+        // Stats
+        STATS.sessions.active.set(total);
+
         // Log
         if (cleaned > 0) {
             const date = new Date();
