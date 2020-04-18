@@ -117,8 +117,7 @@ class StatsBot {
                     });
                 })
                 .catch(e => {
-                    console.log(e.toString());
-                    console.log(e);
+                    console.log('[' + date.toLocaleString() + '] Got an error while processing events: ' + e.toString());
                     res.json({
                         success: false,
                         response: e.toString()
