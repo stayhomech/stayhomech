@@ -93,7 +93,7 @@ const Page = props => {
                         }
                     });
 
-                    var radius = {
+                    var distance = {
                         min: 999.0,
                         max: 0.0
                     }
@@ -103,11 +103,11 @@ const Page = props => {
                     result.businesses.forEach((business) => {
 
                         // Radius
-                        if (radius.min > business.distance.km) {
-                            radius.min = business.distance.km;
+                        if (distance.min > business.distance.km) {
+                            distance.min = business.distance.km;
                         }
-                        if (radius.max < business.distance.km) {
-                            radius.max =  business.distance.km;
+                        if (distance.max < business.distance.km) {
+                            distance.max =  business.distance.km;
                         }
 
                         // All categories IDs and texts for filtering
@@ -139,7 +139,7 @@ const Page = props => {
                     });
 
                     // Radius
-                    setRadius([radius.min * 0.99, radius.max * 1.01]);
+                    setRadius([distance.min * 0.99, distance.max * 1.01]);
 
                     // Save businesses
                     setBusinesses(bs);
@@ -157,8 +157,8 @@ const Page = props => {
                             delay: Date.now() - start,
                             results: result.businesses.length,
                             categories: result.categories.length,
-                            min_range: radius.min,
-                            max_range: radius.max
+                            min_range: parseFloat(distance.min),
+                            max_range: parseFloat(distance.max)
                         }
                     });
 

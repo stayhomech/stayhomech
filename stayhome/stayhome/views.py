@@ -51,3 +51,11 @@ class ApiCustomAuth(View):
         return JsonResponse({
             'token': token.key
         })
+
+
+class CheckView(View):
+
+    def get(self, request, *args, **kwargs):
+        return JsonResponse({
+            'status': 'OK'
+        })

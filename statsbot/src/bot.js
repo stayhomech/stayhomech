@@ -42,11 +42,11 @@ class StatsBot {
                 const session = this.sessions[key];
 
                 // Stats
-                STATS.sessions.events.labels(...session.labels).observe(session.events);
-                STATS.sessions.categories.labels(...session.labels).observe(session.categories);
-                STATS.sessions.businesses.labels(...session.labels).observe(session.businesses);
-                STATS.sessions.clicks.labels(...session.labels).observe(session.clicks);
-                STATS.sessions.duration.labels(...session.labels).observe(session.last - session.start);
+                STATS.sessions.events.observe(session.events);
+                STATS.sessions.categories.observe(session.categories);
+                STATS.sessions.businesses.observe(session.businesses);
+                STATS.sessions.clicks.observe(session.clicks);
+                STATS.sessions.duration.observe(session.last - session.start);
 
                 delete this.sessions[key];
                 cleaned += 1;
@@ -206,19 +206,13 @@ class StatsBot {
                     this.checkEventPayload(event, required_keys) || reject('Malformed start payload. Missing required content.');
 
                     // Stats
-                    STATS.starts.labels(event.payload.npa, decodeURIComponent(event.payload.city), event.payload.lang, headers['user-agent']).inc();
+                    STATS.starts.labels(event.payload.lang).inc();
 
                     // Session
                     const sid = uuidv4();
                     this.sessions[sid] = {
                         start: Date.now(),
                         last: Date.now(),
-                        labels: [
-                            event.payload.npa,
-                            decodeURIComponent(event.payload.city),
-                            event.payload.lang,
-                            headers['user-agent']
-                        ],
                         events: 0,
                         categories: 0,
                         businesses: 0,
@@ -254,11 +248,11 @@ class StatsBot {
                     session = this.sessions[event.payload.sid];
 
                     // Stats
-                    STATS.displays.delay.labels(...session.labels).observe(event.payload.delay);
-                    STATS.displays.results.labels(...session.labels).observe(event.payload.results);
-                    STATS.displays.categories.labels(...session.labels).observe(event.payload.categories);
-                    STATS.displays.min_range.labels(...session.labels).observe(event.payload.min_range);
-                    STATS.displays.max_range.labels(...session.labels).observe(event.payload.max_range);
+                    STATS.displays.delay.observe(event.payload.delay);
+                    STATS.displays.results.observe(event.payload.results);
+                    STATS.displays.categories.observe(event.payload.categories);
+                    STATS.displays.min_range.observe(event.payload.min_range);
+                    STATS.displays.max_range.observe(event.payload.max_range);
 
                     // Log
                     console.log('[' + date.toLocaleString() + '] ' + event.payload.sid + ' DISPLAY ' + event.payload.delay + ' ' + event.payload.results + ' ' + event.payload.categories + ' ' + event.payload.min_range + ' ' + event.payload.max_range);
@@ -284,7 +278,7 @@ class StatsBot {
                     session.categories += 1;
 
                     // Stats
-                    STATS.category.labels(..._.union(session.labels, [event.payload.category])).inc();
+                    STATS.category.labels(event.payload.category).inc();
 
                     // Log
                     console.log('[' + date.toLocaleString() + '] ' + event.payload.sid + ' CATEGORY ' + event.payload.category);
@@ -310,7 +304,7 @@ class StatsBot {
                     session.businesses += 1;
 
                     // Stats
-                    STATS.business.labels(..._.union(session.labels, [event.payload.business])).inc();
+                    STATS.business.labels(event.payload.business).inc();
 
                     // Log
                     console.log('[' + date.toLocaleString() + '] ' + event.payload.sid + ' DEPLOYED ' + event.payload.business);
@@ -337,7 +331,7 @@ class StatsBot {
                     session.clicks += 1;
 
                     // Stats
-                    STATS.clicks.labels(..._.union(session.labels, [event.payload.business, event.payload.link])).inc();
+                    STATS.clicks.labels(event.payload.link).inc();
 
                     // Log
                     console.log('[' + date.toLocaleString() + '] ' + event.payload.sid + ' CLICK ' + event.payload.business + ' ' + event.payload.link);
