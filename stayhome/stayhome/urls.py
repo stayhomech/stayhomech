@@ -10,7 +10,7 @@ from rest_framework.authtoken import views
 from business.views import RequestViewSet, BusinessViewSet, CategoryViewSet, ReactBusinessContentView
 from pubsite.views import HomeView, HomeLocationView, ContentView, ContactView, AddView, SetLanguageView, ReactContentView
 from geodata.views import NPAViewSet, MunicipalityViewSet, DistrictViewSet, CantonViewSet
-from .views import UserViewSet, ApiCustomAuth
+from .views import UserViewSet, ApiCustomAuth, CheckView
 
 
 # API router
@@ -38,6 +38,7 @@ urlpatterns = [
 
     # Main site
     path('location/', HomeLocationView.as_view(), name='location'),
+    path('check/', CheckView.as_view(), name='check'),
 
     # React content
     path('content/<str:lang>/<int:npa>/<path:name>/', ReactContentView.as_view(), name='react_content'),
