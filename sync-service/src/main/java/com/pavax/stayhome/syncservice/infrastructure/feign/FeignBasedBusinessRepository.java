@@ -1,7 +1,5 @@
 package com.pavax.stayhome.syncservice.infrastructure.feign;
 
-import java.util.List;
-
 import com.pavax.stayhome.syncservice.domain.BusinessRequest;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 interface FeignBasedBusinessRepository {
 
 	@GetMapping
-	List<BusinessRequest> findBySourceId(@RequestParam("source_uuid") String sourceId);
+	PagedSearchResult findBySourceId(@RequestParam("source_uuid") String sourceId);
 
 	@PostMapping("/")
 	BusinessRequest save(@RequestBody BusinessRequest businessRequest);

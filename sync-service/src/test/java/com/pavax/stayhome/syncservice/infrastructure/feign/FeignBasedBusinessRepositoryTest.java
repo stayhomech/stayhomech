@@ -1,8 +1,7 @@
 package com.pavax.stayhome.syncservice.infrastructure.feign;
 
-import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import com.pavax.stayhome.syncservice.domain.BusinessRequest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,8 +22,9 @@ class FeignBasedBusinessRepositoryTest {
 
 	@Test
 	void findByCorrelationId() {
-		final List<BusinessRequest> results = this.repository.findBySourceId("pado-test-001");
+		final PagedSearchResult pagedSearchResult = this.repository.findBySourceId("aargauerzeitung-7.61325490000002_47.191717_0_243f2046455255d4690ab5537973699c");
 
+		assertThat(pagedSearchResult).isNotNull();
 	}
 
 }

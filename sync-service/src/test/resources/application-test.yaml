@@ -1,4 +1,4 @@
 stayhome:
   api:
-    token: "dddfb27febfae38ac4c7c873a2871f1a8c9ede45"
-    url: "http://api.localhost:8000"
+    token: "b04657ef32cf46255c50db84ebbefd138697e1bc"
+    url: "http://localhost:8000/api"
