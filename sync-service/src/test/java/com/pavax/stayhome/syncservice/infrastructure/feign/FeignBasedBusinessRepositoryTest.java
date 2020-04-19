@@ -22,7 +22,7 @@ class FeignBasedBusinessRepositoryTest {
 
 	@Test
 	void findByCorrelationId() {
-		final PagedSearchResult pagedSearchResult = this.repository.findBySourceId("aargauerzeitung-7.61325490000002_47.191717_0_243f2046455255d4690ab5537973699c");
+		final PagedSearchResult pagedSearchResult = this.repository.findBySourceId("test-id");
 
 		assertThat(pagedSearchResult).isNotNull();
 	}
