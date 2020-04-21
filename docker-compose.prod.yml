@@ -78,6 +78,16 @@ services:
       - api_key:/api
     networks:
       - prod
+  
+  nodefetch:
+    build: nodefetch/
+    environment:
+      - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - prod
 
   integration-kml-parser:
     build:
@@ -98,19 +108,9 @@ services:
       context: integrations
       dockerfile: Dockerfile.localhero
     environment:
-      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080/api/
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
       - STAYHOME_RUN_ON_START=true
       - STAYHOME_INTEGRATIONS_LOCALHERO_SCRAPE_CRON=* * */6 * * *
-    depends_on:
-      - sync-service
-    restart: always
-    networks:
-      - prod
-  
-  nodefetch:
-    build: nodefetch/
-    environment:
-      - SYNC_SERVICE_BASE_URL=http://sync-service:8080/api/
     depends_on:
       - sync-service
     restart: always
