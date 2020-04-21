@@ -200,6 +200,11 @@ const ListRequests = (props) => {
                                 <option value="DerBund-">Der Bund / Tagesanzeiger</option>
                                 <option value="aargauerzeitung-">Aargauer Zeitung</option>
                                 <option value="laedelishop-">Lädelishop</option>
+                                <option value="bern-local-hero-">Local-hero Bern</option>
+                                <option value="solothurn-local-hero-">Local-hero Solothurn</option>
+                                <option value="winterhur-local-hero-">Local-hero Winterthur</option>
+                                <option value="zuerich-local-hero-">Local-hero Zurich</option>
+                                <option value="zug-local-hero-">Local-hero Zug</option>
                             </NativeSelect>
                         </div>
                         }
