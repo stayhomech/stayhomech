@@ -1,0 +1,4 @@
+stayhome:
+  integrations:
+    localhero:
+      scrape-cron: '*/5 * * * * *'

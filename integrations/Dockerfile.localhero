@@ -1,0 +1,25 @@
+# Step : package jar
+FROM maven:3.6.3-jdk-11-slim AS build
+RUN mkdir -p /workspace/localhero/common/src
+RUN mkdir -p /workspace/localhero/localhero/src
+WORKDIR /workspace/localhero
+
+COPY pom.xml /workspace/localhero
+
+COPY common/pom.xml /workspace/localhero/common
+COPY localhero/pom.xml /workspace/localhero/localhero
+
+COPY common/src /workspace/localhero/common/src
+COPY localhero/src /workspace/localhero/localhero/src
+
+#RUN mvn -f common dependency:go-offline
+RUN mvn -f common install -DskipTests
+#RUN mvn -f localhero dependency:go-offline
+RUN mvn -f localhero package -DskipTests
+
+# Step : Package image
+FROM openjdk:11-jdk-slim
+COPY --from=build /workspace/localhero/localhero/target/*.jar app.jar
+COPY localhero/start.sh /start.sh
+COPY localhero/wait-for-it.sh /wait-for-it.sh
+CMD [ "./wait-for-it.sh" , "-h", "sync-service", "-p", "8080" , "--strict" , "--timeout=600" , "--", "/start.sh" ]

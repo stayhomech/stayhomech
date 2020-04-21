@@ -89,13 +89,28 @@ services:
     networks:
       - pre-prod
 
-  integration-kml:
-    build: integrations/kml-parser
+  integration-kml-parser:
+    build:
+      context: integrations
+      dockerfile: Dockerfile.kml-parser
     environment:
       - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
       - STAYHOME_RUN_ON_START=true
-      # every 6h
       - STAYHOME_INTEGRATIONS_KML_SCRAPE_CRON=* * */6 * * *
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - pre-prod
+
+  integration-localhero:
+    build:
+      context: integrations
+      dockerfile: Dockerfile.localhero
+    environment:
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080/api/
+      - STAYHOME_RUN_ON_START=true
+      - STAYHOME_INTEGRATIONS_LOCALHERO_SCRAPE_CRON=* * */6 * * *
     depends_on:
       - sync-service
     restart: always

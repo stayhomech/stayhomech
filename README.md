@@ -42,6 +42,17 @@ This is my prefered way but it requires that you are a bit familiar with Python 
     ```
     pip install -r requirements.txt
     ```
+   
+   4.1 Mac users
+   
+   Mysql client for python installation may fail. If it does, this might help:
+   
+   ```bash
+   brew install mysql-client openssl
+   echo 'export PATH="/usr/local/opt/mysql-client/bin:$PATH"' >> ~/.bashrc
+   echo 'export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/' >> ~/.bashrc
+   pip install -r requirements.txt
+   ```    
 
 5. Initialize Django development database.
 
