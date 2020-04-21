@@ -2,14 +2,25 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container py-5">
+<div class="container py-2 py-md-5">
     <div class="row">
-        <div class="col-12 col-md-5 p-3">
-            <h1 class="pb-2">{% blocktrans %}Add your business{% endblocktrans %}</h1>
-            <p>{% blocktrans %}List your business here on stayhome.ch to show that it is still there for customers. Please note that only services can be offered that do NOT require direct contact with customers!{% endblocktrans %}</p>
-            <p>{% blocktrans %}Please be as complete as possible when filling the form, especially about the description of your service and the delivery locations.{% endblocktrans %}</p>
-            <p>{% blocktrans %}It may take up to 24 hours to process your request. Thank you for your patience.{% endblocktrans %}</p>
-            <p>{% blocktrans %}If you have any questions, please{% endblocktrans %} <a href="{% url 'about' %}">{% trans 'contact us' %}</a>.</p>
+        <div class="col-12 pb-2">
+            <h1>{% blocktrans %}Add your business{% endblocktrans %}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-5">
+            <p>{% blocktrans %}Add your home-delivery service to let your customers know, that you deliver to their homes.{% endblocktrans %}</p>
+            <p>{% blocktrans %}Please provide us with as many details as possible in the form below. This will help your customers to know more about your services you are offering and it will also enable us to list your business under the correct categories and to be as precise as possible with your delivery perimeter.{% endblocktrans %}</p>
+            <p>{% blocktrans %}Please take into consideration the following information:{% endblocktrans %}</p>
+            <ul>
+                <li>{% blocktrans %}Adding your service is completely free of charge.{% endblocktrans %}</li>
+                <li>{% blocktrans %}We only accept to list services that are offering a home-delivery service that do not require close contact with the customer.{% endblocktrans %}</li>
+                <li>{% blocktrans %}We do not accept services offering illegal merchandise and we also reserve the right to refuse any service that does not fit into our ethical guidelines.{% endblocktrans %}</li>
+                <li>{% blocktrans %}You have the right to access, modify and delete your data at any time. You can use the link on each card or write us a message.{% endblocktrans %}</li>
+                <li>{% blocktrans %}The processing of your request may take up to 24 hours depending on the current workload of our volunteers.{% endblocktrans %}</li>
+            </ul>
+            <p>{% blocktrans %}Should you have any question or if you want to know more about us, please feel free to{% endblocktrans %} <a href="{% url 'contact' %}">{% trans 'contact us' %}</a></p>
         </div>
         <div class="col-12 offset-md-1 col-md-6">
             <form method="POST" action="{% url 'add' %}">

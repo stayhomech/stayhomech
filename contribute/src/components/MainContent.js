@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import LeftNav from './LeftNav'
 import ListRequests from './ListRequests'
@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import {useDispatch, useSelector} from "react-redux";
+import DjangoRequest from '../objects/DjangoRequest';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,9 @@ const MainContent = (props) => {
     const css = useStyles();
     const { path, url } = useRouteMatch();
 
+    // Auth token
+    const token = useSelector(state => state.auth.token);
+
     // Redux
     const dispatch = useDispatch();
 
@@ -34,6 +38,21 @@ const MainContent = (props) => {
         dispatch({ type:'ASYNC.SB_CLOSE' });
     }
 
+    // Stats
+    const loadStats = () => {
+        const Request = new DjangoRequest(token);
+        Request.stats()
+            .then((result) => {
+                dispatch({ type:'REQUESTS.STATS', payload: result });
+            });
+    }
+    useEffect(() => {
+        loadStats();
+        const interval = setInterval(loadStats, 30000);
+        return () => clearInterval(interval);
+    }, []);
+
+
     return (
         <>
             <LeftNav />
@@ -42,6 +61,15 @@ const MainContent = (props) => {
                 <Switch>
                     <Route path={`${path}requests/:status`}>
                         <ListRequests />
+                    </Route>
+                    <Route path={`${path}stats/contributors`}>
+                        
+                    </Route>
+                    <Route path={`${path}stats/requests`}>
+                        
+                    </Route>
+                    <Route path={`${path}stats/businesses`}>
+                        
                     </Route>
                 </Switch>
                 <Snackbar open={sbOpen} autoHideDuration={6000} onClose={handleSbClose}>

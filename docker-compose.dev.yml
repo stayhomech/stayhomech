@@ -33,6 +33,7 @@ services:
       - GOOGLE_UA=""
     expose:
       - 8000
+      - 9001-9050
     depends_on:
       - db
     restart: always
@@ -94,13 +95,22 @@ services:
       - web
     restart: always
 
+  statsbot:
+    build: statsbot/
+    ports:
+      - 127.0.0.1:3333:3333
+      - 127.0.0.1:3434:3434
+    restart: always
+
   haproxy:
     build: haproxy/
     ports:
       - 127.0.0.1:8000:8000
+      - 127.0.0.1:8404:8404
     depends_on:
       - web
       - contribute
+      - statsbot
     restart: always
 
 volumes:

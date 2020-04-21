@@ -20,18 +20,29 @@ from .forms import BusinessConvertForm
 class RequestFilterSet(filters.FilterSet):
 
     status = filters.ChoiceFilter(choices=Request.events.STATUS_CHOICES)
+    owner = filters.NumberFilter(field_name='owner', lookup_expr='exact')
     source_uuid__startswith = filters.CharFilter(field_name='source_uuid', lookup_expr='startswith')
     
     class Meta:
         model = Request
-        fields = ['uuid', 'source_uuid', 'checksum', 'lang', 'status', 'source']
+        fields = ['uuid', 'source_uuid', 'checksum', 'lang', 'status', 'source', 'owner']
 
 
 class RequestViewSet(viewsets.ModelViewSet):
 
-    queryset = Request.objects.all()
     serializer_class = RequestSerializer
-    filterset_class = RequestFilterSet 
+    filterset_class = RequestFilterSet
+    queryset = Request.objects.all()
+
+    def get_queryset(self):
+        status = self.request.query_params.get('status', None)
+        if status is not None:
+            if int(status) == Request.events.RESERVED:
+                return Request.objects.filter(status=Request.events.RESERVED, owner=self.request.user.id)
+            else:
+                return Request.objects.filter(status=status)
+        else:
+            return self.queryset
 
     @action(detail=False, methods=['get'])
     def stats(self, request):

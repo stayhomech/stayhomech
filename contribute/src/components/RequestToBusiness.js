@@ -48,6 +48,7 @@ const RequestToBusiness = (props) => {
     const [addressError, setAddressError] = useState('');
     const [city, setCity] = useState(null);
     const [cityId, setCityId] = useState(null);
+    const [cityCandidates, setCityCandidates] = useState([]);
     const [cityError, setCityError] = useState('');
     const [website, setWebsite] = useState('');
     const [websiteError, setWebsiteError] = useState('');
@@ -66,10 +67,22 @@ const RequestToBusiness = (props) => {
 
     // Extract city
     useEffect(() => {
-        var npa_pk = request.location.match(/\[PK:([0-9]+)\]/);
+        let npa_pk = request.location.match(/\[PK:([0-9]+)\]/);
         if (npa_pk && npa_pk.length > 1) {
             Geo.getNPA(npa_pk[1])
                 .then(npa => setCityId(npa))
+        } else {
+            npa_pk = request.location.match(/[0-9]{4}/);
+            if (npa_pk && npa_pk.length > 0) {
+                Geo.getNPAs(npa_pk[0])
+                    .then(npas => {
+                        if (npas.length == 1) {
+                            setCityId(npas[0]);
+                        } else if (npas.length > 1) {
+                            setCityCandidates(npas);
+                        }
+                    })
+            }
         }
     }, [request])
 
@@ -127,6 +140,17 @@ const RequestToBusiness = (props) => {
 
     const handleDeliversToCH = () => {
         setDeliversToCH(!deliversToCH);
+    }
+
+    const handleDeliveryChange = (values, event) => {
+
+        switch (event.action) {
+            case 'select-option':
+                return setDeliversTo(values);
+            case 'remove-value':
+                return setDeliversTo(deliversTo.filter(item => !(item.type === event.removedValue.type && item.id === event.removedValue.id)));
+        }
+
     }
 
     const handleConvertClick = () => {
@@ -270,7 +294,7 @@ const RequestToBusiness = (props) => {
                     <Grid container alignItems="center">
                         <Grid item xs={1} align="center">
                             <Tooltip title="Copy from request">
-                                <a className={css.copyButton} href="#" onClick={(e) => { setName(data.name) }}><DoubleArrowIcon /></a>
+                                <a className={css.copyButton} href="#" onClick={(e) => { e.preventDefault(); setName(data.name); }}><DoubleArrowIcon /></a>
                             </Tooltip>
                         </Grid>
                         <Grid item xs={10}>
@@ -290,7 +314,7 @@ const RequestToBusiness = (props) => {
                     <Grid container alignItems="center">
                         <Grid item xs={1} align="center">
                             <Tooltip title="Copy from request">
-                                <a className={css.copyButton} href="#" onClick={(e) => { setDescription(data.description) }}><DoubleArrowIcon /></a>
+                                <a className={css.copyButton} href="#" onClick={(e) => { e.preventDefault(); setDescription(data.description); }}><DoubleArrowIcon /></a>
                             </Tooltip>
                         </Grid>
                         <Grid item xs={10}>
@@ -347,8 +371,8 @@ const RequestToBusiness = (props) => {
                             <AsyncSelect
                                 cacheOptions
                                 isMulti
-                                loadOptions={loadDeliveryOptions}
-                                onChange={d => setDeliversTo(d)}
+                                loadOptions={ loadDeliveryOptions }
+                                onChange={ handleDeliveryChange }
                                 value={deliversTo}
                                 getOptionValue={(o) => { return { type: o.type, id: o.id } }}
                                 getOptionLabel={(o) => o.label}
@@ -364,7 +388,7 @@ const RequestToBusiness = (props) => {
                             {data.address !== '' &&
                             <Tooltip title="Copy from request">
                                 <a className={css.copyButton} href="#" onClick={(e) => {
-                                    setAddress(data.address)
+                                    e.preventDefault(); setAddress(data.address);
                                 }}><DoubleArrowIcon/></a>
                             </Tooltip>
                             }
@@ -398,14 +422,22 @@ const RequestToBusiness = (props) => {
                             {cityId ?
                                 cityId.npa + " " + cityId.name
                                 :
-                                <AsyncSelect
-                                    cacheOptions
-                                    loadOptions={loadCityOptions}
-                                    onChange={option => setCity(option)}
-                                    value={[city]}
-                                    getOptionValue={(o) => o.id}
-                                    getOptionLabel={(o) => o.npa + ' ' + o.name}
-                                />
+                                cityCandidates.length > 0 ?
+                                    <>
+                                        <p>{"Found " + cityCandidates.length + " candidates: "}</p>
+                                        {cityCandidates.map((candidate, i) => [
+                                            <p><Button key={i} color="secondary" variant="outlined" size="small" onClick={e => { e.preventDefault(); setCityId(candidate); }}>{candidate.npa + " " + candidate.name}</Button></p>
+                                        ])}
+                                    </>
+                                    :
+                                    <AsyncSelect
+                                        cacheOptions
+                                        loadOptions={loadCityOptions}
+                                        onChange={option => setCity(option)}
+                                        value={[city]}
+                                        getOptionValue={(o) => o.id}
+                                        getOptionLabel={(o) => o.npa + ' ' + o.name}
+                                    />
                             }
                         </Grid>
                     </Grid>
@@ -418,7 +450,7 @@ const RequestToBusiness = (props) => {
                             {data.website !== 'http://' &&
                             <Tooltip title="Copy from request">
                                 <a className={css.copyButton} href="#" onClick={(e) => {
-                                    setWebsite(data.website)
+                                    e.preventDefault(); setWebsite(data.website);
                                 }}><DoubleArrowIcon/></a>
                             </Tooltip>
                             }
@@ -443,7 +475,7 @@ const RequestToBusiness = (props) => {
                             {data.phone !== '' &&
                             <Tooltip title="Copy from request">
                                 <a className={css.copyButton} href="#" onClick={(e) => {
-                                    setPhone(data.phone)
+                                    e.preventDefault(); setPhone(data.phone);
                                 }}><DoubleArrowIcon/></a>
                             </Tooltip>
                             }
@@ -468,7 +500,7 @@ const RequestToBusiness = (props) => {
                             {data.email !== '' &&
                             <Tooltip title="Copy from request">
                                 <a className={css.copyButton} href="#" onClick={(e) => {
-                                    setEmail(data.email)
+                                    e.preventDefault(); setEmail(data.email);
                                 }}><DoubleArrowIcon/></a>
                             </Tooltip>
                             }
@@ -489,8 +521,8 @@ const RequestToBusiness = (props) => {
                 </Grid>
             </CardContent>
             <CardActions style={{ justifyContent: 'end' }}>
-                <Button size="small" color="secondary" onClick={ handleCancelClick }>Annuler</Button>
-                <Button size="small" color="primary" onClick={ handleConvertClick } >Convert</Button>
+                <Button size="small" color="secondary" onClick={ handleCancelClick }>Cancel</Button>
+                <Button size="small" color="primary" onClick={ handleConvertClick } >Convert to business</Button>
             </CardActions>
         </Card>
     );

@@ -29,9 +29,6 @@ services:
     build: stayhome/
     environment:
       - RUNNING_ENV=prod
-      - LETSENCRYPT_HOST=www.stayhome.ch,stayhome.ch
-      - VIRTUAL_HOST=www.stayhome.ch,stayhome.ch
-      - VIRTUAL_PORT=8000
       - MYSQL_APP_DB=${MYSQL_APP_DB}
       - MYSQL_APP_USER=${MYSQL_APP_USER}
       - MYSQL_APP_PASSWORD=${MYSQL_APP_PASSWORD}
@@ -55,6 +52,7 @@ services:
       - LOCIZE_API_KEY=${LOCIZE_API_KEY}
     expose:
       - 8000
+      - 9001-9050
     depends_on:
       - db
       - memcached
@@ -80,6 +78,34 @@ services:
       - api_key:/api
     networks:
       - prod
+
+  integration-kml-parser:
+    build:
+      context: integrations
+      dockerfile: Dockerfile.kml-parser
+    environment:
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
+      - STAYHOME_RUN_ON_START=true
+      - STAYHOME_INTEGRATIONS_KML_SCRAPE_CRON=* * */6 * * *
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - prod
+
+  integration-localhero:
+    build:
+      context: integrations
+      dockerfile: Dockerfile.localhero
+    environment:
+      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080/api/
+      - STAYHOME_RUN_ON_START=true
+      - STAYHOME_INTEGRATIONS_LOCALHERO_SCRAPE_CRON=* * */6 * * *
+    depends_on:
+      - sync-service
+    restart: always
+    networks:
+      - prod
   
   nodefetch:
     build: nodefetch/
@@ -91,29 +117,37 @@ services:
     networks:
       - prod
 
-  integration-kml:
-    build: integrations/kml-parser
-    environment:
-      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080
-      - STAYHOME_RUN_ON_START=true
-      # every 6h
-      - STAYHOME_INTEGRATIONS_KML_SCRAPE_CRON=* * */6 * * *
+  contribute:
+    build: contribute/
+    expose:
+      - 80
     depends_on:
-      - sync-service
+      - web
     restart: always
     networks:
       - prod
 
-  integration-local-hero:
-    build:
-      context: integrations
-      dockerfile: Dockerfile-localhero
-    container_name: stayhomech_local-hero
+  statsbot:
+    build: statsbot/
+    expose:
+      - 3333
+      - 3434
+    restart: always
+    networks:
+      - prod
+
+  haproxy:
+    build: haproxy/
     environment:
-      - STAYHOME_SYNC_SERVICE_URL=http://sync-service:8080/api/
-      - STAYHOME_RUN_ON_START=true
+    - LETSENCRYPT_HOST=stayhome.ch,www.stayhome.ch
+    - VIRTUAL_HOST=stayhome.ch,www.stayhome.ch
+    - VIRTUAL_PORT=8000
+    expose:
+      - 8000
     depends_on:
-      - sync-service
+      - web
+      - contribute
+      - statsbot
     restart: always
     networks:
       - prod

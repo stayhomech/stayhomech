@@ -1,8 +1,10 @@
 {% load i18n static sh_tags %}
 {% load render_bundle from webpack_loader %}
+{% get_current_language as LANGUAGE_CODE %}
 <!doctype html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
   <head>
+  
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,6 +25,11 @@
     {% render_bundle 'css/stayhome' %}
 
     <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
+
+    <link rel="alternate" hreflang="en" href="https://www.stayhome.ch/en" />
+    <link rel="alternate" hreflang="de" href="https://www.stayhome.ch/de" />
+    <link rel="alternate" hreflang="fr" href="https://www.stayhome.ch/fr" />
+    <link rel="alternate" hreflang="it" href="https://www.stayhome.ch/it" />
 
     <title>{% blocktrans %}Stay home ! We deliver...{% endblocktrans %}</title>
 
@@ -57,25 +64,6 @@
         $(function () {
          $('[data-toggle="tooltip"]').tooltip()
         })
-
-        // Language change
-        $('.lang-select').on('click', (event) => {
-            event.preventDefault();
-            var lang = $(event.target).data('lang');
-            $.ajax({
-                url: "{% url 'set_language' %}",
-                headers: {
-                    'X-CSRFToken': Cookies.get('csrftoken')
-                },
-                data: {
-                    'language': lang
-                },
-                method: 'POST',
-                success: () => {
-                    location.reload();
-                }
-            });
-        });
 
       });
 

@@ -50,27 +50,34 @@ services:
     networks:
       - infra
 
-  datadog:
-    image: datadog/agent:7
-    container_name: datadog
-    environment: 
-      - DD_SITE=datadoghq.eu
-      - DD_API_KEY=${DD_API_KEY}
-      - DOCKER_CONTENT_TRUST=1
-      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
-      - DD_APM_ENABLED=true
-    volumes: 
-      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
-      - /proc/:/host/proc/:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    expose:
-      - 8125/udp
-      - 8126
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - /data/infra/prometheus/config:/etc/prometheus
+      - /data/infra/prometheus/data:/prometheus
+    ports:
+      - 127.0.0.1:9090:9090
     restart: always
     networks:
       - infra
       - prod
       - pre-prod
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+    - LETSENCRYPT_HOST=stats.stayhome.ch
+    - VIRTUAL_HOST=stats.stayhome.ch
+    - VIRTUAL_PORT=3000
+    volumes:
+      - /data/infra/grafana:/var/lib/grafana
+    expose:
+      - 3000
+    restart: always
+    networks: 
+      - infra
 
 volumes:
   certs:

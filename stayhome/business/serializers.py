@@ -9,6 +9,7 @@ class RequestSerializer(serializers.ModelSerializer):
 
     uuid = serializers.ReadOnlyField()
     status = serializers.ReadOnlyField()
+    owner = serializers.ReadOnlyField()
 
     source = serializers.HiddenField(
         default=2
@@ -17,7 +18,7 @@ class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = ['uuid', 'ttl', 'source', 'source_uuid', 'lang', 'name', 'description', 'address',
-        'location', 'contact', 'website', 'phone', 'email', 'category', 'delivery', 'checksum', 'status']
+        'location', 'contact', 'website', 'phone', 'email', 'category', 'delivery', 'checksum', 'status', 'owner']
 
     def create(self, validated_data):
 

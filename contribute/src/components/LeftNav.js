@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Drawer, List, ListItem, ListItemText, ListItemIcon, Toolbar, Chip } from '@material-ui/core';
 import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
+import BarChartIcon from '@material-ui/icons/BarChart';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink, useRouteMatch } from 'react-router-dom';
 import DjangoRequest from '../objects/DjangoRequest';
@@ -55,15 +56,8 @@ const LeftNav = (props) => {
     const css = useStyles();
     const { path, url } = useRouteMatch();
 
-    const token = useSelector(state => state.auth.token);
     const stats = useSelector(state => state.requests.stats);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        const Request = new DjangoRequest(token);
-        Request.get_stats(dispatch);
-    }, []);
-
+    
     return (
         <Drawer
             variant="permanent"
@@ -88,7 +82,7 @@ const LeftNav = (props) => {
                             button 
                             to={`${url}requests/pending`}
                             primary="Pending"
-                            badge={stats.new && <Chip size="small" color="secondary" label={stats.new} />}
+                            badge={stats.new > 0 && <Chip size="small" color="secondary" label={stats.new} />}
                         />
                         {/*
                         <ListItemLink
@@ -97,14 +91,39 @@ const LeftNav = (props) => {
                             primary="Updated"
                             badge={stats.updated && <Chip size="small" color="secondary" label={stats.updated} />}
                         />
+                        */}
                         <ListItemLink
                             button 
                             to={`${url}requests/draft`}
                             primary="Drafts"
-                            badge={stats.reserved && <Chip size="small" color="secondary" label={stats.reserved} />}
+                            badge={stats.drafts > 0 && <Chip size="small" color="secondary" label={stats.drafts} />}
                         />
-                        */}
                     </List>
+
+                    <ListItem className={css.sectionHead}>
+                        <ListItemIcon>
+                            <BarChartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Statistics" />
+                    </ListItem>
+                    <List component="div" disablePadding>
+                        <ListItemLink
+                            button 
+                            to={`${url}requests/draft`}
+                            primary="Contributors"
+                        />
+                        <ListItemLink
+                            button 
+                            to={`${url}requests/draft`}
+                            primary="Requests"
+                        />
+                        <ListItemLink
+                            button 
+                            to={`${url}requests/draft`}
+                            primary="Businesses"
+                        />
+                    </List>
+
                 </List>
             </div>
         </Drawer>

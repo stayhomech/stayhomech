@@ -118,6 +118,14 @@ const Card = props => {
             setExpanded(true);
 
         }
+
+        // Stats
+        window.EMeventsPile.push({
+            type: 'deployed',
+            payload: {
+                business: props.id
+            }
+        });
             
     }
 
@@ -126,6 +134,20 @@ const Card = props => {
         e.preventDefault();
         props.reportIssue(props);
     }
+
+    // Record click event for stats
+    const recordClickEvent = (type => {
+        return () => {
+            window.EMeventsPile.push({
+                type: 'click',
+                payload: {
+                    business: props.id,
+                    link: type
+                }
+            });
+            window.EMsendEvents();
+        }
+    })
 
     // List of other categories
     const other_categories_badges = props.other_categories.map((category) =>
@@ -178,7 +200,7 @@ const Card = props => {
                                 {(details.website != '') &&
                                     <p>
                                         <span className="font-weight-bold">{t('Website')}</span><br/>
-                                        <a href={details.website} target="_blank">{details.website}</a>
+                                        <a href={details.website} target="_blank" onClick={ recordClickEvent('website') }>{details.website}</a>
                                     </p>
                                 }
                             </Col>
@@ -186,7 +208,7 @@ const Card = props => {
                                 {(details.phone != '') &&
                                 <p>
                                     <span className="font-weight-bold">{t('Phone')}</span><br/>
-                                    <a href={"tel:" + details.phone}>{ details.phone }</a>
+                                    <a href={"tel:" + details.phone} onClick={ recordClickEvent('phone') }>{ details.phone }</a>
                                 </p>
                                 }
                             </Col>
@@ -194,7 +216,7 @@ const Card = props => {
                                 {(details.email != '') &&
                                 <p>
                                     <span className="font-weight-bold">{t('Email')}</span><br/>
-                                    <a href={"mailto:" + details.email }>{ details.email }</a>
+                                    <a href={"mailto:" + details.email } onClick={ recordClickEvent('email') }>{ details.email }</a>
                                 </p>
                                 }
                             </Col>
@@ -222,12 +244,12 @@ const Card = props => {
                                 )}
                             </a>
                             { (props.website != '') &&
-                            <a className="btn btn-outline-sh" href={ props.website } target="_blank">
+                            <a className="btn btn-outline-sh" href={ props.website } target="_blank" onClick={ recordClickEvent('website') }>
                                 <FontAwesomeIcon icon={ faLink } className="mr-1" />{t('Website')}
                             </a>
                             }
                             { (new_phone) &&
-                            <a className="btn btn-outline-sh" href={ "tel:" + props.phone }>
+                            <a className="btn btn-outline-sh" href={ "tel:" + props.phone } onClick={ recordClickEvent('phone') }>
                                 <FontAwesomeIcon icon={ faPhone } className="mr-1" />{new_phone}
                             </a>
                             }

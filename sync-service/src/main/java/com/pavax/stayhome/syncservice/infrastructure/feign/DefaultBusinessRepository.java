@@ -27,11 +27,12 @@ class DefaultBusinessRepository implements BusinessRequestRepository {
 
 	@Override
 	public Optional<BusinessRequest> findBySourceId(String sourceId) {
-		final List<BusinessRequest> byCorrelationId = this.feignBasedBusinessRepository.findBySourceId(sourceId);
-		if (byCorrelationId.isEmpty()) {
+		final PagedSearchResult pagedSearchResult = this.feignBasedBusinessRepository.findBySourceId(sourceId);
+		final List<BusinessRequest> results = pagedSearchResult.getResults();
+		if (results.isEmpty()) {
 			return Optional.empty();
 		}
-		return Optional.of(byCorrelationId.get(0));
+		return Optional.of(results.get(0));
 	}
 
 	@Override

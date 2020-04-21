@@ -17,7 +17,6 @@ from django.utils.translation import get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.mail import send_mail
 from django.contrib.gis.db.models.functions import Distance
-from datadog import statsd
 
 from geodata.models import NPA
 from geodata.serializers import NPASerializer, MunicipalitySerializer, DistrictSerializer, CantonSerializer
@@ -25,8 +24,22 @@ from business.models import Business, Category
 from business.forms import BusinessAddForm
 from business.serializers import BusinessReactSerializer, BusinessReactLazySerializer, CategoryReactSerializer
 from .forms import ContactForm
+from stayhome.stats import STATS
 
 
+def stats_decorator (*args, **kwargs):
+
+    def _wrapped(dispatch):
+
+        # Stats
+        STATS['page_hits_pre_cache'].labels(page=kwargs['stats_counter_view'], language=get_language()).inc()
+
+        return dispatch
+
+    return _wrapped
+
+
+@method_decorator(stats_decorator(stats_counter_view='home'), name='dispatch')
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(cache_page(60 * 60), name='dispatch')
 class HomeView(TemplateView):
@@ -41,23 +54,19 @@ class HomeView(TemplateView):
     def get(self, request, *args, **kwargs):
 
         # Stats
-        statsd.increment('landing.count', tags=[
-            'lang:' + get_language()
-        ])
+        STATS['page_hits_post_cache'].labels(page='home', language=get_language()).inc()
 
         return super(HomeView, self).get(self, request, *args, **kwargs)
 
 
-@method_decorator(xframe_options_exempt, name='dispatch')
-class EmbededView(TemplateView):
-
-    template_name = "embed.html"
-
-
+@method_decorator(stats_decorator(stats_counter_view='location'), name='dispatch')
 @method_decorator(cache_page(60 * 60), name='dispatch')
 class HomeLocationView(View):
 
     def get(self, request, *args, **kwargs):
+
+        # Stats
+        STATS['page_hits_post_cache'].labels(page='location', language=get_language()).inc()
 
         query = self.request.GET.get('q')
 
@@ -85,10 +94,14 @@ class HomeLocationView(View):
         return JsonResponse([], safe=False)
 
 
+@method_decorator(stats_decorator(stats_counter_view='content'), name='dispatch')
 @method_decorator(cache_page(60 * 30), name='dispatch')
 class ReactContentView(View):
 
     def get(self, request, *args, **kwargs):
+
+        # Stats
+        STATS['page_hits_post_cache'].labels(page='content', language=get_language()).inc()
 
         # NPA
         try:
@@ -115,6 +128,12 @@ class ReactContentView(View):
         canton = district.canton
         cd['canton'] = CantonSerializer(canton).data
 
+        # Stats
+        STATS['results_npa'].labels(npa=npa.npa, name=npa.name).inc()
+        STATS['results_municipality'].labels(id=municipality.id, name=municipality.name).inc()
+        STATS['results_district'].labels(id=district.id, name=district.name).inc()
+        STATS['results_canton'].labels(code=canton.code, name=canton.name).inc()
+
         # All NPAs in municipality
         npas = municipality.npa_set.all()
 
@@ -135,14 +154,24 @@ class ReactContentView(View):
             distance=Distance('location__geo_center', npa.geo_center)
         ).order_by('distance', 'name').values_list('pk', 'distance')
 
+        # Stats
+        length = len(bpks)
+        STATS['results_avg_npa'].labels(npa=npa.npa, name=npa.name).observe(length)
+        STATS['results_avg_municipality'].labels(id=municipality.id, name=municipality.name).observe(length)
+        STATS['results_avg_district'].labels(id=district.id, name=district.name).observe(length)
+        STATS['results_avg_canton'].labels(code=canton.code, name=canton.name).observe(length)
+
         # Business array
         businesses = []
         for bpk in bpks:
             cache_key = 'business_details_' + str(bpk[0])
             business = cache.get(cache_key)
             if business is None:
+                STATS['businesses_cache_misses'].inc()
                 business = Business.objects.get(pk=bpk[0])
                 cache.set(cache_key, business, 3600 * (1 + random.uniform(0, 1)))
+            else:
+                STATS['businesses_cache_hits'].inc()
             business.distance = bpk[1]
             businesses.append(business)
 
@@ -169,6 +198,7 @@ class ReactContentView(View):
         return JsonResponse(cd)
 
 
+@method_decorator(stats_decorator(stats_counter_view='static_content'), name='dispatch')
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 @method_decorator(cache_page(60 * 30), name='dispatch')
 class ContentView(TemplateView):
@@ -177,8 +207,11 @@ class ContentView(TemplateView):
 
     def get_context_data(self, **kwargs):
 
+        # Stats
+        STATS['page_hits_post_cache'].labels(page='static_content', language=get_language()).inc()
+
         # Return
-        context = super().get_context_data(**kwargs)
+        context = super(ContentView, self).get_context_data(**kwargs)
         context['running_env'] = settings.RUNNING_ENV
         context['lang'] = translation.get_language()
         context['locize'] = settings.LOCIZE_API_KEY
@@ -186,20 +219,31 @@ class ContentView(TemplateView):
         return context
 
 
+@method_decorator(stats_decorator(stats_counter_view='contact'), name='dispatch')
 @method_decorator(cache_page(60 * 60), name='dispatch')
-class AboutView(TemplateView):
+class ContactView(TemplateView):
 
-    template_name = "about.html"
+    template_name = "contact.html"
+
+    def get(self, request, *args, **kwargs):
+
+        # Stats
+        STATS['page_hits_post_cache'].labels(page='contact', language=get_language()).inc()
+
+        return super(ContactView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
 
-        context = super().get_context_data(**kwargs)
+        context = super(ContactView, self).get_context_data(**kwargs)
 
         context['form'] = ContactForm()
 
         return context
 
     def post(self, request, *args, **kwargs):
+
+        # Stats
+        STATS['page_hits_post_cache'].labels(page='contact_post', language=get_language()).inc()
 
         form = ContactForm(request.POST)
 
@@ -224,13 +268,26 @@ class AboutView(TemplateView):
             return self.render_to_response(context=context)
 
 
+@method_decorator(stats_decorator(stats_counter_view='add'), name='dispatch')
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class AddView(FormView):
     
     template_name = "add.html"
     form_class = BusinessAddForm
     success_url = '/add/success/'
 
+    def get(self, request, *args, **kwargs):
+
+        # Stats
+        STATS['page_hits_post_cache'].labels(page='add', language=get_language()).inc()
+
+        return super(AddView, self).get(request, *args, **kwargs)
+
     def form_valid(self, form):
+
+        # Stats
+        STATS['page_hits_post_cache'].labels(page='add_post', language=get_language()).inc()
+
         form.save_request()
         return super().form_valid(form)
 
