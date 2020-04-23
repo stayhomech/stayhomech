@@ -2,7 +2,7 @@ import React from 'react';
 import { Chip, Avatar } from '@material-ui/core';
 import {
     IconFlagFR, 
-    IconFlagGB, 
+    IconFlagUS, 
     IconFlagDE, 
     IconFlagIT
  } from 'material-ui-flags';
@@ -23,7 +23,7 @@ const RequestLang = (props) => {
             var label = 'Italian'
             break;
         default:
-            var icon = <IconFlagGB />;
+            var icon = <IconFlagUS />;
             var label = 'English'
     }
 
