@@ -23,15 +23,13 @@ export default function (lang, api_key, running_env) {
         debug: debug,
         saveMissing: saveMissing,
         updateMissing: updateMissing,
-
-        interpolation: {
-            escapeValue: false,
-        },
-
+        nsSeparator: false,
+        keySeparator: false,
         backend: {
             projectId: 'e1bdb533-60b1-4940-a421-a102ba5f85fc',
             apiKey: api_key,
-            referenceLng: 'en'
+            referenceLng: 'en',
+            allowedAddOrUpdateHosts: ['localhost', '127.0.0.1'],
         }
     });
 
