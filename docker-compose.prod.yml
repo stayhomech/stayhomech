@@ -50,6 +50,7 @@ services:
       - DD_WEB_API_KEY=${DD_WEB_API_KEY}
       - DD_WEB_APP_KEY=${DD_WEB_APP_KEY}
       - LOCIZE_API_KEY=${LOCIZE_API_KEY}
+      - REACT_SENTRY_DSN=${REACT_SENTRY_DSN}
     expose:
       - 8000
       - 9001-9050
@@ -78,7 +79,7 @@ services:
       - api_key:/api
     networks:
       - prod
-  
+
   nodefetch:
     build: nodefetch/
     environment:
