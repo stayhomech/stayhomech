@@ -40,20 +40,25 @@ urlpatterns = [
     path('location/', HomeLocationView.as_view(), name='location'),
     path('check/', CheckView.as_view(), name='check'),
 
-    # React content
-    path('content/<str:lang>/<int:npa>/<path:name>/', ReactContentView.as_view(), name='react_content'),
-    path('business/<str:lang>/<int:pk>/', ReactBusinessContentView.as_view(), name='react_business'),
-
 ]
 
 # Localized URLs
 urlpatterns += i18n_patterns(
+
+    # Static pages
     path('', HomeView.as_view(), name='home'),
     path('contact/', ContactView.as_view(), name='contact'),
     path('about/', TemplateView.as_view(template_name="about.html"), name='about'),
     path('add/', AddView.as_view(), name='add'),
     path('add/success/', TemplateView.as_view(template_name="success.html"), name='add_success'),
+
+    # Content bootstrap
     path('<int:npa>/<path:name>/', ContentView.as_view(), name='content'),
+
+    # React content
+    path('content/<int:npa>/<path:name>/', ReactContentView.as_view(), name='react_content'),
+    path('business/<int:pk>/', ReactBusinessContentView.as_view(), name='react_business'),
+
 )
 
 # Static URLs
