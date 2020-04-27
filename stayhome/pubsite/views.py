@@ -109,7 +109,7 @@ class ReactContentView(View):
         except NPA.DoesNotExist as e:
             raise e
             raise Http404(_("NPA does not exist"))
-        
+
         # Prepare cached data
         cd = {}
 
@@ -216,6 +216,7 @@ class ContentView(TemplateView):
         context['lang'] = translation.get_language()
         context['locize'] = settings.LOCIZE_API_KEY
         context['content_uuid'] = str(kwargs['npa']) + '/' + quote(kwargs['name'])
+        context['sentry_dsn'] = settings.REACT_SENTRY_DSN
         return context
 
 
@@ -248,7 +249,7 @@ class ContactView(TemplateView):
         form = ContactForm(request.POST)
 
         if form.is_valid():
-        
+
             send_mail(
                 'New message from website',
                 request.POST.get('message'),
@@ -271,7 +272,7 @@ class ContactView(TemplateView):
 @method_decorator(stats_decorator(stats_counter_view='add'), name='dispatch')
 @method_decorator(cache_page(60 * 60), name='dispatch')
 class AddView(FormView):
-    
+
     template_name = "add.html"
     form_class = BusinessAddForm
     success_url = '/add/success/'

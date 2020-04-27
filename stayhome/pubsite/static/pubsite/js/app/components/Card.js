@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
-    Row, 
-    Col, 
-    ButtonGroup, 
-    Badge 
+import {
+    Row,
+    Col,
+    ButtonGroup,
+    Badge
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBug, faPlusSquare, faMinusSquare, faLink, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faMinusSquare, faLink, faPhone } from '@fortawesome/free-solid-svg-icons';
 import BugReportIcon from '@material-ui/icons/BugReport';
-
-import { SearchContext } from './Filters';
 
 
 const CategoryBadge = props => {
@@ -20,6 +18,7 @@ const CategoryBadge = props => {
     )
 
 }
+
 
 const DeliversToList = props => {
 
@@ -126,7 +125,7 @@ const Card = props => {
                 business: props.id
             }
         });
-            
+
     }
 
     // Use Page function to report an issue in a modal
@@ -156,7 +155,7 @@ const Card = props => {
 
     // Phone
     var new_phone = false;
-    if (props.phone != '') {
+    if (props.phone !== '') {
         var regex = /\+41([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{2})/;
         var m = regex.exec(props.phone);
         if (m !== null) {
@@ -197,7 +196,7 @@ const Card = props => {
                         </Row>
                         <Row>
                             <Col xs="12" md="4" className="small">
-                                {(details.website != '') &&
+                                {(details.website !== '') &&
                                     <p>
                                         <span className="font-weight-bold">{t('Website')}</span><br/>
                                         <a href={details.website} target="_blank" onClick={ recordClickEvent('website') }>{details.website}</a>
@@ -205,7 +204,7 @@ const Card = props => {
                                 }
                             </Col>
                             <Col xs="12" md="4" className="small">
-                                {(details.phone != '') &&
+                                {(details.phone !== '') &&
                                 <p>
                                     <span className="font-weight-bold">{t('Phone')}</span><br/>
                                     <a href={"tel:" + details.phone} onClick={ recordClickEvent('phone') }>{ details.phone }</a>
@@ -213,7 +212,7 @@ const Card = props => {
                                 }
                             </Col>
                             <Col xs="12" md="4" className="small">
-                                {(details.email != '') &&
+                                {(details.email !== '') &&
                                 <p>
                                     <span className="font-weight-bold">{t('Email')}</span><br/>
                                     <a href={"mailto:" + details.email } onClick={ recordClickEvent('email') }>{ details.email }</a>
@@ -243,7 +242,7 @@ const Card = props => {
                                 <span><FontAwesomeIcon icon={ faPlusSquare } className="mr-1" />{t('More')}</span>
                                 )}
                             </a>
-                            { (props.website != '') &&
+                            { (props.website !== '') &&
                             <a className="btn btn-outline-sh" href={ props.website } target="_blank" onClick={ recordClickEvent('website') }>
                                 <FontAwesomeIcon icon={ faLink } className="mr-1" />{t('Website')}
                             </a>
@@ -266,7 +265,7 @@ const Card = props => {
                         </p>
                     </Col>
                     }
-                    
+
                 </Row>
             </div>
         </div>

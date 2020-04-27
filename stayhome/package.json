@@ -6,7 +6,7 @@
   "author": "Alexandre Georges",
   "license": "MIT",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --config webpack.base.config.js --progress --colors --mode development",
+    "build": "./node_modules/.bin/webpack --config webpack.base.config.js --progress --colors --mode production",
     "watch": "./node_modules/.bin/webpack --config webpack.base.config.js --watch --mode development",
     "run-server": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js --mode development --port 3000"
   },
@@ -37,6 +37,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@material-ui/core": "^4.9.9",
     "@material-ui/icons": "^4.9.1",
+    "@sentry/browser": "^5.15.5",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "i18next": "^19.3.4",
