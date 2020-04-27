@@ -16,8 +16,8 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
-            <a class="btn btn-sm btn-sh d-none d-md-block" href="{% url 'add' %}">{% trans 'Add a delivery service' %}</a>
+
+            <a class="btn btn-sm btn-sh d-none d-md-block mb-2" href="{% url 'add' %}">{% trans 'Add a delivery service' %}</a>
 
         </nav>
     </div>
@@ -42,11 +42,11 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item d-flex flex-nowrap">
-                            <a class="mr-2 nav-link {% if LANGUAGE_CODE == 'en' %}active{% endif %}" href="/en/" data-lang="en">EN</a>
-                            <a class="mr-2 nav-link {% if LANGUAGE_CODE == 'fr' %}active{% endif %}" href="/fr/" data-lang="fr">FR</a>
-                            <a class="mr-2 nav-link {% if LANGUAGE_CODE == 'de' %}active{% endif %}" href="/de/" data-lang="de">DE</a>
-                            <a class="mr-4 nav-link {% if LANGUAGE_CODE == 'it' %}active{% endif %}" href="/it/" data-lang="it">IT</a>
-                            <a class="nav-link" href="https://www.facebook.com/stayhome.ch" target="_blank"><i class="fab fa-facebook"></i></a>
+                            {% get_available_languages as languages %}
+                            {% for lang_code, lang_name in languages %}
+                                {% language lang_code %}<a class="mr-2 nav-link{% if LANGUAGE_CODE == lang_code %} active{% endif %}" href="{% url 'home' %}">{{ lang_code|upper }}</a>{% endlanguage %}
+                            {% endfor %}
+                            <a class="nav-link ml-2" href="https://www.facebook.com/stayhome.ch" target="_blank"><i class="fab fa-facebook"></i></a>
                         </li>
                     </ul>
                 </div>

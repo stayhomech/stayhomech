@@ -65,7 +65,7 @@ const Page = props => {
 
     useEffect(() => {
         const start = Date.now();
-        fetch("/content/" + props.lang + "/" + props.content_uuid + "/")
+        fetch("/" + props.lang + "/content/" + props.content_uuid + "/")
             .then(res => res.json())
             .then(
                 (result) => {
