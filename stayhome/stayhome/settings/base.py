@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'business',
     'pubsite',
     'privsite',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -195,3 +195,7 @@ LOCIZE_API_KEY = os.environ.get('LOCIZE_API_KEY')
 # Prometheus export
 PROMETHEUS_METRICS_EXPORT_PORT_RANGE = range(9001, 9050)
 PROMETHEUS_METRICS_EXPORT_ADDRESS = ''
+
+
+# Sentry DSN for React
+REACT_SENTRY_DSN = os.environ.get('REACT_SENTRY_DSN')

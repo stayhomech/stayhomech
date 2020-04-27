@@ -1,38 +1,43 @@
 import React from 'react';
+import * as Sentry from '@sentry/browser';
 
 
 class ErrorBoundary extends React.Component {
 
     constructor(props) {
-      super(props);
-      this.state = { hasError: false };
+        super(props);
+        this.state = {
+            eventId: null
+        };
     }
-  
-    static getDerivedStateFromError(error) {
-      // Update state so the next render will show the fallback UI.
-      return { hasError: true };
+
+    static getDerivedStateFromError() {
+        return { hasError: true };
     }
-  
+
     componentDidCatch(error, errorInfo) {
-      // You can also log the error to an error reporting service
-      //logErrorToMyService(error, errorInfo);
-      this.error = error;
-      this.errorInfo = errorInfo;
+        Sentry.withScope(scope => {
+            scope.setExtras(errorInfo);
+            const eventId = Sentry.captureException(error);
+            this.setState({
+                eventId: eventId
+            });
+        });
     }
-  
+
     render() {
-      if (this.state.hasError) {
-        return <div>
-                <h6>Something went wrong.</h6>
-                <pre>{this.error}</pre>
-                <pre>{this.errorInfo}</pre>
+        if (this.state.hasError) {
+            return <div>
+                <h6>Sorry, something went wrong...</h6>
+                <p>We collected the error and will work on it!</p>
+                <p>
+                    <button onClick={() => Sentry.showReportDialog({ eventId: this.state.eventId })}>Report feedback</button>
+                </p>
             </div>;
-      }
-      return this.props.children; 
+        }
+        return this.props.children;
     }
 
-  }
+}
 
-  export {
-      ErrorBoundary
-  };
+export default ErrorBoundary

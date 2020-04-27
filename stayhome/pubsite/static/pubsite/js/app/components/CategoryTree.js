@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
@@ -100,7 +100,7 @@ const ParentItem = props => {
             }
             {props.name}
         </li>
-        {(children.length > 0) && 
+        {(children.length > 0) &&
         <ul className="sh-child-tree">
             {children}
         </ul>

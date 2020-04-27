@@ -1,10 +1,6 @@
-import React, { Suspense, useState, useEffect, useContext } from 'react';
-import { 
+import React, { useState, useEffect, useContext } from 'react';
+import {
     Row,
-    Col,
-    InputGroup,
-    InputGroupAddon,
-    Input,
     Alert
 } from 'reactstrap';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -23,7 +19,7 @@ const NoCardToShow = props => {
 
     var filters = [];
 
-    if (searchContext.filters.text != '') {
+    if (searchContext.filters.text !== '') {
         filters.push(<li>{t('Textual search for') + ' "' + searchContext.filters.text + '".'}</li>);
     }
     if (searchContext.filters.distance < Infinity) {
@@ -190,7 +186,7 @@ const Page = props => {
             </div>
             )
         } else {
-   
+
             const searchContext = {
                 filters: {
                     text: filterText,
@@ -216,7 +212,7 @@ const Page = props => {
             var stop_remains = 0;
             businesses.forEach((business) => {
 
-                if (stop_cards) { 
+                if (stop_cards) {
                     stop_remains++;
                     return
                 }
@@ -232,8 +228,8 @@ const Page = props => {
                 var visible = true;
 
                 // Categories filter
-                if (searchContext.filters.category > 0 && !business.all_c_pks.includes(searchContext.filters.category)) { 
-                    visible = false; 
+                if (searchContext.filters.category > 0 && !business.all_c_pks.includes(searchContext.filters.category)) {
+                    visible = false;
                 }
 
                 // Distance filter
@@ -272,7 +268,7 @@ const Page = props => {
             )
         }
     } else {
-        return (       
+        return (
             <div className="col-12 text-center" style={{ padding: '10vh' }}>
                 <p className="h1"><i className="fas fa-circle-notch fa-spin"></i></p>
                 <p className="h3">{t('A moment! We are looking for your results ...')}</p>

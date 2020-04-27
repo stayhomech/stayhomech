@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, ModalHeader, ModalBody, Form, Input, ModalFooter, Button, InputGroup, FormGroup, Label } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, Form, Input, ModalFooter, Button, FormGroup, Label } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBug } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
